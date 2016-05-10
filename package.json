@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "compile": "gulp css"
+    "compile": "node_modules/.bin/gulp css"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
