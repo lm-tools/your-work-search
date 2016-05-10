@@ -11,8 +11,18 @@ var users = require('./routes/users');
 var app = express();
 
 // view engine setup
+var cons = require('consolidate')
+app.engine('mustache', cons.hogan);
+app.set('view engine', 'mustache');
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+
+// set default layouts
+app.locals = {
+  partials: {
+    layout: 'layouts/main',
+    govukTemplate: '../vendor/govuk_template_mustache_inheritance/views/layouts/govuk_template'
+  }
+}
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -21,6 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'dist/public')));
+app.use(express.static(path.join(__dirname, 'vendor', 'govuk_template_mustache_inheritance', 'assets')));
 
 app.use('/', routes);
 app.use('/users', users);
