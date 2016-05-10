@@ -16,13 +16,18 @@ app.engine('mustache', cons.hogan);
 app.set('view engine', 'mustache');
 app.set('views', path.join(__dirname, 'views'));
 
-// set default layouts
-app.locals = {
-  partials: {
-    layout: 'layouts/main',
-    govukTemplate: '../vendor/govuk_template_mustache_inheritance/views/layouts/govuk_template'
-  }
-}
+// Middleware to set default layouts.
+// This must be done per request (and not via app.locals) as the Consolidate.js
+// renderer mutates locals.partials :(
+app.use(function (req, res, next) {
+  res.locals = {
+    partials: {
+      layout: 'layouts/main',
+      govukTemplate: '../vendor/govuk_template_mustache_inheritance/views/layouts/govuk_template'
+    }
+  };
+  next();
+});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
