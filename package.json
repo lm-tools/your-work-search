@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "compile": "node_modules/.bin/gulp css",
-    "test": "NODE_ENV=test node_modules/.bin/cucumber.js"
+    "test": "NODE_ENV=test node_modules/mocha/bin/mocha; NODE_ENV=test node_modules/.bin/cucumber.js"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -19,9 +19,11 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "cucumber": "^0.10.2",
     "gulp": "^3.9.1",
     "gulp-sass": "^2.3.1",
+    "mocha": "^2.4.5",
     "zombie": "^4.2.1"
   }
 }
