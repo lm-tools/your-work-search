@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "compile": "node_modules/.bin/gulp css"
+    "compile": "node_modules/.bin/gulp css",
+    "features": "node_modules/.bin/cucumber.js"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -18,7 +19,9 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "cucumber": "^0.10.2",
     "gulp": "^3.9.1",
-    "gulp-sass": "^2.3.1"
+    "gulp-sass": "^2.3.1",
+    "zombie": "^4.2.1"
   }
 }
