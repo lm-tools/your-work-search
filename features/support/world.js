@@ -1,4 +1,7 @@
-require('../../bin/www');
+require('../../bin/www'); // This starts the web server, and ensures it is only
+                          // started once. It is a misuse of "require", and
+                          // should be improved.
+
 var Zombie = require('zombie');
 
 var testServerPath = function(path) {
