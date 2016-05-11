@@ -3,9 +3,9 @@ var chai = require('chai');
 expect = chai.expect;
 
 before(function (done) {
-    done();
+  done();
 });
 
 after(function (done) {
-    done();
+  done();
 });
