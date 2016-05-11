@@ -31,7 +31,16 @@ app.use(function (req, res, next) {
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+
+// Configure logging
+if (app.get('env') === 'test') {
+  var fs = require('fs');
+  var logStream = fs.createWriteStream(__dirname + '/logs/test.log', {flags: 'w'});
+  app.use(logger('tiny', {stream: logStream}));
+} else {
+  app.use(logger('dev'));
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

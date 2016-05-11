@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "compile": "node_modules/.bin/gulp css",
-    "features": "node_modules/.bin/cucumber.js"
+    "features": "NODE_ENV=test node_modules/.bin/cucumber.js"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
