@@ -1,5 +1,7 @@
 FROM node:4.4.4-slim
 
+ENV NPM_CONFIG_LOGLEVEL warn
+
 RUN mkdir -p /srv/app
 WORKDIR /srv/app
 
