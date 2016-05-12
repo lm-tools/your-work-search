@@ -20,3 +20,6 @@ ENV PORT=3000
 EXPOSE 3000
 
 CMD ["npm", "start"]
+
+ARG version
+RUN echo $version > /srv/app/dist/public/version/index.html
