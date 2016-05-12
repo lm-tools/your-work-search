@@ -1,14 +1,16 @@
-FROM node:4.4.4
+FROM node:4.4.4-slim
 
 RUN mkdir -p /srv/app
 WORKDIR /srv/app
 
 ADD package.json /srv/app/
-RUN npm install
+RUN npm install --production
 
 ADD . /srv/app
 
-RUN npm run compile
+RUN npm install && \
+    npm run compile && \
+    npm prune --production
 
 ENV NODE_ENV=production
 ENV PORT=3000
