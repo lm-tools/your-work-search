@@ -1,5 +1,9 @@
 {{<govukTemplate}}
 
+  {{$head}}
+    <link href="{{{ assetPath }}}stylesheets/style.css" media="screen" rel="stylesheet" type="text/css"/>
+  {{/head}}
+
   {{$headerClass}}with-proposition{{/headerClass}}
 
   {{$propositionHeader}}
@@ -11,5 +15,11 @@
       </div>
     </div>
   {{/propositionHeader}}
+
+  {{$content}}
+    <main id="content">
+      {{$applicationContent}}{{/applicationContent}}
+    </main>
+  {{/content}}
 
 {{/govukTemplate}}
