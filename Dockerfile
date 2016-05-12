@@ -22,4 +22,5 @@ EXPOSE 3000
 CMD ["npm", "start"]
 
 ARG version
-RUN echo $version > /srv/app/dist/public/version/index.html
+RUN mkdir -p /srv/app/dist/public/version && \
+    echo $version > /srv/app/dist/public/version/index.html
