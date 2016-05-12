@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "compile": "node_modules/.bin/gulp css",
+    "compile": "gulp css",
     "lint": "eslint .",
-    "pretest": "npm-shrinkwrap-check; eslint .",
-    "test": "NODE_ENV=test node_modules/mocha/bin/mocha; NODE_ENV=test node_modules/.bin/cucumber.js"
+    "pretest": "npm-shrinkwrap-check && eslint .",
+    "test": "NODE_ENV=test mocha && NODE_ENV=test cucumber.js"
   },
   "dependencies": {
     "body-parser": "~1.13",
