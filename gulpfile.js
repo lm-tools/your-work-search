@@ -1,16 +1,16 @@
-var gulp        = require('gulp'),
-    sass        = require('gulp-sass');
+var gulp = require('gulp');
+var sass = require('gulp-sass');
 
 
-gulp.task('css', function() {
+gulp.task('css', function () {
   return gulp.src('assets/stylesheets/*.scss')
     .pipe(
-      sass( {
+      sass({
         includePaths: [
           'src/assets/stylesheets',
           'node_modules/govuk_frontend_toolkit/stylesheets'
         ],
         errLogToConsole: true
-      } ) )
-    .pipe( gulp.dest('dist/public/stylesheets/') );
+      }))
+    .pipe(gulp.dest('dist/public/stylesheets/'));
 });
