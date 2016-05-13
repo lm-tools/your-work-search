@@ -1,0 +1,7 @@
+{
+  "name": "your-work-search",
+  "repository": "https://github.com/lm-tools/your-work-search",
+  "buildpacks": [
+    { "url": "heroku/nodejs" }
+  ]
+}
