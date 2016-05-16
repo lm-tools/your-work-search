@@ -8,3 +8,8 @@ A hello world app, based on [express], which looks like [gov.uk]
 [ci]: https://travis-ci.org/lm-tools/hello-world
 [express]: http://expressjs.com/
 [gov.uk]: https://www.gov.uk/
+
+## Dev setup
+
+    $ npm i
+    $ npm run watch
