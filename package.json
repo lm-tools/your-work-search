@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "compile": "gulp css",
+    "watch": "gulp watch",
     "lint": "eslint .",
     "pretest": "npm-shrinkwrap-check && eslint .",
     "test": "NODE_ENV=test mocha && NODE_ENV=test cucumber.js"
@@ -28,6 +29,7 @@
     "eslint-plugin-import": "^1.8.0",
     "govuk-elements-sass": "^1.1.4",
     "gulp": "^3.9.1",
+    "gulp-plumber": "^1.1.0",
     "gulp-sass": "^2.3.1",
     "mocha": "^2.4.5",
     "npm-shrinkwrap-check": "0.0.9",
