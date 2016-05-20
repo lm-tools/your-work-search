@@ -30,7 +30,7 @@ gulp.task('server', () => {
 });
 
 gulp.task('watch', ['css', 'server'], () => {
-  gulp.watch(['routes/**/*.js', 'app.js'], ['server']);
+  gulp.watch(['routes/**/*.js', '*.js'], ['server']);
   gulp.watch('assets/stylesheets/*.scss', ['css']);
 });
 
