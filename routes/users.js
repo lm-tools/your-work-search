@@ -1,8 +1,8 @@
-var express = require('express');
-var router = new express.Router();
+const express = require('express');
+const router = new express.Router();
 
 /* GET users listing. */
-router.get('/', function indext(req, res) {
+router.get('/', (req, res) => {
   res.send('respond with a resource');
 });
 

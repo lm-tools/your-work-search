@@ -1,7 +1,7 @@
 require('./specHelper');
 
-describe('Sample spec setup', function () {
-  it('should work', function () {
+describe('Sample spec setup', () => {
+  it('should work', () => {
     expect(2 + 2).to.equal(4);
   });
 });

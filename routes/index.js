@@ -1,10 +1,10 @@
-var express = require('express');
-var router = new express.Router();
+const express = require('express');
+const router = new express.Router();
 
 /* GET home page. */
-router.get('/', function index(req, res) {
+router.get('/', (req, res) => {
   res.render('index', {
-    title: 'Express'
+    title: 'Express',
   });
 });
 
