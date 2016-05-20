@@ -1,11 +1,11 @@
-var chai = require('chai');
+const chai = require('chai');
 
 expect = chai.expect;
 
-before(function (done) {
+before((done) => {
   done();
 });
 
-after(function (done) {
+after((done) => {
   done();
 });

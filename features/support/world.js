@@ -1,7 +1,5 @@
-var Zombie = require('zombie');
-var testServerPath = function (path) {
-  return 'http://localhost:3000' + path;
-};
+const Zombie = require('zombie');
+const testServerPath = path => `http://localhost:3000${path}`;
 
 require('../../bin/www'); // This starts the web server, and ensures it is only
                           // started once. It is a misuse of "require", and
@@ -11,7 +9,7 @@ require('../../bin/www'); // This starts the web server, and ensures it is only
 function World() {
   this.browser = new Zombie();
 
-  this.visit = function (relativeUrl, callback) {
+  this.visit = (relativeUrl, callback) => {
     this.browser.visit(testServerPath(relativeUrl), callback);
   };
 }
