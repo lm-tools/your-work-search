@@ -1,5 +1,5 @@
 {
-  "name": "hello-world",
+  "name": "your-work-search",
   "version": "0.0.0",
   "dependencies": {
     "body-parser": {
@@ -319,7 +319,7 @@
             },
             "mime": {
               "version": "1.3.4",
-              "from": "mime@>=1.3.4 <2.0.0",
+              "from": "https://registry.npmjs.org/mime/-/mime-1.3.4.tgz",
               "resolved": "https://registry.npmjs.org/mime/-/mime-1.3.4.tgz"
             },
             "ms": {
