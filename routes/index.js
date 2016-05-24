@@ -3,9 +3,12 @@ const router = new express.Router();
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  res.render('index', {
-    title: 'Express',
-  });
+  const id = req.query.id;
+  res.redirect(`/${id}`);
+});
+
+router.get('/:id', (req, res) => {
+  res.render('index', { title: 'Dashboard' });
 });
 
 module.exports = router;
