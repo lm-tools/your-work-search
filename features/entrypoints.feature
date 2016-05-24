@@ -8,7 +8,7 @@ Feature: Entrypoints
   Scenario: Access the tool for the first time
     Given I have never accessed my account
     When I access the tool with my account identifier
-    Then I should see the dashboard, within my account​
+    Then I should see the dashboard, within my account
 
   Scenario: Access an existing account
     Given I have an existing account
