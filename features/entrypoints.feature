@@ -1,4 +1,3 @@
-@wip
 Feature: Entrypoints
   As a UCDS user
   I want a persistent work search account to be accessible from my UCDS account
