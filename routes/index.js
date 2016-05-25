@@ -1,11 +1,15 @@
 const express = require('express');
+const uuid = require('node-uuid');
 const router = new express.Router();
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  res.render('index', {
-    title: 'Express',
-  });
+  const id = req.query.id || uuid.v4();
+  res.redirect(`/${id}`);
+});
+
+router.get('/:id', (req, res) => {
+  res.render('index', { title: 'Dashboard' });
 });
 
 module.exports = router;
