@@ -1,6 +1,6 @@
 module.exports = function () {
-  this.When(/^I visit the application root$/, function (callback) {
-    this.visit('/', callback);
+  this.When(/^I visit the application root$/, function () {
+    return this.browser.visit('/');
   });
 
   this.Then(/^I should see the GOV\.UK template$/, function () {
