@@ -1,4 +1,6 @@
 const chai = require('chai');
+const DashboardPage = require('./DashboardPage');
+const AddJobPage = require('./AddJobPage');
 const ScenarioData = require('./ScenarioData');
 const Zombie = require('zombie');
 Zombie.site = 'http://localhost:3000';
@@ -13,6 +15,8 @@ function World() {
   this.browser = new Zombie();
 
   this.scenarioData = new ScenarioData();
+  this.dashboardPage = new DashboardPage(this.browser);
+  this.addJobPage = new AddJobPage(this.browser);
 }
 
 module.exports = function () {

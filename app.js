@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const routes = require('./routes/index');
-const users = require('./routes/users');
+const jobs = require('./routes/jobs');
 
 const app = express();
 
@@ -22,6 +22,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use((req, res, next) => {
   /* eslint no-param-reassign: "off" */
   res.locals = {
+    assetPath: '/',
     partials: {
       layout: 'layouts/main',
       govukTemplate: '../vendor/govuk_template_mustache_inheritance/views/layouts/govuk_template',
@@ -45,7 +46,7 @@ app.use(express.static(path.join(__dirname,
   'vendor', 'govuk_template_mustache_inheritance', 'assets')));
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/:id/jobs', jobs);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

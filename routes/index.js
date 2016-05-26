@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  res.render('index', { title: 'Dashboard' });
+  res.render('index', { title: 'Dashboard', id: req.params.id });
 });
 
 module.exports = router;
