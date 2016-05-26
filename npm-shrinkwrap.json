@@ -1508,6 +1508,11 @@
       "from": "lodash.find@>=4.3.0 <5.0.0",
       "resolved": "https://registry.npmjs.org/lodash.find/-/lodash.find-4.4.0.tgz"
     },
+    "lodash.findindex": {
+      "version": "4.4.0",
+      "from": "lodash.findindex@>=4.3.0 <5.0.0",
+      "resolved": "https://registry.npmjs.org/lodash.findindex/-/lodash.findindex-4.4.0.tgz"
+    },
     "lodash.isarguments": {
       "version": "3.0.8",
       "from": "lodash.isarguments@>=3.0.0 <4.0.0",
