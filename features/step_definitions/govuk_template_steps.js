@@ -4,6 +4,6 @@ module.exports = function () {
   });
 
   this.Then(/^I should see the GOV\.UK template$/, function () {
-    this.browser.assert.element(".header-logo > #logo[href='https://www.gov.uk/']");
+    this.expect(this.browser.query('.header-logo > #logo').href).to.equal('https://www.gov.uk/');
   });
 };
