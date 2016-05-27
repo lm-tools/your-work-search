@@ -1,6 +1,7 @@
 const express = require('express');
 const uuid = require('node-uuid');
 const router = new express.Router();
+const Jobs = require('../models/jobs-model');
 
 /* GET home page. */
 router.get('/', (req, res) => {
@@ -8,8 +9,11 @@ router.get('/', (req, res) => {
   res.redirect(`/${id}`);
 });
 
-router.get('/:id', (req, res) => {
-  res.render('index', { title: 'Dashboard', id: req.params.id });
+router.get('/:id', (req, res, next) => {
+  Jobs.fetchAll()
+    .then((jobs) => res.render('index',
+      { title: 'Dashboard', id: req.params.id, jobs: jobs.toJSON() }))
+    .catch((err) => next(err));
 });
 
 module.exports = router;

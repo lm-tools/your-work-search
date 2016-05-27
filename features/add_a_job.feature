@@ -1,4 +1,3 @@
-@wip
 Feature: Add a job
   As a claimant,
   I want to report jobs I am interested in or applying for

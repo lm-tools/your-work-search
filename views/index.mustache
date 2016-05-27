@@ -5,7 +5,9 @@
     <p>Welcome to {{ title }}</p>
 
     <ul>
-      <li></li>
+      {{#jobs}}
+        <li>{{title}}</li>
+      {{/jobs}}
     </ul>
 
     <a href="/{{id}}/jobs/new" class="button">+ Add a job</a>
