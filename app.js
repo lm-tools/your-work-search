@@ -21,7 +21,7 @@ app.set('views', path.join(__dirname, 'views'));
 // This must be done per request (and not via app.locals) as the Consolidate.js
 // renderer mutates locals.partials :(
 app.use((req, res, next) => {
-  /* eslint no-param-reassign: "off" */
+  // eslint-disable-next-line no-param-reassign
   res.locals = {
     assetPath: '/',
     partials: {
