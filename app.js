@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const validator = require('express-validator');
 
-const routes = require('./routes/index');
+const routes = require('./routes/dashboard');
 const jobs = require('./routes/jobs');
 
 const app = express();
