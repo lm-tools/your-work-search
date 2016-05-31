@@ -4,7 +4,13 @@
     <h1>{{ title }}</h1>
     <p>Welcome to {{ title }}</p>
 
-    <input class="button" type="submit" value="Save and continue">
+    <form>
+      <div class="form-group">
+        <label class="form-label" for="date">Date</label>
+        <input class="form-control datepicker" id="date" name="date" type="text" value="1986-09-08">
+      </div>
+      <p><input class="button" type="submit" value="Save and continue"></p>
+    </form>
   {{/applicationContent}}
 
 {{/layout}}
