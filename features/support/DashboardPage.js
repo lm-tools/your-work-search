@@ -3,7 +3,7 @@ const DashboardPage = function DashboardPage(browser) {
   this.visit = (id) => browser.visit(`/?id=${id}`);
 
   this.clickAddJobButton = () => browser.click('a.button');
-  this.jobList = () => browser.text('ul');
+  this.jobList = () => browser.text('ul h4');
 };
 
 module.exports = DashboardPage;

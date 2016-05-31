@@ -13,7 +13,7 @@ router.post('/new', (req, res, next) => {
     const body = Object.assign({ errors: req.validationErrors() }, { id: req.params.id }, req.body);
     return res.render('jobs-new', body);
   }
-  return new Jobs(req.body).save()
+  return new Jobs(Object.assign(req.body, { accountId: req.params.id })).save()
     .then(() => res.redirect(`/${req.params.id}`))
     .catch((err) => next(err));
 });

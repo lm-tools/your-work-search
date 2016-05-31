@@ -10,7 +10,8 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res, next) => {
-  Jobs.fetchAll()
+  Jobs
+    .findAllByAccountId(req.params.id)
     .then((jobs) => res.render('index',
       { title: 'Dashboard', id: req.params.id, jobs: jobs.toJSON() }))
     .catch((err) => next(err));

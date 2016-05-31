@@ -10,3 +10,7 @@ Feature: Add a job
   Scenario: Validation
     When I add a job application without a title
     Then I should see a validation error
+
+  Scenario: Multiple claimants add job application
+    When multiple claimants have added job applications to their accounts
+    Then each claimant should only be able to see their respective job applications
