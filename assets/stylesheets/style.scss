@@ -59,4 +59,9 @@ $space_size: 10px;
   padding: (18px $gutter-half $gutter-half $gutter-half);
 }
 
+#validation-errors {
+  color: red;
+  margin-bottom: $space_size;
+}
+
 

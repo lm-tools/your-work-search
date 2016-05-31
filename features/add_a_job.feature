@@ -6,3 +6,7 @@ Feature: Add a job
   Scenario: Add an application
     When I add a job application
     Then it should show on my dashboard
+
+  Scenario: Validation
+    When I add a job application without a title
+    Then I should see a validation error

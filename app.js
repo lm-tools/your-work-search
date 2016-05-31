@@ -4,6 +4,7 @@ const favicon = require('serve-favicon');
 const logger = require('./logger');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const validator = require('express-validator');
 
 const routes = require('./routes/index');
 const jobs = require('./routes/jobs');
@@ -40,6 +41,7 @@ app.use(logger.init(app.get('env')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(validator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'dist/public')));
 app.use(express.static(path.join(__dirname,
