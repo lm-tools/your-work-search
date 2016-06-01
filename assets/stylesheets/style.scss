@@ -1,8 +1,27 @@
 @import '_govuk-elements';
 
-
+//variables
 $space_size: 10px;
 
+// layout
+.space-top-double {
+  margin-top: $space_size * 2;
+}
+
+.column-three-quarter {
+  @include grid-column(3 / 4);
+}
+
+// typography
+.center {
+  text-align: center;
+}
+
+.color-text {
+  color: $text-colour;
+}
+
+// boxes
 .box {
   display: block;
   border: 1px solid $panel-colour;
@@ -28,23 +47,12 @@ $space_size: 10px;
   }
 }
 
-.space-top-double {
-  margin-top: $space_size * 2;
+.box-min-padding {
+  padding: (18px $gutter-half $gutter-half $gutter-half);
 }
 
-.column-three-quarter {
-  @include grid-column(3 / 4);
-}
-
-.center {
-  text-align: center;
-}
-
-.color-text {
-  color: $text-colour;
-}
-
-.button-secondary{
+// buttons
+.button-secondary {
   @include button($grey-3);
 }
 
@@ -55,13 +63,8 @@ $space_size: 10px;
   }
 }
 
-.box-min-padding {
-  padding: (18px $gutter-half $gutter-half $gutter-half);
-}
-
+// validation
 #validation-errors {
   color: red;
   margin-bottom: $space_size;
 }
-
-
