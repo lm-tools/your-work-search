@@ -1,10 +1,32 @@
 {{<layout}}
 
   {{$applicationContent}}
-    <h1>{{ title }}</h1>
-    <p>Welcome to {{ title }}</p>
+    <h2 class="heading-xlarge">Your work search</h2>
 
-    <input class="button" type="submit" value="Save and continue">
+    <p>
+      Add jobs that you're interested or have applied for. You can then track your progress.
+    </p>
+
+    <a href="/{{id}}/jobs/new" class="button">+ Add a job</a>
+
+    <section class="space-top-double">
+      <ul>
+        {{#jobs}}
+          <li>
+            <a href="#" class="box box-link box-fixed-height">
+              <div class="grid-row">
+                <div class="column-three-quarter">
+                  <h4 class="bold-small">{{title}}</h4>
+                  <p class="color-text">{{employer}}</p>
+                </div>
+                <div class="column-one-quarter color-text center">{{status}}</div>
+              </div>
+            </a>
+          </li>
+        {{/jobs}}
+      </ul>
+    </section>
+
   {{/applicationContent}}
 
 {{/layout}}
