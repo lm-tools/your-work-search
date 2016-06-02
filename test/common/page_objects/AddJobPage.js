@@ -14,6 +14,9 @@ const AddJobPage = function AddJobPage(browser) {
   this.visit = (accountId) => browser.visit(`/${accountId}/jobs/new`);
 
   this.employerFieldValue = () => browser.field('#job-employer').value;
+  this.chooseSourceType = (sourceType) => browser.choose(`#job-sourceType-${sourceType}`);
+  this.isSourceUrlHidden = () =>
+    browser.query('#job-sourceUrl-group').className.split(/\s+/).includes('js-hidden');
 };
 
 module.exports = AddJobPage;
