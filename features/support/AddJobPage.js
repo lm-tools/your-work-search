@@ -1,4 +1,4 @@
-const DashboardPage = function DashboardPage(browser) {
+const AddJobPage = function AddJobPage(browser) {
   this.browser = browser;
 
   this.fillJobApplication = (data) =>
@@ -10,4 +10,4 @@ const DashboardPage = function DashboardPage(browser) {
   this.getValidationError = () => browser.text('#validation-errors');
 };
 
-module.exports = DashboardPage;
+module.exports = AddJobPage;
