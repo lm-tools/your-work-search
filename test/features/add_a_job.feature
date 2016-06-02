@@ -6,6 +6,7 @@ Feature: Add a job
   Scenario: Add an application
     When I add a job application
     Then it should show on my dashboard
+    And it should be be at the beginning of the job application progression
 
   Scenario: Validation
     When I add a job application without a title
