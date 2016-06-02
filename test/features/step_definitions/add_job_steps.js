@@ -12,7 +12,7 @@ module.exports = function () {
 
   function addJobForClaimant(claimant) {
     this.scenarioData.addClaimant(claimant);
-    return addJob.call(this, { jobTitle: claimantJobTitle(claimant) },
+    return addJob.call(this, { title: claimantJobTitle(claimant) },
       this.scenarioData.idFor(claimant));
   }
 
@@ -22,7 +22,7 @@ module.exports = function () {
   });
 
   this.When(/^I add a job application without a title$/, function () {
-    return addJob.call(this, { jobTitle: '' }, this.scenarioData.accountIdentifier);
+    return addJob.call(this, { title: '' }, this.scenarioData.accountIdentifier);
   });
 
   this.Then(/^I should see a validation error$/, function () {
@@ -32,7 +32,7 @@ module.exports = function () {
   this.Then(/^it should show on my dashboard$/, function () {
     return this
       .expect(this.dashboardPage.jobList())
-      .to.contain(this.scenarioData.addedJob.jobTitle);
+      .to.contain(this.scenarioData.addedJob.title);
   });
 
   this.When(/^multiple claimants have added job applications to their accounts$/, function () {

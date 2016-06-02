@@ -1,6 +1,6 @@
 const Fixtures = function Fixtures() {
   this.sampleJob = {
-    jobTitle: 'Test job',
+    title: 'Test job',
     employer: 'Test employer',
   };
 };
