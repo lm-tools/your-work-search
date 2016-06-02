@@ -1,5 +1,5 @@
 const knexCleaner = require('knex-cleaner');
-const knex = require('../../db').knex;
+const knex = require('../../../db').knex;
 
 module.exports = function () {
   // eslint-disable-next-line new-cap

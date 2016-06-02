@@ -1,7 +1,8 @@
 require('./integrationSpecHelper');
 const Zombie = require('zombie');
-const AddJobPage = require('../../features/support/AddJobPage');
+const AddJobPage = require('../common/page_objects/AddJobPage');
 const addJobPage = new AddJobPage(new Zombie());
+const expect = require('chai').expect;
 
 describe('Add a job page', () => {
   describe('validation error', () => {

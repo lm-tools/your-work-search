@@ -1,4 +1,3 @@
-require('../specHelper');
 const Zombie = require('zombie');
 Zombie.site = 'http://localhost:3000';
 
