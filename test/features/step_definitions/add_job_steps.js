@@ -1,9 +1,4 @@
 module.exports = function () {
-  const sampleJob = {
-    jobTitle: 'Test job',
-    employer: 'Test employer',
-  };
-
   function claimantJobTitle(claimant) {
     return `job for ${claimant}`;
   }
@@ -12,7 +7,7 @@ module.exports = function () {
     return this.dashboardPage
       .visit(accountId)
       .then(() => this.dashboardPage.clickAddJobButton())
-      .then(() => this.addJobPage.fillJobApplication(Object.assign(sampleJob, job)));
+      .then(() => this.addJobPage.fillJobApplication(Object.assign(this.fixtures.sampleJob, job)));
   }
 
   function addJobForClaimant(claimant) {
@@ -22,8 +17,8 @@ module.exports = function () {
   }
 
   this.When(/^I add a job application$/, function () {
-    this.scenarioData.addedJob = sampleJob;
-    return addJob.call(this, sampleJob, this.scenarioData.accountIdentifier);
+    this.scenarioData.addedJob = this.fixtures.sampleJob;
+    return addJob.call(this, this.fixtures.sampleJob, this.scenarioData.accountIdentifier);
   });
 
   this.When(/^I add a job application without a title$/, function () {
