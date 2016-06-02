@@ -1,4 +1,4 @@
 module.exports = {
-  default: '--tags ~@wip',
-  wip: '--tags @wip',
+  default: 'test/features --tags ~@wip',
+  wip: 'test/features --tags @wip',
 };
