@@ -9,7 +9,9 @@ describe('Add a job page', () => {
     it('should prepopulate filled form fields after error', () =>
       addJobPage.visit('randomAccountId')
         .then(() => expect(addJobPage.employerFieldValue()).to.equal(''))
-        .then(() => addJobPage.fillJobApplication({ employer: 'Dwp', title: '' }))
+        .then(() => addJobPage.fillJobApplication({
+          employer: 'Dwp', title: '', sourceType: 'online',
+        }))
         .then(() => expect(addJobPage.employerFieldValue()).to.equal('Dwp'))
     );
   });
