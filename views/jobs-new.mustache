@@ -19,7 +19,7 @@
         <input class="form-control" id="job-employer" type="text" name="employer" value="{{employer}}">
       </div>
 
-      <fieldset>
+      <fieldset class="form-group">
         <legend>Where did you find out about this job?</legend>
 
         {{#sourceTypeOptions}}
@@ -28,12 +28,23 @@
           {{label}}
         </label>
         {{/sourceTypeOptions}}
-
       </fieldset>
+
       <div id="job-sourceUrl-group" class="form-group {{#isSourceUrlHidden}}js-hidden{{/isSourceUrlHidden}}">
         <label class="form-label" for="job-sourceUrl">What website?</label>
         <input class="form-control" id="job-sourceUrl" type="text" name="sourceUrl" value="{{sourceUrl}}">
       </div>
+      <fieldset class="star-rating">
+        <legend>How interested in the role are you?</legend>
+        <div class="rating-options-group">
+          {{#ratingOptions}}
+            <input type="radio" id="job-rating-{{value}}" name="rating" value="{{value}}"
+                   {{#isChecked}}checked{{/isChecked}} >
+            <label class="full" for="job-rating-{{value}}"></label>
+          {{/ratingOptions}}
+        </div>
+      </fieldset>
+
       <div class="form-group">
         <input type="submit" class="button" value="Save">
       </div>

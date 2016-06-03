@@ -35,7 +35,11 @@ gulp.task('js-vendor', () => {
 
 gulp.task('js', ['browserify', 'js-vendor']);
 
-gulp.task('css', () => {
+gulp.task('fonts', () => {
+  gulp.src('node_modules/font-awesome/fonts/*').pipe(gulp.dest('dist/public/fonts'));
+});
+
+gulp.task('css', ['fonts'], () => {
   gulp.src('assets/stylesheets/*.scss')
     .pipe(plumber())
     .pipe(
@@ -44,6 +48,7 @@ gulp.task('css', () => {
           'src/assets/stylesheets',
           'node_modules/govuk_frontend_toolkit/stylesheets',
           'node_modules/govuk-elements-sass/public/sass',
+          'node_modules/font-awesome/scss/',
         ],
       }))
     .pipe(gulp.dest('dist/public/stylesheets/'));

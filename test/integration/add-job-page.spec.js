@@ -13,13 +13,15 @@ describe('Add a job page', () => {
   );
 
   describe('validation error', () => {
+    const form = {
+      title: '', employer: 'Dwp', sourceType: 'online', sourceUrl: 'http://indeed.com', rating: '2',
+    };
+
     it('should prepopulate filled form fields after error', () =>
       addJobPage.visit('randomAccountId')
         .then(() => expect(addJobPage.employerFieldValue()).to.equal(''))
-        .then(() => addJobPage.fillJobApplication({
-          employer: 'Dwp', title: '', sourceType: 'online',
-        }))
-        .then(() => expect(addJobPage.employerFieldValue()).to.equal('Dwp'))
+        .then(() => addJobPage.fillJobApplication(form))
+        .then(() => expect(addJobPage.formValues()).to.eql(form))
     );
   });
 });
