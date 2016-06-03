@@ -48,7 +48,7 @@ app.use(express.static(path.join(__dirname,
   'vendor', 'govuk_template_mustache_inheritance', 'assets')));
 
 app.use('/', routes);
-app.use('/:id/jobs', jobs);
+app.use('/:accountId/jobs', jobs);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -5,15 +5,15 @@ const Jobs = require('../models/jobs-model');
 
 /* GET home page. */
 router.get('/', (req, res) => {
-  const id = req.query.id || uuid.v4();
-  res.redirect(`/${id}`);
+  const accountId = req.query.id || uuid.v4();
+  res.redirect(`/${accountId}`);
 });
 
-router.get('/:id', (req, res, next) => {
+router.get('/:accountId', (req, res, next) => {
   Jobs
-    .findAllByAccountId(req.params.id)
+    .findAllByAccountId(req.params.accountId)
     .then((jobs) => res.render('index',
-      { title: 'Dashboard', id: req.params.id, jobs: jobs.toJSON() }))
+      { title: 'Dashboard', accountId: req.params.accountId, jobs: jobs.toJSON() }))
     .catch((err) => next(err));
 });
 
