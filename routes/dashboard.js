@@ -10,10 +10,11 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:accountId', (req, res, next) => {
+  const accountId = req.params.accountId;
   Jobs
-    .findAllByAccountId(req.params.accountId)
+    .findAllByAccountId(accountId)
     .then((jobs) => res.render('index',
-      { title: 'Dashboard', accountId: req.params.accountId, jobs: jobs.toJSON() }))
+      { title: 'Dashboard', accountId, jobs: jobs.toJSON() }))
     .catch((err) => next(err));
 });
 

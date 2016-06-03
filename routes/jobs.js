@@ -7,18 +7,15 @@ router.get('/new', (req, res) => {
 });
 
 router.post('/new', (req, res, next) => {
+  const accountId = req.params.accountId;
   req.checkBody('title', 'Job title is required').notEmpty();
 
   if (req.validationErrors()) {
-    const body = Object.assign(
-      { errors: req.validationErrors() },
-      { accountId: req.params.accountId },
-      req.body
-    );
+    const body = Object.assign({ errors: req.validationErrors(), accountId }, req.body);
     return res.render('jobs-new', body);
   }
-  return new Jobs(Object.assign(req.body, { accountId: req.params.accountId })).save()
-    .then(() => res.redirect(`/${req.params.accountId}`))
+  return new Jobs(Object.assign(req.body, { accountId })).save()
+    .then(() => res.redirect(`/${accountId}`))
     .catch((err) => next(err));
 });
 
