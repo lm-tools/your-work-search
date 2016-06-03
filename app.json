@@ -2,7 +2,7 @@
   "name": "your-work-search",
   "repository": "https://github.com/lm-tools/your-work-search",
   "scripts": {
-    "postdeploy": "npm run db-migration"
+    "postdeploy": "npm run db-migrate"
   },
   "addons": [
     "heroku-postgresql"
