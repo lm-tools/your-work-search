@@ -12,16 +12,34 @@
     <section class="space-top-double">
       <ul>
         {{#jobs}}
-          <li>
-            <a href="#" class="box box-link box-fixed-height">
+          <li id="job-{{id}}">
+            <div class="box box-link box-fixed-height">
               <div class="grid-row">
                 <div class="column-three-quarter">
                   <h4 class="bold-small">{{title}}</h4>
                   <p class="color-text">{{employer}}</p>
                 </div>
-                <div class="column-one-quarter color-text center progression-status">{{status}}</div>
+                <div class="column-one-quarter color-text center">
+                  <p class="progression-status">{{status}}</p>
+                </div>
               </div>
-            </a>
+            </div>
+            <form action="/{{accountId}}/jobs/{{id}}/status" method="PUT">
+              <div class="form-group">
+                <fieldset class="inline">
+                  <legend class="visuallyhidden">Update progression status</legend>
+                  {{#progression}}
+                    <label class="block-label">
+                      <input type="radio" value="{{.}}" name="status">
+                      {{.}}
+                    </label>
+                  {{/progression}}
+                </fieldset>
+              </div>
+              <div class="form-group">
+                <input type="submit" class="button">
+              </div>
+            </form>
           </li>
         {{/jobs}}
       </ul>

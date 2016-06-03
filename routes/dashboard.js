@@ -2,6 +2,7 @@ const express = require('express');
 const uuid = require('node-uuid');
 const router = new express.Router();
 const Jobs = require('../models/jobs-model');
+const progression = require('../lib/progression');
 
 /* GET home page. */
 router.get('/', (req, res) => {
@@ -14,7 +15,13 @@ router.get('/:accountId', (req, res, next) => {
   Jobs
     .findAllByAccountId(accountId)
     .then((jobs) => res.render('index',
-      { title: 'Dashboard', accountId, jobs: jobs.toJSON() }))
+      {
+        accountId,
+        jobs: jobs.toJSON(),
+        progression,
+        title: 'Dashboard',
+      }
+    ))
     .catch((err) => next(err));
 });
 
