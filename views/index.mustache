@@ -24,14 +24,15 @@
                 </div>
               </div>
             </div>
-            <form action="/{{accountId}}/jobs/{{id}}/status" method="PUT">
+            <form action="/{{accountId}}/jobs/{{id}}?_method=PATCH" method="POST">
               <div class="form-group">
                 <fieldset class="inline">
                   <legend class="visuallyhidden">Update progression status</legend>
                   {{#progression}}
                     <label class="block-label">
-                      <input type="radio" value="{{.}}" name="status">
-                      {{.}}
+                      <input type="radio" value="{{name}}" name="status"
+                        {{#isChecked}}checked{{/isChecked}}>
+                      {{name}}
                     </label>
                   {{/progression}}
                 </fieldset>

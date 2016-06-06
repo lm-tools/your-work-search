@@ -1,4 +1,3 @@
-@wip
 Feature: Job application progression
   As a claimant
   I want to keep track of the progress of my job applications
@@ -7,5 +6,4 @@ Feature: Job application progression
 Scenario: Set job progression from dashboard
   Given I have added a job application to my account
   When I set that job's progression status
-  Then the status should be saved
-  And the status should reflect on the dashboard
+  Then the status should reflect on the dashboard

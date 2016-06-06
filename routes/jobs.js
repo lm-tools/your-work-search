@@ -23,4 +23,12 @@ router.post('/new', (req, res, next) => {
     .catch((err) => next(err));
 });
 
+router.patch('/:jobId', (req, res, next) => {
+  const jobId = req.params.jobId;
+  new Jobs({ id: jobId })
+    .save(req.body, { method: 'update', patch: true })
+    .then(() => res.redirect(`/${req.params.accountId}#job-${jobId}`))
+    .catch((err) => next(err));
+});
+
 module.exports = router;

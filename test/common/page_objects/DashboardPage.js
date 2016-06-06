@@ -13,6 +13,10 @@ const DashboardPage = function DashboardPage(browser) {
       .click(`#job-${job.id} input[name="status"][value="${status}"]`)
       .then(() => browser.click(`#job-${job.id} input[type="submit"]`));
   this.jobProgressionStatus = (job) => browser.text(`#job-${job.id} .progression-status`);
+  this.selectedProgressionStatus = (job) => {
+    const element = browser.query(`#job-${job.id} input[name="status"]:checked`);
+    return element && element.value;
+  };
 };
 
 module.exports = DashboardPage;

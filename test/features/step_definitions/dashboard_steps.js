@@ -1,5 +1,3 @@
-const JobsModel = require('../../../models/jobs-model');
-
 module.exports = function () {
   function ensureSingleJobScenario() {
     const jobs = this.scenarioData.jobs;
@@ -38,18 +36,6 @@ module.exports = function () {
       .then(() => { job.status = 'interview'; });
   });
 
-  this.Then(/^the status should be saved$/, function () {
-    // TODO: this step definition is awkward in this file,
-    // TODO: should we even be validating this directly!?
-    ensureSingleJobScenario.call(this);
-
-    const job = this.scenarioData.jobs[0];
-
-    return new JobsModel({ id: job.id })
-      .fetch()
-      .then((model) => this.expect(model.status).to.equal(job.status));
-  });
-
   this.Then(/^the status should reflect on the dashboard$/, function () {
     ensureSingleJobScenario.call(this);
 
@@ -59,6 +45,7 @@ module.exports = function () {
       .visit(this.scenarioData.accountIdentifier)
       .then(() => {
         this.expect(this.dashboardPage.jobProgressionStatus(job)).to.equal(job.status);
+        this.expect(this.dashboardPage.selectedProgressionStatus(job)).to.equal(job.status);
       });
   });
 };
