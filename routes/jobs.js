@@ -1,6 +1,7 @@
 const express = require('express');
 const router = new express.Router({ mergeParams: true });
 const Jobs = require('../models/jobs-model');
+const progression = require('../lib/progression');
 
 router.get('/new', (req, res) => {
   res.render('jobs-new', { accountId: req.params.accountId });
@@ -14,8 +15,19 @@ router.post('/new', (req, res, next) => {
     const body = Object.assign({ errors: req.validationErrors(), accountId }, req.body);
     return res.render('jobs-new', body);
   }
-  return new Jobs(Object.assign(req.body, { accountId })).save()
+
+  const jobData = Object.assign({}, req.body, { accountId, status: progression[0] });
+
+  return new Jobs(jobData).save()
     .then(() => res.redirect(`/${accountId}`))
+    .catch((err) => next(err));
+});
+
+router.patch('/:jobId', (req, res, next) => {
+  const jobId = req.params.jobId;
+  new Jobs({ id: jobId })
+    .save(req.body, { method: 'update', patch: true })
+    .then(() => res.redirect(`/${req.params.accountId}#job-${jobId}`))
     .catch((err) => next(err));
 });
 

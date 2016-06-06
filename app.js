@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('./logger');
+const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const validator = require('express-validator');
@@ -38,7 +39,7 @@ app.use(favicon(path.join(__dirname,
 
 // Configure logging
 app.use(logger.init(app.get('env')));
-
+app.use(methodOverride('_method')); // allow override of http method with '_method' querystring var
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());

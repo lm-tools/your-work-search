@@ -1,6 +1,7 @@
 const chai = require('chai');
 const DashboardPage = require('./../../common/page_objects/DashboardPage');
 const AddJobPage = require('./../../common/page_objects/AddJobPage');
+const Fixtures = require('./Fixtures');
 const ScenarioData = require('./ScenarioData');
 const Zombie = require('zombie');
 Zombie.site = 'http://localhost:3000';
@@ -14,6 +15,7 @@ function World() {
   this.expect = chai.expect;
   this.browser = new Zombie();
 
+  this.fixtures = new Fixtures();
   this.scenarioData = new ScenarioData();
   this.dashboardPage = new DashboardPage(this.browser);
   this.addJobPage = new AddJobPage(this.browser);

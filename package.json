@@ -38,6 +38,7 @@
     "gulp-util": "^3.0.7",
     "hogan.js": "~3.0",
     "knex": "^0.11.5",
+    "method-override": "~2.3",
     "morgan": "~1.6",
     "node-uuid": "~1.4",
     "pg": "^4.5.5",
