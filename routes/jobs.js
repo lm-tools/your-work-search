@@ -10,7 +10,7 @@ function parseDeadline(deadlineString) {
 }
 
 router.get('/new', (req, res) => {
-  res.render('jobs-new', new AddAJobView(req.params.accountId, req.body).build());
+  res.render('jobs-new', new AddAJobView(req.params.accountId, req.body));
 });
 
 router.post('/new', (req, res, next) => {
@@ -23,7 +23,7 @@ router.post('/new', (req, res, next) => {
 
   if (req.validationErrors()) {
     return res.render('jobs-new',
-      new AddAJobView(accountId, req.body, req.validationErrors()).build());
+      new AddAJobView(accountId, req.body, req.validationErrors()));
   }
 
   const jobData = Object.assign({}, req.body, { accountId, status: progression[0] },
