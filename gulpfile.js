@@ -26,7 +26,20 @@ gulp.task('browserify', () => {
     .pipe(gulp.dest('dist/public/js'));
 });
 
-gulp.task('css', () => {
+gulp.task('js-vendor', () => {
+  gulp.src([
+    'node_modules/govuk_frontend_toolkit/javascripts/govuk/selection-buttons.js',
+    'node_modules/jquery/dist/jquery.min.js',
+  ]).pipe(gulp.dest('dist/public/js'));
+});
+
+gulp.task('js', ['browserify', 'js-vendor']);
+
+gulp.task('fonts', () => {
+  gulp.src('node_modules/font-awesome/fonts/*').pipe(gulp.dest('dist/public/fonts'));
+});
+
+gulp.task('css', ['fonts'], () => {
   gulp.src('assets/stylesheets/*.scss')
     .pipe(plumber())
     .pipe(
@@ -35,6 +48,7 @@ gulp.task('css', () => {
           'src/assets/stylesheets',
           'node_modules/govuk_frontend_toolkit/stylesheets',
           'node_modules/govuk-elements-sass/public/sass',
+          'node_modules/font-awesome/scss/',
         ],
       }))
     .pipe(gulp.dest('dist/public/stylesheets/'));
@@ -51,7 +65,7 @@ gulp.task('server', () => {
   });
 });
 
-gulp.task('watch', ['browserify', 'css', 'server'], () => {
+gulp.task('watch', ['js', 'css', 'server'], () => {
   gulp.watch(['routes/**/*.js', '*.js'], ['server']);
   gulp.watch('assets/stylesheets/*.scss', ['css']);
   gulp.watch('assets/js/**/*.js', ['browserify']);

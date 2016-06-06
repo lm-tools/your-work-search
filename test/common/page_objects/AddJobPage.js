@@ -3,15 +3,34 @@ const AddJobPage = function AddJobPage(browser) {
 
   this.fillJobApplication = (data) =>
     browser
-      .fill('#job-title', data.title)
-      .fill('#job-employer', data.employer)
+      .fill('[name="title"]', data.title)
+      .fill('[name="employer"]', data.employer)
+      .choose(`#job-sourceType-${data.sourceType}`)
+      .fill('[name="sourceUrl"]', data.sourceUrl)
+      .choose(`#job-rating-${data.rating}`)
+      .fill('[name="deadline"]', data.deadline)
       .pressButton('input[type=submit]');
 
   this.getValidationError = () => browser.text('#validation-errors');
 
   this.visit = (accountId) => browser.visit(`/${accountId}/jobs/new`);
 
-  this.employerFieldValue = () => browser.field('#job-employer').value;
+  this.employerFieldValue = () => browser.field('[name="employer"]').value;
+  this.chooseSourceType = (sourceType) => browser.choose(`#job-sourceType-${sourceType}`);
+  this.isSourceUrlHidden = () =>
+    browser.query('#job-sourceUrl-group').className.split(/\s+/).includes('js-hidden');
+  this.formValues = () =>
+    ({
+      title: browser.field('[name="title"]').value,
+      employer: browser.field('[name="employer"]').value,
+      sourceType: browser.field('[name="sourceType"][checked]').value,
+      sourceUrl: browser.field('[name="sourceUrl"]').value,
+      rating: browser.field('[name="rating"][checked]').value,
+      deadline: browser.field('[name="deadline"]').value,
+    });
+  this.fillDeadline = deadline => browser.fill('[name="deadline"]', deadline);
+  this.fillTitle = title => browser.fill('[name="title"]', title);
+  this.submit = () => browser.pressButton('input[type=submit]');
 };
 
 module.exports = AddJobPage;

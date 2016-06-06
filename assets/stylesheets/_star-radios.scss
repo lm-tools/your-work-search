@@ -1,0 +1,42 @@
+@import "font-awesome";
+
+.star-rating {
+  border: none;
+  float: left;
+
+  .rating-options-group {
+    display: inline-block;
+
+    > input {
+      display: none;
+    }
+    > label:before {
+      margin: 5px;
+      font-size: 1.25em;
+      font-family: FontAwesome;
+      display: inline-block;
+      content: "\f005";
+    }
+    > .half:before {
+      content: "\f089";
+      position: absolute;
+    }
+    > label {
+      color: #ddd;
+      float: right;
+    }
+    /***** CSS Magic to Highlight Stars on Hover *****/
+    > input:checked ~ label, /* show gold star when clicked */
+    &:not(:checked) > label:hover, /* hover current star */
+    &:not(:checked) > label:hover ~ label {
+      color: #FFD700;
+    }
+    /* hover previous stars in list */
+    > input:checked + label:hover, /* hover current star when changing rating */
+    > input:checked ~ label:hover,
+    > label:hover ~ input:checked ~ label, /* lighten current selection */
+    > input:checked ~ label:hover ~ label {
+      color: #FFED85;
+    }
+  }
+}

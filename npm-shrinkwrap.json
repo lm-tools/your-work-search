@@ -1338,6 +1338,11 @@
       "from": "flat-cache@>=1.0.9 <2.0.0",
       "resolved": "https://registry.npmjs.org/flat-cache/-/flat-cache-1.0.10.tgz"
     },
+    "font-awesome": {
+      "version": "4.6.3",
+      "from": "font-awesome@latest",
+      "resolved": "https://registry.npmjs.org/font-awesome/-/font-awesome-4.6.3.tgz"
+    },
     "forever-agent": {
       "version": "0.6.1",
       "from": "forever-agent@>=0.6.1 <0.7.0",
@@ -1896,6 +1901,11 @@
       "from": "jodid25519@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/jodid25519/-/jodid25519-1.0.2.tgz"
     },
+    "jquery": {
+      "version": "2.2.4",
+      "from": "jquery@latest",
+      "resolved": "https://registry.npmjs.org/jquery/-/jquery-2.2.4.tgz"
+    },
     "js-tokens": {
       "version": "1.0.3",
       "from": "js-tokens@>=1.0.2 <2.0.0",
@@ -2397,6 +2407,11 @@
       "version": "4.0.7",
       "from": "module-deps@>=4.0.2 <5.0.0",
       "resolved": "https://registry.npmjs.org/module-deps/-/module-deps-4.0.7.tgz"
+    },
+    "moment": {
+      "version": "2.13.0",
+      "from": "moment@latest",
+      "resolved": "https://registry.npmjs.org/moment/-/moment-2.13.0.tgz"
     },
     "morgan": {
       "version": "1.6.1",
