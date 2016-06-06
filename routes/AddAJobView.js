@@ -23,7 +23,7 @@ class AddAJobView {
       isSourceUrlHidden: this.body.sourceType === 'inPerson',
     };
 
-    return Object.assign(this.body, model);
+    return Object.assign({}, this.body, model);
   }
 }
 

@@ -34,7 +34,13 @@
         <label class="form-label" for="job-sourceUrl">What website?</label>
         <input class="form-control" id="job-sourceUrl" type="text" name="sourceUrl" value="{{sourceUrl}}">
       </div>
-      <fieldset class="star-rating">
+
+      <div class="form-group">
+        <label class="form-label" for="job-deadline">What is the deadline?</label>
+        <input class="form-control" id="job-deadline" type="text" name="deadline" value="{{deadline}}" placeholder="dd/mm/yyyy">
+      </div>
+
+      <fieldset class="star-rating form-group">
         <legend>How interested in the role are you?</legend>
         <div class="rating-options-group">
           {{#ratingOptions}}
