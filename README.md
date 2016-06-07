@@ -8,7 +8,22 @@ Keep track of your work search.
 
 ## Dev setup
 
+### Database
+
+App requires postgresql running locally. You can run it in docker following below instructions
+
+    $ docker run --name some-postgres -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres
+    $ docker run --rm -e PGPASSWORD=password --link some-postgres:postgres postgres psql -h postgres -U postgres  -c 'CREATE DATABASE your_work_search;'
+    $ export DATABASE_URL=postgres://postgres:password@localhost/your_work_search
+
+**Note**: if you are using *docker-machine* your *DATABASE_URL* will be different
+  
+    $ export DATABASE_URL=postgres://postgres:password@`docker-machine ip`/your_work_search
+
+### Start the app
+
     $ npm i
+    & npm run db-migrate
     $ npm run watch
 
 ## Resources
