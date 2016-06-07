@@ -30,14 +30,14 @@
                   <legend class="visuallyhidden">Update progression status</legend>
                   {{#progression}}
                     <label class="block-label">
-                      <input type="radio" value="{{name}}" name="status"
+                      <input type="radio" value="{{name}}" name="status" data-submit-on-click
                         {{#isChecked}}checked{{/isChecked}}>
                       {{name}}
                     </label>
                   {{/progression}}
                 </fieldset>
               </div>
-              <div class="form-group">
+              <div class="form-group js-hidden">
                 <input type="submit" class="button">
               </div>
             </form>

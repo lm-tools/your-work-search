@@ -23,4 +23,12 @@ function World() {
 
 module.exports = function () {
   this.World = World;
+  // eslint-disable-next-line new-cap
+  this.Before({ tags: ['@js-disabled'] }, function () {
+    this.browser.runScripts = false;
+  });
+  // eslint-disable-next-line new-cap
+  this.After({ tags: ['@js-disabled'] }, function () {
+    this.browser.runScripts = true;
+  });
 };
