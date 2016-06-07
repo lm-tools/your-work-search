@@ -39,7 +39,7 @@ gulp.task('fonts', () => {
   gulp.src('node_modules/font-awesome/fonts/*').pipe(gulp.dest('dist/public/fonts'));
 });
 
-gulp.task('css', ['fonts'], () => {
+gulp.task('sass', () => {
   gulp.src('assets/stylesheets/*.scss')
     .pipe(plumber())
     .pipe(
@@ -54,6 +54,10 @@ gulp.task('css', ['fonts'], () => {
     .pipe(gulp.dest('dist/public/stylesheets/'));
 });
 
+gulp.task('css', ['fonts', 'sass'], () => {
+  gulp.src('node_modules/jquery-ui/themes/base/minified/**/*')
+    .pipe(gulp.dest('dist/public/stylesheets/jquery'));
+});
 
 gulp.task('server', () => {
   if (node) node.kill();
@@ -67,7 +71,7 @@ gulp.task('server', () => {
 
 gulp.task('watch', ['js', 'css', 'server'], () => {
   gulp.watch(['routes/**/*.js', '*.js'], ['server']);
-  gulp.watch('assets/stylesheets/*.scss', ['css']);
+  gulp.watch('assets/stylesheets/*.scss', ['sass']);
   gulp.watch('assets/js/**/*.js', ['browserify']);
 });
 

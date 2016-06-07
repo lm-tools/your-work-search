@@ -1906,6 +1906,11 @@
       "from": "jquery@latest",
       "resolved": "https://registry.npmjs.org/jquery/-/jquery-2.2.4.tgz"
     },
+    "jquery-ui": {
+      "version": "1.10.5",
+      "from": "jquery-ui@latest",
+      "resolved": "https://registry.npmjs.org/jquery-ui/-/jquery-ui-1.10.5.tgz"
+    },
     "js-tokens": {
       "version": "1.0.3",
       "from": "js-tokens@>=1.0.2 <2.0.0",
@@ -2402,6 +2407,11 @@
           "resolved": "https://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz"
         }
       }
+    },
+    "mobile-detect": {
+      "version": "1.3.2",
+      "from": "mobile-detect@latest",
+      "resolved": "https://registry.npmjs.org/mobile-detect/-/mobile-detect-1.3.2.tgz"
     },
     "module-deps": {
       "version": "4.0.7",

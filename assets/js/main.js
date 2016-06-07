@@ -1,3 +1,6 @@
+const $ = require('jquery');
+require('./_datepickers.js');
+
 // Use GOV.UK selection-buttons.js to set selected
 // and focused states for block labels
 const $blockLabels = $(".block-label input[type='radio'], .block-label input[type='checkbox']");

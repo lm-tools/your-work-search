@@ -6,7 +6,19 @@ const progression = require('../lib/progression');
 const moment = require('moment');
 
 function parseDeadline(deadlineString) {
-  return deadlineString ? moment(deadlineString, 'DD/MM/YYYY').format() : null;
+  const dateFormat = !deadlineString.includes('-') ? 'DD/MM/YYYY' : undefined;
+  return deadlineString ? moment(deadlineString, dateFormat).format() : null;
+}
+
+function validateDeadline(deadline, req) {
+  if (!deadline) { return; }
+
+  if (deadline.includes('-')) {
+    req.checkBody('deadline', 'Deadline should be in "dd/mm/yyyy" format').isDate();
+  } else {
+    req.checkBody('deadline', 'Deadline should be in "dd/mm/yyyy" format')
+      .matches(/^(0?[1-9]|[12][0-9]|3[01])[\/](0?[1-9]|1[012])[\/]\d{4}$/);
+  }
 }
 
 router.get('/new', (req, res) => {
@@ -15,11 +27,9 @@ router.get('/new', (req, res) => {
 
 router.post('/new', (req, res, next) => {
   const accountId = req.params.accountId;
+  const deadline = req.body.deadline;
   req.checkBody('title', 'Job title is required').notEmpty();
-  if (req.body.deadline) {
-    req.checkBody('deadline', 'Deadline should be in "dd/mm/yyyy" format')
-      .matches(/^(0?[1-9]|[12][0-9]|3[01])[\/](0?[1-9]|1[012])[\/]\d{4}$/);
-  }
+  validateDeadline(deadline, req);
 
   if (req.validationErrors()) {
     return res.render('jobs-new',
@@ -27,7 +37,7 @@ router.post('/new', (req, res, next) => {
   }
 
   const jobData = Object.assign({}, req.body, { accountId, status: progression[0] },
-    { deadline: parseDeadline(req.body.deadline) });
+    { deadline: parseDeadline(deadline) });
 
   return new Jobs(jobData).save()
     .then(() => res.redirect(`/${accountId}`))
