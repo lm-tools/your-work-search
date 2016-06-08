@@ -9,6 +9,10 @@ $space_size: 10px;
   margin-top: $space_size * 2;
 }
 
+.space-top {
+  margin-top: $space_size;
+}
+
 .column-three-quarter {
   @include grid-column(3 / 4);
 }
@@ -22,6 +26,16 @@ $space_size: 10px;
   color: $text-colour;
 }
 
+// form
+.radio-block-label {
+  @include media(tablet) {
+    display: block;
+  }
+  @include media(mobile) {
+    display: inline-block;
+    width: 80px;
+  }
+}
 // boxes
 .box {
   display: block;
@@ -68,4 +82,14 @@ $space_size: 10px;
 #validation-errors {
   color: red;
   margin-bottom: $space_size;
+}
+
+.status-label {
+  @include media(tablet) {
+    display: block;
+  }
+  @include media(mobile) {
+    display: inline-block;
+    width: 80px;
+  }
 }

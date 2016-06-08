@@ -48,7 +48,7 @@ router.patch('/:jobId', (req, res, next) => {
   const jobId = req.params.jobId;
   new Jobs({ id: jobId })
     .save(req.body, { method: 'update', patch: true })
-    .then(() => res.redirect(`/${req.params.accountId}#job-${jobId}`))
+    .then(() => res.redirect(`/${req.params.accountId}`))
     .catch((err) => next(err));
 });
 
