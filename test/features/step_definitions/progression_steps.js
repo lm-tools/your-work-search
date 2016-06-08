@@ -1,5 +1,5 @@
-const progression = require('../../../lib/progression');
-const JobsModel = require('../../../models/jobs-model');
+const progression = require('../../../app/models/progression');
+const JobsModel = require('../../../app/models/jobs-model');
 
 module.exports = function () {
   this.Then(/^it should be be at the beginning of the job application progression$/, function () {

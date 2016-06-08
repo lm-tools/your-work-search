@@ -7,8 +7,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const validator = require('express-validator');
 
-const routes = require('./routes/dashboard');
-const jobs = require('./routes/jobs');
+const dashboard = require('./controllers/dashboard');
+const jobs = require('./controllers/jobs');
 
 const app = express();
 
@@ -27,14 +27,15 @@ app.use((req, res, next) => {
     assetPath: '/',
     partials: {
       layout: 'layouts/main',
-      govukTemplate: '../vendor/govuk_template_mustache_inheritance/views/layouts/govuk_template',
+      govukTemplate:
+        '../../vendor/govuk_template_mustache_inheritance/views/layouts/govuk_template',
     },
   };
   next();
 });
 
 // uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname,
+app.use(favicon(path.join(__dirname, '..',
   'vendor', 'govuk_template_mustache_inheritance', 'assets', 'images', 'favicon.ico')));
 
 // Configure logging
@@ -44,11 +45,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'dist/public')));
-app.use(express.static(path.join(__dirname,
+app.use(express.static(path.join(__dirname, '..', 'dist', 'public')));
+app.use(express.static(path.join(__dirname, '..',
   'vendor', 'govuk_template_mustache_inheritance', 'assets')));
 
-app.use('/', routes);
+app.use('/', dashboard);
 app.use('/:accountId/jobs', jobs);
 
 // catch 404 and forward to error handler

@@ -1,4 +1,4 @@
-const JobsModel = require('../../../models/jobs-model');
+const JobsModel = require('../../../app/models/jobs-model');
 const moment = require('moment');
 
 function jobDataFormattedForDb(job) {
