@@ -2,7 +2,7 @@ const express = require('express');
 const router = new express.Router({ mergeParams: true });
 const Jobs = require('../models/jobs-model');
 const AddAJobView = require('./AddAJobView');
-const progression = require('../lib/progression');
+const progression = require('../models/progression');
 const moment = require('moment');
 
 function parseDeadline(deadlineString) {

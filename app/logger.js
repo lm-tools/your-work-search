@@ -46,7 +46,7 @@ morgan.format('dev+', function developmentFormatLine(tokens, req, res) {
 module.exports.init = (env) => {
   if (env === 'test') {
     return morgan('tiny', {
-      stream: fs.createWriteStream(`${__dirname}/logs/test.log`, { flags: 'w' }),
+      stream: fs.createWriteStream(`${__dirname}/../logs/test.log`, { flags: 'w' }),
     });
   }
   return morgan('dev+');

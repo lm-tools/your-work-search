@@ -2,7 +2,7 @@ const express = require('express');
 const uuid = require('node-uuid');
 const router = new express.Router();
 const Jobs = require('../models/jobs-model');
-const progression = require('../lib/progression');
+const progression = require('../models/progression');
 
 const dashboardJobProgression = (job) =>
   progression.map((status) => ({ name: status, isChecked: (job.status === status) }));
