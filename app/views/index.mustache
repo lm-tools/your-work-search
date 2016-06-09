@@ -23,24 +23,27 @@
                   <p class="progression-status">{{status}}</p>
                 </div>
               </div>
+              <form action="/{{accountId}}/jobs/{{id}}?_method=PATCH" method="POST">
+                <div class="grid-row">
+                  <div class="form-group">
+                    <fieldset>
+                      <legend class="visuallyhidden">Update progression status</legend>
+                      {{#progression}}
+                        <div class="column-one-quarter center space-top">
+                          <label class="radio-block-label">{{name}}</label>
+                          <input type="radio" value="{{name}}" name="status"
+                                 data-submit-on-click
+                                 {{#isChecked}}checked{{/isChecked}}>
+                        </div>
+                      {{/progression}}
+                    </fieldset>
+                  </div>
+                  <div class="form-group js-hidden center">
+                    <input type="submit" class="button">
+                  </div>
+                </div>
+              </form>
             </div>
-            <form action="/{{accountId}}/jobs/{{id}}?_method=PATCH" method="POST">
-              <div class="form-group">
-                <fieldset class="inline">
-                  <legend class="visuallyhidden">Update progression status</legend>
-                  {{#progression}}
-                    <label class="block-label">
-                      <input type="radio" value="{{name}}" name="status"
-                        {{#isChecked}}checked{{/isChecked}}>
-                      {{name}}
-                    </label>
-                  {{/progression}}
-                </fieldset>
-              </div>
-              <div class="form-group">
-                <input type="submit" class="button">
-              </div>
-            </form>
           </li>
         {{/jobs}}
       </ul>

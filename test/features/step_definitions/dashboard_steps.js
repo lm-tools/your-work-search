@@ -36,6 +36,17 @@ module.exports = function () {
       .then(() => { job.status = 'interview'; });
   });
 
+  this.When(/^I submit that job's progression status$/, function () {
+    ensureSingleJobScenario.call(this);
+
+    const job = this.scenarioData.jobs[0];
+
+    return this.dashboardPage
+      .visit(this.scenarioData.accountIdentifier)
+      .then(() => this.dashboardPage.submitJobProgressionStatus(job, 'interview'))
+      .then(() => { job.status = 'interview'; });
+  });
+
   this.Then(/^the status should reflect on the dashboard$/, function () {
     ensureSingleJobScenario.call(this);
 
