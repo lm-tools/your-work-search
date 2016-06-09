@@ -1,13 +1,13 @@
 {{<layout}}
 
   {{$applicationContent}}
-    <h2 class="heading-xlarge">{{#__}}dashboard.title{{/__}}</h2>
+    <h2 class="heading-xlarge">{{#__}}dashboard.header{{/__}}</h2>
 
     <p>
-      Add jobs that you're interested or have applied for. You can then track your progress.
+      {{#__}}dashboard.description{{/__}}
     </p>
 
-    <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">+ Add a job</a>
+    <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
 
     <section class="space-top-double">
       <ul>
@@ -27,10 +27,10 @@
                 <div class="grid-row">
                   <div class="form-group">
                     <fieldset>
-                      <legend class="visuallyhidden">Update progression status</legend>
+                      <legend class="visuallyhidden">{{#__}}dashboard.progression-legend-screen-reader{{/__}}</legend>
                       {{#progression}}
                         <div class="column-one-quarter center space-top">
-                          <label class="radio-block-label">{{name}}</label>
+                          <label class="radio-block-label">{{label}}</label>
                           <input type="radio" value="{{name}}" name="status"
                                  data-submit-on-click
                                  {{#isChecked}}checked{{/isChecked}}>

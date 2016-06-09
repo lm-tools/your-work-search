@@ -1,5 +1,30 @@
 {
   "dashboard": {
-    "title": "Your work search"
+    "header": "Your work search",
+    "description": "Add jobs that you're interested or have applied for. You can then track your progress.",
+    "add-job-button": "+ Add a job",
+    "progression-legend-screen-reader": "Update progression status"
+  },
+  "layout": {
+    "header": "Your work search"
+  },
+  "progression": {
+    "interested": "Interested",
+    "applied": "Applied",
+    "interview": "Interview",
+    "result": "Result"
+  },
+  "addJob": {
+    "form": {
+      "title": "Job title",
+      "employer": "Employer",
+      "sourceType": "Where did you find out about this job?",
+      "sourceUrl": "What website?",
+      "deadline": "What is the deadline?",
+      "rating": "How interested in the role are you?",
+      "submit": "Save"
+    },
+    "header": "Add a job",
+    "linkBack": "Back"
   }
 }
