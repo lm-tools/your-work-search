@@ -7,7 +7,7 @@
       Add jobs that you're interested or have applied for. You can then track your progress.
     </p>
 
-    <a href="/{{accountId}}/jobs/new" class="button">+ Add a job</a>
+    <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">+ Add a job</a>
 
     <section class="space-top-double">
       <ul>
@@ -23,7 +23,7 @@
                   <p class="progression-status">{{status}}</p>
                 </div>
               </div>
-              <form action="/{{accountId}}/jobs/{{id}}?_method=PATCH" method="POST">
+              <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=PATCH" method="POST">
                 <div class="grid-row">
                   <div class="form-group">
                     <fieldset>

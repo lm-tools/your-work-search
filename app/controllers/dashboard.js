@@ -14,8 +14,9 @@ const dashboardJobs = (jobModels) =>
 
 /* GET home page. */
 router.get('/', (req, res) => {
+  const basePath = req.app.locals.basePath;
   const accountId = req.query.id || uuid.v4();
-  res.redirect(`/${accountId}`);
+  res.redirect(`${basePath}/${accountId}`);
 });
 
 router.get('/:accountId', (req, res, next) => {

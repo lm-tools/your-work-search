@@ -17,7 +17,7 @@ App requires postgresql running locally. You can run it in docker following belo
     $ export DATABASE_URL=postgres://postgres:password@localhost/your_work_search
 
 **Note**: if you are using *docker-machine* your *DATABASE_URL* will be different
-  
+
     $ export DATABASE_URL=postgres://postgres:password@`docker-machine ip`/your_work_search
 
 ### Start the app
@@ -26,7 +26,18 @@ App requires postgresql running locally. You can run it in docker following belo
     & npm run db-migrate
     $ npm run watch
 
-## Resources
+## Mounting the application in a directory
+
+The app will run mounted at "/" by default. To run within a directory, set the
+`EXPRESS_BASE_PATH` environment variable.
+
+For example, to mount the application at "/your-work-search", run:
+
+```sh
+$ EXPRESS_BASE_PATH=/work-you-could-do npm run start
+```
+
+### Resources
 
 * [Zombie.js documentation][zombie docs]
 
