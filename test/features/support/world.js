@@ -10,10 +10,17 @@ require('../../../bin/www');  // This starts the web server, and ensures it is o
                               // started once. It is a misuse of "require", and
                               // should be improved.
 
+const basePath = process.env.EXPRESS_BASE_PATH || '';
+
+const visitWithBasePath = (browser) => {
+  const visit = browser.visit.bind(browser);
+  return (url, ...args) => visit(basePath + url, ...args);
+};
 
 function World() {
   this.expect = chai.expect;
   this.browser = new Zombie();
+  this.browser.visit = visitWithBasePath(this.browser);
 
   this.fixtures = new Fixtures();
   this.scenarioData = new ScenarioData();

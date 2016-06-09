@@ -26,6 +26,7 @@ router.get('/new', (req, res) => {
 });
 
 router.post('/new', (req, res, next) => {
+  const basePath = req.app.locals.basePath;
   const accountId = req.params.accountId;
   const deadline = req.body.deadline;
   req.checkBody('title', 'Job title is required').notEmpty();
@@ -40,15 +41,17 @@ router.post('/new', (req, res, next) => {
     { deadline: parseDeadline(deadline) });
 
   return new Jobs(jobData).save()
-    .then(() => res.redirect(`/${accountId}`))
+    .then(() => res.redirect(`${basePath}/${accountId}`))
     .catch((err) => next(err));
 });
 
 router.patch('/:jobId', (req, res, next) => {
+  const basePath = req.app.locals.basePath;
+  const accountId = req.params.accountId;
   const jobId = req.params.jobId;
   new Jobs({ id: jobId })
     .save(req.body, { method: 'update', patch: true })
-    .then(() => res.redirect(`/${req.params.accountId}`))
+    .then(() => res.redirect(`${basePath}/${accountId}`))
     .catch((err) => next(err));
 });
 
