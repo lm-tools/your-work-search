@@ -3,9 +3,15 @@ const uuid = require('node-uuid');
 const router = new express.Router();
 const Jobs = require('../models/jobs-model');
 const progression = require('../models/progression');
+const i18n = require('i18n');
 
 const dashboardJobProgression = (job) =>
-  progression.map((status) => ({ name: status, isChecked: (job.status === status) }));
+  progression.map((status) => ({
+    name: status,
+    isChecked: (job.status === status),
+    // eslint-disable-next-line no-underscore-dangle
+    label: i18n.__(`progression.${status}`),
+  }));
 
 const dashboardJobs = (jobModels) =>
   jobModels
