@@ -41,6 +41,11 @@ describe('Dashboard', () => {
 
     it('should display current status', () =>
       expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal('Applied'));
+
+    it('should display deadline');
+    it('should display interest level');
+    it('should display where you find the role for online option');
+    it('should display where you find the role for in person option');
   });
   describe('display my jobs', () => {
     beforeEach(function () {
