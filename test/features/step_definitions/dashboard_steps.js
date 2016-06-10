@@ -55,8 +55,8 @@ module.exports = function () {
     return this.dashboardPage
       .visit(this.scenarioData.accountIdentifier)
       .then(() => {
-        this.expect(this.dashboardPage.jobProgressionStatus(job)).to.equal(job.status);
-        this.expect(this.dashboardPage.selectedProgressionStatus(job)).to.equal(job.status);
+        this.expect(this.dashboardPage.getJobProgressionStatus(job)).to.equal(job.status);
+        this.expect(this.dashboardPage.getSelectedProgressionStatus(job)).to.equal(job.status);
       });
   });
 };
