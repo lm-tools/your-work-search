@@ -12,15 +12,15 @@
     <section class="space-top-double">
       <ul>
         {{#jobs}}
-          <li id="job-{{id}}">
+          <li data-test="job-container-{{id}}">
             <div class="box box-link box-fixed-height">
               <div class="grid-row">
                 <div class="column-three-quarter">
-                  <h4 class="bold-small">{{title}}</h4>
-                  <p class="color-text">{{employer}}</p>
+                  <h4 class="bold-small" data-test="title">{{title}}</h4>
+                  <p class="color-text" data-test="employer">{{employer}}</p>
                 </div>
                 <div class="column-one-quarter color-text center">
-                  <p class="progression-status">{{status}}</p>
+                  <p class="progression-status" data-test="status">{{status}}</p>
                 </div>
               </div>
               <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=PATCH" method="POST">
@@ -31,7 +31,7 @@
                       {{#progression}}
                         <div class="column-one-quarter center space-top">
                           <label class="radio-block-label">{{label}}</label>
-                          <input type="radio" value="{{name}}" name="status"
+                          <input type="radio" value="{{name}}" name="status" data-test="progression"
                                  data-submit-on-click
                                  {{#isChecked}}checked{{/isChecked}}>
                         </div>
