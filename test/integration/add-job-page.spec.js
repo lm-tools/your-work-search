@@ -1,8 +1,7 @@
 const helper = require('./integrationSpecHelper');
 const promise = helper.promise;
-const Zombie = require('zombie');
 const AddJobPage = require('../common/page_objects/AddJobPage');
-const addJobPage = new AddJobPage(new Zombie());
+const addJobPage = new AddJobPage(helper.browser);
 const expect = require('chai').expect;
 
 describe('Add a job page', () => {
