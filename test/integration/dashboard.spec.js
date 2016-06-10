@@ -12,8 +12,8 @@ describe('Dashboard', () => {
     employer: 'Test employer',
     sourceType: 'online',
     sourceUrl: 'http://example.org',
-    rating: '4',
-    deadline: '20/10/2016',
+    rating: 4,
+    deadline: new Date(),
     status: 'applied',
     accountId,
   };
