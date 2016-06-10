@@ -19,6 +19,7 @@ const DashboardPage = function DashboardPage(browser) {
     const element = browser.query(`#job-${job.id} input[name="status"]:checked`);
     return element && element.value;
   };
+  this.getTitle = (job) => browser.text(`#job-${job.id} [data-test="title"]`);
 };
 
 module.exports = DashboardPage;
