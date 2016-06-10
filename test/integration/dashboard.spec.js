@@ -46,19 +46,20 @@ describe('Dashboard', () => {
     beforeEach(function () {
       return helper.cleanDb();
     });
+
+    const createJob = (attributes) =>
+      new JobsModel(Object.assign({}, jobData, attributes)).save();
+
     it('should display details of all my jobs', () =>
       Promise
         .all([1, 2, 3]
-          .map(i => new JobsModel(Object.assign({}, jobData, { title: `Random title ${i}` }))
-            .save())
+          .map(i => createJob({ title: `Random title ${i}` }))
         )
         .then(() => dashboardPage.visit(accountId))
         .then(() => expect(dashboardPage.jobCount()).to.equal(3)));
 
     it('should not show jobs from other accounts', () =>
-      Promise
-        .all([1, 2, 3]
-          .map(() => new JobsModel(Object.assign({}, jobData, { accountId: uuid.v4() })).save()))
+      createJob({ accountId: uuid.v4() })
         .then(() => dashboardPage.visit(accountId))
         .then(() => expect(dashboardPage.jobCount()).to.equal(0)));
   });
