@@ -21,10 +21,14 @@ describe('Dashboard', () => {
   describe('display all the details of a job', () => {
     let savedJob;
 
-    before(() => new JobsModel(jobData).save()
-      .then(job => { savedJob = job; })
-      .then(() => dashboardPage.visit(accountId))
-    );
+    before(function () {
+      return helper.cleanDb()
+        .then(() => new JobsModel(jobData).save())
+        .then(job => {
+          savedJob = job;
+        })
+        .then(() => dashboardPage.visit(accountId));
+    });
 
     it('should display title', () =>
       expect(dashboardPage.getTitle(savedJob)).to.equal(jobData.title));
@@ -38,8 +42,10 @@ describe('Dashboard', () => {
     it('should display current status', () =>
       expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal(jobData.status));
   });
-
-  describe.skip('display my jobs', () => {
+  describe('display my jobs', () => {
+    beforeEach(function () {
+      return helper.cleanDb();
+    });
     it('should display details of all my jobs', () =>
       Promise
         .all([1, 2, 3]
