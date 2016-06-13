@@ -16,7 +16,9 @@ const dashboardJobProgression = (job) =>
 const dashboardJobs = (jobModels) =>
   jobModels
     .serialize()
-    .map((job) => Object.assign({ progression: dashboardJobProgression(job) }, job));
+    .map((job) => Object.assign({ progression: dashboardJobProgression(job) },
+      // eslint-disable-next-line no-underscore-dangle
+      { statusString: i18n.__(`progression.${job.status}`) }, job));
 
 /* GET home page. */
 router.get('/', (req, res) => {
