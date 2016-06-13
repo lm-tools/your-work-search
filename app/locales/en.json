@@ -10,7 +10,8 @@
       "created": "date added",
       "updated": "date updated",
       "alpha": "job title"
-    }
+    },
+    "deadline": "Deadline"
   },
   "layout": {
     "header": "Your work search"

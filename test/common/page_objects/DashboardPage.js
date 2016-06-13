@@ -36,6 +36,7 @@ const DashboardPage = function DashboardPage(browser) {
   };
   this.getTitle = (job) => browser.text(jobElementSelector(job, 'title'));
   this.getEmployer = (job) => browser.text(jobElementSelector(job, 'employer'));
+  this.getDeadline = (job) => browser.text(jobElementSelector(job, 'deadline'));
 };
 
 module.exports = DashboardPage;

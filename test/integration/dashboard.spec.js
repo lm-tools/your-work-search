@@ -13,7 +13,7 @@ describe('Dashboard', () => {
     sourceType: 'online',
     sourceUrl: 'http://example.org',
     rating: 4,
-    deadline: new Date(),
+    deadline: new Date('2050-10-10'),
     status: 'applied',
     accountId,
   };
@@ -42,7 +42,9 @@ describe('Dashboard', () => {
     it('should display current status', () =>
       expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal('Applied'));
 
-    it('should display deadline');
+    it('should display deadline', () =>
+      expect(dashboardPage.getDeadline(savedJob)).to.equal('10th October 2050'));
+
     it('should display interest level');
     it('should display where you find the role for online option');
     it('should display where you find the role for in person option');
