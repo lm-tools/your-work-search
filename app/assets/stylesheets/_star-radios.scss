@@ -25,18 +25,27 @@
       color: #ddd;
       float: right;
     }
-    /***** CSS Magic to Highlight Stars on Hover *****/
-    > input:checked ~ label, /* show gold star when clicked */
-    &:not(:checked) > label:hover, /* hover current star */
-    &:not(:checked) > label:hover ~ label {
-      color: #FFD700;
+
+    &.rating-options-group-enabled {
+      /***** CSS Magic to Highlight Stars on Hover *****/
+      > input:checked ~ label, /* show gold star when clicked */
+      &:not(:checked) > label:hover, /* hover current star */
+      &:not(:checked) > label:hover ~ label {
+        color: #FFD700;
+      }
+      /* hover previous stars in list */
+      > input:checked + label:hover, /* hover current star when changing rating */
+      > input:checked ~ label:hover,
+      > label:hover ~ input:checked ~ label, /* lighten current selection */
+      > input:checked ~ label:hover ~ label {
+        color: #FFED85;
+      }
     }
-    /* hover previous stars in list */
-    > input:checked + label:hover, /* hover current star when changing rating */
-    > input:checked ~ label:hover,
-    > label:hover ~ input:checked ~ label, /* lighten current selection */
-    > input:checked ~ label:hover ~ label {
-      color: #FFED85;
+
+    &.rating-options-group-disabled {
+      input:checked ~ label {
+        color: $grey-1;
+      }
     }
   }
 }

@@ -16,6 +16,8 @@ module.exports = class DashboardViewModel {
         // eslint-disable-next-line no-underscore-dangle
         { statusString: i18n.__(`progression.${job.status}`) },
         { deadlineFormatted: this.formatDeadline(job.deadline) },
+        { interestLevel: [1, 2, 3, 4, 5]
+          .map(v => ({ value: v, isChecked: v === job.rating })) },
         job));
   }
 

@@ -11,7 +11,8 @@
       "updated": "date updated",
       "alpha": "job title"
     },
-    "deadline": "Deadline"
+    "deadline": "Deadline",
+    "interestLevel": "Interest level"
   },
   "layout": {
     "header": "Your work search"

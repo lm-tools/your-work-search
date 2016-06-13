@@ -45,7 +45,9 @@ describe('Dashboard', () => {
     it('should display deadline', () =>
       expect(dashboardPage.getDeadline(savedJob)).to.equal('10th October 2050'));
 
-    it('should display interest level');
+    it('should display interest level', () =>
+      expect(dashboardPage.getInterestLevel(savedJob)).to.equal('4'));
+
     it('should display where you find the role for online option');
     it('should display where you find the role for in person option');
   });

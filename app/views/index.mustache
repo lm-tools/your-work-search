@@ -36,6 +36,23 @@
                   </dl>
                 </div>
               </div>
+              <div class="grid-row">
+                <div class="column-half">
+                  <dl>
+                    <dd>{{#__}}dashboard.interestLevel{{/__}}</dd>
+                    <dt class="star-rating">
+                      <div class="rating-options-group rating-options-group-disabled">
+                        {{#interestLevel}}
+                          <input type="radio" data-test="rating"
+                                 value="{{value}}" disabled
+                                 {{#isChecked}}checked{{/isChecked}} >
+                          <label class="full" for="job-rating-{{value}}"></label>
+                        {{/interestLevel}}
+                      </div>
+                    </dt>
+                  </dl>
+                </div>
+              </div>
               <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=PATCH" method="POST">
                 <div class="grid-row">
                   <div class="form-group">
