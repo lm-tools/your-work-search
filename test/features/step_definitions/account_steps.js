@@ -1,9 +1,12 @@
 const JobsModel = require('../../../app/models/jobs-model');
 const moment = require('moment');
+const initialStatus = require('../../../app/models/progression')[0];
 
 function jobDataFormattedForDb(job) {
   return Object.assign({}, job,
-    { deadline: moment(job.deadline, 'DD/MM/YYYY').format() });
+    { deadline: moment(job.deadline, 'DD/MM/YYYY').format() },
+    { status: initialStatus }
+  );
 }
 
 module.exports = function () {
