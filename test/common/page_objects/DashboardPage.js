@@ -16,6 +16,12 @@ const DashboardPage = function DashboardPage(browser) {
     return browser.visit(`/${accountId}`);
   };
 
+  this.sort = (accountId, sort) => {
+    assert(accountId, 'accountId is required');
+    assert(sort, 'sort type is required');
+    return browser.visit(`/${accountId}?sort=${sort}`);
+  };
+
   this.clickAddJobButton = () => browser.click('a.button');
   this.jobList = () => browser.text('ul h4');
   this.jobCount = () => browser.queryAll('[data-test|=job-container]').length;
