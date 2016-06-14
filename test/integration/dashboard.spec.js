@@ -51,7 +51,15 @@ describe('Dashboard', () => {
     it('should display where you find the role', () =>
       expect(dashboardPage.getJobSource(savedJob)).to.equal(jobData.sourceUrl));
 
-    it('should show/hide job details');
+    it('should hide job details by default', () =>
+      expect(dashboardPage.isJobDetailsVisible(savedJob))
+        .to.equal(false, 'Job details should be hidden'));
+
+    it('should show job details when details button clicked', () => {
+      dashboardPage.clickJobDetailsButton(savedJob);
+      expect(dashboardPage.isJobDetailsVisible(savedJob))
+        .to.equal(true, 'Job details should be visible');
+    });
   });
   describe('display my jobs', () => {
     beforeEach(function () {

@@ -1,6 +1,7 @@
 const $ = require('jquery');
 require('./_datepickers.js');
 require('./_auto-submit');
+require('./_hideShow');
 
 // Use GOV.UK selection-buttons.js to set selected
 // and focused states for block labels
