@@ -1,25 +1,22 @@
 const db = require('../db');
 
+const sortRef = {
+  created: { field: 'created_at', direction: 'ASC' },
+  updated: { field: 'updated_at', direction: 'DESC' },
+  alpha: { field: 'title', direction: 'ASC' },
+};
+
 module.exports = db.Model.extend(
   {
     tableName: 'jobs',
     hasTimestamps: true,
   },
   {
-    findAllByAccountId(accountId) {
-      return this.forge().query({ where: { accountId } })
-        .fetchAll();
-    },
-
-    findAllByAccountIdWithSort(accountId, sort) {
-      const sortType = {
-        created: { field: 'created_at', direction: 'ASC' },
-        updated: { field: 'updated_at', direction: 'DESC' },
-        alpha: { field: 'title', direction: 'ASC' },
-      };
+    findAllByAccountId(accountId, sort) {
+      const sortOrDefault = (sort == null) ? 'created' : sort;
 
       return this.forge().query({ where: { accountId } })
-        .orderBy(sortType[sort].field, sortType[sort].direction)
+        .orderBy(sortRef[sortOrDefault].field, sortRef[sortOrDefault].direction)
         .fetchAll();
     },
   }
