@@ -33,7 +33,7 @@ module.exports = function () {
     return this.dashboardPage
       .visit(this.scenarioData.accountIdentifier)
       .then(() => this.dashboardPage.setJobProgressionStatus(job, 'interview'))
-      .then(() => { job.status = 'interview'; });
+      .then(() => { job.expectedStatus = { label: 'Interview', val: 'interview' }; });
   });
 
   this.When(/^I submit that job's progression status$/, function () {
@@ -44,7 +44,7 @@ module.exports = function () {
     return this.dashboardPage
       .visit(this.scenarioData.accountIdentifier)
       .then(() => this.dashboardPage.submitJobProgressionStatus(job, 'interview'))
-      .then(() => { job.status = 'interview'; });
+      .then(() => { job.expectedStatus = { label: 'Interview', val: 'interview' }; });
   });
 
   this.Then(/^the status should reflect on the dashboard$/, function () {
@@ -55,8 +55,10 @@ module.exports = function () {
     return this.dashboardPage
       .visit(this.scenarioData.accountIdentifier)
       .then(() => {
-        this.expect(this.dashboardPage.getJobProgressionStatus(job)).to.equal(job.status);
-        this.expect(this.dashboardPage.getSelectedProgressionStatus(job)).to.equal(job.status);
+        this.expect(this.dashboardPage.getJobProgressionStatus(job))
+          .to.equal(job.expectedStatus.label);
+        this.expect(this.dashboardPage.getSelectedProgressionStatus(job))
+          .to.equal(job.expectedStatus.val);
       });
   });
 };

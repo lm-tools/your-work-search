@@ -40,7 +40,7 @@ describe('Dashboard', () => {
       expect(dashboardPage.getSelectedProgressionStatus(savedJob)).to.equal(jobData.status));
 
     it('should display current status', () =>
-      expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal(jobData.status));
+      expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal('Applied'));
   });
   describe('display my jobs', () => {
     beforeEach(function () {
