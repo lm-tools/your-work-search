@@ -46,10 +46,12 @@ describe('Dashboard', () => {
       expect(dashboardPage.getDeadline(savedJob)).to.equal('10th October 2050'));
 
     it('should display interest level', () =>
-      expect(dashboardPage.getInterestLevel(savedJob)).to.equal('4'));
+      expect(dashboardPage.getInterestLevel(savedJob)).to.equal(`${jobData.rating}`));
 
-    it('should display where you find the role for online option');
-    it('should display where you find the role for in person option');
+    it('should display where you find the role', () =>
+      expect(dashboardPage.getJobSource(savedJob)).to.equal(jobData.sourceUrl));
+
+    it('should show/hide job details');
   });
   describe('display my jobs', () => {
     beforeEach(function () {

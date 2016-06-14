@@ -41,6 +41,7 @@ const DashboardPage = function DashboardPage(browser) {
     const element = browser.query(`${jobElementSelector(job, 'rating')}:checked`);
     return element && element.value;
   };
+  this.getJobSource = (job) => browser.text(jobElementSelector(job, 'source'));
 };
 
 module.exports = DashboardPage;

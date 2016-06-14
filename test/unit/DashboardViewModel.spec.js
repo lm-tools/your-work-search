@@ -1,4 +1,5 @@
 const helper = require('./unitSpecHelper');
+const sampleJob = helper.sampleJob;
 const DashboardViewModel = require('../../app/controllers/DashboardViewModel');
 const expect = require('chai').expect;
 const sinon = require('sinon');
@@ -31,14 +32,39 @@ describe('DashboardViewModel', function () {
       },
       { name: 'return empty string', deadline: undefined, expected: '' },
       { name: 'return empty string', deadline: null, expected: '' },
-    ].forEach(function (s) {
+    ].forEach(s => {
       it(`should ${s.name}, date: '${s.deadline}' expected: '${s.expected}'`, function () {
-        const dashboardViewModel = new DashboardViewModel('123', [{
-          status: helper.initialStatus,
-          deadline: s.deadline,
-        }]);
+        const dashboardViewModel = new DashboardViewModel('123', [
+          sampleJob({ deadline: s.deadline }),
+        ]);
         expect(dashboardViewModel.jobs[0].deadlineFormatted).to.equal(s.expected);
       });
     });
+  });
+
+  describe('source', function () {
+    [
+      {
+        name: 'should equal "In person" for "inPerson" sourceType',
+        job: sampleJob({ sourceType: 'inPerson', sourceUrl: '' }),
+        expectedSource: 'In person',
+      },
+      {
+        name: 'should equal sourceUrl for "online" sourceType',
+        job: sampleJob({ sourceType: 'online', sourceUrl: 'http://example.org' }),
+        expectedSource: 'http://example.org',
+      },
+      {
+        name: 'should equal "Online" for "online" sourceType when sourceUrl is missing',
+        job: sampleJob({ sourceType: 'online', sourceUrl: '' }),
+        expectedSource: 'Online',
+      },
+    ].forEach(s => {
+      it(s.name, function () {
+        const model = new DashboardViewModel('', [s.job]);
+        expect(model.jobs[0].source).to.equal(s.expectedSource);
+      });
+    })
+    ;
   });
 });

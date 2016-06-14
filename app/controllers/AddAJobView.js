@@ -1,3 +1,6 @@
+const i18n = require('i18n');
+/* eslint-disable no-underscore-dangle */
+
 class AddAJobView {
   constructor(accountId, body, validationErrors) {
     Object.assign(this, body);
@@ -9,8 +12,8 @@ class AddAJobView {
 
     this.sourceTypeOptions = this.addCheckedFlag(
       [
-        { value: 'online', label: 'Online' },
-        { value: 'inPerson', label: 'In person' },
+        { value: 'online', label: i18n.__('sourceType.online') },
+        { value: 'inPerson', label: i18n.__('sourceType.inPerson') },
       ],
       body.sourceType || 'online'
     );
