@@ -29,8 +29,10 @@ router.get('/', (req, res) => {
 
 router.get('/:accountId', (req, res, next) => {
   const accountId = req.params.accountId;
+  const sort = req.query.sort;
+
   Jobs
-    .findAllByAccountId(accountId)
+    .findAllByAccountId(accountId, sort)
     .then((jobModels) => res.render('index',
       {
         accountId,
