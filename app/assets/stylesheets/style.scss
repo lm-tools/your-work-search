@@ -26,6 +26,10 @@ $space_size: 10px;
   color: $text-colour;
 }
 
+dt {
+  margin-top: $space_size * 2;
+}
+
 // form
 .radio-block-label {
   @include media(tablet) {
@@ -49,8 +53,6 @@ $space_size: 10px;
   display: block;
   border: 1px solid $panel-colour;
   padding: (18px $gutter $gutter-half $gutter*1.8);
-
-  margin-bottom: $space_size;
 }
 
 .box-fixed-height {
@@ -68,6 +70,10 @@ $space_size: 10px;
   &:hover {
     border-color: $black;
   }
+}
+
+.box-main {
+  margin-top: $space_size;
 }
 
 .box-min-padding {

@@ -22,7 +22,7 @@
       <ul>
         {{#jobs}}
           <li data-test="job-container-{{id}}" id="job-container-{{id}}">
-            <div class="box box-link box-fixed-height">
+            <div class="box box-link box-fixed-height box-main">
               <div class="grid-row">
                 <div class="column-three-quarter">
                   <h4 class="bold-small" data-test="title">{{title}}</h4>
@@ -44,47 +44,50 @@
                 <div class="grid-row">
                   <div class="column-half">
                     <dl>
-                      <dd>{{#__}}dashboard.source{{/__}}</dd>
-                      <dt data-test="source">{{source}}</dt>
-                      <dd>{{#__}}dashboard.interestLevel{{/__}}</dd>
-                      <dt class="star-rating">
-                      <div class="rating-options-group rating-options-group-disabled">
-                        {{#interestLevel}}
-                          <input type="radio" data-test="rating"
-                                 value="{{value}}" disabled
-                                 {{#isChecked}}checked{{/isChecked}} >
-                          <label class="full" for="job-rating-{{value}}"></label>
-                        {{/interestLevel}}
-                      </div>
-                      </dt>
+                      <dt class="">{{#__}}dashboard.source{{/__}}</dt>
+                      <dd data-test="source">{{source}}</dd>
+                      <dt>{{#__}}dashboard.interestLevel{{/__}}</dt>
+                      <dd class="star-rating">
+                        <div class="rating-options-group rating-options-group-disabled">
+                          {{#interestLevel}}
+                            <input type="radio" data-test="rating"
+                                   value="{{value}}" disabled
+                                   {{#isChecked}}checked{{/isChecked}} >
+                            <label class="full" for="job-rating-{{value}}"></label>
+                          {{/interestLevel}}
+                        </div>
+                      </dd>
                     </dl>
                   </div>
                 </div>
-                <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=PATCH" method="POST">
-                  <div class="grid-row">
-                    <div class="form-group">
-                      <fieldset>
-                        <legend class="visuallyhidden">
-                            {{#__}}dashboard.progression-legend-screen-reader{{/__}}
-                        </legend>
-                        {{#progression}}
-                          <div class="column-one-quarter center space-top">
-                            <label class="radio-block-label">{{label}}</label>
-                            <input type="radio" value="{{name}}" name="status"
-                                   data-test="progression"
-                                   data-submit-on-click
-                                   {{#isChecked}}checked{{/isChecked}}>
-                          </div>
-                        {{/progression}}
-                      </fieldset>
-                    </div>
-                    <div class="form-group js-hidden center">
-                      <input type="submit" class="button">
-                    </div>
-                  </div>
-                </form>
               </div>
             </div>
+            <div class="details js-hidden box" data-test="details">
+              <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=PATCH" method="POST">
+                <div class="grid-row">
+                  <div class="form-group">
+                    <fieldset>
+                      <legend class="visuallyhidden">
+                        {{#__}}dashboard.progression-legend-screen-reader{{/__}}
+                      </legend>
+                      {{#progression}}
+                        <div class="column-one-quarter center space-top">
+                          <label class="radio-block-label">{{label}}</label>
+                          <input type="radio" value="{{name}}" name="status"
+                                 data-test="progression"
+                                 data-submit-on-click
+                                 {{#isChecked}}checked{{/isChecked}}>
+                        </div>
+                      {{/progression}}
+                    </fieldset>
+                  </div>
+                  <div class="form-group js-hidden center">
+                    <input type="submit" class="button">
+                  </div>
+                </div>
+              </form>
+            </div>
+
           </li>
         {{/jobs}}
       </ul>
