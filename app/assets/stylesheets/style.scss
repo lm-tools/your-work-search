@@ -64,7 +64,11 @@ $box-border-color: $panel-colour;
   margin-bottom: $box-gutter;
 
   .details-button {
+    margin-top: 1em;
+    display: inline-block;
+
     @include media(desktop) {
+      margin-top: 0;
       position: relative;
       top: -1em;
     }
