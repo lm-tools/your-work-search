@@ -9,6 +9,15 @@
 
     <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
 
+    <form class="space-top-double" action="{{basePath}}/{{accountId}}" method="GET">
+      <label for="sort">{{#__}}dashboard.sort.label{{/__}}</label>
+      <select class="form-control form-control-auto" name="sort" id="sort" onchange="this.form.submit()">
+        {{#sortOptions}}
+          <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
+        {{/sortOptions}}
+      </select>
+      <input class="button js-hidden" type="submit" value="{{#__}}dashboard.sort.button{{/__}}">
+    </form>
     <section class="space-top-double">
       <ul>
         {{#jobs}}
