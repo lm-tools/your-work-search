@@ -10,7 +10,13 @@
       "created": "date added",
       "updated": "date updated",
       "alpha": "job title"
-    }
+    },
+    "progression": "Update progression status",
+    "progressionScreenReader": "Update progression status",
+    "deadline": "Deadline",
+    "interestLevel": "Interest level",
+    "source": "Where did you find this role?",
+    "detailsButton": "Details"
   },
   "layout": {
     "header": "Your work search"
@@ -33,5 +39,9 @@
     },
     "header": "Add a job",
     "linkBack": "Back"
+  },
+  "sourceType": {
+    "inPerson": "In person",
+    "online": "Online"
   }
 }

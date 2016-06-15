@@ -22,7 +22,8 @@ const DashboardPage = function DashboardPage(browser) {
   };
 
   this.clickAddJobButton = () => browser.click('a.button');
-  this.jobList = () => browser.text('ul h4');
+  this.clickJobDetailsButton = job => browser.click(jobElementSelector(job, 'details-button'));
+  this.jobList = () => browser.text('ul [data-test="title"]');
   this.jobCount = () => browser.queryAll('[data-test|=job-container]').length;
   this.setJobProgressionStatus = (job, status) => browser
       .click(`${jobElementSelector(job, 'progression')}[value="${status}"]`);
@@ -36,6 +37,14 @@ const DashboardPage = function DashboardPage(browser) {
   };
   this.getTitle = (job) => browser.text(jobElementSelector(job, 'title'));
   this.getEmployer = (job) => browser.text(jobElementSelector(job, 'employer'));
+  this.getDeadline = (job) => browser.text(jobElementSelector(job, 'deadline'));
+  this.getInterestLevel = (job) => {
+    const element = browser.query(`${jobElementSelector(job, 'rating')}:checked`);
+    return element && element.value;
+  };
+  this.getJobSource = (job) => browser.text(jobElementSelector(job, 'source'));
+  this.isJobDetailsVisible = job => !browser.query(jobElementSelector(job, 'details'))
+      .className.split(/\s+/).includes('js-hidden');
 };
 
 module.exports = DashboardPage;
