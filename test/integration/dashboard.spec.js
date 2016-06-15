@@ -105,8 +105,8 @@ describe('Dashboard', () => {
       dashboardPage.sort(accountId, 'updated')
         .then(() => expect(dashboardPage.jobList()).to.eql('EndMiddleBeginning')));
 
-    it('should sort jobs by alphabet', () =>
-      dashboardPage.sort(accountId, 'alpha')
+    it('should sort jobs by title', () =>
+      dashboardPage.sort(accountId, 'title')
         .then(() => expect(dashboardPage.jobList()).to.eql('BeginningEndMiddle')));
   });
 });

@@ -9,7 +9,7 @@
       "button": "Sort",
       "created": "date added",
       "updated": "date updated",
-      "alpha": "job title"
+      "title": "job title"
     },
     "progression": "Update progression status",
     "progressionScreenReader": "Update progression status",

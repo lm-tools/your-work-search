@@ -40,7 +40,7 @@ module.exports = class DashboardViewModel {
       // eslint-disable-next-line no-underscore-dangle
       { value: 'updated', label: i18n.__('dashboard.sort.updated'), selected: sort === 'updated' },
       // eslint-disable-next-line no-underscore-dangle
-      { value: 'alpha', label: i18n.__('dashboard.sort.alpha'), selected: sort === 'alpha' },
+      { value: 'title', label: i18n.__('dashboard.sort.title'), selected: sort === 'title' },
     ];
   }
 
