@@ -18,7 +18,6 @@ const DashboardPage = function DashboardPage(browser) {
 
   this.sort = (accountId, sort) => {
     assert(accountId, 'accountId is required');
-    assert(sort, 'sort type is required');
     return browser.visit(`/${accountId}?sort=${sort}`);
   };
 

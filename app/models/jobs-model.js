@@ -13,7 +13,7 @@ module.exports = db.Model.extend(
   },
   {
     findAllByAccountId(accountId, sort) {
-      const sortOrDefault = (sort == null) ? 'created' : sort;
+      const sortOrDefault = (sort == null || sort === '') ? 'created' : sort;
 
       return this.forge().query({ where: { accountId } })
         .orderBy(sortRef[sortOrDefault].field, sortRef[sortOrDefault].direction)
