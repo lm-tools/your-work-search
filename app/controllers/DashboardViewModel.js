@@ -12,12 +12,15 @@ module.exports = class DashboardViewModel {
 
   dashboardJobs(jobModels) {
     return jobModels
-      .map((job) => Object.assign({ progression: this.dashboardJobProgression(job) },
-        // eslint-disable-next-line no-underscore-dangle
-        { statusString: i18n.__(`progression.${job.status}`) },
-        { deadlineFormatted: this.formatDeadline(job.deadline) },
-        { interestLevel: [1, 2, 3, 4, 5].map(v => ({ value: v, isChecked: v === job.rating })) },
-        { source: this.formatSource(job) },
+      .map((job) => Object.assign(
+        {
+          progression: this.dashboardJobProgression(job),
+          // eslint-disable-next-line no-underscore-dangle
+          statusString: i18n.__(`progression.${job.status}`),
+          deadlineFormatted: this.formatDeadline(job.deadline),
+          interestLevel: [1, 2, 3, 4, 5].map(v => ({ value: v, isChecked: v === job.rating })),
+          source: this.formatSource(job),
+        },
         job));
   }
 
@@ -42,9 +45,8 @@ module.exports = class DashboardViewModel {
   }
 
   formatDeadline(deadline) {
-    if (!deadline) {
-      return '';
-    }
+    if (!deadline) return '';
+
     const date = moment(deadline);
     return date.isSame(new Date(), 'year') ? date.format('Do MMMM') : date.format('Do MMMM YYYY');
   }
