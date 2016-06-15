@@ -64,32 +64,26 @@ describe('Dashboard', () => {
         .then(() => expect(dashboardPage.jobCount()).to.equal(0)));
   });
   describe('should sort job list', () => {
-    beforeEach(function () {
-      return helper.cleanDb();
-    });
-
     const createJob = (attributes) =>
       new JobsModel(Object.assign({}, jobData, attributes)).save();
 
-    it('should sort jobs by creation date by default', () =>
-      helper.promise(() => createJob({ title: 'Beginning' }))
+    beforeEach(function () {
+      return helper.cleanDb()
+        .then(() => createJob({ title: 'Beginning' }))
         .then(() => createJob({ title: 'Middle' }))
-        .then(() => createJob({ title: 'End' }))
-        .then(() => dashboardPage.visit(accountId))
+        .then(() => createJob({ title: 'End' }));
+    });
+
+    it('should sort jobs by creation date by default', () =>
+      dashboardPage.visit(accountId)
         .then(() => expect(dashboardPage.jobList()).to.eql('BeginningMiddleEnd')));
 
     it('should sort jobs by last updated date', () =>
-      helper.promise(() => createJob({ title: 'Beginning' }))
-        .then(() => createJob({ title: 'Middle' }))
-        .then(() => createJob({ title: 'End' }))
-        .then(() => dashboardPage.sort(accountId, 'updated'))
+      dashboardPage.sort(accountId, 'updated')
         .then(() => expect(dashboardPage.jobList()).to.eql('EndMiddleBeginning')));
 
     it('should sort jobs by alphabet', () =>
-      helper.promise(() => createJob({ title: 'Beginning' }))
-        .then(() => createJob({ title: 'Middle' }))
-        .then(() => createJob({ title: 'End' }))
-        .then(() => dashboardPage.sort(accountId, 'alpha'))
+      dashboardPage.sort(accountId, 'alpha')
         .then(() => expect(dashboardPage.jobList()).to.eql('BeginningEndMiddle')));
   });
 });
