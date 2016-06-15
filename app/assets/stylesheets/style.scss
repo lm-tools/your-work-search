@@ -65,7 +65,7 @@ $box-border-color: $panel-colour;
 .box-section {
   margin-left: -$box-gutter;
   margin-right: -$box-gutter;
-  padding: 0 $box-gutter;
+  padding: $box-gutter $box-gutter 0 $box-gutter;
   border-top: 1px solid $box-border-color;
 }
 
