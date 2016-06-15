@@ -36,6 +36,14 @@ $space_size: 10px;
     width: 80px;
   }
 }
+
+.form-control-auto {
+  width: 100%;
+  @include media(tablet) {
+    width: auto;
+  }
+}
+
 // boxes
 .box {
   display: block;

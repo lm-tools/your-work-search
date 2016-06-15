@@ -20,6 +20,15 @@ const dashboardJobs = (jobModels) =>
       // eslint-disable-next-line no-underscore-dangle
       { statusString: i18n.__(`progression.${job.status}`) }, job));
 
+const dashboardSortOptions = (sort) => [
+    // eslint-disable-next-line no-underscore-dangle
+    { value: 'created', label: i18n.__('dashboard.sort.created'), selected: sort === 'created' },
+    // eslint-disable-next-line no-underscore-dangle
+    { value: 'updated', label: i18n.__('dashboard.sort.updated'), selected: sort === 'updated' },
+    // eslint-disable-next-line no-underscore-dangle
+    { value: 'alpha', label: i18n.__('dashboard.sort.alpha'), selected: sort === 'alpha' },
+];
+
 /* GET home page. */
 router.get('/', (req, res) => {
   const basePath = req.app.locals.basePath;
@@ -37,6 +46,7 @@ router.get('/:accountId', (req, res, next) => {
       {
         accountId,
         jobs: dashboardJobs(jobModels),
+        sortOptions: dashboardSortOptions(sort),
         title: 'Dashboard',
       }
     ))
