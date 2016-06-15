@@ -27,12 +27,8 @@
                 <div class="column-three-quarter">
                   <h4 class="bold-small" data-test="title">{{title}}</h4>
                   <p class="color-text" data-test="employer">{{employer}}</p>
-                  <a class="button-link" href="#" data-toggle="#job-container-{{id}} .details" data-test="details-button">
-                    <i class="fa fa-caret-right"></i>
-                    {{#__}}dashboard.detailsButton{{/__}}
-                  </a>
                 </div>
-                <div class="column-one-quarter right">
+                <div class="column-one-quarter tablet-right">
                   <dl>
                     <dd class="progression-status" data-test="status">{{statusString}}</dd>
                     <dt>{{#__}}dashboard.deadline{{/__}}</dt>
@@ -40,6 +36,11 @@
                   </dl>
                 </div>
               </div>
+
+              <a class="button-link details-button" href="#" data-toggle="#job-container-{{id}} .details" data-test="details-button">
+                <i class="fa fa-caret-right"></i>
+                {{#__}}dashboard.detailsButton{{/__}}
+              </a>
 
               <div class="details js-hidden" data-test="details">
                 <dl>

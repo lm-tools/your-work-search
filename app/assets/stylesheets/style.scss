@@ -22,8 +22,10 @@ $space_size: 10px;
   text-align: center;
 }
 
-.right {
-  text-align: right;
+.tablet-right {
+  @include media(tablet) {
+    text-align: right;
+  }
 }
 
 .color-text {
@@ -60,6 +62,13 @@ $box-border-color: $panel-colour;
   border: 1px solid $box-border-color;
   padding: $box-gutter;
   margin-bottom: $box-gutter;
+
+  .details-button {
+    @include media(desktop) {
+      position: relative;
+      top: -1em;
+    }
+  }
 }
 
 .box-section {
