@@ -22,6 +22,10 @@ $space_size: 10px;
   text-align: center;
 }
 
+.right {
+  text-align: right;
+}
+
 .color-text {
   color: $text-colour;
 }
@@ -49,14 +53,20 @@ dt {
 }
 
 // boxes
+$box-gutter: $gutter;
+$box-border-color: $panel-colour;
 .box {
   display: block;
-  border: 1px solid $panel-colour;
-  padding: (18px $gutter $gutter-half $gutter*1.8);
+  border: 1px solid $box-border-color;
+  padding: $box-gutter;
+  margin-bottom: $box-gutter;
 }
 
-.box-fixed-height {
-  min-height: 100px;
+.box-section {
+  margin-left: -$box-gutter;
+  margin-right: -$box-gutter;
+  padding: 0 $box-gutter;
+  border-top: 1px solid $box-border-color;
 }
 
 .box-link {
@@ -70,14 +80,6 @@ dt {
   &:hover {
     border-color: $black;
   }
-}
-
-.box-main {
-  margin-top: $space_size;
-}
-
-.box-min-padding {
-  padding: (18px $gutter-half $gutter-half $gutter-half);
 }
 
 // buttons

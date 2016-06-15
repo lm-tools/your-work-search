@@ -23,7 +23,7 @@ const DashboardPage = function DashboardPage(browser) {
 
   this.clickAddJobButton = () => browser.click('a.button');
   this.clickJobDetailsButton = job => browser.click(jobElementSelector(job, 'details-button'));
-  this.jobList = () => browser.text('ul h4');
+  this.jobList = () => browser.text('ul [data-test="title"]');
   this.jobCount = () => browser.queryAll('[data-test|=job-container]').length;
   this.setJobProgressionStatus = (job, status) => browser
       .click(`${jobElementSelector(job, 'progression')}[value="${status}"]`);
