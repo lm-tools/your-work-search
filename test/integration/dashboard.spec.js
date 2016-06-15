@@ -74,6 +74,10 @@ describe('Dashboard', () => {
         .then(() => createJob({ title: 'End' }));
     });
 
+    it('should sort jobs by default if sort empty', () =>
+      dashboardPage.sort(accountId, '')
+        .then(() => expect(dashboardPage.jobList()).to.eql('BeginningMiddleEnd')));
+
     it('should sort jobs by creation date by default', () =>
       dashboardPage.visit(accountId)
         .then(() => expect(dashboardPage.jobList()).to.eql('BeginningMiddleEnd')));
