@@ -11,6 +11,7 @@
       "updated": "date updated",
       "alpha": "job title"
     },
+    "progression": "Update progression status",
     "deadline": "Deadline",
     "interestLevel": "Interest level",
     "source": "Where did you find this role?",
