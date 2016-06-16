@@ -2,7 +2,7 @@ const express = require('express');
 const uuid = require('node-uuid');
 const router = new express.Router();
 const Jobs = require('../models/jobs-model');
-const DashboardViewModel = require('./DashboardViewModel');
+const DashboardViewModel = require('./dashboard-view-model');
 
 /* GET home page. */
 router.get('/', (req, res) => {
@@ -17,7 +17,7 @@ router.get('/:accountId', (req, res, next) => {
 
   Jobs
     .findAllByAccountId(accountId, sort)
-    .then((jobModels) => res.render('index',
+    .then((jobModels) => res.render('dashboard',
       new DashboardViewModel(accountId, jobModels.serialize(), sort)
     ))
     .catch((err) => next(err));

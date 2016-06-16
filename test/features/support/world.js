@@ -1,8 +1,8 @@
 const chai = require('chai');
-const DashboardPage = require('./../../common/page_objects/DashboardPage');
-const AddJobPage = require('./../../common/page_objects/AddJobPage');
-const Fixtures = require('./Fixtures');
-const ScenarioData = require('./ScenarioData');
+const DashboardPage = require('./../../common/page_objects/dashboard-page');
+const AddJobPage = require('./../../common/page_objects/add-job-page');
+const Fixtures = require('./fixtures');
+const ScenarioData = require('./scenario-data');
 const Zombie = require('zombie');
 Zombie.site = 'http://localhost:3000';
 

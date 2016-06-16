@@ -1,7 +1,7 @@
 const i18n = require('i18n');
 /* eslint-disable no-underscore-dangle */
 
-class AddAJobView {
+class AddJobViewModel {
   constructor(accountId, body, validationErrors) {
     Object.assign(this, body);
     this.accountId = accountId;
@@ -28,4 +28,4 @@ class AddAJobView {
 
 }
 
-module.exports = AddAJobView;
+module.exports = AddJobViewModel;

@@ -1,5 +1,5 @@
-const helper = require('./integrationSpecHelper');
-const DashboardPage = require('../common/page_objects/DashboardPage');
+const helper = require('./integration-spec-helper');
+const DashboardPage = require('../common/page_objects/dashboard-page');
 const dashboardPage = new DashboardPage(helper.browser);
 const expect = require('chai').expect;
 const JobsModel = require('../../app/models/jobs-model');

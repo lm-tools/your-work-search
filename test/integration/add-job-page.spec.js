@@ -1,6 +1,6 @@
-const helper = require('./integrationSpecHelper');
+const helper = require('./integration-spec-helper');
 const promise = helper.promise;
-const AddJobPage = require('../common/page_objects/AddJobPage');
+const AddJobPage = require('../common/page_objects/add-job-page');
 const addJobPage = new AddJobPage(helper.browser);
 const expect = require('chai').expect;
 
