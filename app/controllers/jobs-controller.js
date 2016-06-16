@@ -1,7 +1,7 @@
 const express = require('express');
 const router = new express.Router({ mergeParams: true });
 const Jobs = require('../models/jobs-model');
-const AddAJobView = require('./AddAJobView');
+const AddJobViewModel = require('./add-job-view-model');
 const progression = require('../models/progression');
 const moment = require('moment');
 
@@ -22,7 +22,7 @@ function validateDeadline(deadline, req) {
 }
 
 router.get('/new', (req, res) => {
-  res.render('jobs-new', new AddAJobView(req.params.accountId, req.body));
+  res.render('add-job', new AddJobViewModel(req.params.accountId, req.body));
 });
 
 router.post('/new', (req, res, next) => {
@@ -33,8 +33,8 @@ router.post('/new', (req, res, next) => {
   validateDeadline(deadline, req);
 
   if (req.validationErrors()) {
-    return res.render('jobs-new',
-      new AddAJobView(accountId, req.body, req.validationErrors()));
+    return res.render('add-job',
+      new AddJobViewModel(accountId, req.body, req.validationErrors()));
   }
 
   const jobData = Object.assign({}, req.body, { accountId, status: progression[0] },

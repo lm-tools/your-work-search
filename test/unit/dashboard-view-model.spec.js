@@ -1,6 +1,6 @@
-const helper = require('./unitSpecHelper');
+const helper = require('./unit-spec-helper');
 const sampleJob = helper.sampleJob;
-const DashboardViewModel = require('../../app/controllers/DashboardViewModel');
+const DashboardViewModel = require('../../app/controllers/dashboard-view-model');
 const expect = require('chai').expect;
 const sinon = require('sinon');
 

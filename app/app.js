@@ -7,8 +7,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const validator = require('express-validator');
 const i18n = require('./middleware/i18n');
-const dashboard = require('./controllers/dashboard');
-const jobs = require('./controllers/jobs');
+const dashboardController = require('./controllers/dashboard-controller.js');
+const jobsController = require('./controllers/jobs-controller.js');
 
 const app = express();
 i18n(app);
@@ -55,8 +55,8 @@ app.use(assetPath, express.static(path.join(__dirname, '..', 'dist', 'public')))
 app.use(assetPath, express.static(path.join(__dirname, '..',
   'vendor', 'govuk_template_mustache_inheritance', 'assets')));
 
-app.use(`${basePath}/`, dashboard);
-app.use(`${basePath}/:accountId/jobs`, jobs);
+app.use(`${basePath}/`, dashboardController);
+app.use(`${basePath}/:accountId/jobs`, jobsController);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
