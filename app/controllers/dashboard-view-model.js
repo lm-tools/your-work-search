@@ -41,6 +41,12 @@ module.exports = class DashboardViewModel {
       { value: 'updated', label: i18n.__('dashboard.sort.updated'), selected: sort === 'updated' },
       // eslint-disable-next-line no-underscore-dangle
       { value: 'title', label: i18n.__('dashboard.sort.title'), selected: sort === 'title' },
+      // eslint-disable-next-line no-underscore-dangle
+      { value: 'deadline',
+        // eslint-disable-next-line no-underscore-dangle
+        label: i18n.__('dashboard.sort.deadline'), selected: sort === 'deadline' },
+      // eslint-disable-next-line no-underscore-dangle
+      { value: 'status', label: i18n.__('dashboard.sort.status'), selected: sort === 'status' },
     ];
   }
 

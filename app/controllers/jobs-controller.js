@@ -37,7 +37,8 @@ router.post('/new', (req, res, next) => {
       new AddJobViewModel(accountId, req.body, req.validationErrors()));
   }
 
-  const jobData = Object.assign({}, req.body, { accountId, status: progression[0] },
+  const jobData = Object.assign({}, req.body,
+    { accountId, status: progression[0], status_sort_index: 0 },
     { deadline: parseDeadline(deadline) });
 
   return new Jobs(jobData).save()
@@ -49,8 +50,14 @@ router.patch('/:jobId', (req, res, next) => {
   const basePath = req.app.locals.basePath;
   const accountId = req.params.accountId;
   const jobId = req.params.jobId;
+  const updateData = req.body;
+
+  if (updateData.status) {
+    updateData.status_sort_index = progression.indexOf(updateData.status) || 0;
+  }
+
   new Jobs({ id: jobId })
-    .save(req.body, { method: 'update', patch: true })
+    .save(updateData, { method: 'update', patch: true })
     .then(() => res.redirect(`${basePath}/${accountId}`))
     .catch((err) => next(err));
 });

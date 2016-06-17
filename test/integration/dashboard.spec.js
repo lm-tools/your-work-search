@@ -15,6 +15,7 @@ describe('Dashboard', () => {
     rating: 4,
     deadline: new Date('2050-10-10'),
     status: 'applied',
+    status_sort_index: 0,
     accountId,
   };
 
@@ -88,9 +89,12 @@ describe('Dashboard', () => {
 
     beforeEach(function () {
       return helper.cleanDb()
-        .then(() => createJob({ title: 'Beginning' }))
-        .then(() => createJob({ title: 'Middle' }))
-        .then(() => createJob({ title: 'End' }));
+        .then(() => createJob({ title: 'Beginning', deadline: '2016-10-20',
+          status: 'interview', status_sort_index: 2 }))
+        .then(() => createJob({ title: 'Middle', deadline: '2016-10-19',
+          status: 'interested', status_sort_index: 0 }))
+        .then(() => createJob({ title: 'End', deadline: '2016-10-18',
+          status: 'applied', status_sort_index: 1 }));
     });
 
     it('should sort jobs by default if sort empty', () =>
@@ -108,5 +112,13 @@ describe('Dashboard', () => {
     it('should sort jobs by title', () =>
       dashboardPage.sort(accountId, 'title')
         .then(() => expect(dashboardPage.jobList()).to.eql('BeginningEndMiddle')));
+
+    it('should sort jobs by deadline date', () =>
+      dashboardPage.sort(accountId, 'deadline')
+        .then(() => expect(dashboardPage.jobList()).to.eql('EndMiddleBeginning')));
+
+    it('should sort jobs by status', () =>
+      dashboardPage.sort(accountId, 'status')
+        .then(() => expect(dashboardPage.jobList()).to.eql('MiddleEndBeginning')));
   });
 });
