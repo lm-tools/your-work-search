@@ -21,6 +21,7 @@ const DashboardPage = function DashboardPage(browser) {
     return browser.visit(`/${accountId}?sort=${sort}`);
   };
 
+  this.selectedSortType = () => browser.text('#sort option:selected');
   this.clickAddJobButton = () => browser.click('a.button');
   this.clickJobDetailsButton = job => browser.click(jobElementSelector(job, 'details-button'));
   this.jobList = () => browser.text('ul [data-test="title"]');

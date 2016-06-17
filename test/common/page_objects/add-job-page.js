@@ -14,6 +14,7 @@ const AddJobPage = function AddJobPage(browser) {
   this.getValidationError = () => browser.text('#validation-errors');
 
   this.visit = (accountId) => browser.visit(`/${accountId}/jobs/new`);
+  this.patch = (accountId, jobId) => browser.visit(`/${accountId}/jobs/${jobId}?_method=PATCH`);
 
   this.employerFieldValue = () => browser.field('[name="employer"]').value;
   this.chooseSourceType = (sourceType) => browser.choose(`#job-sourceType-${sourceType}`);

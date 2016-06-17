@@ -3,7 +3,10 @@ const db = require('../db');
 const sortRef = {
   created: { field: 'created_at', direction: 'ASC' },
   updated: { field: 'updated_at', direction: 'DESC' },
-  alpha: { field: 'title', direction: 'ASC' },
+  title: { field: 'title', direction: 'ASC' },
+  deadline: { field: 'deadline', direction: 'ASC' },
+  status: { field: 'status_sort_index', direction: 'ASC' },
+  employer: { field: 'employer', direction: 'ASC' },
 };
 
 module.exports = db.Model.extend(
