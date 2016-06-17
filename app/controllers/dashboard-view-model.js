@@ -35,18 +35,24 @@ module.exports = class DashboardViewModel {
 
   dashboardSortOptions(sort) {
     return [
-      // eslint-disable-next-line no-underscore-dangle
-      { value: 'created', label: i18n.__('dashboard.sort.created'), selected: sort === 'created' },
-      // eslint-disable-next-line no-underscore-dangle
-      { value: 'updated', label: i18n.__('dashboard.sort.updated'), selected: sort === 'updated' },
-      // eslint-disable-next-line no-underscore-dangle
-      { value: 'title', label: i18n.__('dashboard.sort.title'), selected: sort === 'title' },
-      // eslint-disable-next-line no-underscore-dangle
+      { value: 'created',
+        // eslint-disable-next-line no-underscore-dangle
+        label: i18n.__('dashboard.sort.created'), selected: sort === 'created' },
+      { value: 'updated',
+        // eslint-disable-next-line no-underscore-dangle
+        label: i18n.__('dashboard.sort.updated'), selected: sort === 'updated' },
+      { value: 'status',
+        // eslint-disable-next-line no-underscore-dangle
+        label: i18n.__('dashboard.sort.status'), selected: sort === 'status' },
+      { value: 'title',
+        // eslint-disable-next-line no-underscore-dangle
+        label: i18n.__('dashboard.sort.title'), selected: sort === 'title' },
+      { value: 'employer',
+       // eslint-disable-next-line no-underscore-dangle
+        label: i18n.__('dashboard.sort.employer'), selected: sort === 'employer' },
       { value: 'deadline',
         // eslint-disable-next-line no-underscore-dangle
         label: i18n.__('dashboard.sort.deadline'), selected: sort === 'deadline' },
-      // eslint-disable-next-line no-underscore-dangle
-      { value: 'status', label: i18n.__('dashboard.sort.status'), selected: sort === 'status' },
     ];
   }
 

@@ -11,7 +11,8 @@
       "updated": "date updated",
       "title": "job title",
       "deadline": "deadline date",
-      "status": "status"
+      "status": "status",
+      "employer": "employer"
     },
     "progression": "Update progression status",
     "progressionScreenReader": "Update progression status",
