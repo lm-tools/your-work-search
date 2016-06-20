@@ -15,7 +15,6 @@ describe('Dashboard', () => {
     rating: 4,
     deadline: new Date('2050-10-10'),
     status: 'applied',
-    status_sort_index: 0,
     accountId,
   };
 
@@ -131,5 +130,59 @@ describe('Dashboard', () => {
       dashboardPage.sort(accountId, 'employer')
         .then(() => expect(dashboardPage.jobList()).to.eql('EndMiddleBeginning'))
         .then(() => expect(dashboardPage.selectedSortType()).to.equal('employer')));
+  });
+
+  describe('update job', () => {
+    let savedJob;
+
+    const createJob = (attributes) =>
+      new JobsModel(Object.assign({}, jobData, attributes)).save();
+
+    describe('status', () => {
+      before(function () {
+        return helper.cleanDb()
+          .then(() => createJob())
+          .then((job) => { savedJob = job; });
+      });
+
+      it('should update the status', () =>
+        dashboardPage.visit(accountId)
+          .then(() => dashboardPage.clickJobDetailsButton(savedJob))
+          .then(() => dashboardPage.submitJobProgressionStatus(savedJob, 'result'))
+          .then(() => expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal('Result'))
+        );
+    });
+
+    describe('status sort order', () => {
+      let savedJobs = [];
+
+      const createJob = (attributes) =>
+        new JobsModel(Object.assign({}, jobData, attributes)).save();
+
+      before(function () {
+        return helper.cleanDb();
+      });
+
+      it('should maintain the status sort order', () =>
+          createJob({ title: 'Result' })
+          .then(job => savedJobs.push(job))
+          .then(() => createJob({ title: 'Applied' }))
+          .then(job => savedJobs.push(job))
+          .then(() => createJob({ title: 'Interview' }))
+          .then(job => savedJobs.push(job))
+          .then(() => createJob({ title: 'Interested' }))
+          .then(job => savedJobs.push(job))
+          .then(() => dashboardPage.visit(accountId))
+          .then(() => dashboardPage.clickJobDetailsButton(savedJobs[0]))
+          .then(() => dashboardPage.submitJobProgressionStatus(savedJobs[0], 'result'))
+          .then(() => dashboardPage.clickJobDetailsButton(savedJobs[1]))
+          .then(() => dashboardPage.submitJobProgressionStatus(savedJobs[1], 'applied'))
+          .then(() => dashboardPage.clickJobDetailsButton(savedJobs[2]))
+          .then(() => dashboardPage.submitJobProgressionStatus(savedJobs[2], 'interview'))
+          .then(() => dashboardPage.clickJobDetailsButton(savedJobs[3]))
+          .then(() => dashboardPage.submitJobProgressionStatus(savedJobs[3], 'interested'))
+          .then(() => dashboardPage.sort(accountId, 'status'))
+          .then(() => expect(dashboardPage.jobList()).to.eql('InterestedAppliedInterviewResult')));
+    });
   });
 });
