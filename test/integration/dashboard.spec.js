@@ -88,22 +88,22 @@ describe('Dashboard', () => {
 
     beforeEach(function () {
       return helper.cleanDb()
-        .then(() => createJob({ title: 'Beginning', deadline: '2016-10-20',
-          employer: 'C', status: 'interview', status_sort_index: 2 }))
+        .then(() => createJob({ title: 'Beginning', deadline: '2016-10-18',
+          employer: 'B', status: 'interview', status_sort_index: 2 }))
         .then(() => createJob({ title: 'Middle', deadline: '2016-10-19',
-          employer: 'B', status: 'interested', status_sort_index: 0 }))
-        .then(() => createJob({ title: 'End', deadline: '2016-10-18',
+          employer: 'C', status: 'interested', status_sort_index: 0 }))
+        .then(() => createJob({ title: 'End', deadline: '2016-10-20',
           employer: 'A', status: 'applied', status_sort_index: 1 }));
     });
 
     it('should sort jobs by default if sort empty', () =>
       dashboardPage.sort(accountId, '')
-        .then(() => expect(dashboardPage.jobList()).to.eql('BeginningMiddleEnd'))
+        .then(() => expect(dashboardPage.jobList()).to.eql('EndMiddleBeginning'))
         .then(() => expect(dashboardPage.selectedSortType()).to.equal('date added')));
 
     it('should sort jobs by creation date by default', () =>
       dashboardPage.visit(accountId)
-        .then(() => expect(dashboardPage.jobList()).to.eql('BeginningMiddleEnd'))
+        .then(() => expect(dashboardPage.jobList()).to.eql('EndMiddleBeginning'))
         .then(() => expect(dashboardPage.selectedSortType()).to.equal('date added')));
 
     it('should sort jobs by last updated date', () =>
@@ -118,17 +118,17 @@ describe('Dashboard', () => {
 
     it('should sort jobs by deadline date', () =>
       dashboardPage.sort(accountId, 'deadline')
-        .then(() => expect(dashboardPage.jobList()).to.eql('EndMiddleBeginning'))
+        .then(() => expect(dashboardPage.jobList()).to.eql('BeginningMiddleEnd'))
         .then(() => expect(dashboardPage.selectedSortType()).to.equal('deadline date')));
 
     it('should sort jobs by status', () =>
       dashboardPage.sort(accountId, 'status')
-        .then(() => expect(dashboardPage.jobList()).to.eql('MiddleEndBeginning'))
+        .then(() => expect(dashboardPage.jobList()).to.eql('BeginningEndMiddle'))
         .then(() => expect(dashboardPage.selectedSortType()).to.equal('status')));
 
     it('should sort jobs by employer', () =>
       dashboardPage.sort(accountId, 'employer')
-        .then(() => expect(dashboardPage.jobList()).to.eql('EndMiddleBeginning'))
+        .then(() => expect(dashboardPage.jobList()).to.eql('EndBeginningMiddle'))
         .then(() => expect(dashboardPage.selectedSortType()).to.equal('employer')));
   });
 
@@ -154,10 +154,7 @@ describe('Dashboard', () => {
     });
 
     describe('status sort order', () => {
-      let savedJobs = [];
-
-      const createJob = (attributes) =>
-        new JobsModel(Object.assign({}, jobData, attributes)).save();
+      const savedJobs = [];
 
       before(function () {
         return helper.cleanDb();
@@ -182,7 +179,7 @@ describe('Dashboard', () => {
           .then(() => dashboardPage.clickJobDetailsButton(savedJobs[3]))
           .then(() => dashboardPage.submitJobProgressionStatus(savedJobs[3], 'interested'))
           .then(() => dashboardPage.sort(accountId, 'status'))
-          .then(() => expect(dashboardPage.jobList()).to.eql('InterestedAppliedInterviewResult')));
+          .then(() => expect(dashboardPage.jobList()).to.eql('ResultInterviewAppliedInterested')));
     });
   });
 });
