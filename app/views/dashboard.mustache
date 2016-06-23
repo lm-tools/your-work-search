@@ -7,6 +7,13 @@
       {{#__}}dashboard.description{{/__}}
     </p>
 
+    <ul class='timeline'>
+      <li class='bubble interested size-7 start'>Interested</li>
+      <li class='bubble applied size-5'>Applied</li>
+      <li class='bubble interview size-3'>Interview</li>
+      <li class='bubble result size-1'>Result</li>
+    </ul>
+
     <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
 
     <form class="space-top-double" action="{{basePath}}/{{accountId}}" method="GET">
