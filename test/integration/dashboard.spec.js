@@ -160,8 +160,9 @@ describe('Dashboard', () => {
         return helper.cleanDb();
       });
 
-      it('should maintain the status sort order', () =>
-          createJob({ title: 'Result' })
+      it('should maintain the status sort order', function () {
+        this.timeout(4 * 1000); // 4s
+        return createJob({ title: 'Result' })
           .then(job => savedJobs.push(job))
           .then(() => createJob({ title: 'Applied' }))
           .then(job => savedJobs.push(job))
@@ -179,7 +180,8 @@ describe('Dashboard', () => {
           .then(() => dashboardPage.clickJobDetailsButton(savedJobs[3]))
           .then(() => dashboardPage.submitJobProgressionStatus(savedJobs[3], 'interested'))
           .then(() => dashboardPage.sort(accountId, 'status'))
-          .then(() => expect(dashboardPage.jobList()).to.eql('ResultInterviewAppliedInterested')));
+          .then(() => expect(dashboardPage.jobList()).to.eql('ResultInterviewAppliedInterested'));
+      });
     });
   });
 });
