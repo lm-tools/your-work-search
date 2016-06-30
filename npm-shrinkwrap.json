@@ -760,6 +760,11 @@
       "from": "constants-browserify@>=1.0.0 <1.1.0",
       "resolved": "https://registry.npmjs.org/constants-browserify/-/constants-browserify-1.0.0.tgz"
     },
+    "contains-path": {
+      "version": "0.1.0",
+      "from": "contains-path@>=0.1.0 <0.2.0",
+      "resolved": "https://registry.npmjs.org/contains-path/-/contains-path-0.1.0.tgz"
+    },
     "content-disposition": {
       "version": "0.5.1",
       "from": "content-disposition@0.5.1",

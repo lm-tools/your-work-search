@@ -54,6 +54,7 @@ router.patch('/:jobId', (req, res, next) => {
   const accountId = req.params.accountId;
   const jobId = req.params.jobId;
   const updateData = req.body;
+  const sort = req.query.sort;
 
   if (updateData.status) {
     updateData.status_sort_index = progression.indexOf(updateData.status) || 0;
@@ -61,7 +62,7 @@ router.patch('/:jobId', (req, res, next) => {
 
   new Jobs({ id: jobId })
     .save(updateData, { method: 'update', patch: true })
-    .then(() => res.redirect(`${basePath}/${accountId}`))
+    .then(() => res.redirect(`${basePath}/${accountId}?sort=${sort}`))
     .catch((err) => next(err));
 });
 

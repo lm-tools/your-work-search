@@ -4,6 +4,7 @@ const dashboardPage = new DashboardPage(helper.browser);
 const expect = require('chai').expect;
 const JobsModel = require('../../app/models/jobs-model');
 const uuid = require('node-uuid');
+const knex = require('../../app/db').knex;
 
 describe('Dashboard', () => {
   const accountId = uuid.v4();
@@ -82,56 +83,78 @@ describe('Dashboard', () => {
         .then(() => dashboardPage.visit(accountId))
         .then(() => expect(dashboardPage.jobCount()).to.equal(0)));
   });
-  describe('should sort job list', () => {
-    const createJob = (attributes) =>
-      new JobsModel(Object.assign({}, jobData, attributes)).save();
+  describe('sort job list', () => {
+    const SEED_ACCOUNT_ID = 'c8330c1f-23f5-4577-943d-151d059af588';
 
-    beforeEach(function () {
-      return helper.cleanDb()
-        .then(() => createJob({ title: 'Beginning', deadline: '2016-10-18',
-          employer: 'B', status: 'interview', status_sort_index: 2 }))
-        .then(() => createJob({ title: 'Middle', deadline: '2016-10-19',
-          employer: 'C', status: 'interested', status_sort_index: 0 }))
-        .then(() => createJob({ title: 'End', deadline: '2016-10-20',
-          employer: 'A', status: 'applied', status_sort_index: 1 }));
+    before(function () {
+      return knex.seed.run({ directory: './db/seeds/sort_and_filter' });
     });
 
     it('should sort jobs by default if sort empty', () =>
-      dashboardPage.sort(accountId, '')
-        .then(() => expect(dashboardPage.jobList()).to.eql('EndMiddleBeginning'))
+      dashboardPage.sort(SEED_ACCOUNT_ID, '')
+        .then(() => expect(dashboardPage.jobList())
+          .to.eql('GrocerGoalkeeperRoundabout OperatorOrgan Grinder'))
         .then(() => expect(dashboardPage.selectedSortType()).to.equal('date added')));
 
     it('should sort jobs by creation date by default', () =>
-      dashboardPage.visit(accountId)
-        .then(() => expect(dashboardPage.jobList()).to.eql('EndMiddleBeginning'))
+      dashboardPage.visit(SEED_ACCOUNT_ID)
+        .then(() => expect(dashboardPage.jobList())
+          .to.eql('GrocerGoalkeeperRoundabout OperatorOrgan Grinder'))
         .then(() => expect(dashboardPage.selectedSortType()).to.equal('date added')));
 
     it('should sort jobs by last updated date', () =>
-      dashboardPage.sort(accountId, 'updated')
-        .then(() => expect(dashboardPage.jobList()).to.eql('EndMiddleBeginning'))
+      dashboardPage.sort(SEED_ACCOUNT_ID, 'updated')
+        .then(() => expect(dashboardPage.jobList())
+          .to.eql('GoalkeeperGrocerRoundabout OperatorOrgan Grinder'))
         .then(() => expect(dashboardPage.selectedSortType()).to.equal('date updated')));
 
     it('should sort jobs by title', () =>
-      dashboardPage.sort(accountId, 'title')
-        .then(() => expect(dashboardPage.jobList()).to.eql('BeginningEndMiddle'))
+      dashboardPage.sort(SEED_ACCOUNT_ID, 'title')
+        .then(() => expect(dashboardPage.jobList())
+          .to.eql('GoalkeeperGrocerOrgan GrinderRoundabout Operator'))
         .then(() => expect(dashboardPage.selectedSortType()).to.equal('job title')));
 
     it('should sort jobs by deadline date', () =>
-      dashboardPage.sort(accountId, 'deadline')
-        .then(() => expect(dashboardPage.jobList()).to.eql('BeginningMiddleEnd'))
+      dashboardPage.sort(SEED_ACCOUNT_ID, 'deadline')
+        .then(() => expect(dashboardPage.jobList())
+          .to.eql('GrocerRoundabout OperatorGoalkeeperOrgan Grinder'))
         .then(() => expect(dashboardPage.selectedSortType()).to.equal('deadline date')));
 
+    it('should sort jobs by employer', () =>
+      dashboardPage.sort(SEED_ACCOUNT_ID, 'employer')
+        .then(() => expect(dashboardPage.jobList())
+          .to.eql('GrocerGoalkeeperOrgan GrinderRoundabout Operator'))
+        .then(() => expect(dashboardPage.selectedSortType()).to.equal('employer')));
+
     it('should sort jobs by status', () =>
-      dashboardPage.sort(accountId, 'status')
-        .then(() => expect(dashboardPage.jobList()).to.eql('BeginningEndMiddle'))
+      dashboardPage.sort(SEED_ACCOUNT_ID, 'status')
+        .then(() => expect(dashboardPage.jobList())
+          .to.eql('GoalkeeperGrocerOrgan GrinderRoundabout Operator'))
         .then(() => expect(dashboardPage.selectedSortType()).to.equal('status')));
 
-    it('should sort jobs by employer', () =>
-      dashboardPage.sort(accountId, 'employer')
-        .then(() => expect(dashboardPage.jobList()).to.eql('EndBeginningMiddle'))
-        .then(() => expect(dashboardPage.selectedSortType()).to.equal('employer')));
-  });
+    it('should maintain the status sort order', function () {
+      this.timeout(4 * 1000); // 4s
+      return dashboardPage.visit(SEED_ACCOUNT_ID)
+        .then(() => dashboardPage.clickJobDetailsButton({ id: '100' }))
+        .then(() => dashboardPage.submitJobProgressionStatus({ id: '100' }, 'result'))
+        .then(() => dashboardPage.clickJobDetailsButton({ id: '101' }))
+        .then(() => dashboardPage.submitJobProgressionStatus({ id: '101' }, 'interview'))
+        .then(() => dashboardPage.clickJobDetailsButton({ id: '102' }))
+        .then(() => dashboardPage.submitJobProgressionStatus({ id: '102' }, 'applied'))
+        .then(() => dashboardPage.clickJobDetailsButton({ id: '103' }))
+        .then(() => dashboardPage.submitJobProgressionStatus({ id: '103' }, 'interested'))
+        .then(() => dashboardPage.sort(SEED_ACCOUNT_ID, 'status'))
+        .then(() => expect(dashboardPage.jobList())
+          .to.eql('Organ GrinderRoundabout OperatorGoalkeeperGrocer'));
+    });
 
+    it('should maintain selected sort after status update', function () {
+      return dashboardPage.sort(SEED_ACCOUNT_ID, 'status')
+        .then(() => dashboardPage.clickJobDetailsButton({ id: '100' }))
+        .then(() => dashboardPage.submitJobProgressionStatus({ id: '100' }, 'result'))
+        .then(() => expect(dashboardPage.selectedSortType()).to.equal('status'));
+    });
+  });
   describe('update job', () => {
     let savedJob;
 
@@ -151,37 +174,6 @@ describe('Dashboard', () => {
           .then(() => dashboardPage.submitJobProgressionStatus(savedJob, 'result'))
           .then(() => expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal('Result'))
         );
-    });
-
-    describe('status sort order', () => {
-      const savedJobs = [];
-
-      before(function () {
-        return helper.cleanDb();
-      });
-
-      it('should maintain the status sort order', function () {
-        this.timeout(4 * 1000); // 4s
-        return createJob({ title: 'Result' })
-          .then(job => savedJobs.push(job))
-          .then(() => createJob({ title: 'Applied' }))
-          .then(job => savedJobs.push(job))
-          .then(() => createJob({ title: 'Interview' }))
-          .then(job => savedJobs.push(job))
-          .then(() => createJob({ title: 'Interested' }))
-          .then(job => savedJobs.push(job))
-          .then(() => dashboardPage.visit(accountId))
-          .then(() => dashboardPage.clickJobDetailsButton(savedJobs[0]))
-          .then(() => dashboardPage.submitJobProgressionStatus(savedJobs[0], 'result'))
-          .then(() => dashboardPage.clickJobDetailsButton(savedJobs[1]))
-          .then(() => dashboardPage.submitJobProgressionStatus(savedJobs[1], 'applied'))
-          .then(() => dashboardPage.clickJobDetailsButton(savedJobs[2]))
-          .then(() => dashboardPage.submitJobProgressionStatus(savedJobs[2], 'interview'))
-          .then(() => dashboardPage.clickJobDetailsButton(savedJobs[3]))
-          .then(() => dashboardPage.submitJobProgressionStatus(savedJobs[3], 'interested'))
-          .then(() => dashboardPage.sort(accountId, 'status'))
-          .then(() => expect(dashboardPage.jobList()).to.eql('ResultInterviewAppliedInterested'));
-      });
     });
   });
 });
