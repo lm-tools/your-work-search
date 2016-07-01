@@ -133,19 +133,11 @@ describe('Dashboard', () => {
         .then(() => expect(dashboardPage.selectedSortType()).to.equal('status')));
 
     it('should maintain the status sort order', function () {
-      this.timeout(4 * 1000); // 4s
-      return dashboardPage.visit(SEED_ACCOUNT_ID)
+      return dashboardPage.sort(SEED_ACCOUNT_ID, 'status')
         .then(() => dashboardPage.clickJobDetailsButton({ id: '100' }))
         .then(() => dashboardPage.submitJobProgressionStatus({ id: '100' }, 'result'))
-        .then(() => dashboardPage.clickJobDetailsButton({ id: '101' }))
-        .then(() => dashboardPage.submitJobProgressionStatus({ id: '101' }, 'interview'))
-        .then(() => dashboardPage.clickJobDetailsButton({ id: '102' }))
-        .then(() => dashboardPage.submitJobProgressionStatus({ id: '102' }, 'applied'))
-        .then(() => dashboardPage.clickJobDetailsButton({ id: '103' }))
-        .then(() => dashboardPage.submitJobProgressionStatus({ id: '103' }, 'interested'))
-        .then(() => dashboardPage.sort(SEED_ACCOUNT_ID, 'status'))
         .then(() => expect(dashboardPage.jobList())
-          .to.eql('Organ GrinderRoundabout OperatorGoalkeeperGrocer'));
+          .to.eql('GoalkeeperOrgan GrinderGrocerRoundabout Operator'));
     });
 
     it('should maintain selected sort after status update', function () {
