@@ -147,6 +147,37 @@ describe('Dashboard', () => {
         .then(() => expect(dashboardPage.selectedSortType()).to.equal('status'));
     });
   });
+  describe('filter job list', () => {
+    const SEED_ACCOUNT_ID = 'c8330c1f-23f5-4577-943d-151d059af588';
+
+    before(function () {
+      return knex.seed.run({ directory: './db/seeds/sort_and_filter' });
+    });
+
+    it('should filter jobs updated in the last week', () =>
+      dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'updated', 'week')
+        .then(() => expect(dashboardPage.jobList())
+          .to.eql('Goalkeeper'))
+        .then(() => expect(dashboardPage.selectedFilterType()).to.equal('updated last week')));
+
+    it('should filter jobs updated in the last fortnight', () =>
+      dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'updated', 'fortnight')
+        .then(() => expect(dashboardPage.jobList())
+          .to.eql('GoalkeeperGrocer'))
+        .then(() => expect(dashboardPage.selectedFilterType()).to.equal('updated last two weeks')));
+
+    it('should filter jobs updated in the last month', () =>
+      dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'updated', 'month')
+        .then(() => expect(dashboardPage.jobList())
+          .to.eql('GoalkeeperGrocerRoundabout Operator'))
+        .then(() => expect(dashboardPage.selectedFilterType()).to.equal('updated last month')));
+
+    it('should not filter jobs when no filter selected', () =>
+      dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'updated', 'none')
+        .then(() => expect(dashboardPage.jobList())
+          .to.eql('GoalkeeperGrocerRoundabout OperatorOrgan Grinder'))
+        .then(() => expect(dashboardPage.selectedFilterType()).to.equal('none')));
+  });
   describe('update job', () => {
     let savedJob;
 
