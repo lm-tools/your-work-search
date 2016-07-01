@@ -1,6 +1,5 @@
-const helper = require('./integration-spec-helper');
-const DashboardPage = require('../common/page_objects/dashboard-page');
-const dashboardPage = new DashboardPage(helper.browser);
+const helper = require('./support/integration-spec-helper');
+const dashboardPage = helper.dashboardPage;
 const expect = require('chai').expect;
 const JobsModel = require('../../app/models/jobs-model');
 const uuid = require('node-uuid');
