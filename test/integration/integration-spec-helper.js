@@ -17,9 +17,6 @@ afterEach(function () {
 });
 
 module.exports = {
-  promise(callable) {
-    return new Promise(res => res(callable()));
-  },
   cleanDb() {
     return knexCleaner.clean(knex, { ignoreTables: ['knex_migrations'] });
   },

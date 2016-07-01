@@ -1,5 +1,4 @@
 const helper = require('./integration-spec-helper');
-const promise = helper.promise;
 const AddJobPage = require('../common/page_objects/add-job-page');
 const addJobPage = new AddJobPage(helper.browser);
 const expect = require('chai').expect;
@@ -8,7 +7,7 @@ describe('Add a job page', () => {
   beforeEach(() => addJobPage.visit('someAccount'));
 
   it('should show/hide sourceUrl depending on sourceType', () =>
-    promise(() => expect(addJobPage.isSourceUrlHidden()).to.equal(false))
+    Promise.resolve(expect(addJobPage.isSourceUrlHidden()).to.equal(false))
       .then(() => addJobPage.chooseSourceType('inPerson'))
       .then(() => expect(addJobPage.isSourceUrlHidden()).to.equal(true))
   );
@@ -20,14 +19,14 @@ describe('Add a job page', () => {
     };
 
     it('should prepopulate filled form fields after error', () =>
-      promise(() => expect(addJobPage.employerFieldValue()).to.equal(''))
+      Promise.resolve(expect(addJobPage.employerFieldValue()).to.equal(''))
         .then(() => addJobPage.fillJobApplication(form))
         .then(() => expect(addJobPage.formValues()).to.eql(form))
     );
 
     ['abc', '2016-21-12'].forEach(deadline => {
       it(`should fail incorrect deadline format for date '${deadline}'`, () =>
-        promise(() => addJobPage.fillTitle('Some job title'))
+        Promise.resolve(addJobPage.fillTitle('Some job title'))
           .then(() => addJobPage.fillDeadline(deadline))
           .then(() => addJobPage.submit())
           .then(() => expect(addJobPage.getValidationError())
@@ -41,7 +40,7 @@ describe('Add a job page', () => {
       { name: 'empty date', date: '' },
     ].forEach(scenario => {
       it(`should not fail deadline validation for '${scenario.name}' `, () =>
-        promise(() => addJobPage.fillTitle('Some job title'))
+        Promise.resolve(addJobPage.fillTitle('Some job title'))
           .then(() => addJobPage.fillDeadline(scenario.date))
           .then(() => addJobPage.submit())
           .then(() => expect(addJobPage.getValidationError()).to.equal(''))
