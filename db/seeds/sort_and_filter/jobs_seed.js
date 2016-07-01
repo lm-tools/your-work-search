@@ -1,3 +1,9 @@
+const moment = require('moment');
+const day = moment.duration(1, 'd');
+const week = moment.duration(1, 'w');
+const fortnight = moment.duration(2, 'w');
+const month = moment.duration(1, 'M');
+
 exports.seed = function (knex) {
   return knex('jobs').del() // Deletes ALL existing entries
     .then(function () { // Inserts seed entries one by one in series
@@ -6,8 +12,8 @@ exports.seed = function (knex) {
         accountId: 'c8330c1f-23f5-4577-943d-151d059af588',
         title: 'Organ Grinder',
         employer: 'Monkey',
-        created_at: '2016-06-29 14:45:27',
-        updated_at: '2016-06-29 14:45:27',
+        created_at: moment().subtract(month).subtract(day),
+        updated_at: moment().subtract(month).subtract(day),
         sourceType: 'online',
         sourceUrl: 'http://www.stuff.com',
         deadline: '2016-07-14',
@@ -22,8 +28,8 @@ exports.seed = function (knex) {
         accountId: 'c8330c1f-23f5-4577-943d-151d059af588',
         title: 'Roundabout Operator',
         employer: 'Mr Rusty',
-        created_at: '2016-06-30 14:45:27',
-        updated_at: '2016-06-30 14:45:27',
+        created_at: moment().subtract(month).add(day),
+        updated_at: moment().subtract(month).add(day),
         sourceType: 'online',
         sourceUrl: 'http://www.stuff.com',
         deadline: '2016-07-12',
@@ -38,8 +44,8 @@ exports.seed = function (knex) {
         accountId: 'c8330c1f-23f5-4577-943d-151d059af588',
         title: 'Goalkeeper',
         employer: 'England Manager',
-        created_at: '2016-07-01 14:45:27',
-        updated_at: '2016-07-04 14:45:27',
+        created_at: moment().subtract(fortnight).add(day),
+        updated_at: moment().subtract(week).add(day),
         sourceType: 'online',
         sourceUrl: 'http://www.stuff.com',
         deadline: '2016-07-13',
@@ -54,8 +60,8 @@ exports.seed = function (knex) {
         accountId: 'c8330c1f-23f5-4577-943d-151d059af588',
         title: 'Grocer',
         employer: 'Bananaman',
-        created_at: '2016-07-02 14:45:27',
-        updated_at: '2016-07-02 14:45:27',
+        created_at: moment().subtract(week).add(day),
+        updated_at: moment().subtract(fortnight).add(day),
         sourceType: 'online',
         sourceUrl: 'http://www.stuff.com',
         deadline: '2016-07-11',

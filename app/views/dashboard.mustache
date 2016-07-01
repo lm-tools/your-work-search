@@ -10,13 +10,27 @@
     <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
 
     <form class="space-top-double" action="{{basePath}}/{{accountId}}" method="GET">
-      <label for="sort">{{#__}}dashboard.sort.label{{/__}}</label>
-      <select class="form-control form-control-auto" name="sort" id="sort" onchange="this.form.submit()">
-        {{#sortOptions}}
-          <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
-        {{/sortOptions}}
-      </select>
-      <input class="button js-hidden" type="submit" value="{{#__}}dashboard.sort.button{{/__}}">
+       <div class="grid-row">
+         <div class="column-one-half">
+           <label for="sort">{{#__}}dashboard.sort.label{{/__}}</label>
+           <select class="form-control form-control-auto" name="sort" id="sort" onchange="this.form.submit()">
+             {{#sortOptions}}
+               <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
+             {{/sortOptions}}
+           </select>
+           <input class="button js-hidden" type="submit" value="{{#__}}dashboard.sort.button{{/__}}">
+         </div>
+
+         <div class="column-one-half">
+           <label for="filter">{{#__}}dashboard.filter.label{{/__}}</label>
+           <select class="form-control form-control-auto" name="filter" id="filter" onchange="this.form.submit()">
+             {{#filterOptions}}
+               <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
+             {{/filterOptions}}
+           </select>
+           <input class="button js-hidden" type="submit" value="{{#__}}dashboard.filter.button{{/__}}">
+         </div>
+       </div>
     </form>
     <section class="space-top-double">
       <ul>
@@ -63,7 +77,7 @@
                   <h4 class="heading-small">{{#__}}dashboard.progression{{/__}}</h4>
 
                   <div class="grid-row">
-                    <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=PATCH&sort={{sortType}}"
+                    <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=PATCH&sort={{sortType}}&filter={{filterType}}"
                           method="POST">
                       <fieldset>
                         <legend class="visually-hidden">

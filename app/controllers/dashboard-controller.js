@@ -14,11 +14,12 @@ router.get('/', (req, res) => {
 router.get('/:accountId', (req, res, next) => {
   const accountId = req.params.accountId;
   const sort = req.query.sort;
+  const filter = req.query.filter;
 
   Jobs
-    .findAllByAccountId(accountId, sort)
+    .findAllByAccountId(accountId, sort, filter)
     .then((jobModels) => res.render('dashboard',
-      new DashboardViewModel(accountId, jobModels.serialize(), sort)
+      new DashboardViewModel(accountId, jobModels.serialize(), sort, filter)
     ))
     .catch((err) => next(err));
 });

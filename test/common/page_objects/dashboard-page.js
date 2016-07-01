@@ -21,7 +21,18 @@ const DashboardPage = function DashboardPage(browser) {
     return browser.visit(`/${accountId}?sort=${sort}`);
   };
 
+  this.filter = (accountId, filter) => {
+    assert(accountId, 'accountId is required');
+    return browser.visit(`/${accountId}?filter=${filter}`);
+  };
+
+  this.sortAndFilter = (accountId, sort, filter) => {
+    assert(accountId, 'accountId is required');
+    return browser.visit(`/${accountId}?sort=${sort}&filter=${filter}`);
+  };
+
   this.selectedSortType = () => browser.text('#sort option:selected');
+  this.selectedFilterType = () => browser.text('#filter option:selected');
   this.clickAddJobButton = () => browser.click('a.button');
   this.clickJobDetailsButton = job => browser.click(jobElementSelector(job, 'details-button'));
   this.jobList = () => browser.text('ul [data-test="title"]');

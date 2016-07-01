@@ -4,11 +4,13 @@ const progression = require('../models/progression');
 
 module.exports = class DashboardViewModel {
 
-  constructor(accountId, jobModels, sort) {
+  constructor(accountId, jobModels, sort, filter) {
     this.accountId = accountId;
     this.jobs = this.dashboardJobs(jobModels);
     this.sortType = sort;
+    this.filterType = filter;
     this.sortOptions = this.dashboardSortOptions(sort);
+    this.filterOptions = this.dashboardFilterOptions(filter);
   }
 
   dashboardJobs(jobModels) {
@@ -54,6 +56,23 @@ module.exports = class DashboardViewModel {
       { value: 'deadline',
         // eslint-disable-next-line no-underscore-dangle
         label: i18n.__('dashboard.sort.deadline'), selected: sort === 'deadline' },
+    ];
+  }
+
+  dashboardFilterOptions(filter) {
+    return [
+      { value: 'week',
+        // eslint-disable-next-line no-underscore-dangle
+        label: i18n.__('dashboard.filter.week'), selected: filter === 'week' },
+      { value: 'fortnight',
+        // eslint-disable-next-line no-underscore-dangle
+        label: i18n.__('dashboard.filter.fortnight'), selected: filter === 'fortnight' },
+      { value: 'month',
+        // eslint-disable-next-line no-underscore-dangle
+        label: i18n.__('dashboard.filter.month'), selected: filter === 'month' },
+      { value: 'none',
+        // eslint-disable-next-line no-underscore-dangle
+        label: i18n.__('dashboard.filter.none'), selected: filter === 'none' },
     ];
   }
 
