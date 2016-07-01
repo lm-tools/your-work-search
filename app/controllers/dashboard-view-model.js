@@ -7,6 +7,7 @@ module.exports = class DashboardViewModel {
   constructor(accountId, jobModels, sort) {
     this.accountId = accountId;
     this.jobs = this.dashboardJobs(jobModels);
+    this.sortType = sort;
     this.sortOptions = this.dashboardSortOptions(sort);
   }
 
