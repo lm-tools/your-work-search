@@ -214,4 +214,15 @@ describe('Dashboard', () => {
         );
     });
   });
+  describe('display timeline', () => {
+    const SEED_ACCOUNT_ID = 'C4F095BC-3D04-4378-A993-0F2FDCEE98A7';
+
+    before(function () {
+      return knex.seed.run({ directory: './db/seeds/alot_of_jobs' });
+    });
+
+    it('should display alot of jobs', () =>
+      dashboardPage.visit(SEED_ACCOUNT_ID)
+        .then(() => expect(dashboardPage.jobCount()).to.equal(44)));
+  });
 });
