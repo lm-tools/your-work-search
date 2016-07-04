@@ -1,0 +1,172 @@
+/*  EXPERIMENTAL STYLE FOR TIMELINE */
+
+//variables
+$interested_color: #0099ff;
+$applied_color: #009900;
+$interview_color: #66ccff;
+$result_color: #cc0000;
+
+/* MAXIMUM_HEIGHT... all other values derived from that below*/
+$max_height: 120px;
+
+.bubble {
+  border-radius: 50%;
+  border: 5px solid;
+  margin: 10px 0 10px $max_height / 2;
+  display: inline-block;
+  position: relative;
+}
+
+/* To draw the linking line between each bubble */
+.bubble:before {
+  content: '';
+  position: absolute;
+  left: -69px;
+  width: 64px;
+  height: 5px;
+  background: #CCC;
+}
+
+.timeline li:first-child:before
+{
+  background-color: #FFFFFF;
+}
+
+/* Scale blocks ... functionally the same */
+$scale: 6;
+.size-6 {
+  width: $scale * 20px;
+  height: $scale * 20px;
+  top: -1 * ( $max_height - ( $scale * 20px ) ) / 2;
+}
+.size-6:before {
+  top: $scale * 20px / 2;
+}
+.offset-6 {
+  padding-bottom : $max_height - $scale * 20px;
+}
+.label-offset-6 {
+  padding-left: ( $max_height / 2 ) + ( $scale * 2 );
+  padding-right: $scale * 8px;
+}
+
+$scale: 5;
+.size-5 {
+  width: $scale * 20px;
+  height: $scale * 20px;
+  top: -1 * ( $max_height - ( $scale * 20px ) ) / 2;
+}
+.size-5:before {
+  top: $scale * 20px / 2;
+}
+.offset-5 {
+  padding-bottom : $max_height - $scale * 20px;
+}
+.label-offset-5 {
+  padding-left: ( $max_height / 2 ) + ( $scale * 2 );
+  padding-right: $scale * 8px;
+}
+
+
+$scale: 4;
+.size-4 {
+  width: $scale * 20px;
+  height: $scale * 20px;
+  top: -1 * ( $max_height - ( $scale * 20px ) ) / 2;
+}
+.size-4:before {
+  top: $scale * 20px / 2;
+}
+.offset-4 {
+  padding-bottom : $max_height - $scale * 20px;
+}
+.label-offset-4 {
+  padding-left: ( $max_height / 2 ) + ( $scale * 2 );
+  padding-right: $scale * 8px;
+}
+
+
+$scale: 3;
+.size-3 {
+  width: $scale * 20px;
+  height: $scale * 20px;
+  top: -1 * ( $max_height - ( $scale * 20px ) ) / 2;
+}
+.size-3:before {
+  top: $scale * 20px / 2;
+}
+.offset-3 {
+  padding-bottom : $max_height - $scale * 20px;
+}
+.label-offset-3 {
+  padding-left: ( $max_height / 2 ) + ( $scale * 2 );
+  padding-right: $scale * 8px;
+}
+
+
+$scale: 2;
+.size-2 {
+  width: $scale * 20px;
+  height: $scale * 20px;
+  top: -1 * ( $max_height - ( $scale * 20px ) ) / 2;
+}
+.size-2:before {
+  top: $scale * 20px / 2;
+}
+.offset-2 {
+  padding-bottom : $max_height - $scale * 20px;
+}
+.label-offset-2 {
+  padding-left: ( $max_height / 2 ) + ( $scale * 2 );
+  padding-right: $scale * 8px;
+}
+
+$scale: 1;
+.size-1 {
+  width: $scale * 20px;
+  height: $scale * 20px;
+  top: -1 * ( $max_height - ( $scale * 20px ) ) / 2;
+}
+.size-1:before {
+  top: $scale * 20px / 2;
+}
+.offset-1 {
+  padding-bottom : $max_height - $scale * 20px;
+}
+.label-offset-1 {
+  padding-left: ( $max_height / 2 ) + ( $scale * 2 );
+  padding-right: $scale * 8px;
+}
+
+
+/* -------  The anomaly  ------- */
+.size-0 {
+  width: 5px;
+  height: 5px;
+  top: -1 * ( ( $max_height / 2 ) - 5 );
+}
+.size-0:before {
+  top: 0px;
+}
+.offset-0 {
+  margin-top: 0px;
+}
+.label-offset-0 {
+  padding-left: $max_height / 2;
+  padding-right: $max_height / 2 - 50;
+}
+
+
+/* colour per status type */
+.interested {
+	border-color: $interested_color;
+}
+.applied {
+	border-color: $applied_color;
+}
+.interview {
+	border-color: $interview_color;
+}
+.result {
+	border-color: $result_color;
+}

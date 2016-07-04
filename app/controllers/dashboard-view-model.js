@@ -11,6 +11,7 @@ module.exports = class DashboardViewModel {
     this.filterType = filter;
     this.sortOptions = this.dashboardSortOptions(sort);
     this.filterOptions = this.dashboardFilterOptions(filter);
+    this.timelineData = this.dashboardTimeline();
   }
 
   dashboardJobs(jobModels) {
@@ -88,5 +89,17 @@ module.exports = class DashboardViewModel {
 
     // eslint-disable-next-line no-underscore-dangle
     return job.sourceUrl ? job.sourceUrl : i18n.__(`sourceType.${job.sourceType}`);
+  }
+
+  dashboardTimeline() {
+    return {
+      maxScale: 6,
+      totals: [
+        { type: 'interested', total: 10, scale: 6 },
+        { type: 'applied', total: 4, scale: 4 },
+        { type: 'interview', total: 2, scale: 2 },
+        { type: 'result', total: 0, scale: 0 },
+      ],
+    };
   }
 };

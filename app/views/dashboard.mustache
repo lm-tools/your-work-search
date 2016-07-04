@@ -7,12 +7,16 @@
       {{#__}}dashboard.description{{/__}}
     </p>
 
-    <ul class='timeline'>
-      <li class='bubble interested size-7 start'>Interested</li>
-      <li class='bubble applied size-5'>Applied</li>
-      <li class='bubble interview size-3'>Interview</li>
-      <li class='bubble result size-1'>Result</li>
-    </ul>
+    <div class='timeline offset-{{timelineData.maxScale}}'>
+      {{#timelineData.totals}}
+        <label aria-hidden='true' class='bold-small label-offset-{{scale}}'>{{type}}</label>
+      {{/timelineData.totals}}
+      <ul>
+        {{#timelineData.totals}}
+          <li class='bubble {{type}} size-{{scale}} aria-label="{{type}} {{total}}"'></li>
+        {{/timelineData.totals}}
+      </ul>
+    </div>
 
     <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
 
