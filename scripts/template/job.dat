@@ -1,0 +1,16 @@
+    .then(function () {
+      return knex('jobs').insert({
+        id: '-id-',
+        accountId: '-account-',
+        title: '-title-',
+        employer: '-employer-',
+        created_at: moment().subtract(-filter-).add(day),
+        updated_at: moment().subtract(-filter-).add(day),
+        sourceType: 'online',
+        sourceUrl: 'http://www.stuff.com',
+        deadline: '2016-07-12',
+        rating: '3',
+        status: '-status-',
+        status_sort_index: -statusindex-,
+      });
+    })
