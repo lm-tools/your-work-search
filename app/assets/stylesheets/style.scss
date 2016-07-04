@@ -1,5 +1,6 @@
 @import '_govuk-elements';
 @import 'star-radios';
+@import 'colours';
 
 //variables
 $space_size: 10px;
@@ -73,6 +74,11 @@ $box-border-color: $panel-colour;
       top: -1em;
     }
   }
+
+  &.box-interested { border-right: 10px solid $interested_color; }
+  &.box-applied { border-right: 10px solid $applied_color; }
+  &.box-interview { border-right: 10px solid $interview_color; }
+  &.box-result { border-right: 10px solid $result_color; }
 }
 
 .box-section {
