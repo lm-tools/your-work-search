@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const screenshotDir = path.join(__dirname, '..', '..', 'screenshots');
+const screenshotDir = path.join(`${__dirname}/../../../screenshots`);
 const moment = require('moment');
 
 function testPath(test) {
