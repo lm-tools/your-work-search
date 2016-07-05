@@ -99,7 +99,7 @@ module.exports = class DashboardViewModel {
     });
 
     const totalsArray = Object.keys(totals).map(function (k) { return totals[k]; });
-    const maxTotal = Math.max.apply(Math, totalsArray);
+    const maxTotal = Math.max(...totalsArray);
 
     return {
       maxScale: this.getTimelineScale(maxTotal),

@@ -8,7 +8,7 @@
         updated_at: moment().subtract(-filter-).add(day),
         sourceType: 'online',
         sourceUrl: 'http://www.indeed.com/kjsdjflisdn',
-        deadline: moment().subtract(-filter-).add(day).add(fortnight),
+        deadline: moment().subtract(-filter-).add(fortnight),
         rating: '3',
         status: '-status-',
         status_sort_index: -statusindex-,

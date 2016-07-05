@@ -1,5 +1,5 @@
 
 exports.seed = function (knex) {
-  return knex('jobs').del() // Deletes ALL existing entries
+  return knex('jobs').del(); // Deletes ALL existing entries
 };
 

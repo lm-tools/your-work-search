@@ -26,112 +26,26 @@ $max_height: 120px;
   background-color: #FFFFFF;
 }
 
-/* Scale blocks ... functionally the same */
-$scale: 6;
-.size-6 {
-  width: $scale * 20px;
-  height: $scale * 20px;
-  top: -1 * ( $max_height - ( $scale * 20px ) ) / 2;
-}
-.size-6:before {
-  top: $scale * 20px / 2;
-}
-.offset-6 {
-  padding-bottom : $max_height - $scale * 20px;
-}
-.label-offset-6 {
-  padding-left: ( $max_height / 2 ) + ( $scale * 2 );
-  padding-right: $scale * 8px;
-}
+@for $scale from 1 through 6 {
+  .size-#{$scale} {
+    width: $scale * 20px;
+    height: $scale * 20px;
+    top: -1 * ( $max_height - ( $scale * 20px ) ) / 2;
 
-$scale: 5;
-.size-5 {
-  width: $scale * 20px;
-  height: $scale * 20px;
-  top: -1 * ( $max_height - ( $scale * 20px ) ) / 2;
-}
-.size-5:before {
-  top: $scale * 20px / 2;
-}
-.offset-5 {
-  padding-bottom : $max_height - $scale * 20px;
-}
-.label-offset-5 {
-  padding-left: ( $max_height / 2 ) + ( $scale * 2 );
-  padding-right: $scale * 8px;
-}
+    &:before {
+       top: $scale * 20px / 2;
+    }
+  }
 
+  .offset-#{$scale} {
+     padding-bottom : $max_height - $scale * 20px;
+  }
 
-$scale: 4;
-.size-4 {
-  width: $scale * 20px;
-  height: $scale * 20px;
-  top: -1 * ( $max_height - ( $scale * 20px ) ) / 2;
+  .label-offset-#{$scale} {
+     padding-left: ( $max_height / 2 ) + ( $scale * 2 );
+     padding-right: $scale * 8px;
+  }
 }
-.size-4:before {
-  top: $scale * 20px / 2;
-}
-.offset-4 {
-  padding-bottom : $max_height - $scale * 20px;
-}
-.label-offset-4 {
-  padding-left: ( $max_height / 2 ) + ( $scale * 2 );
-  padding-right: $scale * 8px;
-}
-
-
-$scale: 3;
-.size-3 {
-  width: $scale * 20px;
-  height: $scale * 20px;
-  top: -1 * ( $max_height - ( $scale * 20px ) ) / 2;
-}
-.size-3:before {
-  top: $scale * 20px / 2;
-}
-.offset-3 {
-  padding-bottom : $max_height - $scale * 20px;
-}
-.label-offset-3 {
-  padding-left: ( $max_height / 2 ) + ( $scale * 2 );
-  padding-right: $scale * 8px;
-}
-
-
-$scale: 2;
-.size-2 {
-  width: $scale * 20px;
-  height: $scale * 20px;
-  top: -1 * ( $max_height - ( $scale * 20px ) ) / 2;
-}
-.size-2:before {
-  top: $scale * 20px / 2;
-}
-.offset-2 {
-  padding-bottom : $max_height - $scale * 20px;
-}
-.label-offset-2 {
-  padding-left: ( $max_height / 2 ) + ( $scale * 2 );
-  padding-right: $scale * 8px;
-}
-
-$scale: 1;
-.size-1 {
-  width: $scale * 20px;
-  height: $scale * 20px;
-  top: -1 * ( $max_height - ( $scale * 20px ) ) / 2;
-}
-.size-1:before {
-  top: $scale * 20px / 2;
-}
-.offset-1 {
-  padding-bottom : $max_height - $scale * 20px;
-}
-.label-offset-1 {
-  padding-left: ( $max_height / 2 ) + ( $scale * 2 );
-  padding-right: $scale * 8px;
-}
-
 
 /* -------  The anomaly  ------- */
 .size-0 {
