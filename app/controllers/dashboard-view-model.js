@@ -80,7 +80,7 @@ module.exports = class DashboardViewModel {
     if (!deadline) return '';
 
     const date = moment(deadline);
-    return date.isSame(new Date(), 'year') ? date.format('Do MMMM') : date.format('Do MMMM YYYY');
+    return date.isSame(new Date(), 'year') ? date.format('D MMMM') : date.format('D MMMM YYYY');
   }
 
   formatSource(job) {
