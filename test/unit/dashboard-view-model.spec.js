@@ -81,7 +81,7 @@ describe('DashboardViewModel', function () {
     };
 
     describe('maxScale', function () {
-      it('should equal the highest status count', function() {
+      it('should equal the highest status count', function () {
         const timeline = createTimeline({
           interested: 1,
           applied: 2,
@@ -92,7 +92,7 @@ describe('DashboardViewModel', function () {
         expect(timeline.maxScale).to.equal(4);
       });
 
-      it('should not exceed 6', function() {
+      it('should not exceed 6', function () {
         const timeline = createTimeline({
           interested: 10,
           applied: 20,
@@ -127,15 +127,15 @@ describe('DashboardViewModel', function () {
       });
 
       it('should contain the total count for each status', function () {
-        let countsByType = {};
-        totals.forEach(t => countsByType[t.type] = t.total);
+        const countsByType = {};
+        totals.forEach(t => { countsByType[t.type] = t.total; });
 
         expect(countsByType).to.eql(statusCounts);
       });
 
       it('should contain the scale for each status, as total count with a max of 6', function () {
-        let scalesByType = {};
-        totals.forEach(t => scalesByType[t.type] = t.scale);
+        const scalesByType = {};
+        totals.forEach(t => { scalesByType[t.type] = t.scale; });
 
         expect(scalesByType).to.eql({
           interested: 2,
@@ -144,7 +144,6 @@ describe('DashboardViewModel', function () {
           result: 6,
         });
       });
-    })
-
+    });
   });
 });
