@@ -43,7 +43,7 @@ describe('Dashboard', () => {
       expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal('Applied'));
 
     it('should display deadline', () =>
-      expect(dashboardPage.getDeadline(savedJob)).to.equal('10th October 2050'));
+      expect(dashboardPage.getDeadline(savedJob)).to.equal('10 October 2050'));
 
     it('should display interest level', () =>
       expect(dashboardPage.getInterestLevel(savedJob)).to.equal(`${jobData.rating}`));

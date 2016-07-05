@@ -18,17 +18,17 @@ describe('DashboardViewModel', function () {
       {
         name: 'exclude year for current year',
         deadline: new Date('2016-10-11'),
-        expected: '11th October',
+        expected: '11 October',
       },
       {
         name: 'include year for future year',
         deadline: new Date('2017-01-01'),
-        expected: '1st January 2017',
+        expected: '1 January 2017',
       },
       {
         name: 'include year for previous year',
         deadline: new Date('2015-02-02'),
-        expected: '2nd February 2015',
+        expected: '2 February 2015',
       },
       { name: 'return empty string', deadline: undefined, expected: '' },
       { name: 'return empty string', deadline: null, expected: '' },
