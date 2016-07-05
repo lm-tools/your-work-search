@@ -227,9 +227,10 @@ describe('Dashboard', () => {
 
     it('should display the correct timeline', () =>
       dashboardPage.visit(SEED_ACCOUNT_ID)
-        .then(() => expect(dashboardPage.statusTotalAndSize('interested', 29, 6)))
-        .then(() => expect(dashboardPage.statusTotalAndSize('applied', 10, 6)))
-        .then(() => expect(dashboardPage.statusTotalAndSize('interview', 5, 5)))
-        .then(() => expect(dashboardPage.statusTotalAndSize('result', 0, 0))));
+        .then(() => expect(dashboardPage.timelineStatusSize('interested')).to.equal(6))
+        .then(() => expect(dashboardPage.timelineStatusSize('applied')).to.equal(6))
+        .then(() => expect(dashboardPage.timelineStatusSize('interview')).to.equal(5))
+        .then(() => expect(dashboardPage.timelineStatusSize('result')).to.equal(0))
+    );
   });
 });
