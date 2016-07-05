@@ -1,10 +1,4 @@
-/*  EXPERIMENTAL STYLE FOR TIMELINE */
-
-//variables
-$interested_color: #0099ff;
-$applied_color: #009900;
-$interview_color: #66ccff;
-$result_color: #cc0000;
+@import 'colours';
 
 /* MAXIMUM_HEIGHT... all other values derived from that below*/
 $max_height: 120px;

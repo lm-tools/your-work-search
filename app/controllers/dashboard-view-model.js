@@ -11,7 +11,7 @@ module.exports = class DashboardViewModel {
     this.filterType = filter;
     this.sortOptions = this.dashboardSortOptions(sort);
     this.filterOptions = this.dashboardFilterOptions(filter);
-    this.timelineData = this.dashboardTimeline();
+    this.timelineData = this.dashboardTimeline(jobModels);
   }
 
   dashboardJobs(jobModels) {
@@ -91,15 +91,36 @@ module.exports = class DashboardViewModel {
     return job.sourceUrl ? job.sourceUrl : i18n.__(`sourceType.${job.sourceType}`);
   }
 
-  dashboardTimeline() {
+  dashboardTimeline(jobModels) {
+    const totals = { interested: 0, applied: 0, interview: 0, result: 0 };
+
+    jobModels.forEach(function (job) {
+      totals[job.status]++;
+    });
+
+    const totalsArray = Object.keys(totals).map(function (k) { return totals[k]; });
+    const maxTotal = Math.max.apply(Math, totalsArray);
+
     return {
-      maxScale: 6,
+      maxScale: this.getTimelineScale(maxTotal),
       totals: [
-        { type: 'interested', total: 10, scale: 6 },
-        { type: 'applied', total: 4, scale: 4 },
-        { type: 'interview', total: 2, scale: 2 },
-        { type: 'result', total: 0, scale: 0 },
+        { type: 'interested',
+          total: totals.interested,
+          scale: this.getTimelineScale(totals.interested) },
+        { type: 'applied',
+          total: totals.applied,
+          scale: this.getTimelineScale(totals.applied) },
+        { type: 'interview',
+          total: totals.interview,
+          scale: this.getTimelineScale(totals.interview) },
+        { type: 'result',
+          total: totals.result,
+          scale: this.getTimelineScale(totals.result) },
       ],
     };
+  }
+
+  getTimelineScale(total) {
+    return total < 6 ? total : 6;
   }
 };

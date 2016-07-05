@@ -31,6 +31,9 @@ const DashboardPage = function DashboardPage(browser) {
     return browser.visit(`/${accountId}?sort=${sort}&filter=${filter}`);
   };
 
+  this.statusTotalAndSize = (type, total, size) =>
+    browser.assert.element(`[data-test="${type}-${total}-${size}"]`);
+
   this.selectedSortType = () => browser.text('#sort option:selected');
   this.selectedFilterType = () => browser.text('#filter option:selected');
   this.clickAddJobButton = () => browser.click('a.button');

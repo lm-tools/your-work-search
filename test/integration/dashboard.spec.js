@@ -215,7 +215,7 @@ describe('Dashboard', () => {
     });
   });
   describe('display timeline', () => {
-    const SEED_ACCOUNT_ID = 'C4F095BC-3D04-4378-A993-0F2FDCEE98A7';
+    const SEED_ACCOUNT_ID = 'ALOT-123';
 
     before(function () {
       return knex.seed.run({ directory: './db/seeds/alot_of_jobs' });
@@ -224,5 +224,12 @@ describe('Dashboard', () => {
     it('should display alot of jobs', () =>
       dashboardPage.visit(SEED_ACCOUNT_ID)
         .then(() => expect(dashboardPage.jobCount()).to.equal(44)));
+
+    it('should display the correct timeline', () =>
+      dashboardPage.visit(SEED_ACCOUNT_ID)
+        .then(() => expect(dashboardPage.statusTotalAndSize('interested', 29, 6)))
+        .then(() => expect(dashboardPage.statusTotalAndSize('applied', 10, 6)))
+        .then(() => expect(dashboardPage.statusTotalAndSize('interview', 5, 5)))
+        .then(() => expect(dashboardPage.statusTotalAndSize('result', 0, 0))));
   });
 });

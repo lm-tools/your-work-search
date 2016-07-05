@@ -13,7 +13,7 @@
       {{/timelineData.totals}}
       <ul>
         {{#timelineData.totals}}
-          <li class='bubble {{type}} size-{{scale}} aria-label="{{type}} {{total}}"'></li>
+          <li class='bubble {{type}} size-{{scale}}' data-test="{{type}}-{{total}}-{{scale}}"></li>
         {{/timelineData.totals}}
       </ul>
     </div>
