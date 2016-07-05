@@ -136,6 +136,17 @@ $box-border-color: $panel-colour;
   }
 }
 
+button.link-button {
+  @extend .link;
+  display: inline;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  background: transparent;
+  font: inherit;
+}
+
 // validation
 #validation-errors {
   color: red;
