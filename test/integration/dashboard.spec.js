@@ -173,19 +173,19 @@ describe('Dashboard', () => {
       dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'updated', 'week')
         .then(() => expect(dashboardPage.jobList())
           .to.eql('Goalkeeper'))
-        .then(() => expect(dashboardPage.selectedFilterType()).to.equal('updated last week')));
+        .then(() => expect(dashboardPage.selectedFilterType()).to.equal('updated past week')));
 
     it('should filter jobs updated in the last fortnight', () =>
       dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'updated', 'fortnight')
         .then(() => expect(dashboardPage.jobList())
           .to.eql('GoalkeeperGrocer'))
-        .then(() => expect(dashboardPage.selectedFilterType()).to.equal('updated last two weeks')));
+        .then(() => expect(dashboardPage.selectedFilterType()).to.equal('updated past 2 weeks')));
 
     it('should filter jobs updated in the last month', () =>
       dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'updated', 'month')
         .then(() => expect(dashboardPage.jobList())
           .to.eql('GoalkeeperGrocerRoundabout Operator'))
-        .then(() => expect(dashboardPage.selectedFilterType()).to.equal('updated last month')));
+        .then(() => expect(dashboardPage.selectedFilterType()).to.equal('updated past month')));
 
     it('should not filter jobs when no filter selected', () =>
       dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'updated', 'none')
