@@ -24,7 +24,7 @@
       "week": "updated past week",
       "fortnight": "updated past 2 weeks",
       "month": "updated past month",
-      "none": "all",
+      "all": "all",
       "label": "Show",
       "button": "Filter"
     },

@@ -188,10 +188,10 @@ describe('Dashboard', () => {
         .then(() => expect(dashboardPage.selectedFilterType()).to.equal('updated past month')));
 
     it('should not filter jobs when no filter selected', () =>
-      dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'updated', 'none')
+      dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'updated', 'all')
         .then(() => expect(dashboardPage.jobList())
           .to.eql('GoalkeeperGrocerRoundabout OperatorOrgan Grinder'))
-        .then(() => expect(dashboardPage.selectedFilterType()).to.equal('none')));
+        .then(() => expect(dashboardPage.selectedFilterType()).to.equal('all')));
   });
   describe('update job', () => {
     let savedJob;
