@@ -19,46 +19,62 @@ describe('Dashboard', () => {
   };
 
   describe('display all the details of a job', () => {
-    let savedJob;
+    describe('with all fields specified', () => {
+      let savedJob;
 
-    before(function () {
-      return helper.cleanDb()
-        .then(() => new JobsModel(jobData).save())
-        .then(job => {
-          savedJob = job;
-        })
-        .then(() => dashboardPage.visit(accountId));
+      before(function () {
+        return helper.cleanDb()
+          .then(() => new JobsModel(jobData).save())
+          .then(job => {
+            savedJob = job;
+          })
+          .then(() => dashboardPage.visit(accountId));
+      });
+
+      it('should display title', () =>
+        expect(dashboardPage.getTitle(savedJob)).to.equal(jobData.title));
+
+      it('should display employer', () =>
+        expect(dashboardPage.getEmployer(savedJob)).to.equal(jobData.employer));
+
+      it('should display progress', () =>
+        expect(dashboardPage.getSelectedProgressionStatus(savedJob)).to.equal(jobData.status));
+
+      it('should display current status', () =>
+        expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal('Applied'));
+
+      it('should display deadline', () =>
+        expect(dashboardPage.getDeadline(savedJob)).to.equal('10 October 2050'));
+
+      it('should display interest level', () =>
+        expect(dashboardPage.getInterestLevel(savedJob)).to.equal(`${jobData.rating}`));
+
+      it('should display where you find the role', () =>
+        expect(dashboardPage.getJobSource(savedJob)).to.equal(jobData.sourceUrl));
+
+      it('should hide job details by default', () =>
+        expect(dashboardPage.isJobDetailsVisible(savedJob))
+          .to.equal(false, 'Job details should be hidden'));
+
+      it('should show job details when details button clicked', () => {
+        dashboardPage.clickJobDetailsButton(savedJob);
+        expect(dashboardPage.isJobDetailsVisible(savedJob))
+          .to.equal(true, 'Job details should be visible');
+      });
     });
 
-    it('should display title', () =>
-      expect(dashboardPage.getTitle(savedJob)).to.equal(jobData.title));
+    describe('with some optional fields missing', () => {
+      it('should not display where you found ther role, if it was not specified', () => {
+        let savedJob;
+        const jobDataWithoutSourceType = Object.assign({}, jobData);
+        jobDataWithoutSourceType.sourceType = null;
 
-    it('should display employer', () =>
-      expect(dashboardPage.getEmployer(savedJob)).to.equal(jobData.employer));
-
-    it('should display progress', () =>
-      expect(dashboardPage.getSelectedProgressionStatus(savedJob)).to.equal(jobData.status));
-
-    it('should display current status', () =>
-      expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal('Applied'));
-
-    it('should display deadline', () =>
-      expect(dashboardPage.getDeadline(savedJob)).to.equal('10 October 2050'));
-
-    it('should display interest level', () =>
-      expect(dashboardPage.getInterestLevel(savedJob)).to.equal(`${jobData.rating}`));
-
-    it('should display where you find the role', () =>
-      expect(dashboardPage.getJobSource(savedJob)).to.equal(jobData.sourceUrl));
-
-    it('should hide job details by default', () =>
-      expect(dashboardPage.isJobDetailsVisible(savedJob))
-        .to.equal(false, 'Job details should be hidden'));
-
-    it('should show job details when details button clicked', () => {
-      dashboardPage.clickJobDetailsButton(savedJob);
-      expect(dashboardPage.isJobDetailsVisible(savedJob))
-        .to.equal(true, 'Job details should be visible');
+        return helper.cleanDb()
+          .then(() => new JobsModel(jobDataWithoutSourceType).save())
+          .then(job => { savedJob = job; })
+          .then(() => dashboardPage.visit(accountId))
+          .then(() => expect(dashboardPage.hasJobSource(savedJob)).to.be.false);
+      });
     });
   });
   describe('display my jobs', () => {
