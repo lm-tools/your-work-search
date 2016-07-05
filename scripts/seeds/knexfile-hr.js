@@ -4,7 +4,7 @@ module.exports = {
   development: Object.assign(
     {
       seeds: {
-        directory: './chef',
+        directory: './hr',
       },
     },
     config.development
@@ -13,7 +13,7 @@ module.exports = {
   test: Object.assign(
     {
       seeds: {
-        directory: './chef',
+        directory: './hr',
       },
     },
     config.test
@@ -22,7 +22,7 @@ module.exports = {
   production: Object.assign(
     {
       seeds: {
-        directory: './chef',
+        directory: './hr',
       },
     },
     config.production
