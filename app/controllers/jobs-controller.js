@@ -4,6 +4,7 @@ const Jobs = require('../models/jobs-model');
 const AddJobViewModel = require('./add-job-view-model');
 const progression = require('../models/progression');
 const moment = require('moment');
+const i18n = require('i18n');
 
 function parseDeadline(deadlineString) {
   const dateFormat = !deadlineString.includes('-') ? 'DD/MM/YYYY' : undefined;
@@ -11,7 +12,9 @@ function parseDeadline(deadlineString) {
 }
 
 function validateDeadline(deadline, req) {
-  if (!deadline) { return; }
+  if (!deadline) {
+    return;
+  }
 
   if (deadline.includes('-')) {
     req.checkBody('deadline', 'Deadline should be in "dd/mm/yyyy" format').isDate();
@@ -61,9 +64,26 @@ router.patch('/:jobId', (req, res, next) => {
     updateData.status_sort_index = progression.indexOf(updateData.status) || 0;
   }
 
-  new Jobs({ id: jobId })
+  return new Jobs({ id: jobId })
     .save(updateData, { method: 'update', patch: true })
     .then(() => res.redirect(`${basePath}/${accountId}?sort=${sort}&filter=${filter}`))
+    .catch((err) => next(err));
+});
+
+router.delete('/:jobId', (req, res, next) => {
+  const basePath = req.app.locals.basePath;
+  const accountId = req.params.accountId;
+  const jobId = req.params.jobId;
+  return new Jobs({ id: jobId })
+    .fetch()
+    .then(job => {
+      // eslint-disable-next-line no-underscore-dangle
+      const description = i18n.__('confirmation.jobRemoved', { jobTitle: job.get('title') });
+      return job.destroy()
+        .then(() => res.redirect(
+          `${basePath}/${accountId}/confirmation?description=${description}`
+        ));
+    })
     .catch((err) => next(err));
 });
 
