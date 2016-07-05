@@ -31,6 +31,13 @@ const DashboardPage = function DashboardPage(browser) {
     return browser.visit(`/${accountId}?sort=${sort}&filter=${filter}`);
   };
 
+  this.timelineStatusSize = (status) =>
+    Number(
+      browser.query(`[data-test=timeline] [data-test=${status}]`)
+        .className
+        .match(/size-(\d+)/)[1]
+    );
+
   this.selectedSortType = () => browser.text('#sort option:selected');
   this.selectedFilterType = () => browser.text('#filter option:selected');
   this.clickAddJobButton = () => browser.click('a.button');

@@ -7,6 +7,17 @@
       {{#__}}dashboard.description{{/__}}
     </p>
 
+    <div class='timeline offset-{{timelineData.maxScale}}' data-test='timeline'>
+      {{#timelineData.totals}}
+        <label aria-hidden='true' class='bold-small label-offset-{{scale}}'>{{type}}</label>
+      {{/timelineData.totals}}
+      <ul>
+        {{#timelineData.totals}}
+          <li class='bubble {{type}} size-{{scale}}' data-test='{{type}}'></li>
+        {{/timelineData.totals}}
+      </ul>
+    </div>
+
     <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
 
     <form class="space-top-double" action="{{basePath}}/{{accountId}}" method="GET">

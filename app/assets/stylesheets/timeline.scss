@@ -1,0 +1,80 @@
+@import 'colours';
+
+/* MAXIMUM_HEIGHT... all other values derived from that below*/
+$max_height: 120px;
+
+.bubble {
+  border-radius: 50%;
+  border: 5px solid;
+  margin: 10px 0 10px $max_height / 2;
+  display: inline-block;
+  position: relative;
+}
+
+/* To draw the linking line between each bubble */
+.bubble:before {
+  content: '';
+  position: absolute;
+  left: -69px;
+  width: 64px;
+  height: 5px;
+  background: #CCC;
+}
+
+.timeline li:first-child:before
+{
+  background-color: #FFFFFF;
+}
+
+@for $scale from 1 through 6 {
+  .size-#{$scale} {
+    width: $scale * 20px;
+    height: $scale * 20px;
+    top: -1 * ( $max_height - ( $scale * 20px ) ) / 2;
+
+    &:before {
+       top: $scale * 20px / 2;
+    }
+  }
+
+  .offset-#{$scale} {
+     padding-bottom : $max_height - $scale * 20px;
+  }
+
+  .label-offset-#{$scale} {
+     padding-left: ( $max_height / 2 ) + ( $scale * 2 );
+     padding-right: $scale * 8px;
+  }
+}
+
+/* -------  The anomaly  ------- */
+.size-0 {
+  width: 5px;
+  height: 5px;
+  top: -1 * ( ( $max_height / 2 ) - 5 );
+}
+.size-0:before {
+  top: 0px;
+}
+.offset-0 {
+  margin-top: 0px;
+}
+.label-offset-0 {
+  padding-left: $max_height / 2;
+  padding-right: $max_height / 2 - 50;
+}
+
+
+/* colour per status type */
+.interested {
+	border-color: $interested_color;
+}
+.applied {
+	border-color: $applied_color;
+}
+.interview {
+	border-color: $interview_color;
+}
+.result {
+	border-color: $result_color;
+}

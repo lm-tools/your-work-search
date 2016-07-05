@@ -214,4 +214,23 @@ describe('Dashboard', () => {
         );
     });
   });
+  describe('display timeline', () => {
+    const SEED_ACCOUNT_ID = 'ALOT-123';
+
+    before(function () {
+      return knex.seed.run({ directory: './db/seeds/alot_of_jobs' });
+    });
+
+    it('should display alot of jobs', () =>
+      dashboardPage.visit(SEED_ACCOUNT_ID)
+        .then(() => expect(dashboardPage.jobCount()).to.equal(44)));
+
+    it('should display the correct timeline', () =>
+      dashboardPage.visit(SEED_ACCOUNT_ID)
+        .then(() => expect(dashboardPage.timelineStatusSize('interested')).to.equal(6))
+        .then(() => expect(dashboardPage.timelineStatusSize('applied')).to.equal(6))
+        .then(() => expect(dashboardPage.timelineStatusSize('interview')).to.equal(5))
+        .then(() => expect(dashboardPage.timelineStatusSize('result')).to.equal(0))
+    );
+  });
 });
