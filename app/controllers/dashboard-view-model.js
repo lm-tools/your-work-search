@@ -61,6 +61,9 @@ module.exports = class DashboardViewModel {
 
   dashboardFilterOptions(filter) {
     return [
+      { value: 'none',
+        // eslint-disable-next-line no-underscore-dangle
+        label: i18n.__('dashboard.filter.none'), selected: filter === 'none' },
       { value: 'week',
         // eslint-disable-next-line no-underscore-dangle
         label: i18n.__('dashboard.filter.week'), selected: filter === 'week' },
@@ -70,9 +73,6 @@ module.exports = class DashboardViewModel {
       { value: 'month',
         // eslint-disable-next-line no-underscore-dangle
         label: i18n.__('dashboard.filter.month'), selected: filter === 'month' },
-      { value: 'none',
-        // eslint-disable-next-line no-underscore-dangle
-        label: i18n.__('dashboard.filter.none'), selected: filter === 'none' },
     ];
   }
 

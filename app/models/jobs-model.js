@@ -23,14 +23,18 @@ module.exports = db.Model.extend(
     hasTimestamps: true,
   },
   {
-    findAllByAccountId(accountId, sort, filter) {
-      const sortOrDefault = sort || 'created';
-      const filterOrDefault = filter || 'none';
+    findAllByAccountId(accountId, options = {}) {
+      let query = this.forge().query({ where: { accountId } });
 
-      return this.forge().query({ where: { accountId } })
-        .where('updated_at', '>', historicDate[filterOrDefault].format('YYYY-MM-DD'))
-        .orderBy(sortRef[sortOrDefault].field, sortRef[sortOrDefault].direction)
-        .fetchAll();
+      if (options.filter) {
+        query = query.where('updated_at', '>', historicDate[options.filter].format('YYYY-MM-DD'));
+      }
+
+      if (options.sort) {
+        query = query.orderBy(sortRef[options.sort].field, sortRef[options.sort].direction);
+      }
+
+      return query.fetchAll();
     },
   }
 );
