@@ -15,7 +15,7 @@ class AddJobViewModel {
         { value: 'online', label: i18n.__('sourceType.online') },
         { value: 'inPerson', label: i18n.__('sourceType.inPerson') },
       ],
-      body.sourceType || 'online'
+      body.sourceType
     );
 
     this.errors = validationErrors;
