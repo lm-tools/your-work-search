@@ -62,9 +62,9 @@ module.exports = class DashboardViewModel {
 
   dashboardFilterOptions(filter) {
     return [
-      { value: 'none',
+      { value: 'all',
         // eslint-disable-next-line no-underscore-dangle
-        label: i18n.__('dashboard.filter.none'), selected: filter === 'none' },
+        label: i18n.__('dashboard.filter.all'), selected: filter === 'all' },
       { value: 'week',
         // eslint-disable-next-line no-underscore-dangle
         label: i18n.__('dashboard.filter.week'), selected: filter === 'week' },

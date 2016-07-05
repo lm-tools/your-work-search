@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 router.get('/:accountId', (req, res, next) => {
   const accountId = req.params.accountId;
   const sort = req.query.sort || 'created';
-  const filter = req.query.filter || 'none';
+  const filter = req.query.filter || 'all';
 
   Jobs
     .findAllByAccountId(accountId, { sort, filter })

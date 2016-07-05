@@ -21,11 +21,11 @@
     "source": "Where did you find this role?",
     "detailsButton": "Details",
     "filter": {
-      "week": "updated last week",
-      "fortnight": "updated last two weeks",
-      "month": "updated last month",
-      "none": "none",
-      "label": "Filter by",
+      "week": "updated past week",
+      "fortnight": "updated past 2 weeks",
+      "month": "updated past month",
+      "all": "all",
+      "label": "Show",
       "button": "Filter"
     },
     "deleteButton": "Delete"

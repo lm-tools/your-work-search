@@ -14,7 +14,7 @@ const historicDate = {
   week: moment().subtract(moment.duration(1, 'w')),
   fortnight: moment().subtract(moment.duration(2, 'w')),
   month: moment().subtract(moment.duration(1, 'M')),
-  none: moment('2016-01-01'),
+  all: moment('2016-01-01'),
 };
 
 module.exports = db.Model.extend(
