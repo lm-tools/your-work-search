@@ -105,15 +105,23 @@ module.exports = class DashboardViewModel {
       maxScale: this.getTimelineScale(maxTotal),
       totals: [
         { type: 'interested',
+          // eslint-disable-next-line no-underscore-dangle
+          label: i18n.__('progression.interested'),
           total: totals.interested,
           scale: this.getTimelineScale(totals.interested) },
         { type: 'applied',
+          // eslint-disable-next-line no-underscore-dangle
+          label: i18n.__('progression.applied'),
           total: totals.applied,
           scale: this.getTimelineScale(totals.applied) },
         { type: 'interview',
+          // eslint-disable-next-line no-underscore-dangle
+          label: i18n.__('progression.interview'),
           total: totals.interview,
           scale: this.getTimelineScale(totals.interview) },
         { type: 'result',
+          // eslint-disable-next-line no-underscore-dangle
+          label: i18n.__('progression.result'),
           total: totals.result,
           scale: this.getTimelineScale(totals.result) },
       ],
