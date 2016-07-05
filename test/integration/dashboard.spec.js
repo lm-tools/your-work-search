@@ -19,17 +19,22 @@ describe('Dashboard', () => {
   };
 
   describe('display all the details of a job', () => {
+    const createJobAndVisitDashboard = (attributes) => {
+      let savedJob;
+      return helper.cleanDb()
+        .then(() => new JobsModel(attributes).save())
+        .then(job => { savedJob = job; })
+        .then(() => dashboardPage.visit(accountId))
+        .then(() => savedJob);
+    };
+
     describe('with all fields specified', () => {
       let savedJob;
 
-      before(function () {
-        return helper.cleanDb()
-          .then(() => new JobsModel(jobData).save())
-          .then(job => {
-            savedJob = job;
-          })
-          .then(() => dashboardPage.visit(accountId));
-      });
+      before(() =>
+        createJobAndVisitDashboard(jobData)
+          .then(job => { savedJob = job; })
+      );
 
       it('should display title', () =>
         expect(dashboardPage.getTitle(savedJob)).to.equal(jobData.title));
@@ -65,15 +70,10 @@ describe('Dashboard', () => {
 
     describe('with some optional fields missing', () => {
       it('should not display where you found ther role, if it was not specified', () => {
-        let savedJob;
-        const jobDataWithoutSourceType = Object.assign({}, jobData);
-        jobDataWithoutSourceType.sourceType = null;
+        const jobDataWithoutSourceType = Object.assign({}, jobData, { sourceType: null });
 
-        return helper.cleanDb()
-          .then(() => new JobsModel(jobDataWithoutSourceType).save())
-          .then(job => { savedJob = job; })
-          .then(() => dashboardPage.visit(accountId))
-          .then(() => expect(dashboardPage.hasJobSource(savedJob)).to.be.false);
+        return createJobAndVisitDashboard(jobDataWithoutSourceType)
+          .then(savedJob => expect(dashboardPage.hasJobSource(savedJob)).to.be.false);
       });
     });
   });
