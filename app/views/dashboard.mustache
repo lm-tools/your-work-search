@@ -7,10 +7,12 @@
       {{#__}}dashboard.description{{/__}}
     </p>
 
-    <div class='timeline offset-{{timelineData.maxScale}}' data-test='timeline'>
+    <div>
       {{#timelineData.totals}}
-        <label aria-hidden='true' class='bold-small label-offset-{{scale}}'>{{type}}</label>
+        <label class='bold-small timeline-label'>{{label}}</label>
       {{/timelineData.totals}}
+    </div>
+    <div class='timeline offset-{{timelineData.maxScale}}' data-test='timeline'>
       <ul>
         {{#timelineData.totals}}
           <li class='bubble {{type}} size-{{scale}}' data-test='{{type}}'></li>
