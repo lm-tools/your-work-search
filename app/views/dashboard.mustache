@@ -58,8 +58,10 @@
 
               <div class="details js-hidden" data-test="details">
                 <dl>
-                  <dt class="">{{#__}}dashboard.source{{/__}}</dt>
-                  <dd data-test="source">{{source}}</dd>
+                  {{#source}}
+                    <dt class="">{{#__}}dashboard.source{{/__}}</dt>
+                    <dd data-test="source">{{source}}</dd>
+                  {{/source}}
                   <dt>{{#__}}dashboard.interestLevel{{/__}}</dt>
                   <dd class="star-rating">
                     <div class="rating-options-group rating-options-group-disabled">

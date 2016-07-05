@@ -55,6 +55,7 @@ const DashboardPage = function DashboardPage(browser) {
     return element && element.value;
   };
   this.getJobSource = (job) => browser.text(jobElementSelector(job, 'source'));
+  this.hasJobSource = (job) => !!browser.query(jobElementSelector(job, 'source'));
   this.isJobDetailsVisible = job => !browser.query(jobElementSelector(job, 'details'))
       .className.split(/\s+/).includes('js-hidden');
 };
