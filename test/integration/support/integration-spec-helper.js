@@ -2,10 +2,10 @@ const Zombie = require('zombie');
 Zombie.site = 'http://localhost:3000';
 const browser = new Zombie();
 const screenshots = require('./screenshots');
-const knexCleaner = require('knex-cleaner');
-const knex = require('../../../app/db').knex;
+const dbHelper = require('./db-helper');
 const DashboardPage = require('../../common/page_objects/dashboard-page');
 const AddJobPage = require('../../common/page_objects/add-job-page');
+const ConfirmationPage = require('../../common/page_objects/confirmation-page');
 
 
 require('../../../bin/www'); // This starts the web server, and ensures it is only
@@ -18,11 +18,12 @@ afterEach(function () {
   }
 });
 
-module.exports = {
-  cleanDb() {
-    return knexCleaner.clean(knex, { ignoreTables: ['knex_migrations'] });
+module.exports = Object.assign(
+  {
+    browser,
+    addJobPage: new AddJobPage(browser),
+    confirmationPage: new ConfirmationPage(browser),
+    dashboardPage: new DashboardPage(browser),
   },
-  browser,
-  dashboardPage: new DashboardPage(browser),
-  addJobPage: new AddJobPage(browser),
-};
+  dbHelper
+);

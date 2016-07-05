@@ -27,7 +27,8 @@
       "none": "none",
       "label": "Filter by",
       "button": "Filter"
-    }
+    },
+    "deleteButton": "Delete"
   },
   "layout": {
     "header": "Your work search"
@@ -54,5 +55,9 @@
   "sourceType": {
     "inPerson": "In person",
     "online": "Online"
+  },
+  "confirmation": {
+    "jobRemoved": "{{jobTitle}} removed",
+    "linkBack": "Back"
   }
 }

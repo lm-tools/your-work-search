@@ -9,6 +9,7 @@ const validator = require('express-validator');
 const i18n = require('./middleware/i18n');
 const dashboardController = require('./controllers/dashboard-controller.js');
 const jobsController = require('./controllers/jobs-controller.js');
+const confirmationController = require('./controllers/confirmation-controller');
 
 const app = express();
 i18n(app);
@@ -57,6 +58,7 @@ app.use(assetPath, express.static(path.join(__dirname, '..',
 
 app.use(`${basePath}/`, dashboardController);
 app.use(`${basePath}/:accountId/jobs`, jobsController);
+app.use(`${basePath}/:accountId/confirmation`, confirmationController);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

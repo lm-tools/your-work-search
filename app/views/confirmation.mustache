@@ -1,0 +1,15 @@
+{{<layout}}
+
+  {{$applicationContent}}
+    <div class="panel panel-border-wide alert-success space-top-double">
+      <p data-test="confirmation-description">{{description}}</p>
+    </div>
+
+    <p>
+      <a href="{{basePath}}/{{accountId}}" class="link-back" data-test="back">
+        {{#__}}confirmation.linkBack{{/__}}
+      </a>
+    </p>
+  {{/applicationContent}}
+
+{{/layout}}

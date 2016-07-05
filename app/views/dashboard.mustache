@@ -78,14 +78,13 @@
                 <div class="box-section">
                   <h4 class="heading-small">{{#__}}dashboard.progression{{/__}}</h4>
 
-                  <div class="grid-row">
-                    <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=PATCH&sort={{sortType}}&filter={{filterType}}"
-                          method="POST">
-                      <fieldset>
-                        <legend class="visually-hidden">
-                          {{#__}}dashboard.progression{{/__}}
-                        </legend>
-
+                  <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=PATCH&sort={{sortType}}&filter={{filterType}}"
+                      method="POST">
+                    <fieldset>
+                      <legend class="visually-hidden">
+                        {{#__}}dashboard.progression{{/__}}
+                      </legend>
+                      <div class="grid-row">
                         {{#progression}}
                           <div class="column-one-quarter center space-top">
                             <div class="form-group">
@@ -97,13 +96,16 @@
                             </div>
                           </div>
                         {{/progression}}
-
-                      </fieldset>
-                      <div class="form-group js-hidden center">
-                        <input type="submit" class="button">
                       </div>
-                    </form>
-                  </div>
+                    </fieldset>
+                    <div class="form-group js-hidden left">
+                      <input type="submit" class="button">
+                    </div>
+                  </form>
+                  <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=DELETE" method="POST">
+                    <input type="submit" class="button button-secondary" value="{{#__}}dashboard.deleteButton{{/__}}"
+                           data-test="delete-button">
+                  </form>
                 </div>
               </div>
             </div>
