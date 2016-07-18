@@ -47,7 +47,7 @@ describe('DashboardViewModel', function () {
       {
         name: 'should equal "In person" for "inPerson" sourceType',
         job: sampleJob({ sourceType: 'inPerson', sourceUrl: '' }),
-        expectedSource: 'In person',
+        expectedSource: 'Other',
       },
       {
         name: 'should equal sourceUrl for "online" sourceType',
