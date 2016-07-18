@@ -3,9 +3,6 @@
   {{$applicationContent}}
     <h2 class="heading-xlarge">{{#__}}dashboard.header{{/__}}</h2>
 
-    <p>
-      {{#__}}dashboard.description{{/__}}
-    </p>
 
     <div>
       {{#timelineData.totals}}
@@ -19,6 +16,13 @@
         {{/timelineData.totals}}
       </ul>
     </div>
+
+    <p>
+      <div class="panel panel-border-wide column-two-thirds" style="margin-bottom:40px;">
+        {{#__}}dashboard.description{{/__}}
+      </div>
+    </p>
+
 
     <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
 
