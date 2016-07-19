@@ -10,6 +10,7 @@ const i18n = require('./middleware/i18n');
 const dashboardController = require('./controllers/dashboard-controller.js');
 const jobsController = require('./controllers/jobs-controller.js');
 const confirmationController = require('./controllers/confirmation-controller');
+const healthCheckController = require('./controllers/health-check-controller');
 
 const app = express();
 i18n(app);
@@ -56,6 +57,7 @@ app.use(assetPath, express.static(path.join(__dirname, '..', 'dist', 'public')))
 app.use(assetPath, express.static(path.join(__dirname, '..',
   'vendor', 'govuk_template_mustache_inheritance', 'assets')));
 
+app.use('/health_check', healthCheckController);
 app.use(`${basePath}/`, dashboardController);
 app.use(`${basePath}/:accountId/jobs`, jobsController);
 app.use(`${basePath}/:accountId/confirmation`, confirmationController);
