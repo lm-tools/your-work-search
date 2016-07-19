@@ -25,4 +25,9 @@ ROOT_DIR=$(cd "$CWD/.." && pwd)
 
   HEAD=$(git rev-list HEAD -n1)
   docker build --build-arg version=$HEAD -t $1:$HEAD -t $1:latest .
+
+  echo
+  echo "Image tagged as:"
+  echo "- $1:latest"
+  echo "- $1:$HEAD"
 )
