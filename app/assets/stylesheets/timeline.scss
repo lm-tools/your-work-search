@@ -2,63 +2,78 @@
 
 /* MAXIMUM_HEIGHT... all other values derived from that below*/
 $max_height: 120px;
+$margin_offset: 40px;
 
 .bubble {
   border-radius: 50%;
   border: 5px solid;
   display: inline-block;
   position: relative;
+  background-color: white;
+  z-index: 2;
 }
 
-/* To draw the linking line between each bubble */
-.bubble:before {
+.bubble:before,
+.bubble:after
+ {
   content: '';
   position: absolute;
   height: 5px;
   background: #CCC;
 }
 
-.bubble:after {
-  content: '';
-  position: absolute;
-  height: 5px;
-  background: #CCC;
-}
-
-.timeline-label {
-  margin-left: 50px;
-  margin-right: 65px;
-}
-
-.timeline li:first-child:before
+.timeline .bubble:first-child:before,
+.timeline .bubble:last-child:after
 {
   background-color: #FFFFFF;
 }
 
 @for $scale from 0 through 6 {
+  $scale-factor: $scale * 20px;
+
   .size-#{$scale} {
-    width: $scale * 20px;
-    height: $scale * 20px;
-    top: -1 * ( $max_height - ( $scale * 20px ) ) / 2;
-    margin-left: ( ( $max_height - ( $scale * 20px ) ) / 2 ) + 30px;
-    margin-right: ( ( $max_height - ( $scale * 20px ) ) / 2 ) + 30px;
+    width: $scale-factor;
+    height: $scale-factor;
+    top: ( $max_height - ( $scale-factor ) ) / 2;
+    margin-left: ( ( $max_height - ( $scale-factor ) ) / 2 ) + $margin_offset;
+    margin-right: ( ( $max_height - ( $scale-factor ) ) / 2 ) + $margin_offset;
+    margin-bottom: ( ( $max_height - ( $scale-factor ) ) / 2 )+ $margin_offset;
+    margin-top: $margin_offset;
 
     &:before {
-      top: $scale * 20px / 2;
+      top: ($scale-factor / 2) - 2px;
+      width: 0px;
+      left: -1 * ( ( ( $max_height - ( $scale-factor ) ) / 2 ) + $margin_offset + 7px );
     }
     &:after {
-      top: $scale * 20px / 2;
+      top: ($scale-factor / 2) - 2px;
+      width: 0px;
+      right: -1 * ( ( ( $max_height - ( $scale-factor ) ) / 2 ) + $margin_offset + 7px );
     }
   }
 
-  .offset-#{$scale} {
-    margin-top:  ( $max_height - $scale * 20px ) + 20px;
-    margin-bottom:  10px;
+  .label-#{$scale} {
+    position: relative;
+    top:  -40px;
+    left:  ( ( $scale-factor ) / 2 ) - 30px;
   }
 
-  .label-offset-#{$scale} {
-    margin-left: ( ( $max_height - ( $scale * 20px ) ) / 2 ) + 30px;
-    margin-right: ( ( $max_height - ( $scale * 20px ) ) / 2 ) + 30px;
+  @media (min-width: 641px) {
+    .size-#{$scale} {
+      &:before,
+      &:after {
+        width: 0px;
+      }
+    }
+  }
+
+  @media (min-width: 911px) {
+    .size-#{$scale} {
+      &:before,
+      &:after {
+        width: ( ( $max_height - ( $scale-factor ) ) / 2 ) + $margin_offset + 2px;
+      }
+    }
   }
 }
 
