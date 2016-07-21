@@ -91,7 +91,7 @@ The app will run mounted at "/" by default. To run within a directory, set the
 For example, to mount the application at "/your-work-search", run:
 
 ```sh
-$ EXPRESS_BASE_PATH=/work-you-could-do npm run start
+$ EXPRESS_BASE_PATH=/your-work-search npm run start
 ```
 
 ## Resources
