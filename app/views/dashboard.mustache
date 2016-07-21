@@ -116,10 +116,20 @@
                       <input type="submit" class="button">
                     </div>
                   </form>
-                  <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=DELETE" method="POST">
-                    <input type="submit" class="button button-secondary" value="{{#__}}dashboard.deleteButton{{/__}}"
-                           data-test="delete-button">
-                  </form>
+                  <div class="grid-row">
+                    <div class="column-three-quarter">
+                      <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=DELETE" method="POST">
+                        <input type="submit" class="button button-secondary" value="{{#__}}dashboard.deleteButton{{/__}}"
+                               data-test="delete-button">
+                      </form>
+                    </div>
+                    <div class="column-one-quarter tablet-right">
+                      <dl>
+                        <dt>{{#__}}dashboard.updatedDate{{/__}}</dt>
+                        <dd>{{updatedFormatted}}</dd>
+                      </dl>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
