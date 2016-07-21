@@ -38,6 +38,8 @@ const DashboardPage = function DashboardPage(browser) {
         .match(/size-(\d+)/)[1]
     );
 
+  this.isSortVisible = () => browser.query('#sort') != null;
+  this.isFilterVisible = () => browser.query('#filter') != null;
   this.selectedSortType = () => browser.text('#sort option:selected');
   this.selectedFilterType = () => browser.text('#filter option:selected');
   this.clickAddJobButton = () => browser.click('a.button');

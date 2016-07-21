@@ -16,6 +16,10 @@ $space_size: 10px;
   margin-top: $space_size;
 }
 
+.spaced-section {
+  margin: 40px 0px 30px 0px;
+}
+
 .column-three-quarter {
   @include grid-column(3 / 4);
 }
@@ -163,4 +167,9 @@ button.link-button {
     display: inline-block;
     width: 80px;
   }
+}
+
+.panel-indent {
+    border-left: 4px solid #bfc1c3;
+    padding: 10px 0 10px 15px;
 }
