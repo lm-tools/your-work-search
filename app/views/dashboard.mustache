@@ -3,9 +3,6 @@
   {{$applicationContent}}
     <h2 class="heading-xlarge">{{#__}}dashboard.header{{/__}}</h2>
 
-    <p>
-      {{#__}}dashboard.description{{/__}}
-    </p>
 
     <div class='timeline offset-{{timelineData.maxScale}}' data-test='timeline'>
       {{#timelineData.totals}}
@@ -15,31 +12,40 @@
       {{/timelineData.totals}}
     </div>
 
+    <p class="panel-indent">
+      {{#__}}dashboard.description{{/__}}
+    </p>
+
     <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
 
-    <form class="space-top-double" action="{{basePath}}/{{accountId}}" method="GET">
-       <div class="grid-row">
-         <div class="column-one-half">
-           <label for="sort">{{#__}}dashboard.sort.label{{/__}}</label>
-           <select class="form-control form-control-auto" name="sort" id="sort" onchange="this.form.submit()">
-             {{#sortOptions}}
-               <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
-             {{/sortOptions}}
-           </select>
-           <input class="button js-hidden" type="submit" value="{{#__}}dashboard.sort.button{{/__}}">
-         </div>
+    {{#jobs.0}}
+      <section class="spaced-section">
+        <form action="{{basePath}}/{{accountId}}" method="GET">
+           <div class="grid-row">
+             <div class="column-one-half">
+               <label for="sort">{{#__}}dashboard.sort.label{{/__}}</label>
+               <select class="form-control form-control-auto" name="sort" id="sort" onchange="this.form.submit()">
+                 {{#sortOptions}}
+                   <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
+                 {{/sortOptions}}
+               </select>
+               <input class="button js-hidden" type="submit" value="{{#__}}dashboard.sort.button{{/__}}">
+             </div>
 
-         <div class="column-one-half tablet-right">
-           <label for="filter">{{#__}}dashboard.filter.label{{/__}}</label>
-           <select class="form-control form-control-auto" name="filter" id="filter" onchange="this.form.submit()">
-             {{#filterOptions}}
-               <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
-             {{/filterOptions}}
-           </select>
-           <input class="button js-hidden" type="submit" value="{{#__}}dashboard.filter.button{{/__}}">
-         </div>
-       </div>
-    </form>
+             <div class="column-one-half tablet-right">
+               <label for="filter">{{#__}}dashboard.filter.label{{/__}}</label>
+               <select class="form-control form-control-auto" name="filter" id="filter" onchange="this.form.submit()">
+                 {{#filterOptions}}
+                   <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
+                 {{/filterOptions}}
+               </select>
+               <input class="button js-hidden" type="submit" value="{{#__}}dashboard.filter.button{{/__}}">
+             </div>
+           </div>
+        </form>
+      </section>
+    {{/jobs.0}}
+
     <section class="space-top-double">
       <ul>
         {{#jobs}}

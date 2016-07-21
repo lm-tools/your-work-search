@@ -85,6 +85,11 @@ describe('Dashboard', () => {
     const createJob = (attributes) =>
       new JobsModel(Object.assign({}, jobData, attributes)).save();
 
+    it('should not display sort or filter when zero jobs', () =>
+      dashboardPage.visit(accountId)
+      .then(() => expect(dashboardPage.isSortVisible()).to.be.false)
+      .then(() => expect(dashboardPage.isFilterVisible()).to.be.false));
+
     it('should display details of all my jobs', () =>
       Promise
         .all([1, 2, 3]
