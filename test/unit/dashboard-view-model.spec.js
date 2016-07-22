@@ -13,31 +13,22 @@ describe('DashboardViewModel', function () {
     this.clock.restore();
   });
 
-  describe('deadlineFormatted', function () {
+  describe('displayFormattedDates', function () {
     [
       {
-        name: 'exclude year for current year',
-        deadline: new Date('2016-10-11'),
-        expected: '11 October',
+        name: 'include day month and year',
+        inputDate: new Date('2016-12-22'),
+        expected: '22 December 2016',
       },
-      {
-        name: 'include year for future year',
-        deadline: new Date('2017-01-01'),
-        expected: '1 January 2017',
-      },
-      {
-        name: 'include year for previous year',
-        deadline: new Date('2015-02-02'),
-        expected: '2 February 2015',
-      },
-      { name: 'return empty string', deadline: undefined, expected: '' },
-      { name: 'return empty string', deadline: null, expected: '' },
+      { name: 'return empty string', inputDate: undefined, expected: '' },
+      { name: 'return empty string', inputDate: null, expected: '' },
     ].forEach(s => {
-      it(`should ${s.name}, date: '${s.deadline}' expected: '${s.expected}'`, function () {
+      it(`should ${s.name}, date: '${s.inputDate}' expected: '${s.expected}'`, function () {
         const dashboardViewModel = new DashboardViewModel('123', [
-          sampleJob({ deadline: s.deadline }),
+          sampleJob({ deadline: s.inputDate, updated_at: s.inputDate }),
         ]);
         expect(dashboardViewModel.jobs[0].deadlineFormatted).to.equal(s.expected);
+        expect(dashboardViewModel.jobs[0].updatedFormatted).to.equal(s.expected);
       });
     });
   });

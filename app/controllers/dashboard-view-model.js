@@ -80,9 +80,7 @@ module.exports = class DashboardViewModel {
 
   formatDate(inputDate) {
     if (!inputDate) return '';
-
-    const date = moment(inputDate);
-    return date.isSame(new Date(), 'year') ? date.format('D MMMM') : date.format('D MMMM YYYY');
+    return moment(inputDate).format('D MMMM YYYY');
   }
 
   formatSource(job) {
