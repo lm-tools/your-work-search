@@ -21,7 +21,8 @@ module.exports = class DashboardViewModel {
           progression: this.dashboardJobProgression(job),
           // eslint-disable-next-line no-underscore-dangle
           statusString: i18n.__(`progression.${job.status}`),
-          deadlineFormatted: this.formatDeadline(job.deadline),
+          deadlineFormatted: this.formatDate(job.deadline),
+          updatedFormatted: this.formatDate(job.updated_at),
           interestLevel: [1, 2, 3, 4, 5].map(v => ({ value: v, isChecked: v === job.rating })),
           source: this.formatSource(job),
         },
@@ -77,11 +78,9 @@ module.exports = class DashboardViewModel {
     ];
   }
 
-  formatDeadline(deadline) {
-    if (!deadline) return '';
-
-    const date = moment(deadline);
-    return date.isSame(new Date(), 'year') ? date.format('D MMMM') : date.format('D MMMM YYYY');
+  formatDate(inputDate) {
+    if (!inputDate) return '';
+    return moment(inputDate).format('D MMMM YYYY');
   }
 
   formatSource(job) {

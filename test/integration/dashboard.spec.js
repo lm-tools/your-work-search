@@ -4,9 +4,11 @@ const expect = require('chai').expect;
 const JobsModel = require('../../app/models/jobs-model');
 const uuid = require('node-uuid');
 const knex = require('../../app/db').knex;
+const moment = require('moment');
 
 describe('Dashboard', () => {
   const accountId = uuid.v4();
+  const expectedDateFormat = 'D MMMM YYYY';
   const jobData = {
     title: 'Test job',
     employer: 'Test employer',
@@ -50,6 +52,10 @@ describe('Dashboard', () => {
 
       it('should display deadline', () =>
         expect(dashboardPage.getDeadline(savedJob)).to.equal('10 October 2050'));
+
+      it('should display updated', () =>
+        expect(dashboardPage.getUpdated(savedJob))
+          .to.equal(moment(new Date()).format(expectedDateFormat)));
 
       it('should display interest level', () =>
         expect(dashboardPage.getInterestLevel(savedJob)).to.equal(`${jobData.rating}`));

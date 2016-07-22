@@ -28,7 +28,8 @@
       "label": "Show",
       "button": "Filter"
     },
-    "deleteButton": "Delete"
+    "deleteButton": "Delete",
+    "updatedDate": "Updated date"
   },
   "layout": {
     "header": "Your work search"

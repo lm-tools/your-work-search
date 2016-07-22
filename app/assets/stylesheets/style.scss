@@ -81,6 +81,10 @@ $box-border-color: $panel-colour;
     }
   }
 
+  .delete-button {
+    margin-top: 1em;
+  }
+
   &.box-interested,
   &.box-applied,
   &.box-interview,
