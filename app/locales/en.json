@@ -29,7 +29,7 @@
       "button": "Filter"
     },
     "deleteButton": "Delete",
-    "updatedDate": "Updated date"
+    "updatedDate": "Last updated"
   },
   "layout": {
     "header": "Your work search"
