@@ -244,4 +244,32 @@ describe('Dashboard', () => {
         .then(() => expect(dashboardPage.timelineStatusSize('result')).to.equal(0))
     );
   });
+  describe('focus on job', () => {
+    let savedJob;
+
+    const createJob = (attributes) =>
+      new JobsModel(Object.assign({}, jobData, attributes)).save();
+
+    describe('status', () => {
+      before(function () {
+        return helper.cleanDb()
+          .then(() => createJob())
+          .then((job) => { savedJob = job; });
+      });
+
+      it('should display details of the job in focus', () =>
+        dashboardPage.focus(accountId, savedJob.id)
+        .then(() => expect(dashboardPage.isJobDetailsVisible(savedJob))
+                  .to.equal(true, 'Job details should be visible')));
+
+      it('should display details of the job after an update', () =>
+
+        dashboardPage.visit(accountId)
+          .then(() => dashboardPage.clickJobDetailsButton(savedJob))
+          .then(() => dashboardPage.submitJobProgressionStatus(savedJob, 'result'))
+          .then(() => expect(dashboardPage.isJobDetailsVisible(savedJob))
+                    .to.equal(true, 'Job details should be visible')));
+    });
+  });
 });
+

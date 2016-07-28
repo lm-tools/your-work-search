@@ -48,7 +48,7 @@ router.post('/new', (req, res, next) => {
   });
 
   return new Jobs(jobData).save()
-    .then(() => res.redirect(`${basePath}/${accountId}`))
+    .then((job) => res.redirect(`${basePath}/${accountId}?focus=${job.id}`))
     .catch((err) => next(err));
 });
 
@@ -66,7 +66,9 @@ router.patch('/:jobId', (req, res, next) => {
 
   return new Jobs({ id: jobId })
     .save(updateData, { method: 'update', patch: true })
-    .then(() => res.redirect(`${basePath}/${accountId}?sort=${sort}&filter=${filter}`))
+    .then((job) =>
+      res.redirect(`${basePath}/${accountId}?sort=${sort}&filter=${filter}&focus=${job.id}`)
+    )
     .catch((err) => next(err));
 });
 

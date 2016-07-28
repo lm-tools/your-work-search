@@ -4,9 +4,9 @@ const progression = require('../models/progression');
 
 module.exports = class DashboardViewModel {
 
-  constructor(accountId, jobModels, sort, filter) {
+  constructor(accountId, jobModels, sort, filter, focus) {
     this.accountId = accountId;
-    this.jobs = this.dashboardJobs(jobModels);
+    this.jobs = this.dashboardJobs(jobModels, focus);
     this.sortType = sort;
     this.filterType = filter;
     this.sortOptions = this.dashboardSortOptions(sort);
@@ -14,7 +14,7 @@ module.exports = class DashboardViewModel {
     this.timelineData = this.dashboardTimeline(jobModels);
   }
 
-  dashboardJobs(jobModels) {
+  dashboardJobs(jobModels, jobIdInFocus) {
     return jobModels
       .map((job) => Object.assign(
         {
@@ -25,6 +25,7 @@ module.exports = class DashboardViewModel {
           updatedFormatted: this.formatDate(job.updated_at),
           interestLevel: [1, 2, 3, 4, 5].map(v => ({ value: v, isChecked: v === job.rating })),
           source: this.formatSource(job),
+          hasFocus: job.id === parseInt(jobIdInFocus, 10),
         },
         job));
   }
