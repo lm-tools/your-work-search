@@ -3,5 +3,6 @@ dist/
 node_modules/
 logs/
 screenshots/
-
+.DS_Store
+*.iml
 npm-debug.log
