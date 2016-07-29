@@ -268,7 +268,9 @@ describe('Dashboard', () => {
           .then(() => dashboardPage.clickJobDetailsButton(savedJob))
           .then(() => dashboardPage.submitJobProgressionStatus(savedJob, 'result'))
           .then(() => expect(dashboardPage.isJobDetailsVisible(savedJob))
-                    .to.equal(true, 'Job details should be visible')));
+                    .to.equal(true, 'Job details should be visible'))
+          .then(() => expect(dashboardPage.checkBrowserHasLocalLink(savedJob.id)).to.equal(true))
+      );
     });
   });
 });
