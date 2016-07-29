@@ -1,14 +1,20 @@
 const helper = require('./support/integration-spec-helper');
 const addJobPage = helper.addJobPage;
+const googleTagManagerHelper = helper.googleTagManagerHelper;
 const expect = require('chai').expect;
 
 describe('Add a job page', () => {
-  beforeEach(() => addJobPage.visit('someAccount'));
+  const accountId = 'someAccount';
+  beforeEach(() => addJobPage.visit(accountId));
 
   it('should show/hide sourceUrl depending on sourceType', () =>
     Promise.resolve(expect(addJobPage.isSourceUrlHidden()).to.equal(false))
       .then(() => addJobPage.chooseSourceType('inPerson'))
       .then(() => expect(addJobPage.isSourceUrlHidden()).to.equal(true))
+  );
+
+  it('should contain valid google tag manager data', () =>
+    expect(googleTagManagerHelper.getAccountVariable()).to.equal(accountId)
   );
 
   describe('validation error', () => {
