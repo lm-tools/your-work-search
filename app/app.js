@@ -50,6 +50,7 @@ app.use(favicon(path.join(__dirname, '..',
   'vendor', 'govuk_template_mustache_inheritance', 'assets', 'images', 'favicon.ico')));
 
 app.use('/health_check', healthCheckController);
+app.use(`${basePath}/health_check`, healthCheckController);
 // Configure logging
 app.use(logger.init(app.get('env')));
 app.use(methodOverride('_method')); // allow override of http method with '_method' querystring var
