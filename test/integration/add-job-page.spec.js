@@ -23,6 +23,12 @@ describe('Add a job page', () => {
         .then(() => expect(addJobPage.formValues()).to.eql(form))
     );
 
+    it('should add focus parameter when job added', () =>
+      Promise.resolve(addJobPage.fillTitle('Some job title'))
+        .then(() => addJobPage.submit())
+        .then(() => expect(addJobPage.checkBrowserHasQueryParam('focus=')).to.equal(true))
+    );
+
     ['abc', '2016-21-12'].forEach(deadline => {
       it(`should fail incorrect deadline format for date '${deadline}'`, () =>
         Promise.resolve(addJobPage.fillTitle('Some job title'))

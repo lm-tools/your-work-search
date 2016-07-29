@@ -70,7 +70,7 @@
                 {{#__}}dashboard.detailsButton{{/__}}
               </button>
 
-              <div class="details js-hidden" data-test="details">
+              <div class="details {{^hasFocus}}js-hidden{{/hasFocus}}" data-test="details">
                 <dl>
                   {{#source}}
                     <dt class="">{{#__}}dashboard.source{{/__}}</dt>

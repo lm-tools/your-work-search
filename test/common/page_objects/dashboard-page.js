@@ -26,6 +26,11 @@ const DashboardPage = function DashboardPage(browser) {
     return browser.visit(`/${accountId}?filter=${filter}`);
   };
 
+  this.focus = (accountId, focus) => {
+    assert(accountId, 'accountId is required');
+    return browser.visit(`/${accountId}?focus=${focus}`);
+  };
+
   this.sortAndFilter = (accountId, sort, filter) => {
     assert(accountId, 'accountId is required');
     return browser.visit(`/${accountId}?sort=${sort}&filter=${filter}`);

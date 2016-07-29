@@ -29,6 +29,7 @@ const AddJobPage = function AddJobPage(browser) {
       rating: browser.field('[name="rating"][checked]').value,
       deadline: browser.field('[name="deadline"]').value,
     });
+  this.checkBrowserHasQueryParam = (queryParam) => browser.request.url.includes(queryParam);
   this.fillDeadline = deadline => browser.fill('[name="deadline"]', deadline);
   this.fillTitle = title => browser.fill('[name="title"]', title);
   this.submit = () => browser.pressButton('input[type=submit]');
