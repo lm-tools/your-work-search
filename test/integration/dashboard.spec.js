@@ -1,5 +1,6 @@
 const helper = require('./support/integration-spec-helper');
 const dashboardPage = helper.dashboardPage;
+const googleTagManagerHelper = helper.googleTagManagerHelper;
 const expect = require('chai').expect;
 const JobsModel = require('../../app/models/jobs-model');
 const uuid = require('node-uuid');
@@ -273,5 +274,10 @@ describe('Dashboard', () => {
       );
     });
   });
+
+  it('should contain valid google tag manager data', () =>
+    dashboardPage.visit(accountId)
+      .then(() => expect(googleTagManagerHelper.getAccountVariable()).to.equal(accountId))
+  );
 });
 
