@@ -49,6 +49,7 @@
     <section class="space-top-double">
       <ul>
         {{#jobs}}
+          <a name="{{id}}"></a>
           <li data-test="job-container-{{id}}" id="job-container-{{id}}">
             <div class="box box-{{status}}">
               <div class="grid-row">
@@ -66,7 +67,12 @@
               </div>
 
               <button class="link-button details-button" data-toggle-visibility-for="#job-container-{{id}} .details" data-test="details-button">
+                {{^hasFocus}}
                 <i class="fa fa-caret-right"></i>
+                {{/hasFocus}}
+                {{#hasFocus}}
+                  <i class="fa fa-caret-down"></i>
+                {{/hasFocus}}
                 {{#__}}dashboard.detailsButton{{/__}}
               </button>
 

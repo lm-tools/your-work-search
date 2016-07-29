@@ -66,9 +66,10 @@ router.patch('/:jobId', (req, res, next) => {
 
   return new Jobs({ id: jobId })
     .save(updateData, { method: 'update', patch: true })
-    .then((job) =>
-      res.redirect(`${basePath}/${accountId}?sort=${sort}&filter=${filter}&focus=${job.id}`)
-    )
+    .then((job) => {
+      const queryParams = `sort=${sort}&filter=${filter}&focus=${job.id}#${job.id}`;
+      res.redirect(`${basePath}/${accountId}?${queryParams}`);
+    })
     .catch((err) => next(err));
 });
 
