@@ -19,7 +19,7 @@ class AddJobViewModel {
     );
 
     this.errors = validationErrors;
-    this.isSourceUrlHidden = body.sourceType === 'inPerson';
+    this.isSourceUrlHidden = body.sourceType !== 'online';
   }
 
   addCheckedFlag(options, checkedValue) {
