@@ -29,7 +29,8 @@
       "button": "Filter"
     },
     "deleteButton": "Delete",
-    "updatedDate": "Last updated"
+    "updatedDate": "Last updated",
+    "pageTitle": "Your work search"
   },
   "layout": {
     "header": "Your work search"
@@ -51,7 +52,8 @@
       "submit": "Save"
     },
     "header": "Add a job",
-    "linkBack": "Back"
+    "linkBack": "Back",
+    "pageTitle": "Add a job - Your work search"
   },
   "sourceType": {
     "inPerson": "Other",

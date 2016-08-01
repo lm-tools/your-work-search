@@ -26,6 +26,10 @@ describe('Add a job page', () => {
     expect(googleTagManagerHelper.getAccountVariable()).to.equal(accountId)
   );
 
+  it('should have correct title', () =>
+    expect(addJobPage.browser.text('title')).to.equal('Add a job - Your work search')
+  );
+
   describe('validation error', () => {
     const form = {
       title: '', employer: 'Dwp', sourceType: 'online', sourceUrl: 'http://indeed.com',
