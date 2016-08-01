@@ -279,5 +279,11 @@ describe('Dashboard', () => {
     dashboardPage.visit(accountId)
       .then(() => expect(googleTagManagerHelper.getAccountVariable()).to.equal(accountId))
   );
+
+  it('should have correct title', () =>
+    dashboardPage.visit(accountId).then(() =>
+      expect(dashboardPage.browser.text('title')).to.equal('Your work search')
+    )
+  );
 });
 
