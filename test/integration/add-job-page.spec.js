@@ -7,11 +7,20 @@ describe('Add a job page', () => {
   const accountId = 'someAccount';
   beforeEach(() => addJobPage.visit(accountId));
 
-  it('should show/hide sourceUrl depending on sourceType', () =>
-    Promise.resolve(expect(addJobPage.isSourceUrlHidden()).to.equal(false))
-      .then(() => addJobPage.chooseSourceType('inPerson'))
-      .then(() => expect(addJobPage.isSourceUrlHidden()).to.equal(true))
+  it('should hide sourceUrl if no sourceType is selected', () =>
+    expect(addJobPage.isSourceUrlHidden()).to.equal(true)
   );
+
+  [
+    { name: 'should hide', sourceType: 'inPerson', isSourceUrlHidden: true },
+    { name: 'should show', sourceType: 'online', isSourceUrlHidden: false },
+  ].forEach(s => {
+    it(`${s.name} sourceUrl when source type is ${s.sourceType}`, () => {
+      addJobPage.chooseSourceType(s.sourceType);
+      expect(addJobPage.isSourceUrlHidden()).to.equal(s.isSourceUrlHidden);
+    });
+  });
+
 
   it('should contain valid google tag manager data', () =>
     expect(googleTagManagerHelper.getAccountVariable()).to.equal(accountId)
