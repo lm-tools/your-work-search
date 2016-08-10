@@ -275,15 +275,17 @@ describe('Dashboard', () => {
     });
   });
 
-  it('should contain valid google tag manager data', () =>
-    dashboardPage.visit(accountId)
-      .then(() => expect(googleTagManagerHelper.getAccountVariable()).to.equal(accountId))
-  );
+  describe('page outline', () => {
+    it('should contain valid google tag manager data', () =>
+      dashboardPage.visit(accountId)
+        .then(() => expect(googleTagManagerHelper.getAccountVariable()).to.equal(accountId))
+    );
 
-  it('should have correct title', () =>
-    dashboardPage.visit(accountId).then(() =>
-      expect(dashboardPage.browser.text('title')).to.equal('Your work search')
-    )
-  );
+    it('should have correct title', () =>
+      dashboardPage.visit(accountId).then(() =>
+        expect(dashboardPage.browser.text('title')).to.equal('Your work search')
+      )
+    );
+  });
 });
 
