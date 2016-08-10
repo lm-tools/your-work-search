@@ -78,6 +78,8 @@ const DashboardPage = function DashboardPage(browser) {
     `${jobContainerSelector(job)} [data-test="delete-button"]`
   );
   this.checkBrowserHasLocalLink = (link) => browser.request.url.includes(`#${link}`);
+  this.browserPath = () => browser.location.pathname;
+  this.checkBrowserHasQueryParam = (queryParam) => browser.request.url.includes(queryParam);
 };
 
 module.exports = DashboardPage;
