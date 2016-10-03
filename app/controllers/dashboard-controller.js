@@ -8,7 +8,7 @@ const DashboardViewModel = require('./dashboard-view-model');
 router.get('/', (req, res) => {
   const basePath = req.app.locals.basePath;
   const accountId = req.query.id || uuid.v4();
-  res.redirect(`${basePath}/${accountId}`);
+  res.redirect(`${basePath}/${accountId}/introduction`);
 });
 
 router.get('/:accountId', (req, res, next) => {
