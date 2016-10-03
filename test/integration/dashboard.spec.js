@@ -276,6 +276,13 @@ describe('Dashboard', () => {
   });
 
   describe('page outline', () => {
+    beforeEach(function () {
+      return helper.cleanDb();
+    });
+
+    const createJob = (attributes) =>
+      new JobsModel(Object.assign({}, jobData, attributes)).save();
+
     it('should contain valid google tag manager data', () =>
       dashboardPage.visit(accountId)
         .then(() => expect(googleTagManagerHelper.getAccountVariable()).to.equal(accountId))
@@ -285,6 +292,19 @@ describe('Dashboard', () => {
       dashboardPage.visit(accountId).then(() =>
         expect(dashboardPage.browser.text('title')).to.equal('Your work search')
       )
+    );
+
+    it('should have correct help when no jobs have been entered', () =>
+      dashboardPage.visit(accountId)
+          .then(() => expect(dashboardPage.isFirstUseHelpDisplayed()).to.equal(true))
+          .then(() => expect(dashboardPage.isHasJobHelpDisplayed()).to.equal(false))
+    );
+
+    it('should have correct help when jobs have been entered', () =>
+      createJob()
+        .then(() => dashboardPage.visit(accountId))
+        .then(() => expect(dashboardPage.isFirstUseHelpDisplayed()).to.equal(false))
+        .then(() => expect(dashboardPage.isHasJobHelpDisplayed()).to.equal(true))
     );
   });
 });

@@ -23,8 +23,8 @@ a `DATABASE_URL` environment variable to a valid [PostgreSQL connection string]
 Setup the application:
 
 ```sh
-$ psql "create database your_work_search;"
-$ psql "create database your_work_search_test;"
+$ psql -c "create database your_work_search;"
+$ psql -c "create database your_work_search_test;"
 $ npm install
 ```
 

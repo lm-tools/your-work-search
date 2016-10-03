@@ -1,7 +1,6 @@
 {
   "dashboard": {
     "header": "Your work search",
-    "description": "Add jobs that you're interested or have applied for.",
     "add-job-button": "Add a job",
     "progression-legend-screen-reader": "Update progression status",
     "sort": {
@@ -30,7 +29,9 @@
     },
     "deleteButton": "Delete",
     "updatedDate": "Last updated",
-    "pageTitle": "Your work search"
+    "pageTitle": "Your work search",
+    "has-job-help": "You can keep adding jobs or close this window - everything is saved.  <br>Come back at any time - the to-do will be in your list until you mark it as done.<br>  After that, there'll be an entry in your journal.",
+    "first-use-help": "Add jobs that you're interested in or have applied for."
   },
   "layout": {
     "header": "Your work search"
