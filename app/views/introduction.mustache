@@ -1,0 +1,18 @@
+{{<layout}}
+  {{$pageTitle}}{{#__}}introduction.pageTitle{{/__}}{{/pageTitle}}
+  {{$applicationContent}}
+    <h2 class="heading-xlarge">{{#__}}introduction.header{{/__}}</h2>
+
+    <p>{{#__}}introduction.action-overview{{/__}}</p>
+
+    <ol class="list list-number">
+      <li>{{#__}}introduction.action-1{{/__}}</li>
+      <li>{{#__}}introduction.action-2{{/__}}</li>
+      <li>{{#__}}introduction.action-3{{/__}}</li>
+    </ol>
+
+    <p>{{#__}}introduction.post-action-overview{{/__}}</p>
+    <p class="form-group"><a class="button" href="{{basePath}}/{{accountId}}" data-test="next">{{#__}}introduction.button-label{{/__}}</a></p>
+
+  {{/applicationContent}}
+{{/layout}}
