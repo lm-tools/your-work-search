@@ -66,6 +66,12 @@
   },
   "introduction": {
     "header": "Record your work search",
-    "pageTitle": "Record your work search"
+    "pageTitle": "Record your work search",
+    "action-overview": "Use this tool to help with your work search.",
+    "action-1": "Build a list of jobs you're interested in.",
+    "action-2": "Update each job when you apply, interview or get a result.",
+    "action-3": "Go through the list of jobs with your work coach to get support and advice.",
+    "post-action-overview": "You can come back at any time and add more jobs.",
+    "button-label": "Next"
   }
 }
