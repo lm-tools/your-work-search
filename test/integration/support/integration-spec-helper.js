@@ -3,6 +3,7 @@ Zombie.site = 'http://localhost:3000';
 const browser = new Zombie();
 const screenshots = require('./screenshots');
 const dbHelper = require('./db-helper');
+const IntroductionPage = require('../../common/page_objects/introduction-page');
 const DashboardPage = require('../../common/page_objects/dashboard-page');
 const AddJobPage = require('../../common/page_objects/add-job-page');
 const ConfirmationPage = require('../../common/page_objects/confirmation-page');
@@ -27,6 +28,7 @@ module.exports = Object.assign(
     googleTagManagerHelper: new GoogleTagManagerHelper(browser),
     confirmationPage: new ConfirmationPage(browser),
     dashboardPage: new DashboardPage(browser),
+    introductionPage: new IntroductionPage(browser),
   },
   dbHelper
 );

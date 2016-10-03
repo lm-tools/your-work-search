@@ -63,5 +63,9 @@
   "confirmation": {
     "jobRemoved": "{{jobTitle}} removed",
     "linkBack": "Back"
+  },
+  "introduction": {
+    "header": "Record your work search",
+    "pageTitle": "Record your work search"
   }
 }
