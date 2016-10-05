@@ -296,15 +296,20 @@ describe('Dashboard', () => {
 
     it('should have correct help when no jobs have been entered', () =>
       dashboardPage.visit(accountId)
-          .then(() => expect(dashboardPage.isFirstUseHelpDisplayed()).to.equal(true))
-          .then(() => expect(dashboardPage.isHasJobHelpDisplayed()).to.equal(false))
+          .then(() => expect(dashboardPage.firstUseHelpDisplayed()))
     );
 
     it('should have correct help when jobs have been entered', () =>
       createJob()
         .then(() => dashboardPage.visit(accountId))
-        .then(() => expect(dashboardPage.isFirstUseHelpDisplayed()).to.equal(false))
-        .then(() => expect(dashboardPage.isHasJobHelpDisplayed()).to.equal(true))
+        .then(() => expect(dashboardPage.hasJobHelpDisplayed()))
+    );
+
+    it('should have correct help when multiple jobs have been entered', () =>
+      createJob()
+        .then(() => createJob())
+        .then(() => dashboardPage.visit(accountId))
+        .then(() => expect(dashboardPage.hasJobHelpDisplayed()))
     );
   });
 });

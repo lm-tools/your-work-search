@@ -12,20 +12,20 @@
       {{/timelineData.totals}}
     </div>
 
-    {{^jobs}}
+    {{^hasJobs}}
     <p class="panel-indent" id="first-use-help">
       {{#__}}dashboard.first-use-help{{/__}}
     </p>
-    {{/jobs}}
-    {{#jobs}}
+    {{/hasJobs}}
+    {{#hasJobs}}
     <p class="panel-indent" id="has-job-help">
       {{#__}}dashboard.has-job-help{{/__}}
     </p>
-    {{/jobs}}
+    {{/hasJobs}}
 
     <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
 
-    {{#jobs.0}}
+    {{#hasJobs}}
       <section class="spaced-section">
         <form action="{{basePath}}/{{accountId}}" method="GET">
            <div class="grid-row">
@@ -51,7 +51,7 @@
            </div>
         </form>
       </section>
-    {{/jobs.0}}
+    {{/hasJobs}}
 
     <section class="space-top-double">
       <ul>
