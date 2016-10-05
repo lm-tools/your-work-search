@@ -311,7 +311,6 @@ describe('Dashboard', () => {
         .then(() => dashboardPage.visit(accountId))
         .then(() => expect(dashboardPage.hasJobHelpDisplayed()))
     );
-
   });
 });
 
