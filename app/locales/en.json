@@ -73,5 +73,8 @@
     "action-3": "Go through the list of jobs with your work coach to get support and advice.",
     "post-action-overview": "You can come back at any time and add more jobs.",
     "button-label": "Next"
+  },
+  "error": {
+    "useFromUC": "Please access this tool through your Universal Credit account."
   }
 }
