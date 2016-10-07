@@ -50,6 +50,7 @@
     "node-uuid": "~1.4",
     "pg": "^4.5.5",
     "serve-favicon": "~2.3",
+    "uuid-validate": "0.0.2",
     "vinyl-source-stream": "^1.1.0",
     "winston": "^2.2.0"
   },

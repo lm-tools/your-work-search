@@ -1,4 +1,5 @@
 const express = require('express');
+const validate = require('uuid-validate');
 const i18n = require('i18n');
 const router = new express.Router();
 const Jobs = require('../models/jobs-model');
@@ -9,7 +10,7 @@ router.get('/', (req, res) => {
   const basePath = req.app.locals.basePath;
   const accountId = req.query.id;
 
-  if (accountId) {
+  if (accountId && validate(accountId)) {
     res.redirect(`${basePath}/${accountId}/introduction`);
   } else {
     // eslint-disable-next-line no-underscore-dangle
