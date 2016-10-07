@@ -1,7 +1,7 @@
 {{<layout}}
 
   {{$applicationContent}}
-    <h1>{{ message }}</h1>
+    <h1 id="error-msg">{{ message }}</h1>
     <h2>{{ error.status }}</h2>
     <pre>{{ error.stack }}</pre>
   {{/applicationContent}}

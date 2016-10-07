@@ -1,5 +1,5 @@
 const express = require('express');
-const uuid = require('node-uuid');
+const i18n = require('i18n');
 const router = new express.Router();
 const Jobs = require('../models/jobs-model');
 const DashboardViewModel = require('./dashboard-view-model');
@@ -7,8 +7,14 @@ const DashboardViewModel = require('./dashboard-view-model');
 /* GET home page. */
 router.get('/', (req, res) => {
   const basePath = req.app.locals.basePath;
-  const accountId = req.query.id || uuid.v4();
-  res.redirect(`${basePath}/${accountId}/introduction`);
+  const accountId = req.query.id;
+
+  if (accountId) {
+    res.redirect(`${basePath}/${accountId}/introduction`);
+  } else {
+    // eslint-disable-next-line no-underscore-dangle
+    res.render('error', { message: i18n.__('error.useFromUC') });
+  }
 });
 
 router.get('/:accountId', (req, res, next) => {

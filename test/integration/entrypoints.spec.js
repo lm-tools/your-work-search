@@ -1,36 +1,54 @@
+const expect = require('chai').expect;
 const helper = require('./support/integration-spec-helper');
-
+const browser = helper.browser;
 const dashboardPage = helper.dashboardPage;
 
 describe('Entrypoints', () => {
   const accountId = 'someAccountId';
   const dashboardUrl = `/${accountId}`;
   const introductionUrl = `/${accountId}/introduction`;
-  const accountIdRegEx = '[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}';
 
-  describe('Access the tool for the first time with my account id', () => {
-    it('should see the dashboard page', () =>
-      dashboardPage.browser.visit(`/?id=${accountId}`)
-        .then(() => dashboardPage.browser.assert.url({ pathname: introductionUrl }))
+  describe('Access the tool with my account id BEFORE ive added a job', () => {
+    before(() =>
+      helper.cleanDb()
+    );
+
+    it('should see the introduction page', () =>
+      browser.visit(`/?id=${accountId}`)
+        .then(() => browser.assert.url({ pathname: introductionUrl }))
     );
   });
 
-  describe('Access an existing account with my account id', () => {
-    before(function () {
-      dashboardPage.browser.visit(`/?id=${accountId}`);
-    });
+  describe('Access the tool with my account id AFTER ive added a job', () => {
+    before(() =>
+      helper.cleanDb()
+      .then(() => helper.createJobsInDb(helper.sampleJob({ accountId: `${accountId}` })))
+    );
 
     it('should see the dashboard page', () =>
-      dashboardPage.browser.visit(`/${accountId}`)
-        .then(() => dashboardPage.browser.assert.url({ pathname: dashboardUrl }))
+      browser.visit(`/${accountId}`)
+        .then(() => browser.assert.url({ pathname: dashboardUrl }))
+        .then(() => expect(dashboardPage.jobCount()).to.equal(1))
     );
   });
 
   describe('Access the tool without an account identifier', () => {
-    it('should see the dashboard page', () =>
-      dashboardPage.browser.visit('/')
-        .then(() => dashboardPage.browser.assert.url(
-          new RegExp(`/${accountIdRegEx}/introduction$`)))
+    before(() =>
+      helper.cleanDb()
+    );
+
+    it('should see an error with an informative message when requested from base', () =>
+      browser.visit('/')
+        .then(() => browser.assert.text(
+          '#error-msg', 'Please access this tool through your Universal Credit account.')
+        )
+    );
+
+    it('should see an error with an informative message when no query id sent', () =>
+      browser.visit('/?id=')
+        .then(() => browser.assert.text(
+          '#error-msg', 'Please access this tool through your Universal Credit account.')
+        )
     );
   });
 });
