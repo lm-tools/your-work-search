@@ -74,7 +74,8 @@
     "post-action-overview": "You can come back at any time and add more jobs.",
     "button-label": "Next"
   },
-  "error": {
-    "useFromUC": "Please access this tool through your Universal Credit account."
+  "missing-account-id": {
+    "heading": "Sign in to your account",
+    "message": "Please access this tool through your Universal Credit account."
   }
 }

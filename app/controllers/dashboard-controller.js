@@ -1,6 +1,5 @@
 const express = require('express');
 const validate = require('uuid-validate');
-const i18n = require('i18n');
 const router = new express.Router();
 const Jobs = require('../models/jobs-model');
 const DashboardViewModel = require('./dashboard-view-model');
@@ -13,8 +12,7 @@ router.get('/', (req, res) => {
   if (accountId && validate(accountId)) {
     res.redirect(`${basePath}/${accountId}/introduction`);
   } else {
-    // eslint-disable-next-line no-underscore-dangle
-    res.render('error', { message: i18n.__('error.useFromUC') });
+    res.render('missing-account-id');
   }
 });
 

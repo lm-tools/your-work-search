@@ -38,25 +38,22 @@ describe('Entrypoints', () => {
       helper.cleanDb()
     );
 
-    it('should see an error with an informative message when requested from base', () =>
+    it('should see an informative message when requested from base', () =>
       browser.visit('/')
         .then(() => browser.assert.text(
-          '#error-msg', 'Please access this tool through your Universal Credit account.')
-        )
+          '#heading', 'Sign in to your account'))
     );
 
-    it('should see an error with an informative message when no query id sent', () =>
+    it('should see an informative message when no query id sent', () =>
       browser.visit('/?id=')
         .then(() => browser.assert.text(
-          '#error-msg', 'Please access this tool through your Universal Credit account.')
-        )
+          '#heading', 'Sign in to your account'))
     );
 
-    it('should see an error with an informative message if invalid account id', () =>
+    it('should see an informative message if invalid account id', () =>
       browser.visit('/?id=something-rubbish')
         .then(() => browser.assert.text(
-          '#error-msg', 'Please access this tool through your Universal Credit account.')
-        )
+          '#heading', 'Sign in to your account'))
     );
   });
 });
