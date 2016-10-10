@@ -1,10 +1,11 @@
 const expect = require('chai').expect;
+const uuid = require('node-uuid');
 const helper = require('./support/integration-spec-helper');
 const browser = helper.browser;
 const dashboardPage = helper.dashboardPage;
 
 describe('Entrypoints', () => {
-  const accountId = 'someAccountId';
+  const accountId = uuid.v4();
   const dashboardUrl = `/${accountId}`;
   const introductionUrl = `/${accountId}/introduction`;
 
@@ -46,6 +47,13 @@ describe('Entrypoints', () => {
 
     it('should see an error with an informative message when no query id sent', () =>
       browser.visit('/?id=')
+        .then(() => browser.assert.text(
+          '#error-msg', 'Please access this tool through your Universal Credit account.')
+        )
+    );
+
+    it('should see an error with an informative message if invalid account id', () =>
+      browser.visit('/?id=something-rubbish')
         .then(() => browser.assert.text(
           '#error-msg', 'Please access this tool through your Universal Credit account.')
         )
