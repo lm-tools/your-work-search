@@ -24,8 +24,8 @@ router.get('/:accountId', (req, res, next) => {
 
   Jobs
     .findAllByAccountId(accountId, { sort, filter })
-    .then((jobModels) => res.render('dashboard',
-      new DashboardViewModel(accountId, jobModels.serialize(), sort, filter, focus)
+    .then((result) => res.render('dashboard',
+      new DashboardViewModel(accountId, result.jobs, sort, filter, focus)
     ))
     .catch((err) => next(err));
 });

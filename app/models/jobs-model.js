@@ -26,15 +26,21 @@ module.exports = db.Model.extend(
     findAllByAccountId(accountId, options = {}) {
       let query = this.forge().query({ where: { accountId } });
 
-      if (options.filter) {
-        query = query.where('updated_at', '>', historicDate[options.filter].format('YYYY-MM-DD'));
-      }
-
       if (options.sort) {
         query = query.orderBy(sortRef[options.sort].field, sortRef[options.sort].direction);
       }
 
-      return query.fetchAll();
+      return query.fetchAll().then((queryResult) => {
+        let jobs = queryResult.serialize();
+        const totalSavedJobs = jobs.length;
+
+        if (options.filter) {
+          jobs = jobs.filter((job) =>
+            moment(job.updated_at).isAfter(historicDate[options.filter]));
+        }
+
+        return ({ totalSavedJobs, jobs });
+      });
     },
   }
 );
