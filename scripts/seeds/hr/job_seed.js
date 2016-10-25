@@ -1,6 +1,5 @@
 const moment = require('moment');
 const day = moment.duration(1, 'd');
-const week = moment.duration(1, 'w');
 const fortnight = moment.duration(2, 'w');
 const month = moment.duration(1, 'M');
 
@@ -193,54 +192,6 @@ exports.seed = function (knex) {
         rating: '3',
         status: 'interested',
         status_sort_index: 0,
-      });
-    })
-    .then(function () {
-      return knex('jobs').insert({
-        id: '212',
-        accountId: 'HR-123',
-        title: 'HR Advisor',
-        employer: 'Indigo Operations',
-        created_at: moment().subtract(week).add(day),
-        updated_at: moment().subtract(week).add(day),
-        sourceType: 'online',
-        sourceUrl: 'http://www.indeed.com/kjsdjflisdn',
-        deadline: moment().subtract(week).add(fortnight),
-        rating: '3',
-        status: 'applied',
-        status_sort_index: 1,
-      });
-    })
-    .then(function () {
-      return knex('jobs').insert({
-        id: '213',
-        accountId: 'HR-123',
-        title: 'HR Operations Administrator',
-        employer: 'Foundation Consulting',
-        created_at: moment().subtract(week).add(day),
-        updated_at: moment().subtract(week).add(day),
-        sourceType: 'online',
-        sourceUrl: 'http://www.indeed.com/kjsdjflisdn',
-        deadline: moment().subtract(week).add(fortnight),
-        rating: '3',
-        status: 'interested',
-        status_sort_index: 0,
-      });
-    })
-    .then(function () {
-      return knex('jobs').insert({
-        id: '214',
-        accountId: 'HR-123',
-        title: 'Talent Manager',
-        employer: 'Discover Technologic',
-        created_at: moment().subtract(week).add(day),
-        updated_at: moment().subtract(week).add(day),
-        sourceType: 'online',
-        sourceUrl: 'http://www.indeed.com/kjsdjflisdn',
-        deadline: moment().subtract(week).add(fortnight),
-        rating: '3',
-        status: 'applied',
-        status_sort_index: 1,
       });
     });
 };
