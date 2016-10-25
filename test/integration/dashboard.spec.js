@@ -92,7 +92,7 @@ describe('Dashboard', () => {
     const createJob = (attributes) =>
       new JobsModel(Object.assign({}, jobData, attributes)).save();
 
-    it('should not display sort or filter when zero jobs', () =>
+    it('should not display sort or filter when zero saved jobs', () =>
       dashboardPage.visit(accountId)
       .then(() => expect(dashboardPage.isSortVisible()).to.be.false)
       .then(() => expect(dashboardPage.isFilterVisible()).to.be.false));
@@ -174,7 +174,7 @@ describe('Dashboard', () => {
         .then(() => expect(dashboardPage.selectedSortType()).to.equal('status'));
     });
   });
-  describe('filter job list', () => {
+  describe('filter job list for range of updates', () => {
     const SEED_ACCOUNT_ID = 'FILTER';
 
     before(function () {
@@ -208,6 +208,26 @@ describe('Dashboard', () => {
     it('should not change the number of results when a sort is applied', () =>
       dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'employer', 'fortnight')
         .then(() => expect(dashboardPage.jobCount()).to.equal(2)));
+  });
+  describe('filter job list to none shown', () => {
+    const SEED_ACCOUNT_ID = 'FILTER';
+
+    before(function () {
+      return knex.seed.run({ directory: './db/seeds/two-jobs-updated-over-a-week-ago' });
+    });
+
+    it('should still display the sort and filter', () =>
+      dashboardPage.filter(SEED_ACCOUNT_ID, 'week')
+        .then(() => expect(dashboardPage.jobCount()).to.equal(0))
+        .then(() => expect(dashboardPage.isSortVisible()).to.be.true)
+        .then(() => expect(dashboardPage.isFilterVisible()).to.be.true)
+    );
+
+    it('should display the appropriate help message', () =>
+      dashboardPage.filter(SEED_ACCOUNT_ID, 'week')
+        .then(() => expect(dashboardPage.jobCount()).to.equal(0))
+        .then(() => expect(dashboardPage.hasJobHelpDisplayed()))
+    );
   });
   describe('update job', () => {
     let savedJob;
