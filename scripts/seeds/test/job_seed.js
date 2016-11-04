@@ -1,144 +1,15 @@
 const moment = require('moment');
 const day = moment.duration(1, 'd');
-const week = moment.duration(1, 'w');
 const fortnight = moment.duration(2, 'w');
 const month = moment.duration(1, 'M');
 const quarter = moment.duration(3, 'M');
 
 exports.seed = function (knex) {
-  return knex('jobs').del() // Deletes ALL existing entries
+  return knex('jobs').where('accountId', 'TEST-123').del() // Deletes specific account entries
 
     .then(function () {
       return knex('jobs').insert({
-        id: '900',
-        accountId: 'TEST-123',
-        title: 'Title-900',
-        employer: 'Employer-900',
-        created_at: moment().subtract(week).add(day),
-        updated_at: moment().subtract(week).add(day),
-        sourceType: 'online',
-        sourceUrl: 'http://www.indeed.com/kjsdjflisdn',
-        deadline: moment().subtract(week).add(fortnight),
-        rating: '3',
-        status: 'interested',
-        status_sort_index: 0,
-      });
-    })
-    .then(function () {
-      return knex('jobs').insert({
-        id: '901',
-        accountId: 'TEST-123',
-        title: 'Title-901',
-        employer: 'Employer-901',
-        created_at: moment().subtract(week).add(day),
-        updated_at: moment().subtract(week).add(day),
-        sourceType: 'online',
-        sourceUrl: 'http://www.indeed.com/kjsdjflisdn',
-        deadline: moment().subtract(week).add(fortnight),
-        rating: '3',
-        status: 'interested',
-        status_sort_index: 0,
-      });
-    })
-    .then(function () {
-      return knex('jobs').insert({
-        id: '902',
-        accountId: 'TEST-123',
-        title: 'Title-902',
-        employer: 'Employer-902',
-        created_at: moment().subtract(week).add(day),
-        updated_at: moment().subtract(week).add(day),
-        sourceType: 'online',
-        sourceUrl: 'http://www.indeed.com/kjsdjflisdn',
-        deadline: moment().subtract(week).add(fortnight),
-        rating: '3',
-        status: 'applied',
-        status_sort_index: 1,
-      });
-    })
-    .then(function () {
-      return knex('jobs').insert({
-        id: '903',
-        accountId: 'TEST-123',
-        title: 'Title-903',
-        employer: 'Employer-903',
-        created_at: moment().subtract(week).add(day),
-        updated_at: moment().subtract(week).add(day),
-        sourceType: 'online',
-        sourceUrl: 'http://www.indeed.com/kjsdjflisdn',
-        deadline: moment().subtract(week).add(fortnight),
-        rating: '3',
-        status: 'applied',
-        status_sort_index: 1,
-      });
-    })
-    .then(function () {
-      return knex('jobs').insert({
-        id: '904',
-        accountId: 'TEST-123',
-        title: 'Title-904',
-        employer: 'Employer-904',
-        created_at: moment().subtract(week).add(day),
-        updated_at: moment().subtract(week).add(day),
-        sourceType: 'online',
-        sourceUrl: 'http://www.indeed.com/kjsdjflisdn',
-        deadline: moment().subtract(week).add(fortnight),
-        rating: '3',
-        status: 'interview',
-        status_sort_index: 2,
-      });
-    })
-    .then(function () {
-      return knex('jobs').insert({
-        id: '905',
-        accountId: 'TEST-123',
-        title: 'Title-905',
-        employer: 'Employer-905',
-        created_at: moment().subtract(week).add(day),
-        updated_at: moment().subtract(week).add(day),
-        sourceType: 'online',
-        sourceUrl: 'http://www.indeed.com/kjsdjflisdn',
-        deadline: moment().subtract(week).add(fortnight),
-        rating: '3',
-        status: 'interview',
-        status_sort_index: 2,
-      });
-    })
-    .then(function () {
-      return knex('jobs').insert({
-        id: '906',
-        accountId: 'TEST-123',
-        title: 'Title-906',
-        employer: 'Employer-906',
-        created_at: moment().subtract(week).add(day),
-        updated_at: moment().subtract(week).add(day),
-        sourceType: 'online',
-        sourceUrl: 'http://www.indeed.com/kjsdjflisdn',
-        deadline: moment().subtract(week).add(fortnight),
-        rating: '3',
-        status: 'result',
-        status_sort_index: 3,
-      });
-    })
-    .then(function () {
-      return knex('jobs').insert({
-        id: '907',
-        accountId: 'TEST-123',
-        title: 'Title-907',
-        employer: 'Employer-907',
-        created_at: moment().subtract(week).add(day),
-        updated_at: moment().subtract(week).add(day),
-        sourceType: 'online',
-        sourceUrl: 'http://www.indeed.com/kjsdjflisdn',
-        deadline: moment().subtract(week).add(fortnight),
-        rating: '3',
-        status: 'result',
-        status_sort_index: 3,
-      });
-    })
-    .then(function () {
-      return knex('jobs').insert({
-        id: '908',
+        id: '900000908',
         accountId: 'TEST-123',
         title: 'Title-908',
         employer: 'Employer-908',
@@ -154,7 +25,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '909',
+        id: '900000909',
         accountId: 'TEST-123',
         title: 'Title-909',
         employer: 'Employer-909',
@@ -170,7 +41,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '910',
+        id: '900000910',
         accountId: 'TEST-123',
         title: 'Title-910',
         employer: 'Employer-910',
@@ -186,7 +57,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '911',
+        id: '900000911',
         accountId: 'TEST-123',
         title: 'Title-911',
         employer: 'Employer-911',
@@ -202,7 +73,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '912',
+        id: '900000912',
         accountId: 'TEST-123',
         title: 'Title-912',
         employer: 'Employer-912',
@@ -218,7 +89,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '913',
+        id: '900000913',
         accountId: 'TEST-123',
         title: 'Title-913',
         employer: 'Employer-913',
@@ -234,7 +105,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '914',
+        id: '900000914',
         accountId: 'TEST-123',
         title: 'Title-914',
         employer: 'Employer-914',
@@ -250,7 +121,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '915',
+        id: '900000915',
         accountId: 'TEST-123',
         title: 'Title-915',
         employer: 'Employer-915',
@@ -266,7 +137,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '916',
+        id: '900000916',
         accountId: 'TEST-123',
         title: 'Title-916',
         employer: 'Employer-916',
@@ -282,7 +153,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '917',
+        id: '900000917',
         accountId: 'TEST-123',
         title: 'Title-917',
         employer: 'Employer-917',
@@ -298,7 +169,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '918',
+        id: '900000918',
         accountId: 'TEST-123',
         title: 'Title-918',
         employer: 'Employer-918',
@@ -314,7 +185,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '919',
+        id: '900000919',
         accountId: 'TEST-123',
         title: 'Title-919',
         employer: 'Employer-919',
@@ -330,7 +201,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '920',
+        id: '900000920',
         accountId: 'TEST-123',
         title: 'Title-920',
         employer: 'Employer-920',
@@ -346,7 +217,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '921',
+        id: '900000921',
         accountId: 'TEST-123',
         title: 'Title-921',
         employer: 'Employer-921',
@@ -362,7 +233,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '922',
+        id: '900000922',
         accountId: 'TEST-123',
         title: 'Title-922',
         employer: 'Employer-922',
@@ -378,7 +249,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '923',
+        id: '900000923',
         accountId: 'TEST-123',
         title: 'Title-923',
         employer: 'Employer-923',

@@ -5,11 +5,11 @@ const fortnight = moment.duration(2, 'w');
 const month = moment.duration(1, 'M');
 
 exports.seed = function (knex) {
-  return knex('jobs').del() // Deletes ALL existing entries
+  return knex('jobs').where('accountId', 'CHEF-123').del() // Deletes specific account entries
 
     .then(function () {
       return knex('jobs').insert({
-        id: '100',
+        id: '900000100',
         accountId: 'CHEF-123',
         title: 'Sous Chef',
         employer: 'The Green Goblin',
@@ -25,7 +25,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '101',
+        id: '900000101',
         accountId: 'CHEF-123',
         title: 'Chef de Partie',
         employer: 'The Boar’s Shoulder',
@@ -41,7 +41,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '102',
+        id: '900000102',
         accountId: 'CHEF-123',
         title: 'Head Chef',
         employer: 'The Duke’s Arms',
@@ -57,7 +57,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '103',
+        id: '900000103',
         accountId: 'CHEF-123',
         title: 'Commis Chef',
         employer: 'Bubble -employer- Squeak',
@@ -73,7 +73,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '104',
+        id: '900000104',
         accountId: 'CHEF-123',
         title: 'Section Chef',
         employer: 'Hobgoblin Inn',
@@ -89,7 +89,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '105',
+        id: '900000105',
         accountId: 'CHEF-123',
         title: 'Chef de Cuisine',
         employer: 'The Turtle Tavern',
@@ -105,7 +105,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '106',
+        id: '900000106',
         accountId: 'CHEF-123',
         title: 'Pastry Chef',
         employer: 'The Food Factory',
@@ -121,7 +121,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '107',
+        id: '900000107',
         accountId: 'CHEF-123',
         title: 'Sous Chef',
         employer: 'The Red Rabit',
@@ -137,7 +137,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '108',
+        id: '900000108',
         accountId: 'CHEF-123',
         title: 'Chef de Partie',
         employer: 'Squid and Thistle ',
@@ -153,7 +153,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '109',
+        id: '900000109',
         accountId: 'CHEF-123',
         title: 'Head Chef',
         employer: 'The King’s Whistle',
@@ -169,7 +169,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '110',
+        id: '900000110',
         accountId: 'CHEF-123',
         title: 'Commis Chef',
         employer: 'Flying Crab Tavern',
@@ -185,7 +185,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '111',
+        id: '900000111',
         accountId: 'CHEF-123',
         title: 'Section Chef',
         employer: 'The Lost Leprechaun',
@@ -201,7 +201,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '112',
+        id: '900000112',
         accountId: 'CHEF-123',
         title: 'Chef de Cuisine',
         employer: 'The Wax Minotaur',
@@ -217,7 +217,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '113',
+        id: '900000113',
         accountId: 'CHEF-123',
         title: 'Pastry Chef',
         employer: 'Fish and Gravy',
@@ -233,7 +233,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '114',
+        id: '900000114',
         accountId: 'CHEF-123',
         title: 'Sous Chef',
         employer: 'Giggling Grapefruit',
@@ -249,7 +249,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '115',
+        id: '900000115',
         accountId: 'CHEF-123',
         title: 'Chef de Partie',
         employer: 'The Grey Goat',
@@ -265,7 +265,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '116',
+        id: '900000116',
         accountId: 'CHEF-123',
         title: 'Head Chef',
         employer: 'The Fickle Fig',
@@ -281,7 +281,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '117',
+        id: '900000117',
         accountId: 'CHEF-123',
         title: 'Commis Chef',
         employer: 'Petit Pears',
@@ -297,7 +297,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '118',
+        id: '900000118',
         accountId: 'CHEF-123',
         title: 'Section Chef',
         employer: 'The Raging Orchid',
@@ -313,7 +313,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '119',
+        id: '900000119',
         accountId: 'CHEF-123',
         title: 'Chef de Cuisine',
         employer: 'Hedgehog and Cucumber',
@@ -329,7 +329,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '120',
+        id: '900000120',
         accountId: 'CHEF-123',
         title: 'Pastry Chef',
         employer: 'The Fountainer',
@@ -345,7 +345,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '121',
+        id: '900000121',
         accountId: 'CHEF-123',
         title: 'Sous Chef',
         employer: 'Hobnobs Inn',
@@ -361,7 +361,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '122',
+        id: '900000122',
         accountId: 'CHEF-123',
         title: 'Chef de Partie',
         employer: 'Peas -employer- Shortbread',
@@ -377,7 +377,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '123',
+        id: '900000123',
         accountId: 'CHEF-123',
         title: 'Head Chef',
         employer: 'The Queen’s Stead',
@@ -393,7 +393,7 @@ exports.seed = function (knex) {
     })
     .then(function () {
       return knex('jobs').insert({
-        id: '124',
+        id: '900000124',
         accountId: 'CHEF-123',
         title: 'Commis Chef',
         employer: 'The Atrium',
