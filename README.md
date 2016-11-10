@@ -67,6 +67,10 @@ App requires postgresql running locally. You can run it in docker following belo
 
     $ export DATABASE_URL=postgres://postgres:password@`docker-machine ip`/your_work_search
 
+### Bulk loading test data
+
+For more information see [scripts/README.md](scripts/README.md)
+
 ### NPM Shrinkwrap
 
 We are using [npm shrinkwrap] to pin specific versions of the [npm]
