@@ -24,7 +24,7 @@ module.exports = class DashboardViewModel {
           statusString: i18n.__(`progression.${job.status}`),
           deadlineFormatted: this.formatDate(job.deadline),
           updatedFormatted: this.formatDate(job.updated_at),
-          interestLevel: [1, 2, 3, 4, 5].map(v => ({ value: v, isChecked: v === job.rating })),
+          interestLevel: [5, 4, 3, 2, 1].map(v => ({ value: v, isChecked: v === job.rating })),
           source: this.formatSource(job),
           hasFocus: job.id === parseInt(jobIdInFocus, 10),
         },

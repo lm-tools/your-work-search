@@ -6,7 +6,7 @@ class AddJobViewModel {
     Object.assign(this, body);
     this.accountId = accountId;
     this.ratingOptions = this.addCheckedFlag(
-      ['1', '2', '3', '4', '5'].map(value => ({ value })),
+      ['5', '4', '3', '2', '1'].map(value => ({ value })),
       body.rating
     );
 
