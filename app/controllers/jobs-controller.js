@@ -1,5 +1,6 @@
 const express = require('express');
 const router = new express.Router({ mergeParams: true });
+const validate = require('uuid-validate');
 const Jobs = require('../models/jobs-model');
 const AddJobViewModel = require('./add-job-view-model');
 const progression = require('../models/progression');
@@ -23,6 +24,28 @@ function validateDeadline(deadline, req) {
       .matches(/^(0?[1-9]|[12][0-9]|3[01])[\/](0?[1-9]|1[012])[\/]\d{4}$/);
   }
 }
+
+function doesAccountHaveJobs(accountId) {
+  return Jobs.findAllByAccountId(accountId).then((jobs) => jobs.totalSavedJobs > 0);
+}
+
+/* External entry point */
+router.get('/', (req, res) => {
+  const basePath = req.app.locals.basePath;
+  const accountId = req.query.id;
+
+  if (accountId && validate(accountId)) {
+    doesAccountHaveJobs(accountId).then((yesItDoes) => {
+      if (yesItDoes) {
+        res.redirect(`${basePath}/${accountId}`);
+      } else {
+        res.redirect(`${basePath}/${accountId}/jobs/new`);
+      }
+    });
+  } else {
+    res.render('missing-account-id');
+  }
+});
 
 router.get('/new', (req, res) => {
   res.render('add-job', new AddJobViewModel(req.params.accountId, req.body));

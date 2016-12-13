@@ -63,7 +63,8 @@ app.use(assetPath, express.static(path.join(__dirname, '..', 'dist', 'public')))
 app.use(assetPath, express.static(path.join(__dirname, '..',
   'vendor', 'govuk_template_mustache_inheritance', 'assets')));
 
-app.use(`${basePath}/`, dashboardController);
+app.use(`${basePath}/`, jobsController);
+app.use(`${basePath}/:accountId`, dashboardController);
 app.use(`${basePath}/:accountId/introduction`, introductionController);
 app.use(`${basePath}/:accountId/jobs`, jobsController);
 app.use(`${basePath}/:accountId/confirmation`, confirmationController);
