@@ -50,11 +50,13 @@
       "sourceUrl": "Website",
       "deadline": "Application closing date",
       "rating": "How interested are you in this role?",
-      "submit": "Save"
+      "submit": "Save job",
+      "applicationState": "What point are you in the process?"
     },
     "header": "Add a job",
     "linkBack": "Back",
-    "pageTitle": "Add a job - Your work search"
+    "pageTitle": "Add a job - Your work search",
+    "introduction": "Add a job that you’re interested in or have applied, You can come back at any time and edit this information."
   },
   "sourceType": {
     "inPerson": "Other",

@@ -10,6 +10,16 @@ class AddJobViewModel {
       body.rating
     );
 
+    this.applicationStateOptions = this.addCheckedFlag(
+      [
+        { value: 'interested', label: i18n.__('progression.interested') },
+        { value: 'applied', label: i18n.__('progression.applied') },
+        { value: 'interview', label: i18n.__('progression.interview') },
+        { value: 'result', label: i18n.__('progression.result') },
+      ],
+      body.applicationState
+    );
+
     this.sourceTypeOptions = this.addCheckedFlag(
       [
         { value: 'online', label: i18n.__('sourceType.online') },
