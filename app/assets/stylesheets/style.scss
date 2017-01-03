@@ -6,6 +6,7 @@
 
 //variables
 $space_size: 10px;
+$timeline_min_width: 912px;
 
 // layout
 .space-top-double {
@@ -176,4 +177,10 @@ button.link-button {
 .panel-indent {
     border-left: 4px solid #bfc1c3;
     padding: 10px 0 10px 15px;
+}
+
+@media only screen and (max-width: $timeline_min_width - 1) {
+  .timeline {
+    display: none;
+  }
 }
