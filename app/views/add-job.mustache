@@ -9,6 +9,8 @@
       {{/errors }}
     </ul>
 
+    <p>{{#__}}addJob.introduction{{/__}}</p>
+
     <form method="POST">
       <div class="form-group">
         <label class="form-label" for="job-title">{{#__}}addJob.form.title{{/__}}</label>
@@ -20,8 +22,17 @@
       </div>
 
       <fieldset class="form-group">
-        <legend>{{#__}}addJob.form.sourceType{{/__}}</legend>
+        <legend class="heading-medium">{{#__}}addJob.form.applicationState{{/__}}</legend>
+        {{#applicationStateOptions}}
+          <label class="block-label" for="job-applicationState-{{value}}">
+            <input id="job-applicationState-{{value}}" type="radio" name="applicationState" value="{{value}}" {{#isChecked}}checked{{/isChecked}} >
+            {{label}}
+          </label>
+        {{/applicationStateOptions}}
+      </fieldset>
 
+      <fieldset class="form-group">
+        <legend class="heading-medium">{{#__}}addJob.form.sourceType{{/__}}</legend>
         {{#sourceTypeOptions}}
         <label class="block-label" for="job-sourceType-{{value}}">
           <input id="job-sourceType-{{value}}" type="radio" name="sourceType" value="{{value}}" {{#isChecked}}checked{{/isChecked}} >
@@ -35,13 +46,8 @@
         <input class="form-control" id="job-sourceUrl" type="text" name="sourceUrl" value="{{sourceUrl}}">
       </div>
 
-      <div class="form-group">
-        <label class="form-label" for="job-deadline">{{#__}}addJob.form.deadline{{/__}}</label>
-        <input class="form-control datepicker" id="job-deadline" type="text" name="deadline" value="{{deadline}}" placeholder="dd/mm/yyyy">
-      </div>
-
       <fieldset class="star-rating form-group">
-        <legend>{{#__}}addJob.form.rating{{/__}}</legend>
+        <legend class="heading-medium">{{#__}}addJob.form.rating{{/__}}</legend>
         <div class="rating-options-group rating-options-group-enabled">
           {{#ratingOptions}}
             <input type="radio" id="job-rating-{{value}}" name="rating" value="{{value}}"
