@@ -59,6 +59,11 @@ gulp.task('css', ['fonts', 'sass'], () => {
     .pipe(gulp.dest('dist/public/stylesheets/jquery'));
 });
 
+gulp.task('css', ['fonts', 'sass'], () => {
+  gulp.src('node_modules/pikaday/css/*')
+    .pipe(gulp.dest('dist/public/stylesheets/pikaday'));
+});
+
 gulp.task('server', () => {
   if (node) node.kill();
   node = spawn('node', ['bin/www'], { stdio: 'inherit' });

@@ -1,6 +1,6 @@
 const MobileDetect = require('mobile-detect');
 const $ = require('jquery');
-require('jquery-ui/datepicker');
+const Pikaday = require('pikaday');
 
 const md = new MobileDetect(window.navigator.userAgent);
 const enableNativeDatepicker = md.mobile() || md.tablet();
@@ -10,5 +10,6 @@ if (enableNativeDatepicker) {
     this.type = 'date';
   });
 } else {
-  $('.datepicker').datepicker({ dateFormat: 'dd/mm/yy' });
+  // eslint-disable-next-line no-new
+  new Pikaday({ field: document.getElementsByClassName('datepicker')[0], format: 'DD/MM/YYYY' });
 }
