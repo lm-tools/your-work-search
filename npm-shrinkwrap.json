@@ -2401,6 +2401,11 @@
       "from": "jquery@>=3.1.1 <4.0.0",
       "resolved": "https://registry.npmjs.org/jquery/-/jquery-3.1.1.tgz"
     },
+    "jquery-ui": {
+      "version": "1.10.5",
+      "from": "jquery-ui@1.10.5",
+      "resolved": "https://registry.npmjs.org/jquery-ui/-/jquery-ui-1.10.5.tgz"
+    },
     "js-tokens": {
       "version": "2.0.0",
       "from": "js-tokens@>=2.0.0 <3.0.0",
@@ -3409,11 +3414,6 @@
       "version": "2.3.0",
       "from": "pify@>=2.0.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/pify/-/pify-2.3.0.tgz"
-    },
-    "pikaday": {
-      "version": "1.5.1",
-      "from": "pikaday@>=1.5.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/pikaday/-/pikaday-1.5.1.tgz"
     },
     "pinkie": {
       "version": "2.0.4",
