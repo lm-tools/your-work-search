@@ -77,5 +77,9 @@
   "missing-account-id": {
     "heading": "Sign in to your account",
     "message": "Please access this tool through your Universal Credit account."
+  },
+  "updateJob": {
+    "pageTitle": "Update a job - Your work search",
+    "header": "Update a job"
   }
 }

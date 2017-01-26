@@ -52,6 +52,11 @@ router.post('/new', (req, res, next) => {
     .catch((err) => next(err));
 });
 
+router.get('/:jobId', (req, res) => {
+  const accountId = req.params.accountId;
+  return res.render('update-job', { accountId });
+});
+
 router.patch('/:jobId', (req, res, next) => {
   const basePath = req.app.locals.basePath;
   const accountId = req.params.accountId;
