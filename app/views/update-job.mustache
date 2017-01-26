@@ -3,7 +3,42 @@
   {{$applicationContent}}
     <h2 class="heading-xlarge">{{#__}}updateJob.header{{/__}}</h2>
 
-    <p><a href="{{basePath}}/{{accountId}}" class="link-back">{{#__}}addJob.linkBack{{/__}}</a></p>
+    <section>
+      <h2 class="heading-large" data-test="title">{{title}}</h2>
+      <div class="" data-test="employer">{{employer}}</div>
+      <div class="text-secondary font-xsmall" data-test="source">{{sourceUrl}}</div>
+    </section>
+
+    <form>
+      <fieldset data-test="progression">
+        <legend class="heading-large">{{#__}}updateJob.form.progress{{/__}}</legend>
+        {{#progression}}
+          <div class="form-group">
+            <label class="radio-block-label">{{label}}</label>
+            <input type="radio" value="{{name}}" name="status"
+                   {{#isChecked}}checked{{/isChecked}}>
+          </div>
+        {{/progression}}
+      </fieldset>
+
+      <fieldset class="star-rating form-group" data-test="rating">
+        <legend class="heading-large">{{#__}}updateJob.form.rating{{/__}}</legend>
+        <div class="rating-options-group rating-options-group-enabled">
+          {{#ratingOptions}}
+            <input type="radio" id="job-rating-{{value}}" name="rating" value="{{value}}"
+                   {{#isChecked}}checked{{/isChecked}} >
+            <label class="full" for="job-rating-{{value}}"></label>
+          {{/ratingOptions}}
+        </div>
+      </fieldset>
+
+      <div class="form-group">
+        <input type="submit" class="button" value="{{#__}}updateJob.form.submit{{/__}}">
+      </div>
+
+    </form>
+
+    <p><a href="{{basePath}}/{{accountId}}">{{#__}}updateJob.linkBack{{/__}}</a></p>
 
   {{/applicationContent}}
 

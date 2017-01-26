@@ -79,7 +79,13 @@
     "message": "Please access this tool through your Universal Credit account."
   },
   "updateJob": {
-    "pageTitle": "Update a job - Your work search",
-    "header": "Update a job"
+    "pageTitle": "Update job - Your work search",
+    "header": "Update job",
+    "form": {
+      "progress": "Where are you in the process?",
+      "rating": "How interested are you in this role?",
+      "submit": "Save changes"
+    },
+    "linkBack": "Cancel"
   }
 }
