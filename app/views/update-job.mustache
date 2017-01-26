@@ -9,7 +9,7 @@
       <div class="text-secondary font-xsmall" data-test="source">{{sourceUrl}}</div>
     </section>
 
-    <form>
+    <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=PATCH" method="POST">
       <fieldset data-test="progression">
         <legend class="heading-large">{{#__}}updateJob.form.progress{{/__}}</legend>
         {{#progression}}

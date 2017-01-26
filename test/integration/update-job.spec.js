@@ -60,6 +60,14 @@ describe('Update a job', () => {
     );
   });
 
+  describe('update job details', () => {
+    it('should update job progress', () =>
+      updateJobPage.setJobProgression('result')
+        .then(() => updateJobPage.submit())
+        .then(() => expect(helper.dashboardPage.getJobProgressionStatus(job)).to.equal('Result'))
+    );
+  });
+
   describe('not found job', () => {
     it('should return 404 page if job not found', () =>
       updateJobPage.visit(accountId, { id: 900 })

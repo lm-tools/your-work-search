@@ -3,9 +3,10 @@ const progression = require('../models/progression');
 /* eslint-disable no-underscore-dangle */
 
 class UpdateJobViewModel {
-  constructor(accountId, job) {
+  constructor(accountId, job, basePath) {
     Object.assign(this, job);
     this.accountId = accountId;
+    this.basePath = basePath;
 
     const ratingOptionList = [5, 4, 3, 2, 1].map(value => ({ value }));
     this.ratingOptions = this.addCheckedFlag(ratingOptionList, job.rating);

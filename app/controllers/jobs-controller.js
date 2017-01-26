@@ -25,6 +25,17 @@ function validateDeadline(deadline, req) {
   }
 }
 
+function buildQueryParams(req, job) {
+  const sort = req.query.sort;
+  const filter = req.query.filter;
+  const params = { sort, filter, focus: job.id };
+  return Object.keys(params)
+    .filter(key => params[key])
+    .map(key => `${key}=${params[key]}`)
+    .join('&');
+}
+
+
 router.get('/new', (req, res) => {
   res.render('add-job', new AddJobViewModel(req.params.accountId, req.body));
 });
@@ -56,12 +67,14 @@ router.post('/new', (req, res, next) => {
 router.get('/:jobId', (req, res, next) => {
   const accountId = req.params.accountId;
   const jobId = req.params.jobId;
+  const basePath = req.app.locals.basePath;
+
   return new Jobs({ id: jobId, accountId })
     .fetch()
     .then(model => {
       if (model) {
         const job = model.serialize();
-        res.render('update-job', new UpdateJobViewModel(req.params.accountId, job));
+        res.render('update-job', new UpdateJobViewModel(accountId, job, basePath));
       } else {
         res.status(404).render('error', { message: 'Not Found' });
       }
@@ -74,8 +87,6 @@ router.patch('/:jobId', (req, res, next) => {
   const accountId = req.params.accountId;
   const jobId = req.params.jobId;
   const updateData = req.body;
-  const sort = req.query.sort;
-  const filter = req.query.filter;
 
   if (updateData.status) {
     updateData.status_sort_index = progression.indexOf(updateData.status) || 0;
@@ -84,8 +95,8 @@ router.patch('/:jobId', (req, res, next) => {
   return new Jobs({ id: jobId })
     .save(updateData, { method: 'update', patch: true })
     .then((job) => {
-      const queryParams = `sort=${sort}&filter=${filter}&focus=${job.id}#${job.id}`;
-      res.redirect(`${basePath}/${accountId}?${queryParams}`);
+      const queryParams = buildQueryParams(req, job);
+      res.redirect(`${basePath}/${accountId}?${queryParams}#${job.id}`);
     })
     .catch((err) => next(err));
 });
