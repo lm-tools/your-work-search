@@ -66,6 +66,12 @@ describe('Update a job', () => {
         .then(() => updateJobPage.submit())
         .then(() => expect(helper.dashboardPage.getJobProgressionStatus(job)).to.equal('Result'))
     );
+
+    it('should update rating', () =>
+      updateJobPage.setJobRating('2')
+        .then(() => updateJobPage.submit())
+        .then(() => expect(helper.dashboardPage.getInterestLevel(job)).to.equal('2'))
+    );
   });
 
   describe('not found job', () => {

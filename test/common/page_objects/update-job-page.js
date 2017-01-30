@@ -10,6 +10,8 @@ const UpdateJobPage = function UpdateJobPage(browser) {
   this.getJobRating = () => browser.query('[data-test="rating"] input[checked]').value;
   this.setJobProgression = (status) => browser
     .click(`[data-test="progression"] input[value="${status}"]`);
+  this.setJobRating = (rating) => browser
+    .click(`[data-test="rating"] input[value="${rating}"]`);
 };
 
 module.exports = UpdateJobPage;
