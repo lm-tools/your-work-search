@@ -20,7 +20,7 @@
       </div>
 
       <fieldset class="form-group">
-        <legend>{{#__}}addJob.form.sourceType{{/__}}</legend>
+        <legend class="heading-medium">{{#__}}addJob.form.sourceType{{/__}}</legend>
 
         {{#sourceTypeOptions}}
         <label class="block-label" for="job-sourceType-{{value}}">
@@ -36,17 +36,17 @@
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="job-deadline">{{#__}}addJob.form.deadline{{/__}}</label>
+        <label class="heading-medium block"  for="job-deadline">{{#__}}addJob.form.deadline{{/__}}</label>
         <input class="form-control datepicker" id="job-deadline" type="text" name="deadline" value="{{deadline}}" placeholder="dd/mm/yyyy">
       </div>
 
       <fieldset class="star-rating form-group">
-        <legend>{{#__}}addJob.form.rating{{/__}}</legend>
+        <legend class="heading-medium heading-rating">{{#__}}addJob.form.rating{{/__}}</legend>
         <div class="rating-options-group rating-options-group-enabled">
           {{#ratingOptions}}
             <input type="radio" id="job-rating-{{value}}" name="rating" value="{{value}}"
                    {{#isChecked}}checked{{/isChecked}} >
-            <label class="full" for="job-rating-{{value}}"></label>
+            <label class="full stars-large" for="job-rating-{{value}}"></label>
           {{/ratingOptions}}
         </div>
       </fieldset>
@@ -56,7 +56,7 @@
       </div>
     </form>
 
-    <p><a href="{{basePath}}/{{accountId}}" class="link-back">{{#__}}addJob.linkBack{{/__}}</a></p>
+    <p><a href="{{basePath}}/{{accountId}}">{{#__}}addJob.linkBack{{/__}}</a></p>
 
   {{/applicationContent}}
 
