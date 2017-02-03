@@ -28,7 +28,7 @@ describe('Dashboard', () => {
       let savedJob;
       return helper.cleanDb()
         .then(() => new JobsModel(attributes).save())
-        .then(job => { savedJob = job; })
+        .then(job => { savedJob = job.serialize(); })
         .then(() => dashboardPage.visit(accountId))
         .then(() => savedJob);
     };
@@ -75,6 +75,12 @@ describe('Dashboard', () => {
         expect(dashboardPage.isJobDetailsVisible(savedJob))
           .to.equal(true, 'Job details should be visible');
       });
+
+      it('should link to edit page', () =>
+        dashboardPage.clickUpdateJobButton(savedJob).then(() =>
+          expect(helper.updateJobPage.getJobTitle()).to.equal(savedJob.title)
+        )
+      );
     });
 
     describe('with some optional fields missing', () => {

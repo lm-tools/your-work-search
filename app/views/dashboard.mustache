@@ -134,6 +134,9 @@
                       <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=DELETE" method="POST">
                         <input type="submit" class="button button-secondary delete-button" value="{{#__}}dashboard.deleteButton{{/__}}"
                                data-test="delete-button">
+                        <a class="button button-secondary delete-button" data-test="update-button" href="{{basePath}}/{{accountId}}/jobs/{{id}}">
+                          {{#__}}dashboard.updateJobButton{{/__}}
+                        </a>
                       </form>
                     </div>
                     <div class="column-one-quarter tablet-right">

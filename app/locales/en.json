@@ -31,7 +31,8 @@
     "updatedDate": "Last updated",
     "pageTitle": "Your work search",
     "has-job-help": "You can keep adding jobs or close this window - everything is saved.  <br>Come back at any time - the to-do will be in your list until you mark it as done.<br>  After that, there'll be an entry in your journal.",
-    "first-use-help": "Add jobs that you're interested in or have applied for."
+    "first-use-help": "Add jobs that you're interested in or have applied for.",
+    "updateJobButton": "Update"
   },
   "layout": {
     "header": "Your work search"
