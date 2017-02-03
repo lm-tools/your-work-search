@@ -184,6 +184,10 @@ button.link-button {
   display: block;
 }
 
+.header-divider {
+  margin-top: $gutter-half;
+}
+
 .heading-rating {
   margin-bottom: auto;
 }
@@ -191,6 +195,21 @@ button.link-button {
 .panel-indent {
     border-left: 4px solid #bfc1c3;
     padding: 10px 0 10px 15px;
+}
+
+.header-with-action {
+  margin-top: $gutter;
+
+  .heading-xlarge {
+    display: inline;
+  }
+
+  form {
+    display: inline;
+  }
+  hr {
+    margin-top: $gutter-half;
+  }
 }
 
 @media only screen and (max-width: $timeline_min_width - 1) {

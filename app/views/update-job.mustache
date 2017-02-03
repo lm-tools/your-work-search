@@ -1,10 +1,15 @@
 {{<layout}}
   {{$pageTitle}}{{#__}}updateJob.pageTitle{{/__}}{{/pageTitle}}
   {{$applicationContent}}
-  <div>
-    <h2 class="heading-xlarge">{{#__}}updateJob.header{{/__}}</h2>
-    <hr/>
-  </div>
+    <div class="header-with-action">
+      <h2 class="heading-xlarge">{{#__}}updateJob.header{{/__}}</h2>
+      <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=DELETE" method="POST">
+        <input type="submit" class="button-secondary pull-right"
+               value="{{#__}}updateJob.deleteButton{{/__}}"
+               data-test="delete-button">
+      </form>
+      <hr/>
+    </div>
 
     <section>
       <h2 class="heading-large" data-test="title">{{title}}</h2>
@@ -38,7 +43,7 @@
       </fieldset>
 
       <div class="form-group">
-        <input type="submit" class="button" value="{{#__}}updateJob.form.submit{{/__}}">
+        <input type="submit" data-test="save" class="button" value="{{#__}}updateJob.form.submit{{/__}}">
       </div>
 
     </form>

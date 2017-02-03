@@ -77,9 +77,6 @@ const DashboardPage = function DashboardPage(browser) {
   this.isJobDetailsVisible = job => !browser.query(jobElementSelector(job, 'details'))
       .className.split(/\s+/).includes('js-hidden');
 
-  this.deleteJob = (job) => browser.click(
-    `${jobContainerSelector(job)} [data-test="delete-button"]`
-  );
   this.clickUpdateJobButton = (job) => browser.click(
     `${jobContainerSelector(job)} [data-test="update-button"]`
   );

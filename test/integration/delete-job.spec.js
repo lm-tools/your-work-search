@@ -12,16 +12,16 @@ describe('Delete job', () => {
   beforeEach(function () {
     return h.cleanDb()
       .then(() => h.createJobsInDb([job]))
-      .then(() => h.dashboardPage.visit(job.accountId));
+      .then(() => h.updateJobPage.visit(job.accountId, job));
   });
 
   it('should show confirmation screen', function () {
-    return h.dashboardPage.deleteJob(job)
+    return h.updateJobPage.deleteJob()
       .then(() => expect(h.confirmationPage.getDescription()).to.equal(`${job.title} removed`));
   });
 
   it('should not display deleted job on dashboard', function () {
-    return h.dashboardPage.deleteJob(job)
+    return h.updateJobPage.deleteJob(job)
       .then(() => h.confirmationPage.clickBack())
       .then(() => expect(h.dashboardPage.jobList()).to.equal(''));
   });

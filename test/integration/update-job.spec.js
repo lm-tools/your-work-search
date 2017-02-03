@@ -63,13 +63,13 @@ describe('Update a job', () => {
   describe('update job details', () => {
     it('should update job progress', () =>
       updateJobPage.setJobProgression('result')
-        .then(() => updateJobPage.submit())
+        .then(() => updateJobPage.clickSave())
         .then(() => expect(helper.dashboardPage.getJobProgressionStatus(job)).to.equal('Result'))
     );
 
     it('should update rating', () =>
       updateJobPage.setJobRating('2')
-        .then(() => updateJobPage.submit())
+        .then(() => updateJobPage.clickSave())
         .then(() => expect(helper.dashboardPage.getInterestLevel(job)).to.equal('2'))
     );
   });
