@@ -25,10 +25,8 @@ function validateDeadline(deadline, req) {
   }
 }
 
-function buildQueryParams(req, job) {
-  const sort = req.query.sort;
-  const filter = req.query.filter;
-  const params = { sort, filter, focus: job.id };
+function buildQueryParams(job) {
+  const params = { focus: job.id };
   return Object.keys(params)
     .filter(key => params[key])
     .map(key => `${key}=${params[key]}`)
@@ -95,7 +93,7 @@ router.patch('/:jobId', (req, res, next) => {
   return new Jobs({ id: jobId })
     .save(updateData, { method: 'update', patch: true })
     .then((job) => {
-      const queryParams = buildQueryParams(req, job);
+      const queryParams = buildQueryParams(job);
       res.redirect(`${basePath}/${accountId}?${queryParams}#${job.id}`);
     })
     .catch((err) => next(err));

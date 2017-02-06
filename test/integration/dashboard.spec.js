@@ -119,7 +119,7 @@ describe('Dashboard', () => {
   describe('sort job list', () => {
     const SEED_ACCOUNT_ID = 'SORT';
 
-    before(function () {
+    beforeEach(function () {
       return knex.seed.run({ directory: './db/seeds/sort' });
     });
 
@@ -175,18 +175,64 @@ describe('Dashboard', () => {
       );
     });
 
-    describe('sort after job progression update', () => {
+
+    describe('sort after job update', () => {
       before(() =>
         dashboardPage.sort(SEED_ACCOUNT_ID, 'status')
           .then(() => dashboardPage.clickJobDetailsButton({ id: '100' }))
           .then(() => dashboardPage.submitJobProgressionStatus({ id: '100' }, 'result'))
       );
-      it('should maintain the status sort order', () =>
-        expect(dashboardPage.jobList()).to.eql('D-A-C-B-')
+      it('should display jobs in default order', () =>
+        expect(dashboardPage.jobList()).to.eql('A-B-C-D-')
       );
 
-      it('should maintain selected sort after status update', () =>
-        expect(dashboardPage.selectedSortType()).to.equal('status')
+      it('should use default filter', () =>
+        expect(dashboardPage.selectedFilterType()).to.equal('all')
+      );
+
+      it('should use default sort order', () =>
+        expect(dashboardPage.selectedSortType()).to.equal('date added')
+      );
+    });
+
+    describe('sort after job remove', () => {
+      before(() =>
+        dashboardPage.sort(SEED_ACCOUNT_ID, 'status')
+          .then(() => dashboardPage.clickJobDetailsButton({ id: '100' }))
+          .then(() => dashboardPage.clickUpdateJobButton({ id: '100' }))
+          .then(() => helper.updateJobPage.deleteJob())
+          .then(() => helper.confirmationPage.clickBack())
+      );
+      it('should display jobs in default order', () =>
+        expect(dashboardPage.jobList()).to.eql('B-C-D-')
+      );
+
+      it('should use default filter', () =>
+        expect(dashboardPage.selectedFilterType()).to.equal('all')
+      );
+
+      it('should use default sort order', () =>
+        expect(dashboardPage.selectedSortType()).to.equal('date added')
+      );
+    });
+
+    describe('sort after job added', () => {
+      before(() =>
+        dashboardPage.sort(SEED_ACCOUNT_ID, 'status')
+          .then(() => dashboardPage.clickAddJobButton())
+          .then(() => helper.addJobPage.fillTitle('E-'))
+          .then(() => helper.addJobPage.submit())
+      );
+      it('should display jobs in default order', () =>
+        expect(dashboardPage.jobList()).to.eql('E-A-B-C-D-')
+      );
+
+      it('should use default filter', () =>
+        expect(dashboardPage.selectedFilterType()).to.equal('all')
+      );
+
+      it('should use default sort order', () =>
+        expect(dashboardPage.selectedSortType()).to.equal('date added')
       );
     });
   });
