@@ -20,6 +20,8 @@ describe('Dashboard', () => {
     status: 'applied',
     accountId,
   };
+  const createJob = (attributes) =>
+    new JobsModel(Object.assign({}, jobData, attributes)).save();
 
   describe('display all the details of a job', () => {
     const createJobAndVisitDashboard = (attributes) => {
@@ -76,7 +78,7 @@ describe('Dashboard', () => {
     });
 
     describe('with some optional fields missing', () => {
-      it('should not display where you found ther role, if it was not specified', () => {
+      it('should not display where you found their role, if it was not specified', () => {
         const jobDataWithoutSourceType = Object.assign({}, jobData, { sourceType: null });
 
         return createJobAndVisitDashboard(jobDataWithoutSourceType)
@@ -89,13 +91,10 @@ describe('Dashboard', () => {
       return helper.cleanDb();
     });
 
-    const createJob = (attributes) =>
-      new JobsModel(Object.assign({}, jobData, attributes)).save();
-
     it('should not display sort or filter when zero saved jobs', () =>
       dashboardPage.visit(accountId)
-      .then(() => expect(dashboardPage.isSortVisible()).to.be.false)
-      .then(() => expect(dashboardPage.isFilterVisible()).to.be.false));
+        .then(() => expect(dashboardPage.isSortVisible()).to.be.false)
+        .then(() => expect(dashboardPage.isFilterVisible()).to.be.false));
 
     it('should display details of all my jobs', () =>
       Promise
@@ -110,6 +109,7 @@ describe('Dashboard', () => {
         .then(() => dashboardPage.visit(accountId))
         .then(() => expect(dashboardPage.jobCount()).to.equal(0)));
   });
+
   describe('sort job list', () => {
     const SEED_ACCOUNT_ID = 'SORT';
 
@@ -117,63 +117,74 @@ describe('Dashboard', () => {
       return knex.seed.run({ directory: './db/seeds/sort' });
     });
 
-    it('should sort jobs by most recently added if sort empty', () =>
-      dashboardPage.sort(SEED_ACCOUNT_ID, '')
-        .then(() => expect(dashboardPage.jobList())
-          .to.eql('A-B-C-D-'))
-        .then(() => expect(dashboardPage.selectedSortType()).to.equal('date added')));
-
-    it('should sort jobs by most recently added', () =>
-      dashboardPage.sort(SEED_ACCOUNT_ID, 'created')
-        .then(() => expect(dashboardPage.jobList())
-          .to.eql('A-B-C-D-'))
-        .then(() => expect(dashboardPage.selectedSortType()).to.equal('date added')));
-
-    it('should sort jobs by most recently updated date', () =>
-      dashboardPage.sort(SEED_ACCOUNT_ID, 'updated')
-        .then(() => expect(dashboardPage.jobList())
-          .to.eql('A-B-C-D-'))
-        .then(() => expect(dashboardPage.selectedSortType()).to.equal('date updated')));
-
-    it('should sort jobs by title alphabetically', () =>
-      dashboardPage.sort(SEED_ACCOUNT_ID, 'title')
-        .then(() => expect(dashboardPage.jobList())
-          .to.eql('A-B-C-D-'))
-        .then(() => expect(dashboardPage.selectedSortType()).to.equal('job title')));
-
-    it('should sort jobs by deadline date soonest first', () =>
-      dashboardPage.sort(SEED_ACCOUNT_ID, 'deadline')
-        .then(() => expect(dashboardPage.jobList())
-          .to.eql('A-B-C-D-'))
-        .then(() => expect(dashboardPage.selectedSortType()).to.equal('deadline date')));
-
-    it('should sort jobs by employer alphabetically', () =>
-      dashboardPage.sort(SEED_ACCOUNT_ID, 'employer')
-        .then(() => expect(dashboardPage.jobList())
-          .to.eql('A-B-C-D-'))
-        .then(() => expect(dashboardPage.selectedSortType()).to.equal('employer')));
-
-    it('should sort jobs by status most advanced to least', () =>
-      dashboardPage.sort(SEED_ACCOUNT_ID, 'status')
-        .then(() => expect(dashboardPage.jobList())
-          .to.eql('D-C-B-A-'))
-        .then(() => expect(dashboardPage.selectedSortType()).to.equal('status')));
-
-    it('should maintain the status sort order', function () {
-      return dashboardPage.sort(SEED_ACCOUNT_ID, 'status')
-        .then(() => dashboardPage.clickJobDetailsButton({ id: '100' }))
-        .then(() => dashboardPage.submitJobProgressionStatus({ id: '100' }, 'result'))
-        .then(() => expect(dashboardPage.jobList())
-          .to.eql('D-A-C-B-'));
+    [
+      {
+        title: 'should sort jobs by most recently added if sort empty',
+        sortBy: '',
+        expectedJobList: 'A-B-C-D-',
+        expectedSelectedSortType: 'date added',
+      },
+      {
+        title: 'should sort jobs by most recently added',
+        sortBy: 'created',
+        expectedJobList: 'A-B-C-D-',
+        expectedSelectedSortType: 'date added',
+      },
+      {
+        title: 'should sort jobs by most recently updated date',
+        sortBy: 'updated',
+        expectedJobList: 'A-B-C-D-',
+        expectedSelectedSortType: 'date updated',
+      },
+      {
+        title: 'should sort jobs by title alphabetically',
+        sortBy: 'title',
+        expectedJobList: 'A-B-C-D-',
+        expectedSelectedSortType: 'job title',
+      },
+      {
+        title: 'should sort jobs by deadline date soonest first',
+        sortBy: 'deadline',
+        expectedJobList: 'A-B-C-D-',
+        expectedSelectedSortType: 'deadline date',
+      },
+      {
+        title: 'should sort jobs by employer alphabetically',
+        sortBy: 'employer',
+        expectedJobList: 'A-B-C-D-',
+        expectedSelectedSortType: 'employer',
+      },
+      {
+        title: 'should sort jobs by status most advanced to least',
+        sortBy: 'status',
+        expectedJobList: 'D-C-B-A-',
+        expectedSelectedSortType: 'status',
+      },
+    ].forEach(s => {
+      it(s.title, () =>
+        dashboardPage.sort(SEED_ACCOUNT_ID, s.sortBy).then(() => {
+          expect(dashboardPage.jobList()).to.eql(s.expectedJobList);
+          expect(dashboardPage.selectedSortType()).to.equal(s.expectedSelectedSortType);
+        })
+      );
     });
 
-    it('should maintain selected sort after status update', function () {
-      return dashboardPage.sort(SEED_ACCOUNT_ID, 'status')
-        .then(() => dashboardPage.clickJobDetailsButton({ id: '100' }))
-        .then(() => dashboardPage.submitJobProgressionStatus({ id: '100' }, 'result'))
-        .then(() => expect(dashboardPage.selectedSortType()).to.equal('status'));
+    describe('sort after job progression update', () => {
+      before(() =>
+        dashboardPage.sort(SEED_ACCOUNT_ID, 'status')
+          .then(() => dashboardPage.clickJobDetailsButton({ id: '100' }))
+          .then(() => dashboardPage.submitJobProgressionStatus({ id: '100' }, 'result'))
+      );
+      it('should maintain the status sort order', () =>
+        expect(dashboardPage.jobList()).to.eql('D-A-C-B-')
+      );
+
+      it('should maintain selected sort after status update', () =>
+        expect(dashboardPage.selectedSortType()).to.equal('status')
+      );
     });
   });
+
   describe('filter job list for range of updates', () => {
     const SEED_ACCOUNT_ID = 'FILTER';
 
@@ -181,59 +192,76 @@ describe('Dashboard', () => {
       return knex.seed.run({ directory: './db/seeds/filter' });
     });
 
-    it('should filter jobs updated in the last week', () =>
-      dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'updated', 'week')
-        .then(() => expect(dashboardPage.jobList())
-          .to.eql('A-'))
-        .then(() => expect(dashboardPage.selectedFilterType()).to.equal('updated past week')));
+    [
+      {
+        title: 'should filter jobs updated in the last week',
+        filterBy: 'week',
+        expectedJobList: 'A-',
+        expectedFilter: 'updated past week',
 
-    it('should filter jobs updated in the last fortnight', () =>
-      dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'updated', 'fortnight')
-        .then(() => expect(dashboardPage.jobList())
-          .to.eql('A-B-'))
-        .then(() => expect(dashboardPage.selectedFilterType()).to.equal('updated past 2 weeks')));
+      },
+      {
+        title: 'should filter jobs updated in the last fortnight',
+        filterBy: 'fortnight',
+        expectedJobList: 'A-B-',
+        expectedFilter: 'updated past 2 weeks',
 
-    it('should filter jobs updated in the last month', () =>
-      dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'updated', 'month')
-        .then(() => expect(dashboardPage.jobList())
-          .to.eql('A-B-C-'))
-        .then(() => expect(dashboardPage.selectedFilterType()).to.equal('updated past month')));
+      },
+      {
+        title: 'should filter jobs updated in the last month',
+        filterBy: 'month',
+        expectedJobList: 'A-B-C-',
+        expectedFilter: 'updated past month',
 
-    it('should not filter jobs when no filter selected', () =>
-      dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'updated', 'all')
-        .then(() => expect(dashboardPage.jobList())
-          .to.eql('A-B-C-D-'))
-        .then(() => expect(dashboardPage.selectedFilterType()).to.equal('all')));
+      },
+      {
+        title: 'should not filter jobs when no filter selected',
+        filterBy: 'all',
+        expectedJobList: 'A-B-C-D-',
+        expectedFilter: 'all',
+
+      },
+    ].forEach(s => {
+      it(s.title, () =>
+        dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'updated', s.filterBy).then(() => {
+          expect(dashboardPage.jobList()).to.eql(s.expectedJobList);
+          expect(dashboardPage.selectedFilterType()).to.equal(s.expectedFilter);
+        })
+      );
+    });
 
     it('should not change the number of results when a sort is applied', () =>
       dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'employer', 'fortnight')
-        .then(() => expect(dashboardPage.jobCount()).to.equal(2)));
+        .then(() => expect(dashboardPage.jobCount()).to.equal(2))
+    );
   });
+
   describe('filter job list to none shown', () => {
     const SEED_ACCOUNT_ID = 'FILTER';
 
     before(function () {
-      return knex.seed.run({ directory: './db/seeds/two-jobs-updated-over-a-week-ago' });
+      return knex.seed.run({ directory: './db/seeds/two-jobs-updated-over-a-week-ago' })
+        .then(() => dashboardPage.filter(SEED_ACCOUNT_ID, 'week'));
     });
 
-    it('should still display the sort and filter', () =>
-      dashboardPage.filter(SEED_ACCOUNT_ID, 'week')
-        .then(() => expect(dashboardPage.jobCount()).to.equal(0))
-        .then(() => expect(dashboardPage.isSortVisible()).to.be.true)
-        .then(() => expect(dashboardPage.isFilterVisible()).to.be.true)
+    it('should not display any jobs', () =>
+      expect(dashboardPage.jobCount()).to.equal(0)
     );
+
+    it('should still display the sort and filter', () => {
+      /* eslint-disable no-unused-expressions */
+      expect(dashboardPage.isSortVisible()).to.be.true;
+      expect(dashboardPage.isFilterVisible()).to.be.true;
+      /* eslint-enable no-unused-expressions */
+    });
 
     it('should display the appropriate help message', () =>
-      dashboardPage.filter(SEED_ACCOUNT_ID, 'week')
-        .then(() => expect(dashboardPage.jobCount()).to.equal(0))
-        .then(() => expect(dashboardPage.hasJobHelpDisplayed()))
+      expect(dashboardPage.hasJobHelpDisplayed())
     );
   });
+
   describe('update job', () => {
     let savedJob;
-
-    const createJob = (attributes) =>
-      new JobsModel(Object.assign({}, jobData, attributes)).save();
 
     describe('status', () => {
       before(function () {
@@ -247,80 +275,76 @@ describe('Dashboard', () => {
           .then(() => dashboardPage.clickJobDetailsButton(savedJob))
           .then(() => dashboardPage.submitJobProgressionStatus(savedJob, 'result'))
           .then(() => expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal('Result'))
-        );
-    });
-  });
-  describe('display timeline', () => {
-    const SEED_ACCOUNT_ID = 'ALOT-123';
-
-    before(function () {
-      return knex.seed.run({ directory: './db/seeds/alot_of_jobs' });
-    });
-
-    it('should display alot of jobs', () =>
-      dashboardPage.visit(SEED_ACCOUNT_ID)
-        .then(() => expect(dashboardPage.jobCount()).to.equal(44)));
-
-    it('should display the correct timeline', () =>
-      dashboardPage.visit(SEED_ACCOUNT_ID)
-        .then(() => expect(dashboardPage.timelineStatusSize('interested')).to.equal(6))
-        .then(() => expect(dashboardPage.timelineStatusSize('applied')).to.equal(6))
-        .then(() => expect(dashboardPage.timelineStatusSize('interview')).to.equal(5))
-        .then(() => expect(dashboardPage.timelineStatusSize('result')).to.equal(0))
-    );
-  });
-  describe('focus on job', () => {
-    let savedJob;
-
-    const createJob = (attributes) =>
-      new JobsModel(Object.assign({}, jobData, attributes)).save();
-
-    describe('status', () => {
-      before(function () {
-        return helper.cleanDb()
-          .then(() => createJob())
-          .then((job) => { savedJob = job; });
-      });
-
-      it('should display details of the job in focus', () =>
-        dashboardPage.focus(accountId, savedJob.id)
-        .then(() => expect(dashboardPage.isJobDetailsVisible(savedJob))
-                  .to.equal(true, 'Job details should be visible')));
-
-      it('should display details of the job after an update', () =>
-
-        dashboardPage.visit(accountId)
-          .then(() => dashboardPage.clickJobDetailsButton(savedJob))
-          .then(() => dashboardPage.submitJobProgressionStatus(savedJob, 'result'))
-          .then(() => expect(dashboardPage.isJobDetailsVisible(savedJob))
-                    .to.equal(true, 'Job details should be visible'))
-          .then(() => expect(dashboardPage.checkBrowserHasLocalLink(savedJob.id)).to.equal(true))
       );
     });
   });
 
-  describe('page outline', () => {
-    beforeEach(function () {
-      return helper.cleanDb();
+  describe('display timeline', () => {
+    const SEED_ACCOUNT_ID = 'ALOT-123';
+
+    before(function () {
+      return knex.seed.run({ directory: './db/seeds/alot_of_jobs' })
+        .then(() => dashboardPage.visit(SEED_ACCOUNT_ID));
     });
 
-    const createJob = (attributes) =>
-      new JobsModel(Object.assign({}, jobData, attributes)).save();
-
-    it('should contain valid google tag manager data', () =>
-      dashboardPage.visit(accountId)
-        .then(() => expect(googleTagManagerHelper.getAccountVariable()).to.equal(accountId))
+    it('should display alot of jobs', () =>
+        expect(dashboardPage.jobCount()).to.equal(44)
     );
 
-    it('should have correct title', () =>
-      dashboardPage.visit(accountId).then(() =>
-        expect(dashboardPage.browser.text('title')).to.equal('Your work search')
+    it('should display the correct timeline', () => {
+      expect(dashboardPage.timelineStatusSize('interested')).to.equal(6);
+      expect(dashboardPage.timelineStatusSize('applied')).to.equal(6);
+      expect(dashboardPage.timelineStatusSize('interview')).to.equal(5);
+      expect(dashboardPage.timelineStatusSize('result')).to.equal(0);
+    }
+    );
+  });
+
+  describe('focus on job', () => {
+    let savedJob;
+
+    before(function () {
+      return helper.cleanDb()
+        .then(() => createJob())
+        .then((job) => { savedJob = job; });
+    });
+
+    it('should display details of the job in focus', () =>
+      dashboardPage.focus(accountId, savedJob.id).then(() =>
+        expect(dashboardPage.isJobDetailsVisible(savedJob))
+          .to.equal(true, 'Job details should be visible')
       )
     );
 
-    it('should have correct help when no jobs have been entered', () =>
+    it('should display details of the job after an update', () =>
       dashboardPage.visit(accountId)
-          .then(() => expect(dashboardPage.firstUseHelpDisplayed()))
+        .then(() => {
+          dashboardPage.clickJobDetailsButton(savedJob);
+          return dashboardPage.submitJobProgressionStatus(savedJob, 'result');
+        })
+        .then(() => {
+          expect(dashboardPage.isJobDetailsVisible(savedJob))
+            .to.equal(true, 'Job details should be visible');
+          expect(dashboardPage.checkBrowserHasLocalLink(savedJob.id)).to.equal(true);
+        })
+    );
+  });
+
+  describe('page outline', () => {
+    beforeEach(function () {
+      return helper.cleanDb().then(() => dashboardPage.visit(accountId));
+    });
+
+    it('should contain valid google tag manager data', () =>
+      expect(googleTagManagerHelper.getAccountVariable()).to.equal(accountId)
+    );
+
+    it('should have correct title', () =>
+      expect(dashboardPage.browser.text('title')).to.equal('Your work search')
+    );
+
+    it('should have correct help when no jobs have been entered', () =>
+      expect(dashboardPage.firstUseHelpDisplayed())
     );
 
     it('should have correct help when jobs have been entered', () =>
