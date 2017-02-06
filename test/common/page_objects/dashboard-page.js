@@ -54,16 +54,7 @@ const DashboardPage = function DashboardPage(browser) {
   this.clickJobDetailsButton = job => browser.click(jobElementSelector(job, 'details-button'));
   this.jobList = () => browser.text('ul [data-test="title"]');
   this.jobCount = () => browser.queryAll('[data-test|=job-container]').length;
-  this.setJobProgressionStatus = (job, status) => browser
-      .click(`${jobElementSelector(job, 'progression')}[value="${status}"]`);
-  this.submitJobProgressionStatus = (job, status) => this
-    .setJobProgressionStatus(job, status)
-    .then(() => browser.click(`${jobContainerSelector(job)} input[type="submit"]`));
   this.getJobProgressionStatus = (job) => browser.text(jobElementSelector(job, 'status'));
-  this.getSelectedProgressionStatus = (job) => {
-    const element = browser.query(`${jobElementSelector(job, 'progression')}:checked`);
-    return element && element.value;
-  };
   this.getTitle = (job) => browser.text(jobElementSelector(job, 'title'));
   this.getEmployer = (job) => browser.text(jobElementSelector(job, 'employer'));
   this.getDeadline = (job) => browser.text(jobElementSelector(job, 'deadline'));

@@ -1,6 +1,7 @@
 const chai = require('chai');
 const DashboardPage = require('./../../common/page_objects/dashboard-page');
 const AddJobPage = require('./../../common/page_objects/add-job-page');
+const UpdateJobPage = require('./../../common/page_objects/update-job-page');
 const Fixtures = require('./fixtures');
 const ScenarioData = require('./scenario-data');
 const Zombie = require('zombie');
@@ -27,6 +28,7 @@ function World() {
   this.scenarioData = new ScenarioData();
   this.dashboardPage = new DashboardPage(this.browser);
   this.addJobPage = new AddJobPage(this.browser);
+  this.updateJobPage = new UpdateJobPage(this.browser);
 }
 
 module.exports = function () {

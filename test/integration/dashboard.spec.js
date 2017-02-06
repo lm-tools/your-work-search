@@ -47,9 +47,6 @@ describe('Dashboard', () => {
       it('should display employer', () =>
         expect(dashboardPage.getEmployer(savedJob)).to.equal(jobData.employer));
 
-      it('should display progress', () =>
-        expect(dashboardPage.getSelectedProgressionStatus(savedJob)).to.equal(jobData.status));
-
       it('should display current status', () =>
         expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal('Applied'));
 
@@ -180,7 +177,8 @@ describe('Dashboard', () => {
       before(() =>
         dashboardPage.sort(SEED_ACCOUNT_ID, 'status')
           .then(() => dashboardPage.clickJobDetailsButton({ id: '100' }))
-          .then(() => dashboardPage.submitJobProgressionStatus({ id: '100' }, 'result'))
+          .then(() => dashboardPage.clickUpdateJobButton({ id: '100' }))
+          .then(() => helper.updateJobPage.clickSave())
       );
       it('should display jobs in default order', () =>
         expect(dashboardPage.jobList()).to.eql('A-B-C-D-')
@@ -312,25 +310,6 @@ describe('Dashboard', () => {
     );
   });
 
-  describe('update job', () => {
-    let savedJob;
-
-    describe('status', () => {
-      before(function () {
-        return helper.cleanDb()
-          .then(() => createJob())
-          .then((job) => { savedJob = job; });
-      });
-
-      it('should update the status', () =>
-        dashboardPage.visit(accountId)
-          .then(() => dashboardPage.clickJobDetailsButton(savedJob))
-          .then(() => dashboardPage.submitJobProgressionStatus(savedJob, 'result'))
-          .then(() => expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal('Result'))
-      );
-    });
-  });
-
   describe('display timeline', () => {
     const SEED_ACCOUNT_ID = 'ALOT-123';
 
@@ -370,10 +349,8 @@ describe('Dashboard', () => {
 
     it('should display details of the job after an update', () =>
       dashboardPage.visit(accountId)
-        .then(() => {
-          dashboardPage.clickJobDetailsButton(savedJob);
-          return dashboardPage.submitJobProgressionStatus(savedJob, 'result');
-        })
+        .then(() => dashboardPage.clickUpdateJobButton(savedJob))
+        .then(() => helper.updateJobPage.clickSave())
         .then(() => {
           expect(dashboardPage.isJobDetailsVisible(savedJob))
             .to.equal(true, 'Job details should be visible');
