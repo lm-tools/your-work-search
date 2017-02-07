@@ -72,11 +72,13 @@ describe('Update a job', () => {
       );
     });
 
-    it('should update rating', () =>
-      updateJobPage.setJobRating('2')
-        .then(() => updateJobPage.clickSave())
-        .then(() => expect(helper.dashboardPage.getInterestLevel(job)).to.equal('2'))
-    );
+    ['1', '2', '3', '4', '5'].forEach(s => {
+      it(`should update rating to ${s}`, () =>
+        updateJobPage.setJobRating(s)
+          .then(() => updateJobPage.clickSave())
+          .then(() => expect(helper.dashboardPage.getInterestLevel(job)).to.equal(s))
+      );
+    });
   });
 
   describe('not found job', () => {
