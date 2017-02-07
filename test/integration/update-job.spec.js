@@ -2,6 +2,8 @@ const helper = require('./support/integration-spec-helper');
 const updateJobPage = helper.updateJobPage;
 const googleTagManagerHelper = helper.googleTagManagerHelper;
 const expect = require('chai').expect;
+const progression = require('../../app/models/progression');
+const labels = require('../../app/locales/en.json');
 
 describe('Update a job', () => {
   const accountId = 'c86df559-38b9-4f7c-89b7-794278655bc0';
@@ -61,11 +63,14 @@ describe('Update a job', () => {
   });
 
   describe('update job details', () => {
-    it('should update job progress', () =>
-      updateJobPage.setJobProgression('result')
-        .then(() => updateJobPage.clickSave())
-        .then(() => expect(helper.dashboardPage.getJobProgressionStatus(job)).to.equal('Result'))
-    );
+    progression.forEach(s => {
+      it(`should update job progress to ${s}`, () =>
+        updateJobPage.setJobProgression(s)
+          .then(() => updateJobPage.clickSave())
+          .then(() => expect(helper.dashboardPage.getJobProgressionStatus(job))
+            .to.equal(labels.progression[s]))
+      );
+    });
 
     it('should update rating', () =>
       updateJobPage.setJobRating('2')
