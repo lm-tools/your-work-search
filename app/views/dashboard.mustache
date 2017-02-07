@@ -103,38 +103,11 @@
                 </dl>
 
                 <div class="box-section">
-                  <h4 class="heading-small">{{#__}}dashboard.progression{{/__}}</h4>
-
-                  <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=PATCH&sort={{sortType}}&filter={{filterType}}"
-                      method="POST">
-                    <fieldset>
-                      <legend class="visually-hidden">
-                        {{#__}}dashboard.progression{{/__}}
-                      </legend>
-                      <div class="grid-row">
-                        {{#progression}}
-                          <div class="column-one-quarter center space-top">
-                            <div class="form-group">
-                              <label class="radio-block-label">{{label}}</label>
-                              <input type="radio" value="{{name}}" name="status"
-                                     data-test="progression"
-                                     data-submit-on-click
-                                     {{#isChecked}}checked{{/isChecked}}>
-                            </div>
-                          </div>
-                        {{/progression}}
-                      </div>
-                    </fieldset>
-                    <div class="form-group js-hidden left">
-                      <input type="submit" class="button">
-                    </div>
-                  </form>
                   <div class="grid-row">
                     <div class="column-three-quarter">
-                      <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=DELETE" method="POST">
-                        <input type="submit" class="button button-secondary delete-button" value="{{#__}}dashboard.deleteButton{{/__}}"
-                               data-test="delete-button">
-                      </form>
+                      <a class="button button-secondary delete-button" data-test="update-button" href="{{basePath}}/{{accountId}}/jobs/{{id}}">
+                        {{#__}}dashboard.updateJobButton{{/__}}
+                      </a>
                     </div>
                     <div class="column-one-quarter tablet-right">
                       <dl class="text-secondary font-xsmall">

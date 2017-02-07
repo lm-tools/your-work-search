@@ -27,11 +27,11 @@
       "label": "Show",
       "button": "Filter"
     },
-    "deleteButton": "Delete",
     "updatedDate": "Last updated",
     "pageTitle": "Your work search",
     "has-job-help": "You can keep adding jobs or close this window - everything is saved.  <br>Come back at any time - the to-do will be in your list until you mark it as done.<br>  After that, there'll be an entry in your journal.",
-    "first-use-help": "Add jobs that you're interested in or have applied for."
+    "first-use-help": "Add jobs that you're interested in or have applied for.",
+    "updateJobButton": "Update"
   },
   "layout": {
     "header": "Your work search"
@@ -54,7 +54,8 @@
     },
     "header": "Add a job",
     "linkBack": "Cancel",
-    "pageTitle": "Add a job - Your work search"
+    "pageTitle": "Add a job - Your work search",
+    "help": "Add a job that you're interested in or have applied. You can come back at any time and edit this information."
   },
   "sourceType": {
     "inPerson": "Other",
@@ -77,5 +78,16 @@
   "missing-account-id": {
     "heading": "Sign in to your account",
     "message": "Please access this tool through your Universal Credit account."
+  },
+  "updateJob": {
+    "pageTitle": "Update job - Your work search",
+    "header": "Update job",
+    "form": {
+      "progress": "Where are you in the process?",
+      "rating": "How interested are you in this role?",
+      "submit": "Save changes"
+    },
+    "linkBack": "Cancel",
+    "deleteButton": "Delete job"
   }
 }

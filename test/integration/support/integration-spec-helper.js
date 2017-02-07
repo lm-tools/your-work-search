@@ -6,6 +6,7 @@ const dbHelper = require('./db-helper');
 const IntroductionPage = require('../../common/page_objects/introduction-page');
 const DashboardPage = require('../../common/page_objects/dashboard-page');
 const AddJobPage = require('../../common/page_objects/add-job-page');
+const UpdateJobPage = require('../../common/page_objects/update-job-page');
 const ConfirmationPage = require('../../common/page_objects/confirmation-page');
 const GoogleTagManagerHelper = require('../../common/page_objects/google-tag-manager-helper');
 
@@ -25,6 +26,7 @@ module.exports = Object.assign(
   {
     browser,
     addJobPage: new AddJobPage(browser),
+    updateJobPage: new UpdateJobPage(browser),
     googleTagManagerHelper: new GoogleTagManagerHelper(browser),
     confirmationPage: new ConfirmationPage(browser),
     dashboardPage: new DashboardPage(browser),

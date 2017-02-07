@@ -28,7 +28,7 @@ describe('Dashboard', () => {
       let savedJob;
       return helper.cleanDb()
         .then(() => new JobsModel(attributes).save())
-        .then(job => { savedJob = job; })
+        .then(job => { savedJob = job.serialize(); })
         .then(() => dashboardPage.visit(accountId))
         .then(() => savedJob);
     };
@@ -46,9 +46,6 @@ describe('Dashboard', () => {
 
       it('should display employer', () =>
         expect(dashboardPage.getEmployer(savedJob)).to.equal(jobData.employer));
-
-      it('should display progress', () =>
-        expect(dashboardPage.getSelectedProgressionStatus(savedJob)).to.equal(jobData.status));
 
       it('should display current status', () =>
         expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal('Applied'));
@@ -75,6 +72,12 @@ describe('Dashboard', () => {
         expect(dashboardPage.isJobDetailsVisible(savedJob))
           .to.equal(true, 'Job details should be visible');
       });
+
+      it('should link to edit page', () =>
+        dashboardPage.clickUpdateJobButton(savedJob).then(() =>
+          expect(helper.updateJobPage.getJobTitle()).to.equal(savedJob.title)
+        )
+      );
     });
 
     describe('with some optional fields missing', () => {
@@ -113,7 +116,7 @@ describe('Dashboard', () => {
   describe('sort job list', () => {
     const SEED_ACCOUNT_ID = 'SORT';
 
-    before(function () {
+    beforeEach(function () {
       return knex.seed.run({ directory: './db/seeds/sort' });
     });
 
@@ -169,18 +172,65 @@ describe('Dashboard', () => {
       );
     });
 
-    describe('sort after job progression update', () => {
+
+    describe('sort after job update', () => {
       before(() =>
         dashboardPage.sort(SEED_ACCOUNT_ID, 'status')
           .then(() => dashboardPage.clickJobDetailsButton({ id: '100' }))
-          .then(() => dashboardPage.submitJobProgressionStatus({ id: '100' }, 'result'))
+          .then(() => dashboardPage.clickUpdateJobButton({ id: '100' }))
+          .then(() => helper.updateJobPage.clickSave())
       );
-      it('should maintain the status sort order', () =>
-        expect(dashboardPage.jobList()).to.eql('D-A-C-B-')
+      it('should display jobs in default order', () =>
+        expect(dashboardPage.jobList()).to.eql('A-B-C-D-')
       );
 
-      it('should maintain selected sort after status update', () =>
-        expect(dashboardPage.selectedSortType()).to.equal('status')
+      it('should use default filter', () =>
+        expect(dashboardPage.selectedFilterType()).to.equal('all')
+      );
+
+      it('should use default sort order', () =>
+        expect(dashboardPage.selectedSortType()).to.equal('date added')
+      );
+    });
+
+    describe('sort after job remove', () => {
+      before(() =>
+        dashboardPage.sort(SEED_ACCOUNT_ID, 'status')
+          .then(() => dashboardPage.clickJobDetailsButton({ id: '100' }))
+          .then(() => dashboardPage.clickUpdateJobButton({ id: '100' }))
+          .then(() => helper.updateJobPage.deleteJob())
+          .then(() => helper.confirmationPage.clickBack())
+      );
+      it('should display jobs in default order', () =>
+        expect(dashboardPage.jobList()).to.eql('B-C-D-')
+      );
+
+      it('should use default filter', () =>
+        expect(dashboardPage.selectedFilterType()).to.equal('all')
+      );
+
+      it('should use default sort order', () =>
+        expect(dashboardPage.selectedSortType()).to.equal('date added')
+      );
+    });
+
+    describe('sort after job added', () => {
+      before(() =>
+        dashboardPage.sort(SEED_ACCOUNT_ID, 'status')
+          .then(() => dashboardPage.clickAddJobButton())
+          .then(() => helper.addJobPage.fillTitle('E-'))
+          .then(() => helper.addJobPage.submit())
+      );
+      it('should display jobs in default order', () =>
+        expect(dashboardPage.jobList()).to.eql('E-A-B-C-D-')
+      );
+
+      it('should use default filter', () =>
+        expect(dashboardPage.selectedFilterType()).to.equal('all')
+      );
+
+      it('should use default sort order', () =>
+        expect(dashboardPage.selectedSortType()).to.equal('date added')
       );
     });
   });
@@ -260,25 +310,6 @@ describe('Dashboard', () => {
     );
   });
 
-  describe('update job', () => {
-    let savedJob;
-
-    describe('status', () => {
-      before(function () {
-        return helper.cleanDb()
-          .then(() => createJob())
-          .then((job) => { savedJob = job; });
-      });
-
-      it('should update the status', () =>
-        dashboardPage.visit(accountId)
-          .then(() => dashboardPage.clickJobDetailsButton(savedJob))
-          .then(() => dashboardPage.submitJobProgressionStatus(savedJob, 'result'))
-          .then(() => expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal('Result'))
-      );
-    });
-  });
-
   describe('display timeline', () => {
     const SEED_ACCOUNT_ID = 'ALOT-123';
 
@@ -318,10 +349,8 @@ describe('Dashboard', () => {
 
     it('should display details of the job after an update', () =>
       dashboardPage.visit(accountId)
-        .then(() => {
-          dashboardPage.clickJobDetailsButton(savedJob);
-          return dashboardPage.submitJobProgressionStatus(savedJob, 'result');
-        })
+        .then(() => dashboardPage.clickUpdateJobButton(savedJob))
+        .then(() => helper.updateJobPage.clickSave())
         .then(() => {
           expect(dashboardPage.isJobDetailsVisible(savedJob))
             .to.equal(true, 'Job details should be visible');

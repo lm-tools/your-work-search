@@ -32,18 +32,9 @@ module.exports = function () {
 
     return this.dashboardPage
       .visit(this.scenarioData.accountIdentifier)
-      .then(() => this.dashboardPage.setJobProgressionStatus(job, 'interview'))
-      .then(() => { job.expectedStatus = { label: 'Interview', val: 'interview' }; });
-  });
-
-  this.When(/^I submit that job's progression status$/, function () {
-    ensureSingleJobScenario.call(this);
-
-    const job = this.scenarioData.jobs[0];
-
-    return this.dashboardPage
-      .visit(this.scenarioData.accountIdentifier)
-      .then(() => this.dashboardPage.submitJobProgressionStatus(job, 'interview'))
+      .then(() => this.dashboardPage.clickUpdateJobButton(job))
+      .then(() => this.updateJobPage.setJobProgression('interview'))
+      .then(() => this.updateJobPage.clickSave())
       .then(() => { job.expectedStatus = { label: 'Interview', val: 'interview' }; });
   });
 
@@ -57,8 +48,6 @@ module.exports = function () {
       .then(() => {
         this.expect(this.dashboardPage.getJobProgressionStatus(job))
           .to.equal(job.expectedStatus.label);
-        this.expect(this.dashboardPage.getSelectedProgressionStatus(job))
-          .to.equal(job.expectedStatus.val);
       });
   });
 };

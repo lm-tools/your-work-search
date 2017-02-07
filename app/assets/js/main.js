@@ -1,6 +1,5 @@
 const $ = require('jquery');
 require('./_datepickers.js');
-require('./_auto-submit');
 require('./_hide-show');
 
 // Use GOV.UK selection-buttons.js to set selected
