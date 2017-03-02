@@ -57,7 +57,6 @@ const DashboardPage = function DashboardPage(browser) {
   this.getJobProgressionStatus = (job) => browser.text(jobElementSelector(job, 'status'));
   this.getTitle = (job) => browser.text(jobElementSelector(job, 'title'));
   this.getEmployer = (job) => browser.text(jobElementSelector(job, 'employer'));
-  this.getDeadline = (job) => browser.text(jobElementSelector(job, 'deadline'));
   this.getUpdated = (job) => browser.text(jobElementSelector(job, 'updated'));
   this.getInterestLevel = (job) => {
     const element = browser.query(`${jobElementSelector(job, 'rating')}:checked`);

@@ -50,9 +50,6 @@ describe('Dashboard', () => {
       it('should display current status', () =>
         expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal('Applied'));
 
-      it('should display deadline', () =>
-        expect(dashboardPage.getDeadline(savedJob)).to.equal('10 October 2050'));
-
       it('should display updated', () =>
         expect(dashboardPage.getUpdated(savedJob))
           .to.equal(moment(new Date()).format(expectedDateFormat)));
@@ -144,12 +141,6 @@ describe('Dashboard', () => {
         sortBy: 'title',
         expectedJobList: 'A-B-C-D-',
         expectedSelectedSortType: 'job title',
-      },
-      {
-        title: 'should sort jobs by deadline date soonest first',
-        sortBy: 'deadline',
-        expectedJobList: 'A-B-C-D-',
-        expectedSelectedSortType: 'deadline date',
       },
       {
         title: 'should sort jobs by employer alphabetically',

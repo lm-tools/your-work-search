@@ -22,7 +22,6 @@ module.exports = class DashboardViewModel {
           progression: this.dashboardJobProgression(job),
           // eslint-disable-next-line no-underscore-dangle
           statusString: i18n.__(`progression.${job.status}`),
-          deadlineFormatted: this.formatDate(job.deadline),
           updatedFormatted: this.formatDate(job.updated_at),
           interestLevel: [5, 4, 3, 2, 1].map(v => ({ value: v, isChecked: v === job.rating })),
           source: this.formatSource(job),
@@ -57,9 +56,6 @@ module.exports = class DashboardViewModel {
       { value: 'employer',
        // eslint-disable-next-line no-underscore-dangle
         label: i18n.__('dashboard.sort.employer'), selected: sort === 'employer' },
-      { value: 'deadline',
-        // eslint-disable-next-line no-underscore-dangle
-        label: i18n.__('dashboard.sort.deadline'), selected: sort === 'deadline' },
     ];
   }
 

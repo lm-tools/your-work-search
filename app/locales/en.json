@@ -9,13 +9,11 @@
       "created": "date added",
       "updated": "date updated",
       "title": "job title",
-      "deadline": "deadline date",
       "status": "status",
       "employer": "employer"
     },
     "progression": "Update progression status",
     "progressionScreenReader": "Update progression status",
-    "deadline": "Deadline",
     "interestLevel": "Interest level",
     "source": "Where did you find this role?",
     "detailsButton": "Details",
@@ -48,7 +46,6 @@
       "employer": "Employer",
       "sourceType": "Where did you find out about this job?",
       "sourceUrl": "Website",
-      "deadline": "Application closing date",
       "rating": "How interested are you in this role?",
       "submit": "Save and continue"
     },
