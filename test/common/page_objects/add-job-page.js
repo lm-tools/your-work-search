@@ -8,7 +8,6 @@ const AddJobPage = function AddJobPage(browser) {
       .choose(`#job-sourceType-${data.sourceType}`)
       .fill('[name="sourceUrl"]', data.sourceUrl)
       .choose(`#job-rating-${data.rating}`)
-      .fill('[name="deadline"]', data.deadline)
       .pressButton('input[type=submit]');
 
   this.getValidationError = () => browser.text('#validation-errors');
@@ -27,9 +26,7 @@ const AddJobPage = function AddJobPage(browser) {
       sourceType: browser.field('[name="sourceType"][checked]').value,
       sourceUrl: browser.field('[name="sourceUrl"]').value,
       rating: browser.field('[name="rating"][checked]').value,
-      deadline: browser.field('[name="deadline"]').value,
     });
-  this.fillDeadline = deadline => browser.fill('[name="deadline"]', deadline);
   this.fillTitle = title => browser.fill('[name="title"]', title);
   this.submit = () => browser.pressButton('input[type=submit]');
 };

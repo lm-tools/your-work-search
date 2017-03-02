@@ -25,9 +25,8 @@ describe('DashboardViewModel', function () {
     ].forEach(s => {
       it(`should ${s.name}, date: '${s.inputDate}' expected: '${s.expected}'`, function () {
         const dashboardViewModel = new DashboardViewModel('123', [
-          sampleJob({ deadline: s.inputDate, updated_at: s.inputDate }),
+          sampleJob({ updated_at: s.inputDate }),
         ]);
-        expect(dashboardViewModel.jobs[0].deadlineFormatted).to.equal(s.expected);
         expect(dashboardViewModel.jobs[0].updatedFormatted).to.equal(s.expected);
       });
     });
