@@ -18,15 +18,21 @@ router.get('/', (req, res) => {
 
 router.get('/:accountId', (req, res, next) => {
   const accountId = req.params.accountId;
+  const basePath = req.app.locals.basePath;
   const focus = req.query.focus;
   const sort = req.query.sort || 'created';
 
   Jobs
     .findAllByAccountId(accountId, { sort })
-    .then((findJobsResult) => res.render('dashboard',
-      new DashboardViewModel(
-        accountId, findJobsResult.jobs, findJobsResult.totalSavedJobs, sort, focus)
-    ))
+    .then((findJobsResult) => {
+      if (findJobsResult.jobs.length > 0) {
+        res.render('dashboard', new DashboardViewModel(
+            accountId, findJobsResult.jobs, findJobsResult.totalSavedJobs, sort, focus)
+        );
+      } else {
+        res.redirect(`${basePath}/${accountId}/jobs/new`);
+      }
+    })
     .catch((err) => next(err));
 });
 

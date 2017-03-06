@@ -19,10 +19,10 @@ describe('Introduction page', () => {
       .then(() => expect(googleTagManagerHelper.getAccountVariable()).to.equal(accountId))
     );
 
-    it('should link to the dashboard', () =>
+    it('should link to add a job page', () =>
       introductionPage.visit(accountId)
       .then(() => introductionPage.clickNext())
-      .then(() => expect(introductionPage.browserPath()).to.equal(`/${accountId}`))
+      .then(() => expect(introductionPage.browserPath()).to.equal(`/${accountId}/jobs/new`))
     );
   });
 });

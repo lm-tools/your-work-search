@@ -7,6 +7,7 @@ const dashboardPage = helper.dashboardPage;
 describe('Entrypoints', () => {
   const accountId = uuid.v4();
   const dashboardUrl = `/${accountId}`;
+  const addJobUrl = `/${accountId}/jobs/new`;
   const introductionUrl = `/${accountId}/introduction`;
 
   describe('Access the tool with my account id BEFORE ive added a job', () => {
@@ -20,14 +21,16 @@ describe('Entrypoints', () => {
     );
   });
 
-  describe('Access the tool with my account id AFTER ive added a job', () => {
-    before(() =>
-      helper.cleanDb()
-      .then(() => helper.createJobsInDb(helper.sampleJob({ accountId: `${accountId}` })))
-    );
+  describe('Access dashboard', () => {
+    beforeEach(() => helper.cleanDb());
 
-    it('should see the dashboard page', () =>
+    it('should redirect to add a job page if no job added yet', () =>
       browser.visit(`/${accountId}`)
+        .then(() => browser.assert.url({ pathname: addJobUrl }))
+    );
+    it('should display dashboard page if jobs already added', () =>
+      helper.createJobsInDb(helper.sampleJob({ accountId: `${accountId}` }))
+        .then(() => browser.visit(`/${accountId}`))
         .then(() => browser.assert.url({ pathname: dashboardUrl }))
         .then(() => expect(dashboardPage.jobCount()).to.equal(1))
     );

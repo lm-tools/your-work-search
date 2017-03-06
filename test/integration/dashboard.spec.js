@@ -265,7 +265,9 @@ describe('Dashboard', () => {
 
   describe('page outline', () => {
     beforeEach(function () {
-      return helper.cleanDb().then(() => dashboardPage.visit(accountId));
+      return helper.cleanDb()
+        .then(() => createJob())
+        .then(() => dashboardPage.visit(accountId));
     });
 
     it('should contain valid google tag manager data', () =>
@@ -274,10 +276,6 @@ describe('Dashboard', () => {
 
     it('should have correct title', () =>
       expect(dashboardPage.browser.text('title')).to.equal('Your work search')
-    );
-
-    it('should have correct help when no jobs have been entered', () =>
-      expect(dashboardPage.firstUseHelpDisplayed())
     );
 
     it('should have correct help when jobs have been entered', () =>

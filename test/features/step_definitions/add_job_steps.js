@@ -6,7 +6,6 @@ module.exports = function () {
   function addJob(job, accountId) {
     return this.dashboardPage
       .visit(accountId)
-      .then(() => this.dashboardPage.clickAddJobButton())
       .then(() => this.addJobPage.fillJobApplication(Object.assign(this.fixtures.sampleJob, job)));
   }
 
