@@ -1,7 +1,7 @@
 {
   "dashboard": {
     "header": "Your work search",
-    "add-job-button": "Add a job",
+    "add-job-button": "Add another job",
     "progression-legend-screen-reader": "Update progression status",
     "sort": {
       "label": "Sort by",

@@ -2,19 +2,21 @@
   {{$pageTitle}}{{#__}}dashboard.pageTitle{{/__}}{{/pageTitle}}
   {{$applicationContent}}
     <h2 class="heading-xlarge">{{#__}}dashboard.header{{/__}}</h2>
+  <div class='timeline offset-{{timelineData.maxScale}}' data-test='timeline'>
+    {{#timelineData.totals}}
+      <div class='bubble {{type}} size-{{scale}}' data-test='{{type}}'>
+        <label class='bold-small label-{{scale}}'>{{label}}</label>
+      </div>
+    {{/timelineData.totals}}
+  </div>
+  <div class="grid-row">
 
-
-    <div class='timeline offset-{{timelineData.maxScale}}' data-test='timeline'>
-      {{#timelineData.totals}}
-        <div class='bubble {{type}} size-{{scale}}' data-test='{{type}}'>
-          <label class='bold-small label-{{scale}}'>{{label}}</label>
-        </div>
-      {{/timelineData.totals}}
+    <div class="column-one-quarter add-job-button-column">
+      <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
     </div>
 
-    <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
-
-    {{#hasJobs}}
+    <div class="column-three-quarter">
+      {{#hasJobs}}
       <section class="spaced-section">
         <form action="{{basePath}}/{{accountId}}" method="GET">
           <label for="sort">{{#__}}dashboard.sort.label{{/__}}</label>
@@ -27,13 +29,13 @@
           <input class="button js-hidden" type="submit" value="{{#__}}dashboard.sort.button{{/__}}">
         </form>
       </section>
-    {{/hasJobs}}
+      {{/hasJobs}}
 
-    <section class="space-top-double">
-      <ul>
-        {{#jobs}}
-          <li data-test="job-container-{{id}}" id="job-container-{{id}}">
-            <div class="box">
+      <section class="space-top-double">
+        <ul>
+          {{#jobs}}
+            <li data-test="job-container-{{id}}" id="job-container-{{id}}">
+              <div class="box">
               <span class="pull-right right">
                 <dl>
                   <dd class="star-rating">
@@ -49,28 +51,30 @@
                   <dd class="progression-status" data-test="status">{{statusString}}</dd>
                 </dl>
               </span>
-              <h4 class="bold-small" data-test="title">{{title}}</h4>
-              <p class="color-text defined-height" data-test="employer">{{employer}}</p>
+                <h4 class="bold-small" data-test="title">{{title}}</h4>
+                <p class="color-text defined-height" data-test="employer">{{employer}}</p>
 
-              <p data-test="source" class="defined-height">{{source}}</p>
+                <p data-test="source" class="defined-height">{{source}}</p>
 
-              <p class="text-secondary font-xsmall pull-right last-updated">
-                {{#__}}dashboard.updatedDate{{/__}}
-                <span data-test="updated">{{updatedFormatted}}</span>
-              </p>
-              <a class="button button-secondary button-same-on-mobile" data-test="update-button"
-                 href="{{basePath}}/{{accountId}}/jobs/{{id}}">
-                {{#__}}dashboard.updateJobButton{{/__}}
-              </a>
-            </div>
-          </li>
-        {{/jobs}}
-      </ul>
-    </section>
+                <p class="text-secondary font-xsmall pull-right last-updated">
+                  {{#__}}dashboard.updatedDate{{/__}}
+                  <span data-test="updated">{{updatedFormatted}}</span>
+                </p>
+                <a class="button button-secondary button-same-on-mobile" data-test="update-button"
+                   href="{{basePath}}/{{accountId}}/jobs/{{id}}">
+                  {{#__}}dashboard.updateJobButton{{/__}}
+                </a>
+              </div>
+            </li>
+          {{/jobs}}
+        </ul>
+      </section>
+      <p>
+        {{#__}}dashboard.help{{/__}}
+      </p>
+    </div>
 
-  <p>
-    {{#__}}dashboard.help{{/__}}
-  </p>
+  </div>
 
   {{/applicationContent}}
 

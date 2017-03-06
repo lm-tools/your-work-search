@@ -230,3 +230,16 @@ button.link-button {
 .last-updated {
   padding-top: $gutter-half;
 }
+
+
+.add-job-button-column {
+  @include media(tablet) {
+    float: right;
+    padding-top: 2 * $gutter;
+  }
+  .button {
+    width: 100%;
+    text-align: center;
+    margin-bottom: $gutter-half;
+  }
+}
