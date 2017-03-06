@@ -10,7 +10,6 @@ module.exports = class DashboardViewModel {
     this.hasJobs = totalSavedJobs > 0;
     this.sortType = sort;
     this.sortOptions = this.dashboardSortOptions(sort);
-    this.timelineData = this.dashboardTimeline(jobs);
   }
 
   dashboardJobs(jobs, jobIdInFocus) {
@@ -67,46 +66,5 @@ module.exports = class DashboardViewModel {
 
     // eslint-disable-next-line no-underscore-dangle
     return job.sourceUrl ? job.sourceUrl : i18n.__(`sourceType.${job.sourceType}`);
-  }
-
-  dashboardTimeline(jobs) {
-    const totals = { interested: 0, applied: 0, interview: 0, result: 0 };
-
-    jobs.forEach(function (job) {
-      totals[job.status]++;
-    });
-
-    const totalsArray = Object.keys(totals).map(function (k) { return totals[k]; });
-    const maxTotal = Math.max(...totalsArray);
-
-    return {
-      maxScale: this.getTimelineScale(maxTotal),
-      totals: [
-        { type: 'interested',
-          // eslint-disable-next-line no-underscore-dangle
-          label: i18n.__('progression.interested'),
-          total: totals.interested,
-          scale: this.getTimelineScale(totals.interested) },
-        { type: 'applied',
-          // eslint-disable-next-line no-underscore-dangle
-          label: i18n.__('progression.applied'),
-          total: totals.applied,
-          scale: this.getTimelineScale(totals.applied) },
-        { type: 'interview',
-          // eslint-disable-next-line no-underscore-dangle
-          label: i18n.__('progression.interview'),
-          total: totals.interview,
-          scale: this.getTimelineScale(totals.interview) },
-        { type: 'result',
-          // eslint-disable-next-line no-underscore-dangle
-          label: i18n.__('progression.result'),
-          total: totals.result,
-          scale: this.getTimelineScale(totals.result) },
-      ],
-    };
-  }
-
-  getTimelineScale(total) {
-    return total < 6 ? total : 6;
   }
 };

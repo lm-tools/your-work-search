@@ -214,26 +214,6 @@ describe('Dashboard', () => {
     });
   });
 
-  describe('display timeline', () => {
-    const SEED_ACCOUNT_ID = 'ALOT-123';
-
-    before(function () {
-      return knex.seed.run({ directory: './db/seeds/alot_of_jobs' })
-        .then(() => dashboardPage.visit(SEED_ACCOUNT_ID));
-    });
-
-    it('should display alot of jobs', () =>
-        expect(dashboardPage.jobCount()).to.equal(44)
-    );
-
-    it('should display the correct timeline', () => {
-      expect(dashboardPage.timelineStatusSize('interested')).to.equal(6);
-      expect(dashboardPage.timelineStatusSize('applied')).to.equal(6);
-      expect(dashboardPage.timelineStatusSize('interview')).to.equal(5);
-      expect(dashboardPage.timelineStatusSize('result')).to.equal(0);
-    }
-    );
-  });
 
   describe('focus on job', () => {
     let savedJob;
