@@ -50,7 +50,6 @@ const DashboardPage = function DashboardPage(browser) {
   this.isFilterVisible = () => browser.query('#filter') != null;
   this.selectedSortType = () => browser.text('#sort option:selected');
   this.clickAddJobButton = () => browser.click('a.button');
-  this.clickJobDetailsButton = job => browser.click(jobElementSelector(job, 'details-button'));
   this.jobList = () => browser.text('ul [data-test="title"]');
   this.jobCount = () => browser.queryAll('[data-test|=job-container]').length;
   this.getJobProgressionStatus = (job) => browser.text(jobElementSelector(job, 'status'));
@@ -62,10 +61,6 @@ const DashboardPage = function DashboardPage(browser) {
     return element && element.value;
   };
   this.getJobSource = (job) => browser.text(jobElementSelector(job, 'source'));
-  this.hasJobSource = (job) => !!browser.query(jobElementSelector(job, 'source'));
-  this.isJobDetailsVisible = job => !browser.query(jobElementSelector(job, 'details'))
-      .className.split(/\s+/).includes('js-hidden');
-
   this.clickUpdateJobButton = (job) => browser.click(
     `${jobContainerSelector(job)} [data-test="update-button"]`
   );

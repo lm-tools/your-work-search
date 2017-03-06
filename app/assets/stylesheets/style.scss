@@ -35,9 +35,16 @@ $timeline_min_width: 912px;
     text-align: right;
   }
 }
+.right {
+  text-align: right;
+}
 
 .color-text {
   color: $text-colour;
+}
+
+.defined-height {
+  min-height: $gutter;
 }
 
 dt {
@@ -67,8 +74,8 @@ $box-gutter: $gutter;
 $box-border-color: $panel-colour;
 .box {
   display: block;
-  border: 1px solid $box-border-color;
-  padding: $box-gutter;
+  border-top: 1px solid $box-border-color;
+  padding: $box-gutter 0 ;
   margin-bottom: $box-gutter;
 
   .details-button {
@@ -80,10 +87,6 @@ $box-border-color: $panel-colour;
       position: relative;
       top: -1em;
     }
-  }
-
-  .delete-button {
-    margin-top: 1em;
   }
 
   &.box-interested,
@@ -144,6 +147,12 @@ $box-border-color: $panel-colour;
   input.button {
     margin-right: 15px;
     margin-top: 10px;
+  }
+}
+
+.button-same-on-mobile {
+  @include media (mobile) {
+    width: auto;
   }
 }
 
@@ -216,4 +225,8 @@ button.link-button {
   .timeline {
     display: none;
   }
+}
+
+.last-updated {
+  padding-top: $gutter-half;
 }
