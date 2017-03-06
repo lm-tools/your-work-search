@@ -60,16 +60,6 @@ describe('Dashboard', () => {
       it('should display where you find the role', () =>
         expect(dashboardPage.getJobSource(savedJob)).to.equal(jobData.sourceUrl));
 
-      it('should hide job details by default', () =>
-        expect(dashboardPage.isJobDetailsVisible(savedJob))
-          .to.equal(false, 'Job details should be hidden'));
-
-      it('should show job details when details button clicked', () => {
-        dashboardPage.clickJobDetailsButton(savedJob);
-        expect(dashboardPage.isJobDetailsVisible(savedJob))
-          .to.equal(true, 'Job details should be visible');
-      });
-
       it('should link to edit page', () =>
         dashboardPage.clickUpdateJobButton(savedJob).then(() =>
           expect(helper.updateJobPage.getJobTitle()).to.equal(savedJob.title)
@@ -82,7 +72,7 @@ describe('Dashboard', () => {
         const jobDataWithoutSourceType = Object.assign({}, jobData, { sourceType: null });
 
         return createJobAndVisitDashboard(jobDataWithoutSourceType)
-          .then(savedJob => expect(dashboardPage.hasJobSource(savedJob)).to.be.false);
+          .then(savedJob => expect(dashboardPage.getJobSource(savedJob)).to.eql(''));
       });
     });
   });
@@ -167,7 +157,6 @@ describe('Dashboard', () => {
     describe('sort after job update', () => {
       before(() =>
         dashboardPage.sort(SEED_ACCOUNT_ID, 'status')
-          .then(() => dashboardPage.clickJobDetailsButton({ id: '100' }))
           .then(() => dashboardPage.clickUpdateJobButton({ id: '100' }))
           .then(() => helper.updateJobPage.clickSave())
       );
@@ -183,7 +172,6 @@ describe('Dashboard', () => {
     describe('sort after job remove', () => {
       before(() =>
         dashboardPage.sort(SEED_ACCOUNT_ID, 'status')
-          .then(() => dashboardPage.clickJobDetailsButton({ id: '100' }))
           .then(() => dashboardPage.clickUpdateJobButton({ id: '100' }))
           .then(() => helper.updateJobPage.deleteJob())
           .then(() => helper.confirmationPage.clickBack())
@@ -224,22 +212,14 @@ describe('Dashboard', () => {
         .then((job) => { savedJob = job; });
     });
 
-    it('should display details of the job in focus', () =>
-      dashboardPage.focus(accountId, savedJob.id).then(() =>
-        expect(dashboardPage.isJobDetailsVisible(savedJob))
-          .to.equal(true, 'Job details should be visible')
-      )
-    );
-
-    it('should display details of the job after an update', () =>
+    it('should anchor on updated job', () =>
       dashboardPage.visit(accountId)
         .then(() => dashboardPage.clickUpdateJobButton(savedJob))
         .then(() => helper.updateJobPage.clickSave())
-        .then(() => {
-          expect(dashboardPage.isJobDetailsVisible(savedJob))
-            .to.equal(true, 'Job details should be visible');
-          expect(dashboardPage.checkBrowserHasLocalLink(savedJob.id)).to.equal(true);
-        })
+        .then(() =>
+          expect(dashboardPage.checkBrowserHasLocalLink(`job-container-${savedJob.id}`))
+            .to.equal(true)
+        )
     );
   });
 

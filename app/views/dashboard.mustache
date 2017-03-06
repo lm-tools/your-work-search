@@ -34,38 +34,10 @@
     <section class="space-top-double">
       <ul>
         {{#jobs}}
-          <a name="{{id}}"></a>
-          <li data-test="job-container-{{id}}" id="job-container-{{id}}">
-            <div class="box box-{{status}}">
-              <div class="grid-row">
-                <div class="column-three-quarter">
-                  <h4 class="bold-small" data-test="title">{{title}}</h4>
-                  <p class="color-text" data-test="employer">{{employer}}</p>
-                </div>
-                <div class="column-one-quarter tablet-right">
-                  <dl>
-                    <dd class="progression-status" data-test="status">{{statusString}}</dd>
-                  </dl>
-                </div>
-              </div>
-
-              <button class="link-button details-button" data-toggle-visibility-for="#job-container-{{id}} .details" data-test="details-button">
-                {{^hasFocus}}
-                <i class="fa fa-caret-right"></i>
-                {{/hasFocus}}
-                {{#hasFocus}}
-                  <i class="fa fa-caret-down"></i>
-                {{/hasFocus}}
-                {{#__}}dashboard.detailsButton{{/__}}
-              </button>
-
-              <div class="details {{^hasFocus}}js-hidden{{/hasFocus}}" data-test="details">
+          <li data-test="job-container-{{id}}" id="job-container-{{id}}" class="job-item">
+            <div class="box">
+              <div class="pull-right right">
                 <dl>
-                  {{#source}}
-                    <dt class="">{{#__}}dashboard.source{{/__}}</dt>
-                    <dd data-test="source">{{source}}</dd>
-                  {{/source}}
-                  <dt>{{#__}}dashboard.interestLevel{{/__}}</dt>
                   <dd class="star-rating">
                     <div class="rating-options-group rating-options-group-disabled">
                       {{#interestLevel}}
@@ -76,23 +48,22 @@
                       {{/interestLevel}}
                     </div>
                   </dd>
+                  <dd class="progression-status" style="display: block" data-test="status">{{statusString}}</dd>
                 </dl>
+              </div>
+              <h4 class="bold-small" data-test="title">{{title}}</h4>
+              <p class="color-text defined-height" data-test="employer">{{employer}}</p>
 
-                <div class="box-section">
-                  <div class="grid-row">
-                    <div class="column-three-quarter">
-                      <a class="button button-secondary delete-button" data-test="update-button" href="{{basePath}}/{{accountId}}/jobs/{{id}}">
-                        {{#__}}dashboard.updateJobButton{{/__}}
-                      </a>
-                    </div>
-                    <div class="column-one-quarter tablet-right">
-                      <dl class="text-secondary font-xsmall">
-                        <dt>{{#__}}dashboard.updatedDate{{/__}}</dt>
-                        <dd data-test="updated">{{updatedFormatted}}</dd>
-                      </dl>
-                    </div>
-                  </div>
-                </div>
+              <p data-test="source">{{source}}</p>
+              <div>
+                <p class="text-secondary font-xsmall pull-right last-updated">
+                  {{#__}}dashboard.updatedDate{{/__}}
+                  <span data-test="updated">{{updatedFormatted}}</span>
+                </p>
+                <a class="button button-secondary button-same-on-mobile" data-test="update-button"
+                   href="{{basePath}}/{{accountId}}/jobs/{{id}}">
+                  {{#__}}dashboard.updateJobButton{{/__}}
+                </a>
               </div>
             </div>
           </li>

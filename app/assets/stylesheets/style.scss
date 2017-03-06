@@ -33,9 +33,16 @@ $space_size: 10px;
     text-align: right;
   }
 }
+.right {
+  text-align: right;
+}
 
 .color-text {
   color: $text-colour;
+}
+
+.defined-height {
+  min-height: $gutter;
 }
 
 dt {
@@ -65,9 +72,8 @@ $box-gutter: $gutter;
 $box-border-color: $panel-colour;
 .box {
   display: block;
-  border: 1px solid $box-border-color;
-  padding: $box-gutter;
-  margin-bottom: $box-gutter;
+  border-top: 1px solid $box-border-color;
+  padding: $box-gutter 0 ;
 
   .details-button {
     margin-top: 1em;
@@ -78,10 +84,6 @@ $box-border-color: $panel-colour;
       position: relative;
       top: -1em;
     }
-  }
-
-  .delete-button {
-    margin-top: 1em;
   }
 
   &.box-interested,
@@ -142,6 +144,12 @@ $box-border-color: $panel-colour;
   input.button {
     margin-right: 15px;
     margin-top: 10px;
+  }
+}
+
+.button-same-on-mobile {
+  @include media (mobile) {
+    width: auto;
   }
 }
 
@@ -207,5 +215,14 @@ button.link-button {
   }
   hr {
     margin-top: $gutter-half;
+  }
+}
+.job-item {
+  p {
+    //margin-top: 0.25em;
+    margin-bottom: 0.3em;
+  }
+  .last-updated {
+    padding-top: $gutter-half;
   }
 }

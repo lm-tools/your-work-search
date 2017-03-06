@@ -72,7 +72,7 @@ router.patch('/:jobId', (req, res, next) => {
     .save(updateData, { method: 'update', patch: true })
     .then((job) => {
       const queryParams = buildQueryParams(job);
-      res.redirect(`${basePath}/${accountId}?${queryParams}#${job.id}`);
+      res.redirect(`${basePath}/${accountId}?${queryParams}#job-container-${job.id}`);
     })
     .catch((err) => next(err));
 });
