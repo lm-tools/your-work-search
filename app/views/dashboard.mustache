@@ -1,16 +1,9 @@
 {{<layout}}
   {{$pageTitle}}{{#__}}dashboard.pageTitle{{/__}}{{/pageTitle}}
   {{$applicationContent}}
-    <h2 class="heading-xlarge">{{#__}}dashboard.header{{/__}}</h2>
-  <div class='timeline offset-{{timelineData.maxScale}}' data-test='timeline'>
-    {{#timelineData.totals}}
-      <div class='bubble {{type}} size-{{scale}}' data-test='{{type}}'>
-        <label class='bold-small label-{{scale}}'>{{label}}</label>
-      </div>
-    {{/timelineData.totals}}
-  </div>
-  <div class="grid-row">
+  <h2 class="heading-xlarge">{{#__}}dashboard.header{{/__}}</h2>
 
+  <div class="grid-row">
     <div class="column-one-quarter add-job-button-column">
       <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
     </div>
