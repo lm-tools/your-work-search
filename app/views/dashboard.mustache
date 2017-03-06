@@ -12,17 +12,6 @@
       {{/timelineData.totals}}
     </div>
 
-    {{^hasJobs}}
-    <p class="panel-indent" id="first-use-help">
-      {{#__}}dashboard.first-use-help{{/__}}
-    </p>
-    {{/hasJobs}}
-    {{#hasJobs}}
-    <p class="panel-indent" id="has-job-help">
-      {{#__}}dashboard.has-job-help{{/__}}
-    </p>
-    {{/hasJobs}}
-
     <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
 
     {{#hasJobs}}
@@ -78,6 +67,10 @@
         {{/jobs}}
       </ul>
     </section>
+
+  <p>
+    {{#__}}dashboard.help{{/__}}
+  </p>
 
   {{/applicationContent}}
 

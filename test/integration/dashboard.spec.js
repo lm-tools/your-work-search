@@ -255,23 +255,6 @@ describe('Dashboard', () => {
     it('should have correct title', () =>
       expect(dashboardPage.browser.text('title')).to.equal('Your work search')
     );
-
-    it('should have correct help when no jobs have been entered', () =>
-      expect(dashboardPage.firstUseHelpDisplayed())
-    );
-
-    it('should have correct help when jobs have been entered', () =>
-      createJob()
-        .then(() => dashboardPage.visit(accountId))
-        .then(() => expect(dashboardPage.hasJobHelpDisplayed()))
-    );
-
-    it('should have correct help when multiple jobs have been entered', () =>
-      createJob()
-        .then(() => createJob())
-        .then(() => dashboardPage.visit(accountId))
-        .then(() => expect(dashboardPage.hasJobHelpDisplayed()))
-    );
   });
 });
 
