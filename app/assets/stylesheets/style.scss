@@ -232,3 +232,9 @@ button.link-button {
     padding-top: $gutter-half;
   }
 }
+
+.job-list-with-filters {
+  @include media(tablet) {
+    width: 85%;
+  }
+}
