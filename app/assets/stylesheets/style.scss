@@ -15,6 +15,12 @@ $space_size: 10px;
   margin-top: $space_size;
 }
 
+.mobile-space-top {
+  @include media(mobile) {
+    margin-top: $space_size;
+  }
+}
+
 .spaced-section {
   margin: 40px 0px 30px 0px;
 }

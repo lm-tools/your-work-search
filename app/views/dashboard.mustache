@@ -3,10 +3,13 @@
   {{$applicationContent}}
     <h2 class="heading-xlarge">{{#__}}dashboard.header{{/__}}</h2>
 
-    <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
+    <div class="grid-row">
+      <div class="column-one-half">
+        <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
+      </div>
 
-    {{#hasJobs}}
-      <section class="spaced-section">
+      {{#hasJobs}}
+      <div class="column-one-half tablet-right mobile-space-top">
         <form action="{{basePath}}/{{accountId}}" method="GET">
           <label for="sort">{{#__}}dashboard.sort.label{{/__}}</label>
           <select class="form-control form-control-auto" name="sort" id="sort"
@@ -17,8 +20,10 @@
           </select>
           <input class="button js-hidden" type="submit" value="{{#__}}dashboard.sort.button{{/__}}">
         </form>
-      </section>
-    {{/hasJobs}}
+      </div>
+      {{/hasJobs}}
+
+      </div>
 
     <section class="space-top-double">
       <ul>
