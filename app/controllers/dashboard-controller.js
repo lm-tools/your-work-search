@@ -20,13 +20,12 @@ router.get('/:accountId', (req, res, next) => {
   const accountId = req.params.accountId;
   const focus = req.query.focus;
   const sort = req.query.sort || 'created';
-  const filter = req.query.filter || 'all';
 
   Jobs
-    .findAllByAccountId(accountId, { sort, filter })
+    .findAllByAccountId(accountId, { sort })
     .then((findJobsResult) => res.render('dashboard',
       new DashboardViewModel(
-        accountId, findJobsResult.jobs, findJobsResult.totalSavedJobs, sort, filter, focus)
+        accountId, findJobsResult.jobs, findJobsResult.totalSavedJobs, sort, focus)
     ))
     .catch((err) => next(err));
 });

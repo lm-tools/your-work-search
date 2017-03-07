@@ -175,10 +175,6 @@ describe('Dashboard', () => {
         expect(dashboardPage.jobList()).to.eql('A-B-C-D-')
       );
 
-      it('should use default filter', () =>
-        expect(dashboardPage.selectedFilterType()).to.equal('all')
-      );
-
       it('should use default sort order', () =>
         expect(dashboardPage.selectedSortType()).to.equal('date added')
       );
@@ -194,10 +190,6 @@ describe('Dashboard', () => {
       );
       it('should display jobs in default order', () =>
         expect(dashboardPage.jobList()).to.eql('B-C-D-')
-      );
-
-      it('should use default filter', () =>
-        expect(dashboardPage.selectedFilterType()).to.equal('all')
       );
 
       it('should use default sort order', () =>
@@ -216,89 +208,10 @@ describe('Dashboard', () => {
         expect(dashboardPage.jobList()).to.eql('E-A-B-C-D-')
       );
 
-      it('should use default filter', () =>
-        expect(dashboardPage.selectedFilterType()).to.equal('all')
-      );
-
       it('should use default sort order', () =>
         expect(dashboardPage.selectedSortType()).to.equal('date added')
       );
     });
-  });
-
-  describe('filter job list for range of updates', () => {
-    const SEED_ACCOUNT_ID = 'FILTER';
-
-    before(function () {
-      return knex.seed.run({ directory: './db/seeds/filter' });
-    });
-
-    [
-      {
-        title: 'should filter jobs updated in the last week',
-        filterBy: 'week',
-        expectedJobList: 'A-',
-        expectedFilter: 'updated past week',
-
-      },
-      {
-        title: 'should filter jobs updated in the last fortnight',
-        filterBy: 'fortnight',
-        expectedJobList: 'A-B-',
-        expectedFilter: 'updated past 2 weeks',
-
-      },
-      {
-        title: 'should filter jobs updated in the last month',
-        filterBy: 'month',
-        expectedJobList: 'A-B-C-',
-        expectedFilter: 'updated past month',
-
-      },
-      {
-        title: 'should not filter jobs when no filter selected',
-        filterBy: 'all',
-        expectedJobList: 'A-B-C-D-',
-        expectedFilter: 'all',
-
-      },
-    ].forEach(s => {
-      it(s.title, () =>
-        dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'updated', s.filterBy).then(() => {
-          expect(dashboardPage.jobList()).to.eql(s.expectedJobList);
-          expect(dashboardPage.selectedFilterType()).to.equal(s.expectedFilter);
-        })
-      );
-    });
-
-    it('should not change the number of results when a sort is applied', () =>
-      dashboardPage.sortAndFilter(SEED_ACCOUNT_ID, 'employer', 'fortnight')
-        .then(() => expect(dashboardPage.jobCount()).to.equal(2))
-    );
-  });
-
-  describe('filter job list to none shown', () => {
-    const SEED_ACCOUNT_ID = 'FILTER';
-
-    before(function () {
-      return knex.seed.run({ directory: './db/seeds/two-jobs-updated-over-a-week-ago' })
-        .then(() => dashboardPage.filter(SEED_ACCOUNT_ID, 'week'));
-    });
-
-    it('should not display any jobs', () =>
-      expect(dashboardPage.jobCount()).to.equal(0)
-    );
-
-    it('should still display the sort and filter', () => {
-      /* eslint-disable no-unused-expressions */
-      expect(dashboardPage.isSortVisible()).to.be.true;
-      expect(dashboardPage.isFilterVisible()).to.be.true;
-      /* eslint-enable no-unused-expressions */
-    });
-
-    it('should display the appropriate help message', () =>
-      expect(dashboardPage.hasJobHelpDisplayed())
-    );
   });
 
   describe('display timeline', () => {

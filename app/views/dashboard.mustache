@@ -28,27 +28,14 @@
     {{#hasJobs}}
       <section class="spaced-section">
         <form action="{{basePath}}/{{accountId}}" method="GET">
-           <div class="grid-row">
-             <div class="column-one-half">
-               <label for="sort">{{#__}}dashboard.sort.label{{/__}}</label>
-               <select class="form-control form-control-auto" name="sort" id="sort" onchange="this.form.submit()">
-                 {{#sortOptions}}
-                   <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
-                 {{/sortOptions}}
-               </select>
-               <input class="button js-hidden" type="submit" value="{{#__}}dashboard.sort.button{{/__}}">
-             </div>
-
-             <div class="column-one-half tablet-right">
-               <label for="filter">{{#__}}dashboard.filter.label{{/__}}</label>
-               <select class="form-control form-control-auto" name="filter" id="filter" onchange="this.form.submit()">
-                 {{#filterOptions}}
-                   <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
-                 {{/filterOptions}}
-               </select>
-               <input class="button js-hidden" type="submit" value="{{#__}}dashboard.filter.button{{/__}}">
-             </div>
-           </div>
+          <label for="sort">{{#__}}dashboard.sort.label{{/__}}</label>
+          <select class="form-control form-control-auto" name="sort" id="sort"
+                  onchange="this.form.submit()">
+            {{#sortOptions}}
+              <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
+            {{/sortOptions}}
+          </select>
+          <input class="button js-hidden" type="submit" value="{{#__}}dashboard.sort.button{{/__}}">
         </form>
       </section>
     {{/hasJobs}}
