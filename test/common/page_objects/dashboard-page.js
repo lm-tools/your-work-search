@@ -49,7 +49,6 @@ const DashboardPage = function DashboardPage(browser) {
   this.isSortVisible = () => browser.query('#sort') != null;
   this.isFilterVisible = () => browser.query('#filter') != null;
   this.selectedSortType = () => browser.text('#sort option:selected');
-  this.selectedFilterType = () => browser.text('#filter option:selected');
   this.clickAddJobButton = () => browser.click('a.button');
   this.clickJobDetailsButton = job => browser.click(jobElementSelector(job, 'details-button'));
   this.jobList = () => browser.text('ul [data-test="title"]');

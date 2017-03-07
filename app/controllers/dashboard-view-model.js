@@ -4,14 +4,12 @@ const progression = require('../models/progression');
 
 module.exports = class DashboardViewModel {
 
-  constructor(accountId, jobs, totalSavedJobs, sort, filter, focus) {
+  constructor(accountId, jobs, totalSavedJobs, sort, focus) {
     this.accountId = accountId;
     this.jobs = this.dashboardJobs(jobs, focus);
     this.hasJobs = totalSavedJobs > 0;
     this.sortType = sort;
-    this.filterType = filter;
     this.sortOptions = this.dashboardSortOptions(sort);
-    this.filterOptions = this.dashboardFilterOptions(filter);
     this.timelineData = this.dashboardTimeline(jobs);
   }
 
@@ -56,23 +54,6 @@ module.exports = class DashboardViewModel {
       { value: 'employer',
        // eslint-disable-next-line no-underscore-dangle
         label: i18n.__('dashboard.sort.employer'), selected: sort === 'employer' },
-    ];
-  }
-
-  dashboardFilterOptions(filter) {
-    return [
-      { value: 'all',
-        // eslint-disable-next-line no-underscore-dangle
-        label: i18n.__('dashboard.filter.all'), selected: filter === 'all' },
-      { value: 'week',
-        // eslint-disable-next-line no-underscore-dangle
-        label: i18n.__('dashboard.filter.week'), selected: filter === 'week' },
-      { value: 'fortnight',
-        // eslint-disable-next-line no-underscore-dangle
-        label: i18n.__('dashboard.filter.fortnight'), selected: filter === 'fortnight' },
-      { value: 'month',
-        // eslint-disable-next-line no-underscore-dangle
-        label: i18n.__('dashboard.filter.month'), selected: filter === 'month' },
     ];
   }
 
