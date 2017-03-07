@@ -43,7 +43,6 @@ const DashboardPage = function DashboardPage(browser) {
         .match(/size-(\d+)/)[1]
     );
 
-  this.firstUseHelpDisplayed = () => browser.assert.elements('#first-use-help', 1);
   this.hasJobHelpDisplayed = () => browser.assert.elements('#has-job-help', 1);
 
   this.isSortVisible = () => browser.query('#sort') != null;
