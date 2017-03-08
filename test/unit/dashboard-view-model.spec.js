@@ -35,9 +35,9 @@ describe('DashboardViewModel', function () {
   describe('source', function () {
     [
       {
-        name: 'should equal "In person" for "inPerson" sourceType',
+        name: 'should be empty for "inPerson" sourceType',
         job: sampleJob({ sourceType: 'inPerson', sourceUrl: '' }),
-        expectedSource: 'Other',
+        expectedSource: '',
       },
       {
         name: 'should equal sourceUrl for "online" sourceType',
@@ -45,9 +45,9 @@ describe('DashboardViewModel', function () {
         expectedSource: 'http://example.org',
       },
       {
-        name: 'should equal "Online" for "online" sourceType when sourceUrl is missing',
+        name: 'should be empty for "online" sourceType when sourceUrl is missing',
         job: sampleJob({ sourceType: 'online', sourceUrl: '' }),
-        expectedSource: 'Online',
+        expectedSource: '',
       },
     ].forEach(s => {
       it(s.name, function () {

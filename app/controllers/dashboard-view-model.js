@@ -62,9 +62,6 @@ module.exports = class DashboardViewModel {
   }
 
   formatSource(job) {
-    if (!job.sourceType) return null;
-
-    // eslint-disable-next-line no-underscore-dangle
-    return job.sourceUrl ? job.sourceUrl : i18n.__(`sourceType.${job.sourceType}`);
+    return job.sourceType === 'online' && job.sourceUrl ? job.sourceUrl : '';
   }
 };
