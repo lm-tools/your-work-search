@@ -3,15 +3,6 @@
   {{$applicationContent}}
     <h2 class="heading-xlarge">{{#__}}dashboard.header{{/__}}</h2>
 
-
-    <div class='timeline offset-{{timelineData.maxScale}}' data-test='timeline'>
-      {{#timelineData.totals}}
-        <div class='bubble {{type}} size-{{scale}}' data-test='{{type}}'>
-          <label class='bold-small label-{{scale}}'>{{label}}</label>
-        </div>
-      {{/timelineData.totals}}
-    </div>
-
     {{^hasJobs}}
     <p class="panel-indent" id="first-use-help">
       {{#__}}dashboard.first-use-help{{/__}}

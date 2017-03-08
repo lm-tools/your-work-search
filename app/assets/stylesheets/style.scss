@@ -2,11 +2,9 @@
 @import 'star-radios';
 @import 'colours';
 @import 'dwp-elements/_alerts';
-@import 'timeline';
 
 //variables
 $space_size: 10px;
-$timeline_min_width: 912px;
 
 // layout
 .space-top-double {
@@ -209,11 +207,5 @@ button.link-button {
   }
   hr {
     margin-top: $gutter-half;
-  }
-}
-
-@media only screen and (max-width: $timeline_min_width - 1) {
-  .timeline {
-    display: none;
   }
 }
