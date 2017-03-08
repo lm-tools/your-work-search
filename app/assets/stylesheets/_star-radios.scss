@@ -10,8 +10,6 @@
       display: none;
     }
     > label:before {
-      margin: 0 5px;
-      font-size: 1.25em;
       font-family: FontAwesome;
       display: inline-block;
       content: "\f005";
@@ -23,6 +21,8 @@
     > label {
       color: #ddd;
       float: right;
+      margin: 0 5px;
+      font-size: 1.25em;
     }
 
     &.rating-options-group-enabled {
@@ -47,7 +47,14 @@
       }
     }
     .stars-large {
-        font-size: 1.25em;
+        font-size: 1.5em;
+    }
+
+    .mobile-stars-small {
+      @include media(mobile) {
+        margin: 0 1px;
+        font-size: 1em;
+      }
     }
   }
 }

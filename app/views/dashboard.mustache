@@ -39,7 +39,7 @@
                           <input type="radio" data-test="rating"
                                  value="{{value}}" disabled
                                  {{#isChecked}}checked{{/isChecked}} >
-                          <label class="full" for="job-rating-{{value}}"></label>
+                          <label class="full mobile-stars-small" for="job-rating-{{value}}"></label>
                         {{/interestLevel}}
                       </div>
                     </dd>
@@ -49,7 +49,7 @@
                 <h4 class="bold-small" data-test="title">{{title}}</h4>
                 <p class="color-text defined-height" data-test="employer">{{employer}}</p>
 
-                <p data-test="source">{{source}}</p>
+                <p data-test="source" class="text-secondary font-xsmall">{{source}}</p>
                 <div>
                   <p class="text-secondary font-xsmall pull-right last-updated">
                     {{#__}}dashboard.updatedDate{{/__}}
