@@ -15,6 +15,12 @@ $space_size: 10px;
   margin-top: $space_size;
 }
 
+.mobile-space-top {
+  @include media(mobile) {
+    margin-top: $space_size;
+  }
+}
+
 .spaced-section {
   margin: 40px 0px 30px 0px;
 }
@@ -33,9 +39,16 @@ $space_size: 10px;
     text-align: right;
   }
 }
+.right {
+  text-align: right;
+}
 
 .color-text {
   color: $text-colour;
+}
+
+.defined-height {
+  min-height: $gutter;
 }
 
 dt {
@@ -61,13 +74,11 @@ dt {
 }
 
 // boxes
-$box-gutter: $gutter;
 $box-border-color: $panel-colour;
 .box {
   display: block;
-  border: 1px solid $box-border-color;
-  padding: $box-gutter;
-  margin-bottom: $box-gutter;
+  border-top: 1px solid $box-border-color;
+  padding: $gutter-half 0 $gutter;
 
   .details-button {
     margin-top: 1em;
@@ -80,57 +91,6 @@ $box-border-color: $panel-colour;
     }
   }
 
-  .delete-button {
-    margin-top: 1em;
-  }
-
-  &.box-interested,
-  &.box-applied,
-  &.box-interview,
-  &.box-result {
-    position: relative; // make this the positioning parent for absolutely-positioned child elements
-    border-right: none;
-  }
-
-  &.box-interested:after,
-  &.box-applied:after,
-  &.box-interview:after,
-  &.box-result:after {
-    display: block;
-    content: " ";
-    height: 100%;
-    width: 10px;
-    position: absolute;
-    right: 0;
-    padding: 1px 0; /* Top/bottom padding should equal top/bottom border of .box */
-    top: -1px; /* Should equal top border of .box */
-    bottom: -1px; /* Should equal bottom border of .box */
-  }
-
-  &.box-interested:after { background-color: $interested_color; }
-  &.box-applied:after { background-color: $applied_color; }
-  &.box-interview:after { background-color: $interview_color; }
-  &.box-result:after { background-color: $result_color; }
-}
-
-.box-section {
-  margin-left: -$box-gutter;
-  margin-right: -$box-gutter;
-  padding: $box-gutter $box-gutter 0 $box-gutter;
-  border-top: 1px solid $box-border-color;
-}
-
-.box-link {
-  text-decoration: none;
-  cursor: pointer;
-
-  h1, h2, h3, h4, h5 {
-    color: $link-colour;
-  }
-
-  &:hover {
-    border-color: $black;
-  }
 }
 
 // buttons
@@ -142,6 +102,12 @@ $box-border-color: $panel-colour;
   input.button {
     margin-right: 15px;
     margin-top: 10px;
+  }
+}
+
+.button-same-on-mobile {
+  @include media (mobile) {
+    width: auto;
   }
 }
 
@@ -207,5 +173,22 @@ button.link-button {
   }
   hr {
     margin-top: $gutter-half;
+  }
+}
+.job-item {
+  p {
+    margin-bottom: 0.4em;
+  }
+  .last-updated {
+    padding-top: $gutter-half;
+  }
+  .star-rating {
+    padding-left: $gutter-half;
+  }
+}
+
+.job-list-with-filters {
+  @include media(tablet) {
+    width: 85%;
   }
 }

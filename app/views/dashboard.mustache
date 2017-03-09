@@ -3,102 +3,80 @@
   {{$applicationContent}}
     <h2 class="heading-xlarge">{{#__}}dashboard.header{{/__}}</h2>
 
-    {{^hasJobs}}
-    <p class="panel-indent" id="first-use-help">
-      {{#__}}dashboard.first-use-help{{/__}}
-    </p>
-    {{/hasJobs}}
-    {{#hasJobs}}
-    <p class="panel-indent" id="has-job-help">
-      {{#__}}dashboard.has-job-help{{/__}}
-    </p>
-    {{/hasJobs}}
+    <div class="job-list-with-filters">
+      <div class="grid-row">
+        <div class="column-one-half">
+          <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
+        </div>
 
-    <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
+        {{#hasJobs}}
+        <div class="column-one-half tablet-right mobile-space-top">
+          <form action="{{basePath}}/{{accountId}}" method="GET">
+            <label for="sort">{{#__}}dashboard.sort.label{{/__}}</label>
+            <select class="form-control form-control-auto" name="sort" id="sort"
+                    onchange="this.form.submit()">
+              {{#sortOptions}}
+                <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
+              {{/sortOptions}}
+            </select>
+            <input class="button js-hidden" type="submit" value="{{#__}}dashboard.sort.button{{/__}}">
+          </form>
+        </div>
+        {{/hasJobs}}
 
-    {{#hasJobs}}
-      <section class="spaced-section">
-        <form action="{{basePath}}/{{accountId}}" method="GET">
-          <label for="sort">{{#__}}dashboard.sort.label{{/__}}</label>
-          <select class="form-control form-control-auto" name="sort" id="sort"
-                  onchange="this.form.submit()">
-            {{#sortOptions}}
-              <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
-            {{/sortOptions}}
-          </select>
-          <input class="button js-hidden" type="submit" value="{{#__}}dashboard.sort.button{{/__}}">
-        </form>
-      </section>
-    {{/hasJobs}}
+        </div>
 
-    <section class="space-top-double">
-      <ul>
-        {{#jobs}}
-          <a name="{{id}}"></a>
-          <li data-test="job-container-{{id}}" id="job-container-{{id}}">
-            <div class="box box-{{status}}">
-              <div class="grid-row">
-                <div class="column-three-quarter">
-                  <h4 class="bold-small" data-test="title">{{title}}</h4>
-                  <p class="color-text" data-test="employer">{{employer}}</p>
-                </div>
-                <div class="column-one-quarter tablet-right">
+      <section class="space-top-double">
+        <ul>
+          {{#jobs}}
+            <li data-test="job-container-{{id}}" id="job-container-{{id}}" class="job-item">
+              <div class="box">
+                <div class="pull-right right">
                   <dl>
-                    <dd class="progression-status" data-test="status">{{statusString}}</dd>
+                    <dd class="star-rating">
+                      <div class="rating-options-group rating-options-group-disabled">
+                        {{#interestLevel}}
+                          <input type="radio" data-test="rating"
+                                 value="{{value}}" disabled
+                                 {{#isChecked}}checked{{/isChecked}} >
+                          <label class="full mobile-stars-small" for="job-rating-{{value}}"></label>
+                        {{/interestLevel}}
+                      </div>
+                    </dd>
+                    <dd class="progression-status" style="display: block" data-test="status">{{statusString}}</dd>
                   </dl>
                 </div>
-              </div>
+                <h4 class="bold-small" data-test="title">{{title}}</h4>
+                <p class="color-text defined-height" data-test="employer">{{employer}}</p>
 
-              <button class="link-button details-button" data-toggle-visibility-for="#job-container-{{id}} .details" data-test="details-button">
-                {{^hasFocus}}
-                <i class="fa fa-caret-right"></i>
-                {{/hasFocus}}
-                {{#hasFocus}}
-                  <i class="fa fa-caret-down"></i>
-                {{/hasFocus}}
-                {{#__}}dashboard.detailsButton{{/__}}
-              </button>
-
-              <div class="details {{^hasFocus}}js-hidden{{/hasFocus}}" data-test="details">
-                <dl>
-                  {{#source}}
-                    <dt class="">{{#__}}dashboard.source{{/__}}</dt>
-                    <dd data-test="source">{{source}}</dd>
-                  {{/source}}
-                  <dt>{{#__}}dashboard.interestLevel{{/__}}</dt>
-                  <dd class="star-rating">
-                    <div class="rating-options-group rating-options-group-disabled">
-                      {{#interestLevel}}
-                        <input type="radio" data-test="rating"
-                               value="{{value}}" disabled
-                               {{#isChecked}}checked{{/isChecked}} >
-                        <label class="full" for="job-rating-{{value}}"></label>
-                      {{/interestLevel}}
-                    </div>
-                  </dd>
-                </dl>
-
-                <div class="box-section">
-                  <div class="grid-row">
-                    <div class="column-three-quarter">
-                      <a class="button button-secondary delete-button" data-test="update-button" href="{{basePath}}/{{accountId}}/jobs/{{id}}">
-                        {{#__}}dashboard.updateJobButton{{/__}}
-                      </a>
-                    </div>
-                    <div class="column-one-quarter tablet-right">
-                      <dl class="text-secondary font-xsmall">
-                        <dt>{{#__}}dashboard.updatedDate{{/__}}</dt>
-                        <dd data-test="updated">{{updatedFormatted}}</dd>
-                      </dl>
-                    </div>
-                  </div>
+                <p data-test="source" class="text-secondary font-xsmall">{{source}}</p>
+                <div>
+                  <p class="text-secondary font-xsmall pull-right last-updated">
+                    {{#__}}dashboard.updatedDate{{/__}}
+                    <span data-test="updated">{{updatedFormatted}}</span>
+                  </p>
+                  <a class="button button-secondary button-same-on-mobile" data-test="update-button"
+                     href="{{basePath}}/{{accountId}}/jobs/{{id}}">
+                    {{#__}}dashboard.updateJobButton{{/__}}
+                  </a>
                 </div>
               </div>
-            </div>
-          </li>
-        {{/jobs}}
-      </ul>
-    </section>
+            </li>
+          {{/jobs}}
+        </ul>
+      </section>
+
+      {{^hasJobs}}
+        <p id="first-use-help">
+          {{#__}}dashboard.first-use-help{{/__}}
+        </p>
+      {{/hasJobs}}
+      {{#hasJobs}}
+        <p id="has-job-help">
+          {{#__}}dashboard.has-job-help{{/__}}
+        </p>
+      {{/hasJobs}}
+    </div>
 
   {{/applicationContent}}
 
