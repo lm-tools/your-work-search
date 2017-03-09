@@ -45,6 +45,8 @@ describe('Add a job page', () => {
     it('should add focus parameter when job added', () =>
       expect(dashboardPage.checkBrowserHasQueryParam('focus=')).to.equal(true)
     );
+
+    it('should send "job_created" virtual pageView to google analytics');
   });
 
   describe('validation error', () => {
