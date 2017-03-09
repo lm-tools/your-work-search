@@ -1,5 +1,7 @@
 @import "font-awesome";
 
+$checked-star-color: #FFD700;
+
 .star-rating {
   border: none;
 
@@ -30,7 +32,7 @@
       > input:checked ~ label, /* show gold star when clicked */
       &:not(:checked) > label:hover, /* hover current star */
       &:not(:checked) > label:hover ~ label {
-        color: #FFD700;
+        color: $checked-star-color;
       }
       /* hover previous stars in list */
       > input:checked + label:hover, /* hover current star when changing rating */
@@ -43,7 +45,7 @@
 
     &.rating-options-group-disabled {
       input:checked ~ label {
-        color: $grey-1;
+        color: $checked-star-color;
       }
     }
     .stars-large {
