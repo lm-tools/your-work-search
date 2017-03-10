@@ -3,12 +3,18 @@ const addJobPage = helper.addJobPage;
 const dashboardPage = helper.dashboardPage;
 const googleTagManagerHelper = helper.googleTagManagerHelper;
 const expect = require('chai').expect;
+const sampleJob = helper.sampleJob();
 
 describe('Add a job page', () => {
   const accountId = 'someAccount';
-  beforeEach(() => addJobPage.visit(accountId));
+
+  function newlyCreatedJob() {
+    return { id: dashboardPage.getJobIdFromQueryParams() };
+  }
 
   describe('page outline', () => {
+    before(() => addJobPage.visit(accountId));
+
     it('should hide sourceUrl if no sourceType is selected', () =>
       expect(addJobPage.isSourceUrlHidden()).to.equal(true)
     );
@@ -33,9 +39,9 @@ describe('Add a job page', () => {
   });
 
   describe('successful job creation', () => {
-    beforeEach(() =>
-      Promise.resolve(addJobPage.fillTitle('Some job title'))
-        .then(() => addJobPage.submit())
+    before(() =>
+      addJobPage.visit(accountId)
+        .then(() => addJobPage.fillJobApplication(sampleJob))
     );
 
     it('should redirect user to dashboard page', () =>
@@ -45,6 +51,26 @@ describe('Add a job page', () => {
     it('should add focus parameter when job added', () =>
       expect(dashboardPage.checkBrowserHasQueryParam('focus=')).to.equal(true)
     );
+
+    it('should display newly created job title', () =>
+      expect(dashboardPage.getTitle(newlyCreatedJob())).to.equal(sampleJob.title)
+    );
+
+    it('should display newly created job employer', () =>
+      expect(dashboardPage.getEmployer(newlyCreatedJob())).to.equal(sampleJob.employer)
+    );
+
+    it('should display newly created job progression status', () =>
+      expect(dashboardPage.getJobProgressionStatus(newlyCreatedJob())).to.equal('Interested')
+    );
+
+    it('should display newly created job rating', () =>
+      expect(dashboardPage.getInterestLevel(newlyCreatedJob())).to.equal(sampleJob.rating)
+    );
+
+    it('should display newly created job source url', () =>
+      expect(dashboardPage.getJobSource(newlyCreatedJob())).to.equal(sampleJob.sourceUrl)
+    );
   });
 
   describe('validation error', () => {
@@ -52,6 +78,8 @@ describe('Add a job page', () => {
       title: '', employer: 'Dwp', sourceType: 'online', sourceUrl: 'http://indeed.com',
       rating: '2',
     };
+
+    before(() => addJobPage.visit(accountId));
 
     it('should prepopulate filled form fields after error', () =>
       Promise.resolve(expect(addJobPage.employerFieldValue()).to.equal(''))
