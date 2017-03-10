@@ -1,4 +1,5 @@
 const assert = require('assert');
+const url = require('url');
 
 const DashboardPage = function DashboardPage(browser) {
   this.browser = browser;
@@ -59,6 +60,8 @@ const DashboardPage = function DashboardPage(browser) {
   this.checkBrowserHasLocalLink = (link) => browser.request.url.includes(`#${link}`);
   this.browserPath = () => browser.location.pathname;
   this.checkBrowserHasQueryParam = (queryParam) => browser.request.url.includes(queryParam);
+  this.getJobIdFromQueryParams = () =>
+    url.parse(browser.request.url, { parseQueryString: true }).query.focus;
 };
 
 module.exports = DashboardPage;

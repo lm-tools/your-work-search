@@ -2,7 +2,7 @@ const chai = require('chai');
 const DashboardPage = require('./../../common/page_objects/dashboard-page');
 const AddJobPage = require('./../../common/page_objects/add-job-page');
 const UpdateJobPage = require('./../../common/page_objects/update-job-page');
-const Fixtures = require('./fixtures');
+const fixtures = require('./fixtures');
 const ScenarioData = require('./scenario-data');
 const Zombie = require('zombie');
 Zombie.site = 'http://localhost:3000';
@@ -24,7 +24,7 @@ function World() {
   this.browser = new Zombie();
   this.browser.visit = visitWithBasePath(this.browser);
 
-  this.fixtures = new Fixtures();
+  this.fixtures = fixtures;
   this.scenarioData = new ScenarioData();
   this.dashboardPage = new DashboardPage(this.browser);
   this.addJobPage = new AddJobPage(this.browser);
