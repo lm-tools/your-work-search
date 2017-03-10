@@ -29,10 +29,11 @@ router.post('/new', (req, res, next) => {
       new AddJobViewModel(accountId, req.body, req.validationErrors()));
   }
 
+  const initialProgression = progression.getInitial();
   const jobData = Object.assign({}, req.body, {
     accountId,
-    status: progression[0],
-    status_sort_index: 0,
+    status: initialProgression.id,
+    status_sort_index: initialProgression.order,
   });
 
   return new Jobs(jobData).save()
@@ -65,7 +66,7 @@ router.patch('/:jobId', (req, res, next) => {
   const updateData = req.body;
 
   if (updateData.status) {
-    updateData.status_sort_index = progression.indexOf(updateData.status) || 0;
+    updateData.status_sort_index = progression.getById(updateData.status).order;
   }
 
   return new Jobs({ id: jobId })

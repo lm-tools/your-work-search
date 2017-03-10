@@ -14,7 +14,7 @@ class UpdateJobViewModel {
   }
 
   jobProgression() {
-    return progression.map((status) => ({
+    return progression.getAllIds().map((status) => ({
       name: status,
       isChecked: (this.status === status),
       // eslint-disable-next-line no-underscore-dangle

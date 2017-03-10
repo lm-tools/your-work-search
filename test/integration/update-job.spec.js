@@ -63,7 +63,7 @@ describe('Update a job', () => {
   });
 
   describe('update job details', () => {
-    progression.forEach(s => {
+    progression.getAllIds().forEach(s => {
       it(`should update job progress to ${s}`, () =>
         updateJobPage.setJobProgression(s)
           .then(() => updateJobPage.clickSave())
