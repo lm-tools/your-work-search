@@ -78,5 +78,9 @@
     },
     "linkBack": "Cancel",
     "deleteButton": "Delete job"
+  },
+  "validation": {
+    "job-title-empty": "Job title is required",
+    "status-empty": "Where are you in the process is required"
   }
 }

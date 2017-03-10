@@ -12,12 +12,12 @@ class Progression {
     return this.model.map(item => item.id);
   }
 
-  getInitial() {
-    return this.model[0];
-  }
-
   getById(id) {
     return this.model.find(item => item.id === id);
+  }
+
+  getInitialSubset() {
+    return this.model.slice(0, 3).map(item => item.id);
   }
 }
 

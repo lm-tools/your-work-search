@@ -3,7 +3,7 @@ const updateJobPage = helper.updateJobPage;
 const googleTagManagerHelper = helper.googleTagManagerHelper;
 const expect = require('chai').expect;
 const progression = require('../../app/models/progression');
-const labels = require('../../app/locales/en.json');
+const labels = helper.labels;
 
 describe('Update a job', () => {
   const accountId = 'c86df559-38b9-4f7c-89b7-794278655bc0';

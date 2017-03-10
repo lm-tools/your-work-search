@@ -5,6 +5,7 @@ const AddJobViewModel = require('./add-job-view-model');
 const UpdateJobViewModel = require('./update-job-view-model');
 const progression = require('../models/progression');
 const i18n = require('i18n');
+/* eslint-disable no-underscore-dangle */
 
 function buildQueryParams(job) {
   const params = { focus: job.id };
@@ -22,18 +23,17 @@ router.get('/new', (req, res) => {
 router.post('/new', (req, res, next) => {
   const basePath = req.app.locals.basePath;
   const accountId = req.params.accountId;
-  req.checkBody('title', 'Job title is required').notEmpty();
+  req.checkBody('title', i18n.__('validation.job-title-empty')).notEmpty();
+  req.checkBody('status', i18n.__('validation.status-empty')).notEmpty();
 
   if (req.validationErrors()) {
     return res.render('add-job',
       new AddJobViewModel(accountId, req.body, req.validationErrors()));
   }
 
-  const initialProgression = progression.getInitial();
   const jobData = Object.assign({}, req.body, {
     accountId,
-    status: initialProgression.id,
-    status_sort_index: initialProgression.order,
+    status_sort_index: progression.getById(req.body.status).order,
   });
 
   return new Jobs(jobData).save()
@@ -85,7 +85,6 @@ router.delete('/:jobId', (req, res, next) => {
   return new Jobs({ id: jobId })
     .fetch()
     .then(job => {
-      // eslint-disable-next-line no-underscore-dangle
       const description = i18n.__('confirmation.jobRemoved', { jobTitle: job.get('title') });
       return job.destroy()
         .then(() => res.redirect(
