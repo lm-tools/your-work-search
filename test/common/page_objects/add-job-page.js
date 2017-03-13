@@ -1,14 +1,16 @@
 const AddJobPage = function AddJobPage(browser) {
   this.browser = browser;
 
-  this.fillJobApplication = (data) =>
-    browser
-      .fill('[name="title"]', data.title)
+  this.fillJobApplication = (data) => {
+    this.fillTitle(data.title);
+    this.setJobProgression(data.status);
+    return browser
       .fill('[name="employer"]', data.employer)
       .choose(`#job-sourceType-${data.sourceType}`)
       .fill('[name="sourceUrl"]', data.sourceUrl)
       .choose(`#job-rating-${data.rating}`)
       .pressButton('input[type=submit]');
+  };
 
   this.getValidationError = () => browser.text('#validation-errors');
 
@@ -26,8 +28,14 @@ const AddJobPage = function AddJobPage(browser) {
       sourceType: browser.field('[name="sourceType"][checked]').value,
       sourceUrl: browser.field('[name="sourceUrl"]').value,
       rating: browser.field('[name="rating"][checked]').value,
+      status: browser.field('[data-test="progression"] input[checked]').value,
     });
   this.fillTitle = title => browser.fill('[name="title"]', title);
+  this.setJobProgression = (status) => browser
+    .click(`[data-test="progression"] input[value="${status}"]`);
+  this.getJobProgressionOptions = () =>
+    browser.queryAll('[data-test="progression"] input')
+      .map(i => i.value);
   this.submit = () => browser.pressButton('input[type=submit]');
 };
 

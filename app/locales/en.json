@@ -30,7 +30,13 @@
     "interested": "Interested",
     "applied": "Applied",
     "interview": "Interview",
-    "result": "Result"
+    "result": "Result",
+    "long": {
+      "interested": "Interested",
+      "applied": "Applied",
+      "interview": "Going for an interview",
+      "result": "Result"
+    }
   },
   "addJob": {
     "form": {
@@ -78,5 +84,9 @@
     },
     "linkBack": "Cancel",
     "deleteButton": "Delete job"
+  },
+  "validation": {
+    "job-title-empty": "Job title is required",
+    "status-empty": "Where are you in the process is required"
   }
 }

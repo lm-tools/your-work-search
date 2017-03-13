@@ -1,4 +1,6 @@
 const i18n = require('i18n');
+const progression = require('../models/progression');
+const progressionDecorator = require('./progression-view-decorator');
 /* eslint-disable no-underscore-dangle */
 
 class AddJobViewModel {
@@ -20,6 +22,7 @@ class AddJobViewModel {
 
     this.errors = validationErrors;
     this.isSourceUrlHidden = body.sourceType !== 'online';
+    this.progression = progressionDecorator.decorate(progression.getInitialSubset(), this.status);
   }
 
   addCheckedFlag(options, checkedValue) {

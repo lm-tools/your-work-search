@@ -28,7 +28,7 @@ module.exports = class DashboardViewModel {
   }
 
   dashboardJobProgression(job) {
-    return progression.map((status) => ({
+    return progression.getAllIds().map((status) => ({
       name: status,
       isChecked: (job.status === status),
       // eslint-disable-next-line no-underscore-dangle

@@ -23,6 +23,19 @@
         <input class="form-control" id="job-employer" type="text" name="employer" value="{{employer}}">
       </div>
 
+      <fieldset data-test="progression">
+        <legend class="heading-medium">{{#__}}updateJob.form.progress{{/__}}</legend>
+        {{#progression}}
+          <div class="form-group">
+
+            <label class="block-label selection-button-radio">{{label}}
+              <input type="radio" value="{{name}}" name="status"
+                     {{#isChecked}}checked{{/isChecked}}>
+            </label>
+          </div>
+        {{/progression}}
+      </fieldset>
+
       <fieldset class="form-group">
         <legend class="heading-medium">{{#__}}addJob.form.sourceType{{/__}}</legend>
 

@@ -36,6 +36,11 @@ describe('Add a job page', () => {
     it('should contain valid google tag manager data', () =>
       expect(googleTagManagerHelper.getAccountVariable()).to.equal(accountId)
     );
+
+    it('should display subset of progression statuses', () =>
+      expect(addJobPage.getJobProgressionOptions())
+        .to.eql(['interested', 'applied', 'interview'])
+    );
   });
 
   describe('successful job creation', () => {
@@ -61,7 +66,8 @@ describe('Add a job page', () => {
     );
 
     it('should display newly created job progression status', () =>
-      expect(dashboardPage.getJobProgressionStatus(newlyCreatedJob())).to.equal('Interested')
+      expect(dashboardPage.getJobProgressionStatus(newlyCreatedJob()))
+        .to.equal(helper.labels.progression[sampleJob.status])
     );
 
     it('should display newly created job rating', () =>
@@ -76,16 +82,28 @@ describe('Add a job page', () => {
   describe('validation error', () => {
     const form = {
       title: '', employer: 'Dwp', sourceType: 'online', sourceUrl: 'http://indeed.com',
-      rating: '2',
+      rating: '2', status: 'applied',
     };
-
     before(() => addJobPage.visit(accountId));
 
     it('should prepopulate filled form fields after error', () =>
-      Promise.resolve(expect(addJobPage.employerFieldValue()).to.equal(''))
-        .then(() => addJobPage.fillJobApplication(form))
+      addJobPage.fillJobApplication(form)
         .then(() => expect(addJobPage.formValues()).to.eql(form))
     );
+
+    describe('for empty form', () => {
+      before(() =>
+        addJobPage.visit(accountId)
+          .then(() => addJobPage.submit())
+      );
+
+      it('should show title is required error', () =>
+        expect(addJobPage.getValidationError()).to.contain('Job title is required')
+      );
+      it('should show jog progression is required error', () =>
+        expect(addJobPage.getValidationError())
+          .to.contain('Where are you in the process is required')
+      );
+    });
   });
 });
-

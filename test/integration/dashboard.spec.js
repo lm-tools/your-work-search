@@ -190,6 +190,7 @@ describe('Dashboard', () => {
         dashboardPage.sort(SEED_ACCOUNT_ID, 'status')
           .then(() => dashboardPage.clickAddJobButton())
           .then(() => helper.addJobPage.fillTitle('E-'))
+          .then(() => helper.addJobPage.setJobProgression('applied'))
           .then(() => helper.addJobPage.submit())
       );
       it('should display jobs in default order', () =>
