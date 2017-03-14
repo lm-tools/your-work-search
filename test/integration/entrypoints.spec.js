@@ -14,7 +14,7 @@ describe('Entrypoints', () => {
       helper.cleanDb()
     );
 
-    it('should see the introduction page', () =>
+    it('should see the add job page', () =>
       browser.visit(`/?id=${accountId}`)
         .then(() => browser.assert.url({ pathname: addJobUrl }))
     );
