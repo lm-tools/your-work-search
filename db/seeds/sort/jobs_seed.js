@@ -53,7 +53,7 @@ exports.seed = function (knex) {
           updated_at: moment().subtract(fourDays),
           deadline: moment().add(fourDays),
           rating: '4',
-          status: 'result',
+          status: 'failure',
           status_sort_index: 3,
         },
       ]);

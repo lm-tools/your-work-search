@@ -30,13 +30,15 @@
     "interested": "Interested",
     "applied": "Applied",
     "interview": "Interview",
-    "result": "Result",
     "long": {
       "interested": "Interested",
       "applied": "Applied",
       "interview": "Going for an interview",
-      "result": "Result"
-    }
+      "failure": "I didn't get it",
+      "success": "Offered the job"
+    },
+    "failure": "Unsuccessful",
+    "success": "Successful"
   },
   "addJob": {
     "form": {
