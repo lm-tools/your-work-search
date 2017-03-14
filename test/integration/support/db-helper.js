@@ -25,4 +25,14 @@ module.exports = {
   sampleJob(job) {
     return Object.assign({}, sampleJob, job);
   },
+
+  runDbMigration(fileName) {
+    // eslint-disable-next-line global-require
+    return require(`../../../db/migrations/${fileName}`).up(knex);
+  },
+
+  rollbackDbMigration(fileName) {
+    // eslint-disable-next-line global-require
+    return require(`../../../db/migrations/${fileName}`).down(knex);
+  },
 };

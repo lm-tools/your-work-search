@@ -13,8 +13,8 @@
 
     <section>
       <h2 class="heading-large" data-test="title">{{title}}</h2>
-      <div class="" data-test="employer">{{employer}}</div>
-      <div class="text-secondary font-xsmall" data-test="source">{{sourceUrl}}</div>
+      <p data-test="employer">{{employer}}</p>
+      <p class="text-secondary font-xsmall" data-test="source">{{sourceUrl}}</p>
     </section>
 
     <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=PATCH" method="POST">

@@ -4,7 +4,8 @@ class Progression {
       { id: 'interested', order: 0 },
       { id: 'applied', order: 1 },
       { id: 'interview', order: 2 },
-      { id: 'result', order: 3 },
+      { id: 'failure', order: 3 },
+      { id: 'success', order: 4 },
     ];
   }
 

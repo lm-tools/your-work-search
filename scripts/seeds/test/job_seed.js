@@ -115,7 +115,7 @@ exports.seed = function (knex) {
         sourceUrl: 'http://www.indeed.com/kjsdjflisdn',
         deadline: moment().subtract(fortnight).add(fortnight),
         rating: '3',
-        status: 'result',
+        status: 'failure',
         status_sort_index: 3,
       });
     })
@@ -131,7 +131,7 @@ exports.seed = function (knex) {
         sourceUrl: 'http://www.indeed.com/kjsdjflisdn',
         deadline: moment().subtract(fortnight).add(fortnight),
         rating: '3',
-        status: 'result',
+        status: 'failure',
         status_sort_index: 3,
       });
     })
@@ -195,7 +195,7 @@ exports.seed = function (knex) {
         sourceUrl: 'http://www.indeed.com/kjsdjflisdn',
         deadline: moment().subtract(month).add(fortnight),
         rating: '3',
-        status: 'result',
+        status: 'failure',
         status_sort_index: 3,
       });
     })
@@ -259,7 +259,7 @@ exports.seed = function (knex) {
         sourceUrl: 'http://www.indeed.com/kjsdjflisdn',
         deadline: moment().subtract(quarter).add(fortnight),
         rating: '3',
-        status: 'result',
+        status: 'failure',
         status_sort_index: 3,
       });
     });
