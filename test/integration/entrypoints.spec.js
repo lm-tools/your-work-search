@@ -7,7 +7,7 @@ const dashboardPage = helper.dashboardPage;
 describe('Entrypoints', () => {
   const accountId = uuid.v4();
   const dashboardUrl = `/${accountId}`;
-  const introductionUrl = `/${accountId}/introduction`;
+  const addJobUrl = `/${accountId}/jobs/new`;
 
   describe('Access the tool with my account id BEFORE ive added a job', () => {
     before(() =>
@@ -16,7 +16,7 @@ describe('Entrypoints', () => {
 
     it('should see the introduction page', () =>
       browser.visit(`/?id=${accountId}`)
-        .then(() => browser.assert.url({ pathname: introductionUrl }))
+        .then(() => browser.assert.url({ pathname: addJobUrl }))
     );
   });
 
@@ -27,7 +27,7 @@ describe('Entrypoints', () => {
     );
 
     it('should see the dashboard page', () =>
-      browser.visit(`/${accountId}`)
+      browser.visit(`/?id=${accountId}`)
         .then(() => browser.assert.url({ pathname: dashboardUrl }))
         .then(() => expect(dashboardPage.jobCount()).to.equal(1))
     );

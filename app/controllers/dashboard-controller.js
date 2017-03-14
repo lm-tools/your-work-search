@@ -10,7 +10,15 @@ router.get('/', (req, res) => {
   const accountId = req.query.id;
 
   if (accountId && validate(accountId)) {
-    res.redirect(`${basePath}/${accountId}/introduction`);
+    Jobs
+      .findAllByAccountId(accountId)
+      .then((findJobsResult) => {
+        if (findJobsResult.totalSavedJobs > 0) {
+          res.redirect(`${basePath}/${accountId}`);
+        } else {
+          res.redirect(`${basePath}/${accountId}/jobs/new`);
+        }
+      });
   } else {
     res.render('missing-account-id');
   }
