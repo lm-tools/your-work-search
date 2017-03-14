@@ -7,7 +7,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const validator = require('express-validator');
 const i18n = require('./middleware/i18n');
-const introductionController = require('./controllers/introduction-controller.js');
 const dashboardController = require('./controllers/dashboard-controller.js');
 const jobsController = require('./controllers/jobs-controller.js');
 const confirmationController = require('./controllers/confirmation-controller');
@@ -65,7 +64,6 @@ app.use(assetPath, express.static(path.join(__dirname, '..',
   'vendor', 'govuk_template_mustache_inheritance', 'assets')));
 
 app.use(`${basePath}/`, dashboardController);
-app.use(`${basePath}/:accountId/introduction`, introductionController);
 app.use(`${basePath}/:accountId/jobs`, jobsController);
 app.use(`${basePath}/:accountId/confirmation`, confirmationController);
 
