@@ -1,5 +1,12 @@
 const i18n = require('i18n');
 
+
+function handleJoiValidationErrors(err) {
+  if (err.isJoi) {
+    Object.assign(err, { status: 400 });
+  }
+}
+
 module.exports = app => {
   /* eslint-disable no-underscore-dangle */
   // eslint-disable-next-line no-unused-vars
@@ -8,6 +15,7 @@ module.exports = app => {
       // eslint-disable-next-line no-console
       console.error(err.stack);
     }
+    handleJoiValidationErrors(err);
     const status = err.status || 500;
     res.status(status);
     const model = { message: i18n.__(`error.${status}`) };
