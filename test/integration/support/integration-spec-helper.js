@@ -10,6 +10,7 @@ const UpdateJobPage = require('../../common/page_objects/update-job-page');
 const ConfirmationPage = require('../../common/page_objects/confirmation-page');
 const GoogleTagManagerHelper = require('../../common/page_objects/google-tag-manager-helper');
 const labels = require('../../../app/locales/en.json');
+const ErrorPage = require('../../common/page_objects/error-page');
 
 
 process.env.GOOGLE_TAG_MANAGER_ID = 'fake-id';
@@ -32,6 +33,7 @@ module.exports = Object.assign(
     confirmationPage: new ConfirmationPage(browser),
     dashboardPage: new DashboardPage(browser),
     introductionPage: new IntroductionPage(browser),
+    errorPage: new ErrorPage(browser),
     labels,
   },
   dbHelper
