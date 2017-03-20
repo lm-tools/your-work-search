@@ -33,6 +33,7 @@ module.exports = Object.assign(
     dashboardPage: new DashboardPage(browser, app),
     errorPage: new ErrorPage(browser),
     labels,
+    app,
   },
   dbHelper
 );
