@@ -19,6 +19,7 @@ const app = express();
 i18n(app);
 app.use(helmet());
 app.use(helmet.referrerPolicy());
+app.use(helmet.noCache());
 
 // view engine setup
 const cons = require('consolidate');
