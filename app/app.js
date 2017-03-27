@@ -19,7 +19,6 @@ const app = express();
 i18n(app);
 app.use(helmet());
 app.use(helmet.referrerPolicy());
-app.use(helmet.noCache());
 
 // view engine setup
 const cons = require('consolidate');
@@ -67,6 +66,8 @@ app.use(cookieParser());
 app.use(assetPath, express.static(path.join(__dirname, '..', 'dist', 'public')));
 app.use(assetPath, express.static(path.join(__dirname, '..',
   'vendor', 'govuk_template_mustache_inheritance', 'assets')));
+
+app.use(helmet.noCache());
 
 app.use(`${basePath}/`, dashboardController);
 app.use(`${basePath}/:accountId/jobs/new`, addJobController);
