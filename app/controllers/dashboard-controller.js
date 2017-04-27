@@ -29,6 +29,17 @@ router.get('/:accountId', (req, res, next) => {
   const focus = req.query.focus;
   const sort = req.query.sort || 'created';
 
+  // TEMP FIX FOR FAILED EXAMPLE URL - TO BE REMOVED
+  const hasIdQueryParams = req.query.id;
+
+  if (accountId === 'EXAMPLE' && hasIdQueryParams) {
+    const basePath = req.app.locals.basePath;
+    const realAccountId = req.query.id;
+
+    res.redirect(`${basePath}/?id=${realAccountId}`);
+  }
+  // END OF FIX
+
   Jobs
     .findAllByAccountId(accountId, { sort })
     .then((findJobsResult) => res.render('dashboard',
