@@ -8,7 +8,6 @@ describe('Entrypoints', () => {
   const accountId = uuid.v4();
   const dashboardUrl = `/${accountId}`;
   const addJobUrl = `/${accountId}/jobs/new`;
-  const exampleDashboardUrl = '/EXAMPLE';
 
   describe('Access the tool with my account id BEFORE ive added a job', () => {
     before(() =>
@@ -55,28 +54,6 @@ describe('Entrypoints', () => {
       browser.visit('/?id=something-rubbish')
         .then(() => browser.assert.text(
           '#heading', 'Sign in to your account'))
-    );
-  });
-
-
-  describe('FIX agent viewing EXAMPLE', () => {
-    it('should redirect to add job when url params before job has been added', () =>
-      helper.cleanDb()
-        .then(() => browser.visit(`/EXAMPLE?id=${accountId}`))
-        .then(() => browser.assert.url({ pathname: addJobUrl }))
-    );
-
-    it('should redirect to dashboard when url params after job has been added', () =>
-      helper.cleanDb()
-        .then(() => helper.createJobsInDb(helper.sampleJob({ accountId: `${accountId}` })))
-        .then(() => browser.visit(`/EXAMPLE?id=${accountId}`))
-        .then(() => browser.assert.url({ pathname: dashboardUrl }))
-    );
-
-    it('should redirect to EXAMPLE dashboard when no url params', () =>
-      helper.cleanDb()
-        .then(() => browser.visit('/EXAMPLE'))
-        .then(() => browser.assert.url({ pathname: exampleDashboardUrl }))
     );
   });
 });
