@@ -1,7 +1,6 @@
 const express = require('express');
 const router = new express.Router({ mergeParams: true });
 const Jobs = require('../models/jobs-model');
-const AddJobViewModel = require('./add-job-view-model');
 const UpdateJobViewModel = require('./update-job-view-model');
 const progression = require('../models/progression');
 const i18n = require('i18n');
@@ -14,32 +13,6 @@ function buildQueryParams(job) {
     .map(key => `${key}=${params[key]}`)
     .join('&');
 }
-
-
-router.get('/new', (req, res) => {
-  res.render('add-job', new AddJobViewModel(req.params.accountId, req.body));
-});
-
-router.post('/new', (req, res, next) => {
-  const basePath = req.app.locals.basePath;
-  const accountId = req.params.accountId;
-  req.checkBody('title', i18n.__('validation.job-title-empty')).notEmpty();
-  req.checkBody('status', i18n.__('validation.status-empty')).notEmpty();
-
-  if (req.validationErrors()) {
-    return res.render('add-job',
-      new AddJobViewModel(accountId, req.body, req.validationErrors()));
-  }
-
-  const jobData = Object.assign({}, req.body, {
-    accountId,
-    status_sort_index: progression.getById(req.body.status).order,
-  });
-
-  return new Jobs(jobData).save()
-    .then((job) => res.redirect(`${basePath}/${accountId}?focus=${job.id}`))
-    .catch((err) => next(err));
-});
 
 router.get('/:jobId', (req, res, next) => {
   const accountId = req.params.accountId;

@@ -9,6 +9,7 @@ const validator = require('express-validator');
 const i18n = require('./middleware/i18n');
 const dashboardController = require('./controllers/dashboard-controller.js');
 const jobsController = require('./controllers/jobs-controller.js');
+const addJobController = require('./controllers/add-job-controller.js');
 const confirmationController = require('./controllers/confirmation-controller');
 const errorHandler = require('./middleware/error-handler');
 const healthCheckController = require('./controllers/health-check-controller');
@@ -64,6 +65,7 @@ app.use(assetPath, express.static(path.join(__dirname, '..',
   'vendor', 'govuk_template_mustache_inheritance', 'assets')));
 
 app.use(`${basePath}/`, dashboardController);
+app.use(`${basePath}/:accountId/jobs/new`, addJobController);
 app.use(`${basePath}/:accountId/jobs`, jobsController);
 app.use(`${basePath}/:accountId/confirmation`, confirmationController);
 

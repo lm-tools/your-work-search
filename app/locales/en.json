@@ -82,7 +82,7 @@
     "status-empty": "Where are you in the process is required"
   },
   "error": {
-    "400": "Bad request",
+    "400": "We're experiencing technical problems.",
     "404": "Page not found",
     "500": "We're experiencing technical problems."
   }

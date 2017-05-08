@@ -26,14 +26,13 @@ afterEach(function () {
 module.exports = Object.assign(
   {
     browser,
-    addJobPage: new AddJobPage(browser),
+    addJobPage: new AddJobPage(browser, app),
     updateJobPage: new UpdateJobPage(browser),
     googleTagManagerHelper: new GoogleTagManagerHelper(browser),
     confirmationPage: new ConfirmationPage(browser),
     dashboardPage: new DashboardPage(browser),
     errorPage: new ErrorPage(browser),
     labels,
-    app,
   },
   dbHelper
 );

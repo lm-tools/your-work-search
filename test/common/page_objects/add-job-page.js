@@ -1,5 +1,7 @@
-const AddJobPage = function AddJobPage(browser) {
+const request = require('supertest');
+const AddJobPage = function AddJobPage(browser, app) {
   this.browser = browser;
+  this.app = app;
 
   this.fillJobApplication = (data) => {
     this.fillTitle(data.title);
@@ -36,7 +38,12 @@ const AddJobPage = function AddJobPage(browser) {
   this.getJobProgressionOptions = () =>
     browser.queryAll('[data-test="progression"] input')
       .map(i => i.value);
+  this.getRatings = () =>
+    browser.queryAll('input[name="rating"]')
+      .map(i => i.value);
   this.submit = () => browser.pressButton('input[type=submit]');
+
+  this.post = (accountId, form) => request(this.app).post(`/${accountId}/jobs/new`).send(form);
 };
 
 module.exports = AddJobPage;
