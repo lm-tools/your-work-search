@@ -136,11 +136,11 @@ describe('Add a job page', () => {
         it(`should allow '${s}' source type`, () =>
           addJobPage
             .post(accountId,
-              {
-                title: 'some',
-                status: progression.getInitialSubset()[0],
-                sourceType: s,
-              })
+            {
+              title: 'some',
+              status: progression.getInitialSubset()[0],
+              sourceType: s,
+            })
             .then(response => {
               expect(response.status).to.equal(302);
             })
@@ -150,11 +150,11 @@ describe('Add a job page', () => {
       it('should disallow incorrect source type', () =>
         addJobPage
           .post(accountId,
-            {
-              title: 'some',
-              status: progression.getInitialSubset()[0],
-              sourceType: 'incorrect',
-            })
+          {
+            title: 'some',
+            status: progression.getInitialSubset()[0],
+            sourceType: 'incorrect',
+          })
           .then(response => {
             expect(response.status).to.equal(400);
             expect(response.text).to.include('We&#39;re experiencing technical problems.');
@@ -165,11 +165,11 @@ describe('Add a job page', () => {
         it(`should allow rating of '${s}'`, () =>
           addJobPage
             .post(accountId,
-              {
-                title: 'some',
-                status: progression.getInitialSubset()[0],
-                rating: s,
-              })
+            {
+              title: 'some',
+              status: progression.getInitialSubset()[0],
+              rating: s,
+            })
             .then(response => {
               expect(response.status).to.equal(302);
             })
@@ -179,11 +179,11 @@ describe('Add a job page', () => {
       it('should disallow rating of \'6\'', () =>
         addJobPage
           .post(accountId,
-            {
-              title: 'some',
-              status: progression.getInitialSubset()[0],
-              rating: '6',
-            })
+          {
+            title: 'some',
+            status: progression.getInitialSubset()[0],
+            rating: '6',
+          })
           .then(response => {
             expect(response.status).to.equal(400);
             expect(response.text).to.include('We&#39;re experiencing technical problems.');

@@ -7,6 +7,7 @@ const ratings = require('../models/ratings');
 const i18n = require('i18n');
 const Joi = require('joi');
 const celebrate = require('celebrate');
+const validateAccountId = require('./common-validator').accountIdParameter;
 /* eslint-disable no-underscore-dangle */
 
 const validator = {
@@ -25,7 +26,7 @@ const validator = {
   }),
 };
 
-router.get('/', (req, res) => {
+router.get('/', validateAccountId, (req, res) => {
   res.render('add-job', new AddJobViewModel(req.params.accountId, req.body));
 });
 

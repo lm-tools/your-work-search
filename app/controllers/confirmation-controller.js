@@ -1,8 +1,9 @@
 const express = require('express');
 const router = new express.Router({ mergeParams: true });
+const validateAccountId = require('./common-validator').accountIdParameter;
 
 /* GET home page. */
-router.get('/', (req, res) =>
+router.get('/', validateAccountId, (req, res) =>
   res.render('confirmation',
     {
       description: req.query.description,
