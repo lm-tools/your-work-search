@@ -4,7 +4,6 @@ const Jobs = require('../models/jobs-model');
 const AddJobViewModel = require('./add-job-view-model');
 const progression = require('../models/progression');
 const i18n = require('i18n');
-const Joi = require('joi');
 const celebrate = require('celebrate');
 const validatorSchema = require('./validator-schema');
 /* eslint-disable no-underscore-dangle */
@@ -14,14 +13,14 @@ const validator = {
     params: {
       accountId: validatorSchema.accountId.required(),
     },
-    body: Joi.object().keys({
-      title: Joi.string().allow(''),
-      employer: Joi.string().allow(''),
-      sourceUrl: Joi.string().allow(''),
-      sourceType: Joi.any().valid(['inPerson', 'online']),
+    body: {
+      title: validatorSchema.title.allow(''),
+      employer: validatorSchema.employer.allow(''),
+      sourceUrl: validatorSchema.sourceUrl.allow(''),
+      sourceType: validatorSchema.sourceType,
       rating: validatorSchema.rating,
       status: validatorSchema.initialStatus,
-    }),
+    },
   }),
   get: celebrate({
     params: {

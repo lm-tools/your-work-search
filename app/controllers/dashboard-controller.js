@@ -12,7 +12,7 @@ const validator = {
     params: {
       accountId: validatorSchema.accountId.required(),
     },
-    query: Joi.object().keys({
+    query: Joi.object({
       sort: Joi.any().valid(['', 'created', 'updated', 'title', 'employer', 'status']),
       focus: validatorSchema.jobId,
       id: validatorSchema.accountId,
