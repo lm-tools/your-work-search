@@ -1,8 +1,10 @@
 const assert = require('assert');
 const url = require('url');
+const request = require('supertest');
 
-const DashboardPage = function DashboardPage(browser) {
+const DashboardPage = function DashboardPage(browser, app) {
   this.browser = browser;
+  this.app = app;
 
   function jobContainerSelector(job) {
     return `[data-test="job-container-${job.id}"]`;
@@ -62,6 +64,8 @@ const DashboardPage = function DashboardPage(browser) {
   this.checkBrowserHasQueryParam = (queryParam) => browser.request.url.includes(queryParam);
   this.getJobIdFromQueryParams = () =>
     url.parse(browser.request.url, { parseQueryString: true }).query.focus;
+
+  this.getAccount = (accountId, query) => request(this.app).get(`/${accountId}`).query(query);
 };
 
 module.exports = DashboardPage;

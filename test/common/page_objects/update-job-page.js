@@ -1,5 +1,8 @@
-const UpdateJobPage = function UpdateJobPage(browser) {
+const request = require('supertest');
+
+const UpdateJobPage = function UpdateJobPage(browser, app) {
   this.browser = browser;
+  this.app = app;
 
   this.visit = (accountId, job) => browser.visit(`/${accountId}/jobs/${job.id}`);
   this.clickSave = () => browser.pressButton('[data-test="save"]');
@@ -13,6 +16,11 @@ const UpdateJobPage = function UpdateJobPage(browser) {
   this.setJobRating = (rating) => browser
     .click(`[data-test="rating"] input[value="${rating}"]`);
   this.deleteJob = () => browser.click('[data-test="delete-button"]');
+
+  this.get = (accountId, jobId) => request(this.app).get(`/${accountId}/jobs/${jobId}`);
+  this.delete = (accountId, jobId) => request(this.app).delete(`/${accountId}/jobs/${jobId}`);
+  this.patch = (accountId, jobId, body) =>
+    request(this.app).patch(`/${accountId}/jobs/${jobId}`).send(body);
 };
 
 module.exports = UpdateJobPage;

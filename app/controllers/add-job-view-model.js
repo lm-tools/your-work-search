@@ -1,5 +1,6 @@
 const i18n = require('i18n');
 const progression = require('../models/progression');
+const ratings = require('../models/ratings');
 const progressionDecorator = require('./progression-view-decorator');
 /* eslint-disable no-underscore-dangle */
 
@@ -8,7 +9,7 @@ class AddJobViewModel {
     Object.assign(this, body);
     this.accountId = accountId;
     this.ratingOptions = this.addCheckedFlag(
-      ['5', '4', '3', '2', '1'].map(value => ({ value })),
+      ratings.reverse().map(value => ({ value })),
       body.rating
     );
 

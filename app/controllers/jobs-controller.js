@@ -1,11 +1,37 @@
 const express = require('express');
 const router = new express.Router({ mergeParams: true });
+const celebrate = require('celebrate');
 const Jobs = require('../models/jobs-model');
-const AddJobViewModel = require('./add-job-view-model');
 const UpdateJobViewModel = require('./update-job-view-model');
 const progression = require('../models/progression');
 const i18n = require('i18n');
+const validatorSchema = require('./validator-schema');
 /* eslint-disable no-underscore-dangle */
+
+const validator = {
+  get: celebrate({
+    params: {
+      jobId: validatorSchema.jobId.required(),
+      accountId: validatorSchema.accountId.required(),
+    },
+  }),
+  patch: celebrate({
+    params: {
+      jobId: validatorSchema.jobId.required(),
+      accountId: validatorSchema.accountId.required(),
+    },
+    body: {
+      status: validatorSchema.status,
+      rating: validatorSchema.rating,
+    },
+  }),
+  delete: celebrate({
+    params: {
+      jobId: validatorSchema.jobId.required(),
+      accountId: validatorSchema.accountId.required(),
+    },
+  }),
+};
 
 function buildQueryParams(job) {
   const params = { focus: job.id };
@@ -15,33 +41,7 @@ function buildQueryParams(job) {
     .join('&');
 }
 
-
-router.get('/new', (req, res) => {
-  res.render('add-job', new AddJobViewModel(req.params.accountId, req.body));
-});
-
-router.post('/new', (req, res, next) => {
-  const basePath = req.app.locals.basePath;
-  const accountId = req.params.accountId;
-  req.checkBody('title', i18n.__('validation.job-title-empty')).notEmpty();
-  req.checkBody('status', i18n.__('validation.status-empty')).notEmpty();
-
-  if (req.validationErrors()) {
-    return res.render('add-job',
-      new AddJobViewModel(accountId, req.body, req.validationErrors()));
-  }
-
-  const jobData = Object.assign({}, req.body, {
-    accountId,
-    status_sort_index: progression.getById(req.body.status).order,
-  });
-
-  return new Jobs(jobData).save()
-    .then((job) => res.redirect(`${basePath}/${accountId}?focus=${job.id}`))
-    .catch((err) => next(err));
-});
-
-router.get('/:jobId', (req, res, next) => {
+router.get('/:jobId', validator.get, (req, res, next) => {
   const accountId = req.params.accountId;
   const jobId = req.params.jobId;
   const basePath = req.app.locals.basePath;
@@ -59,7 +59,7 @@ router.get('/:jobId', (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.patch('/:jobId', (req, res, next) => {
+router.patch('/:jobId', validator.patch, (req, res, next) => {
   const basePath = req.app.locals.basePath;
   const accountId = req.params.accountId;
   const jobId = req.params.jobId;
@@ -78,7 +78,7 @@ router.patch('/:jobId', (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.delete('/:jobId', (req, res, next) => {
+router.delete('/:jobId', validator.delete, (req, res, next) => {
   const basePath = req.app.locals.basePath;
   const accountId = req.params.accountId;
   const jobId = req.params.jobId;

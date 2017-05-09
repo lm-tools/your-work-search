@@ -87,5 +87,54 @@ describe('Update a job', () => {
         .catch(() => expect(updateJobPage.browser.status).to.equal(404))
     );
   });
+
+  describe('validate inputs', () => {
+    describe('validate GET /:accountId/jobs/:jobId', () => {
+      [
+        { jobId: job.id, statusCode: 200 },
+        { jobId: 'abd', statusCode: 400 },
+        { jobId: '0', statusCode: 400 },
+        { jobId: '-1', statusCode: 400 },
+      ].forEach(s => {
+        it(`jobId "${s.jobId}" should return ${s.statusCode}`, () =>
+          updateJobPage.get(accountId, s.jobId)
+            .then(response => {
+              expect(response.status).to.equal(s.statusCode);
+            })
+        );
+      });
+    });
+
+    describe('validate PATCH /:accountId/jobs/:jobId', () => {
+      [
+        { jobId: job.id, body: {}, statusCode: 302 },
+        { jobId: 'abd', body: {}, statusCode: 400 },
+        { jobId: '0', body: {}, statusCode: 400 },
+        { jobId: '-1', body: {}, statusCode: 400 },
+        { jobId: job.id, body: { status: progression.getAllIds()[2] }, statusCode: 302 },
+        { jobId: job.id, body: { status: 'incorrect' }, statusCode: 400 },
+        { jobId: job.id, body: { rating: '2' }, statusCode: 302 },
+        { jobId: job.id, body: { rating: '0' }, statusCode: 400 },
+        {
+          jobId: job.id,
+          body: { status: progression.getAllIds()[2], rating: '4' },
+          statusCode: 302,
+        },
+        {
+          jobId: job.id,
+          body: { status: progression.getAllIds()[2], rating: '4', incorrect: 'attribute' },
+          statusCode: 400,
+        },
+
+      ].forEach(s => {
+        it(`jobId "${s.jobId}" with body: ${JSON.stringify(s.body)} returns ${s.statusCode}`, () =>
+          updateJobPage.patch(accountId, s.jobId, s.body)
+            .then(response => {
+              expect(response.status).to.equal(s.statusCode);
+            })
+        );
+      });
+    });
+  });
 });
 

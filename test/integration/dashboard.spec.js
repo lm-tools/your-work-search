@@ -237,5 +237,36 @@ describe('Dashboard', () => {
       expect(dashboardPage.browser.text('title')).to.equal('Your work search')
     );
   });
+
+  describe('validate inputs', () => {
+    function validText(s) {
+      return s.valid ? 'should' : 'should not ';
+    }
+
+    describe('GET /:accountId', () => {
+      [
+        { query: { focus: '1' }, valid: true, statusCode: 200 },
+        { query: { focus: '133' }, valid: true, statusCode: 200 },
+        { query: { focus: 'abc' }, valid: false, statusCode: 400 },
+        { query: { focus: '0' }, valid: false, statusCode: 400 },
+        { query: { focus: '-123' }, valid: false, statusCode: 400 },
+        { query: { sort: '' }, valid: true, statusCode: 200 },
+        { query: { sort: 'created' }, valid: true, statusCode: 200 },
+        { query: { sort: 'updated' }, valid: true, statusCode: 200 },
+        { query: { sort: 'title' }, valid: true, statusCode: 200 },
+        { query: { sort: 'employer' }, valid: true, statusCode: 200 },
+        { query: { sort: 'random' }, valid: false, statusCode: 400 },
+        { query: { id: '123' }, valid: true, statusCode: 200 },
+        { query: { notExist: '123' }, valid: true, statusCode: 200 },
+      ].forEach(s => {
+        it(`query '${JSON.stringify(s.query)}' ${validText(s)} be valid`, () =>
+          dashboardPage.getAccount(accountId, s.query)
+            .then(response => {
+              expect(response.status).to.equal(s.statusCode);
+            })
+        );
+      });
+    });
+  });
 });
 

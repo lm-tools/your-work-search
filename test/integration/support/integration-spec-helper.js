@@ -13,7 +13,7 @@ const ErrorPage = require('../../common/page_objects/error-page');
 
 
 process.env.GOOGLE_TAG_MANAGER_ID = 'fake-id';
-require('../../../bin/www'); // This starts the web server, and ensures it is only
+const app = require('../../../bin/www'); // This starts the web server, and ensures it is only
                           // started once. It is a misuse of "require", and
                           // should be improved.
 
@@ -26,11 +26,11 @@ afterEach(function () {
 module.exports = Object.assign(
   {
     browser,
-    addJobPage: new AddJobPage(browser),
-    updateJobPage: new UpdateJobPage(browser),
+    addJobPage: new AddJobPage(browser, app),
+    updateJobPage: new UpdateJobPage(browser, app),
     googleTagManagerHelper: new GoogleTagManagerHelper(browser),
     confirmationPage: new ConfirmationPage(browser),
-    dashboardPage: new DashboardPage(browser),
+    dashboardPage: new DashboardPage(browser, app),
     errorPage: new ErrorPage(browser),
     labels,
   },

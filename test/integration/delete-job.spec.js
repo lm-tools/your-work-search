@@ -25,5 +25,21 @@ describe('Delete job', () => {
       .then(() => h.confirmationPage.clickBack())
       .then(() => expect(h.dashboardPage.jobList()).to.equal(''));
   });
+
+  describe('validate DELETE /:accountId/jobs/:jobId', () => {
+    [
+      { jobId: job.id, statusCode: 302 },
+      { jobId: 'abd', statusCode: 400 },
+      { jobId: '0', statusCode: 400 },
+      { jobId: '-1', statusCode: 400 },
+    ].forEach(s => {
+      it(`jobId "${s.jobId}" should return ${s.statusCode}`, () =>
+        h.updateJobPage.delete(job.accountId, s.jobId)
+          .then(response => {
+            expect(response.status).to.equal(s.statusCode);
+          })
+      );
+    });
+  });
 });
 

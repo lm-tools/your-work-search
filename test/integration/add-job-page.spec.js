@@ -4,6 +4,8 @@ const dashboardPage = helper.dashboardPage;
 const googleTagManagerHelper = helper.googleTagManagerHelper;
 const expect = require('chai').expect;
 const sampleJob = helper.sampleJob();
+const progression = require('../../app/models/progression');
+const ratings = require('../../app/models/ratings');
 
 describe('Add a job page', () => {
   const accountId = 'someAccount';
@@ -40,6 +42,10 @@ describe('Add a job page', () => {
     it('should display subset of progression statuses', () =>
       expect(addJobPage.getJobProgressionOptions())
         .to.eql(['interested', 'applied', 'interview'])
+    );
+
+    it('should render rating in correct order', () =>
+      expect(addJobPage.getRatings()).to.eql(['5', '4', '3', '2', '1'])
     );
   });
 
@@ -103,6 +109,85 @@ describe('Add a job page', () => {
       it('should show jog progression is required error', () =>
         expect(addJobPage.getValidationError())
           .to.contain('Where are you in the process is required')
+      );
+    });
+
+    describe('post', () => {
+      it('should disallow incorrect progression', () =>
+        addJobPage
+          .post(accountId, { title: 'some', status: 'incorrect' })
+          .then(response => {
+            expect(response.status).to.equal(400);
+            expect(response.text).to.include('We&#39;re experiencing technical problems.');
+          })
+      );
+
+      progression.getInitialSubset().forEach(s => {
+        it(`should allow '${s}' progression`, () =>
+          addJobPage
+            .post(accountId, { title: 'some', status: s })
+            .then(response => {
+              expect(response.status).to.equal(302);
+            })
+        );
+      });
+
+      ['inPerson', 'online'].forEach(s => {
+        it(`should allow '${s}' source type`, () =>
+          addJobPage
+            .post(accountId,
+            {
+              title: 'some',
+              status: progression.getInitialSubset()[0],
+              sourceType: s,
+            })
+            .then(response => {
+              expect(response.status).to.equal(302);
+            })
+        );
+      });
+
+      it('should disallow incorrect source type', () =>
+        addJobPage
+          .post(accountId,
+          {
+            title: 'some',
+            status: progression.getInitialSubset()[0],
+            sourceType: 'incorrect',
+          })
+          .then(response => {
+            expect(response.status).to.equal(400);
+            expect(response.text).to.include('We&#39;re experiencing technical problems.');
+          })
+      );
+
+      ratings.forEach(s => {
+        it(`should allow rating of '${s}'`, () =>
+          addJobPage
+            .post(accountId,
+            {
+              title: 'some',
+              status: progression.getInitialSubset()[0],
+              rating: s,
+            })
+            .then(response => {
+              expect(response.status).to.equal(302);
+            })
+        );
+      });
+
+      it('should disallow rating of \'6\'', () =>
+        addJobPage
+          .post(accountId,
+          {
+            title: 'some',
+            status: progression.getInitialSubset()[0],
+            rating: '6',
+          })
+          .then(response => {
+            expect(response.status).to.equal(400);
+            expect(response.text).to.include('We&#39;re experiencing technical problems.');
+          })
       );
     });
   });
