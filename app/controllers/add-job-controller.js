@@ -7,14 +7,14 @@ const ratings = require('../models/ratings');
 const i18n = require('i18n');
 const Joi = require('joi');
 const celebrate = require('celebrate');
-const validateAccountId = require('./common-validator').accountIdParameter;
+const validatorSchema = require('./validator-schema');
 /* eslint-disable no-underscore-dangle */
 
 const validator = {
   post: celebrate({
-    params: Joi.object().keys({
-      accountId: Joi.string().required(),
-    }),
+    params: {
+      accountId: validatorSchema.accountId.required(),
+    },
     body: Joi.object().keys({
       title: Joi.string().allow(''),
       employer: Joi.string().allow(''),
@@ -24,9 +24,14 @@ const validator = {
       status: Joi.any().valid(progression.getInitialSubset()),
     }),
   }),
+  get: celebrate({
+    params: {
+      accountId: validatorSchema.accountId.required(),
+    },
+  }),
 };
 
-router.get('/', validateAccountId, (req, res) => {
+router.get('/', validator.get, (req, res) => {
   res.render('add-job', new AddJobViewModel(req.params.accountId, req.body));
 });
 

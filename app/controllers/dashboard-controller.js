@@ -5,16 +5,17 @@ const Jobs = require('../models/jobs-model');
 const DashboardViewModel = require('./dashboard-view-model');
 const Joi = require('joi');
 const celebrate = require('celebrate');
+const validatorSchema = require('./validator-schema');
 
 const validator = {
   getAccount: celebrate({
-    params: Joi.object().keys({
-      accountId: Joi.string().required(),
-    }),
+    params: {
+      accountId: validatorSchema.accountId.required(),
+    },
     query: Joi.object().keys({
       sort: Joi.any().valid(['', 'created', 'updated', 'title', 'employer', 'status']),
-      focus: Joi.number().integer().positive(),
-      id: Joi.any(),
+      focus: validatorSchema.jobId,
+      id: validatorSchema.accountId,
     }).unknown(),
   }),
 };
