@@ -10,6 +10,9 @@ const AddJobPage = function AddJobPage(browser, app) {
       .fill('[name="employer"]', data.employer)
       .choose(`#job-sourceType-${data.sourceType}`)
       .fill('[name="sourceUrl"]', data.sourceUrl)
+      .fill('[name="deadlineDate"]', data.deadlineDate)
+      .fill('[name="interviewDate"]', data.interviewDate)
+      .fill('[name="applicationDate"]', data.applicationDate)
       .choose(`#job-rating-${data.rating}`)
       .pressButton('input[type=submit]');
   };
@@ -36,7 +39,7 @@ const AddJobPage = function AddJobPage(browser, app) {
   this.setJobProgression = (status) => browser
     .click(`[data-test="progression"] input[value="${status}"]`);
   this.getJobProgressionOptions = () =>
-    browser.queryAll('[data-test="progression"] input')
+    browser.queryAll('[data-test="progression"] input[name=status]')
       .map(i => i.value);
   this.getRatings = () =>
     browser.queryAll('input[name="rating"]')

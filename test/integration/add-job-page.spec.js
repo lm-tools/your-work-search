@@ -1,3 +1,4 @@
+const moment = require('moment');
 const helper = require('./support/integration-spec-helper');
 const addJobPage = helper.addJobPage;
 const dashboardPage = helper.dashboardPage;
@@ -47,6 +48,30 @@ describe('Add a job page', () => {
     it('should render rating in correct order', () =>
       expect(addJobPage.getRatings()).to.eql(['5', '4', '3', '2', '1'])
     );
+  });
+
+  describe('successful progression associated date creation', () => {
+    const formInputDate = '26/12/2017';
+
+    [
+      { field: 'deadlineDate',
+        jobData: Object.assign(sampleJob, { deadlineDate: formInputDate }) },
+      { field: 'applicationDate',
+        jobData: Object.assign(sampleJob, { applicationDate: formInputDate }) },
+      { field: 'interviewDate',
+        jobData: Object.assign(sampleJob, { interviewDate: formInputDate }) },
+    ].forEach(j => {
+      it(`should save ${j.field} entered`, (done) => {
+        helper.cleanDb()
+          .then(() => addJobPage.visit(accountId))
+          .then(() => addJobPage.fillJobApplication(j.jobData))
+          .then(() => helper.findJobInDb(accountId))
+          .then((job) => {
+            expect(moment(job[`${j.field}`]).format('D/M/YYYY')).to.equal(formInputDate);
+            done();
+          });
+      });
+    });
   });
 
   describe('successful job creation', () => {

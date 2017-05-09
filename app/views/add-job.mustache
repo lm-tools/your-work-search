@@ -28,11 +28,17 @@
         {{#progression}}
           <div class="form-group">
 
-            <label class="block-label selection-button-radio">{{label}}
-              <input type="radio" value="{{name}}" name="status"
+            <label class="block-label selection-button-radio" for="job-statusType-{{name}}">{{label}}
+              <input id="job-statusType-{{name}}" type="radio" value="{{name}}" name="status"
                      {{#isChecked}}checked{{/isChecked}}>
             </label>
           </div>
+
+          <div id="job-statusDateGroup-{{name}}" class="form-group panel panel-border-narrow">
+            <label class="block" for="job-{{dateField}}">{{dateLabel}}</label>
+            <input class="form-control datepicker" id="job-{{dateField}}" type="text" name="{{dateField}}"  placeholder="dd/mm/yyyy">
+          </div>
+
         {{/progression}}
       </fieldset>
 
