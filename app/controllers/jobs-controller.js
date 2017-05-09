@@ -1,10 +1,37 @@
 const express = require('express');
 const router = new express.Router({ mergeParams: true });
+const celebrate = require('celebrate');
 const Jobs = require('../models/jobs-model');
 const UpdateJobViewModel = require('./update-job-view-model');
 const progression = require('../models/progression');
 const i18n = require('i18n');
+const validatorSchema = require('./validator-schema');
 /* eslint-disable no-underscore-dangle */
+
+const validator = {
+  get: celebrate({
+    params: {
+      jobId: validatorSchema.jobId.required(),
+      accountId: validatorSchema.accountId.required(),
+    },
+  }),
+  patch: celebrate({
+    params: {
+      jobId: validatorSchema.jobId.required(),
+      accountId: validatorSchema.accountId.required(),
+    },
+    body: {
+      status: validatorSchema.status,
+      rating: validatorSchema.rating,
+    },
+  }),
+  delete: celebrate({
+    params: {
+      jobId: validatorSchema.jobId.required(),
+      accountId: validatorSchema.accountId.required(),
+    },
+  }),
+};
 
 function buildQueryParams(job) {
   const params = { focus: job.id };
@@ -14,7 +41,7 @@ function buildQueryParams(job) {
     .join('&');
 }
 
-router.get('/:jobId', (req, res, next) => {
+router.get('/:jobId', validator.get, (req, res, next) => {
   const accountId = req.params.accountId;
   const jobId = req.params.jobId;
   const basePath = req.app.locals.basePath;
@@ -32,7 +59,7 @@ router.get('/:jobId', (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.patch('/:jobId', (req, res, next) => {
+router.patch('/:jobId', validator.patch, (req, res, next) => {
   const basePath = req.app.locals.basePath;
   const accountId = req.params.accountId;
   const jobId = req.params.jobId;
@@ -51,7 +78,7 @@ router.patch('/:jobId', (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.delete('/:jobId', (req, res, next) => {
+router.delete('/:jobId', validator.delete, (req, res, next) => {
   const basePath = req.app.locals.basePath;
   const accountId = req.params.accountId;
   const jobId = req.params.jobId;

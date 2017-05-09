@@ -3,7 +3,6 @@ const router = new express.Router({ mergeParams: true });
 const Jobs = require('../models/jobs-model');
 const AddJobViewModel = require('./add-job-view-model');
 const progression = require('../models/progression');
-const ratings = require('../models/ratings');
 const i18n = require('i18n');
 const Joi = require('joi');
 const celebrate = require('celebrate');
@@ -20,8 +19,8 @@ const validator = {
       employer: Joi.string().allow(''),
       sourceUrl: Joi.string().allow(''),
       sourceType: Joi.any().valid(['inPerson', 'online']),
-      rating: Joi.any().valid(ratings),
-      status: Joi.any().valid(progression.getInitialSubset()),
+      rating: validatorSchema.rating,
+      status: validatorSchema.initialStatus,
     }),
   }),
   get: celebrate({

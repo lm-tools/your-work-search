@@ -27,7 +27,7 @@ module.exports = Object.assign(
   {
     browser,
     addJobPage: new AddJobPage(browser, app),
-    updateJobPage: new UpdateJobPage(browser),
+    updateJobPage: new UpdateJobPage(browser, app),
     googleTagManagerHelper: new GoogleTagManagerHelper(browser),
     confirmationPage: new ConfirmationPage(browser),
     dashboardPage: new DashboardPage(browser, app),
