@@ -111,4 +111,33 @@ describe('Single status rules', function () {
       );
     });
   });
+
+  describe('date text', function () {
+    [
+      {
+        status: 'interested',
+        date: { name: 'empty', value: null },
+        expected: '',
+      },
+      {
+        status: 'interested',
+        date: { name: '8 days from now', value: moment().add(8, 'days').toDate() },
+        expected: 'In 8 days',
+      },
+      {
+        status: 'interested',
+        date: { name: '7 days from now', value: moment().add(7, 'days').toDate() },
+        expected: 'Expiring soon',
+      },
+      {
+        status: 'interested',
+        date: { name: 'in the past', value: moment().subtract(1, 'day').toDate() },
+        expected: 'A day ago',
+      },
+    ].forEach(s => {
+      it(`for status: '${s.status}' and date: '${s.date.name}' returns '${s.expected}' `, () =>
+        expect(rules.dateText(s.status, s.date.value)).to.equal(s.expected)
+      );
+    });
+  });
 });
