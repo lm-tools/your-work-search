@@ -14,3 +14,21 @@ $('label[for="job-sourceType-inPerson"]')
   .click(() => $('#job-sourceUrl-group').addClass('js-hidden'));
 $('label[for="job-sourceType-online"]')
   .click(() => $('#job-sourceUrl-group').removeClass('js-hidden'));
+$('label[for="job-statusType-interested"]')
+  .click(() => {
+    $('#job-statusDateGroup-interested').removeClass('js-hidden');
+    $('#job-statusDateGroup-applied').addClass('js-hidden');
+    $('#job-statusDateGroup-interview').addClass('js-hidden');
+  });
+$('label[for="job-statusType-applied"]')
+  .click(() => {
+    $('#job-statusDateGroup-interested').addClass('js-hidden');
+    $('#job-statusDateGroup-applied').removeClass('js-hidden');
+    $('#job-statusDateGroup-interview').addClass('js-hidden');
+  });
+$('label[for="job-statusType-interview"]')
+  .click(() => {
+    $('#job-statusDateGroup-interested').addClass('js-hidden');
+    $('#job-statusDateGroup-applied').addClass('js-hidden');
+    $('#job-statusDateGroup-interview').removeClass('js-hidden');
+  });

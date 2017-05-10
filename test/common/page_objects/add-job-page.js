@@ -24,8 +24,11 @@ const AddJobPage = function AddJobPage(browser, app) {
 
   this.employerFieldValue = () => browser.field('[name="employer"]').value;
   this.chooseSourceType = (sourceType) => browser.choose(`#job-sourceType-${sourceType}`);
+  this.chooseStatusType = (statusType) => browser.choose(`#job-statusType-${statusType}`);
   this.isSourceUrlHidden = () =>
     browser.query('#job-sourceUrl-group').className.split(/\s+/).includes('js-hidden');
+  this.isStatusDateSectionHidden = (status) =>
+    browser.query(`#job-statusDateGroup-${status}`).className.split(/\s+/).includes('js-hidden');
   this.formValues = () =>
     ({
       title: browser.field('[name="title"]').value,

@@ -32,6 +32,27 @@ describe('Add a job page', () => {
       });
     });
 
+    [
+      { statusSelected: 'interested',
+        interestedHidden: false, appliedHidden: true, interviewHidden: true },
+      { statusSelected: 'applied',
+        interestedHidden: true, appliedHidden: false, interviewHidden: true },
+      { statusSelected: 'interview',
+        interestedHidden: true, appliedHidden: true, interviewHidden: false },
+    ].forEach(s => {
+      it(`should show associated status date section when ${s.statusSelected} status chosen`,
+        () => {
+          addJobPage.chooseStatusType(s.statusSelected);
+
+          expect(addJobPage.isStatusDateSectionHidden('interested'))
+          .to.equal(s.interestedHidden, 'interested is hidden?');
+          expect(addJobPage.isStatusDateSectionHidden('applied'))
+          .to.equal(s.appliedHidden, 'applied is hidden?');
+          expect(addJobPage.isStatusDateSectionHidden('interview'))
+          .to.equal(s.interviewHidden, 'interview is hidden?');
+        });
+    });
+
     it('should have correct title', () =>
       expect(addJobPage.browser.text('title')).to.equal('Add a job - Your work search')
     );
