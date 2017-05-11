@@ -21,6 +21,10 @@ class Progression {
     return this.model.slice(0, 3).map(item => item.id);
   }
 
+  getAllDateFields() {
+    return this.model.map(item => item.dateField).filter(Boolean);
+  }
+
   getDateField(id) {
     return this.model.find(item => item.id === id).dateField;
   }

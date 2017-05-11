@@ -3,16 +3,20 @@ const AddJobPage = function AddJobPage(browser, app) {
   this.browser = browser;
   this.app = app;
 
+  this.setStatusDateValues = (data) => {
+    if (data.deadlineDate) { browser.fill('[name="deadlineDate"]', data.deadlineDate); }
+    if (data.applicationDate) { browser.fill('[name="applicationDate"]', data.applicationDate); }
+    if (data.interviewDate) { browser.fill('[name="interviewDate"]', data.interviewDate); }
+  };
+
   this.fillJobApplication = (data) => {
     this.fillTitle(data.title);
     this.setJobProgression(data.status);
+    this.setStatusDateValues(data);
     return browser
       .fill('[name="employer"]', data.employer)
       .choose(`#job-sourceType-${data.sourceType}`)
       .fill('[name="sourceUrl"]', data.sourceUrl)
-      .fill('[name="deadlineDate"]', data.deadlineDate)
-      .fill('[name="interviewDate"]', data.interviewDate)
-      .fill('[name="applicationDate"]', data.applicationDate)
       .choose(`#job-rating-${data.rating}`)
       .pressButton('input[type=submit]');
   };

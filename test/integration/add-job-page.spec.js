@@ -75,24 +75,52 @@ describe('Add a job page', () => {
     const formInputDate = '26/12/2017';
 
     [
-      { field: 'deadlineDate',
-        jobData: Object.assign(sampleJob, { deadlineDate: formInputDate }) },
-      { field: 'applicationDate',
-        jobData: Object.assign(sampleJob, { applicationDate: formInputDate }) },
-      { field: 'interviewDate',
-        jobData: Object.assign(sampleJob, { interviewDate: formInputDate }) },
-    ].forEach(j => {
-      it(`should save ${j.field} entered`, (done) => {
-        helper.cleanDb()
+      {
+        field: 'deadlineDate',
+        jobData: Object.assign({}, sampleJob,
+          {
+            deadlineDate: formInputDate,
+            applicationDate: '',
+            interviewDate: '',
+          }),
+        emptyFields: ['applicationDate', 'interviewDate'],
+      },
+      {
+        field: 'applicationDate',
+        jobData: Object.assign({}, sampleJob,
+          {
+            deadlineDate: '',
+            applicationDate: formInputDate,
+            interviewDate: '',
+          }),
+        emptyFields: ['deadlineDate', 'interviewDate'],
+      },
+      {
+        field: 'interviewDate',
+        jobData: Object.assign({}, sampleJob,
+          {
+            deadlineDate: '',
+            applicationDate: '',
+            interviewDate: formInputDate,
+          }),
+        emptyFields: ['applicationDate', 'deadlineDate'],
+      },
+    ]
+      .forEach(j => {
+        it(`should save ${j.field} entered and ${j.emptyFields} should be empty`, (done) => {
+          helper.cleanDb()
           .then(() => addJobPage.visit(accountId))
           .then(() => addJobPage.fillJobApplication(j.jobData))
           .then(() => helper.findJobInDb(accountId))
           .then((job) => {
             expect(moment(job[`${j.field}`]).format('D/M/YYYY')).to.equal(formInputDate);
+
+            j.emptyFields.forEach(f => expect(job[f]).not.exist);
+
             done();
           });
+        });
       });
-    });
   });
 
   describe('successful job creation', () => {
