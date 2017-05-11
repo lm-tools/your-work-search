@@ -14,7 +14,7 @@ const sampleJob = {
   status: 'applied',
   status_sort_index: 1,
   deadlineDate: null,
-  applicationDate: null,
+  applicationDate: '2016-07-10',
   interviewDate: null,
 };
 
