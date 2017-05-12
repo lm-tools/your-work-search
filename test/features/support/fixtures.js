@@ -8,7 +8,7 @@ module.exports = {
     deadline: '20/10/2016',
     status: 'applied',
     deadlineDate: null,
-    applicationDate: '15/10/2016',
+    applicationDate: '2016-10-15',
     interviewDate: null,
   },
 };

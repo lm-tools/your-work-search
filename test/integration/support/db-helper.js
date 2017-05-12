@@ -12,7 +12,7 @@ const sampleJob = {
   rating: '1',
   status: 'applied',
   status_sort_index: 1,
-  applicationDate: '20/05/2017',
+  applicationDate: '2017-05-20',
 };
 
 module.exports = {

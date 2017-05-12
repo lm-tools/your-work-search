@@ -1,12 +1,23 @@
 const request = require('supertest');
+const moment = require('moment');
+
 const AddJobPage = function AddJobPage(browser, app) {
   this.browser = browser;
   this.app = app;
 
+  this.parseDateForFillingForm = (inputDate) =>
+    (inputDate.includes('-') ? moment(inputDate).format('DD/MM/YYYY') : inputDate);
+
   this.setStatusDateValues = (data) => {
-    if (data.deadlineDate) { browser.fill('[name="deadlineDate"]', data.deadlineDate); }
-    if (data.applicationDate) { browser.fill('[name="applicationDate"]', data.applicationDate); }
-    if (data.interviewDate) { browser.fill('[name="interviewDate"]', data.interviewDate); }
+    if (data.deadlineDate) {
+      browser.fill('[name="deadlineDate"]', this.parseDateForFillingForm(data.deadlineDate));
+    }
+    if (data.applicationDate) {
+      browser.fill('[name="applicationDate"]', this.parseDateForFillingForm(data.applicationDate));
+    }
+    if (data.interviewDate) {
+      browser.fill('[name="interviewDate"]', this.parseDateForFillingForm(data.interviewDate));
+    }
   };
 
   this.fillJobApplication = (data) => {
