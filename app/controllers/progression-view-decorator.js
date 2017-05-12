@@ -11,6 +11,7 @@ class ProgressionViewDecorator {
       // eslint-disable-next-line no-underscore-dangle
       dateLabel: i18n.__(`progression.date.label.${status}`),
       dateField: progression.getDateField(status),
+      hasDateField: progression.hasDateField(status),
     }));
   }
 }

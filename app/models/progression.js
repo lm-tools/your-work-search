@@ -4,8 +4,8 @@ class Progression {
       { id: 'interested', order: 0, dateField: 'deadlineDate' },
       { id: 'applied', order: 1, dateField: 'applicationDate' },
       { id: 'interview', order: 2, dateField: 'interviewDate' },
-      { id: 'failure', order: 3, dateField: null },
-      { id: 'success', order: 4, dateField: null },
+      { id: 'failure', order: 3 },
+      { id: 'success', order: 4 },
     ];
   }
 
@@ -23,6 +23,10 @@ class Progression {
 
   getAllDateFields() {
     return this.model.map(item => item.dateField).filter(Boolean);
+  }
+
+  hasDateField(id) {
+    return this.model.find(item => item.id === id).dateField !== undefined;
   }
 
   getDateField(id) {

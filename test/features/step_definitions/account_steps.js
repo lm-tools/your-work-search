@@ -1,5 +1,4 @@
 const JobsModel = require('../../../app/models/jobs-model');
-const moment = require('moment');
 const initialStatus = require('../../../app/models/progression').getAllIds()[0];
 
 function jobDataFormattedForDb(job) {
