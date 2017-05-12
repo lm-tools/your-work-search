@@ -4,7 +4,6 @@ const initialStatus = require('../../../app/models/progression').getAllIds()[0];
 
 function jobDataFormattedForDb(job) {
   return Object.assign({}, job,
-    { deadline: moment(job.deadline, 'DD/MM/YYYY').format() },
     { status: initialStatus }
   );
 }

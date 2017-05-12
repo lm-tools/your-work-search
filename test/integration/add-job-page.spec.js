@@ -78,7 +78,7 @@ describe('Add a job page', () => {
   });
 
   describe('successful progression associated date creation', () => {
-    const formInputDate = '26/12/2017';
+    const formInputDate = '2017-12-26';
 
     [
       {
@@ -119,7 +119,7 @@ describe('Add a job page', () => {
             .then(() => addJobPage.fillJobApplication(j.jobData))
             .then(() => helper.findJobInDb(accountId))
             .then((job) => {
-              expect(moment(job[`${j.field}`]).format('D/M/YYYY')).to.equal(formInputDate);
+              expect(moment(job[`${j.field}`]).format('YYYY-MM-DD')).to.equal(formInputDate);
 
               j.emptyFields.forEach(f => expect(job[f]).not.exist);
 
