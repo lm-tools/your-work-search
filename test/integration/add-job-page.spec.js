@@ -1,3 +1,4 @@
+const moment = require('moment');
 const helper = require('./support/integration-spec-helper');
 const addJobPage = helper.addJobPage;
 const dashboardPage = helper.dashboardPage;
@@ -31,6 +32,33 @@ describe('Add a job page', () => {
       });
     });
 
+    [
+      {
+        statusSelected: 'interested',
+        interestedHidden: false, appliedHidden: true, interviewHidden: true,
+      },
+      {
+        statusSelected: 'applied',
+        interestedHidden: true, appliedHidden: false, interviewHidden: true,
+      },
+      {
+        statusSelected: 'interview',
+        interestedHidden: true, appliedHidden: true, interviewHidden: false,
+      },
+    ].forEach(s => {
+      it(`should show associated status date section when ${s.statusSelected} status chosen`,
+        () => {
+          addJobPage.chooseStatusType(s.statusSelected);
+
+          expect(addJobPage.isStatusDateSectionHidden('interested'))
+            .to.equal(s.interestedHidden, 'interested is hidden?');
+          expect(addJobPage.isStatusDateSectionHidden('applied'))
+            .to.equal(s.appliedHidden, 'applied is hidden?');
+          expect(addJobPage.isStatusDateSectionHidden('interview'))
+            .to.equal(s.interviewHidden, 'interview is hidden?');
+        });
+    });
+
     it('should have correct title', () =>
       expect(addJobPage.browser.text('title')).to.equal('Add a job - Your work search')
     );
@@ -47,6 +75,58 @@ describe('Add a job page', () => {
     it('should render rating in correct order', () =>
       expect(addJobPage.getRatings()).to.eql(['5', '4', '3', '2', '1'])
     );
+  });
+
+  describe('successful progression associated date creation', () => {
+    const formInputDate = '2017-12-26';
+
+    [
+      {
+        field: 'deadlineDate',
+        jobData: Object.assign({}, sampleJob,
+          {
+            deadlineDate: formInputDate,
+            applicationDate: '',
+            interviewDate: '',
+          }),
+        emptyFields: ['applicationDate', 'interviewDate'],
+      },
+      {
+        field: 'applicationDate',
+        jobData: Object.assign({}, sampleJob,
+          {
+            deadlineDate: '',
+            applicationDate: formInputDate,
+            interviewDate: '',
+          }),
+        emptyFields: ['deadlineDate', 'interviewDate'],
+      },
+      {
+        field: 'interviewDate',
+        jobData: Object.assign({}, sampleJob,
+          {
+            deadlineDate: '',
+            applicationDate: '',
+            interviewDate: formInputDate,
+          }),
+        emptyFields: ['applicationDate', 'deadlineDate'],
+      },
+    ]
+      .forEach(j => {
+        it(`should save ${j.field} entered and ${j.emptyFields} should be empty`, (done) => {
+          helper.cleanDb()
+            .then(() => addJobPage.visit(accountId))
+            .then(() => addJobPage.fillJobApplication(j.jobData))
+            .then(() => helper.findJobInDb(accountId))
+            .then((job) => {
+              expect(moment(job[`${j.field}`]).format('YYYY-MM-DD')).to.equal(formInputDate);
+
+              j.emptyFields.forEach(f => expect(job[f]).not.exist);
+
+              done();
+            });
+        });
+      });
   });
 
   describe('successful job creation', () => {
@@ -189,6 +269,23 @@ describe('Add a job page', () => {
             expect(response.text).to.include('We&#39;re experiencing technical problems.');
           })
       );
+
+      progression.getInitialSubset().forEach(s => {
+        const dateField = progression.getDateField(s);
+
+        const formData = { title: 'some', status: s };
+        formData[dateField] = '2017-05-12';
+
+        it(`should disallow incorrect ${dateField} date format`, (done) => {
+          addJobPage
+            .post(accountId, formData)
+            .then(response => {
+              expect(response.status).to.equal(400);
+              expect(response.text).to.include('We&#39;re experiencing technical problems.');
+              done();
+            });
+        });
+      });
     });
   });
 });
