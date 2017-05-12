@@ -4,6 +4,7 @@ const googleTagManagerHelper = helper.googleTagManagerHelper;
 const expect = require('chai').expect;
 const progression = require('../../app/models/progression');
 const labels = helper.labels;
+const moment = require('moment');
 
 describe('Update a job', () => {
   const accountId = 'c86df559-38b9-4f7c-89b7-794278655bc0';
@@ -12,6 +13,7 @@ describe('Update a job', () => {
     title: 'Job to update',
     rating: '4',
     status: 'applied',
+    applicationDate: '2017-05-20',
     sourceUrl: 'http://www.stuff.on.the.updated.test.com',
     id: 666,
   });
@@ -30,6 +32,42 @@ describe('Update a job', () => {
     it('should contain valid google tag manager data', () =>
       expect(googleTagManagerHelper.getAccountVariable()).to.equal(accountId)
     );
+
+    [
+      {
+        statusSelected: 'interested',
+        interestedHidden: false, appliedHidden: true, interviewHidden: true,
+      },
+      {
+        statusSelected: 'applied',
+        interestedHidden: true, appliedHidden: false, interviewHidden: true,
+      },
+      {
+        statusSelected: 'interview',
+        interestedHidden: true, appliedHidden: true, interviewHidden: false,
+      },
+      {
+        statusSelected: 'failure',
+        interestedHidden: true, appliedHidden: true, interviewHidden: true,
+      },
+      {
+        statusSelected: 'success',
+        interestedHidden: true, appliedHidden: true, interviewHidden: true,
+      },
+    ].forEach(s => {
+      it(`should show and hide status date sections when ${s.statusSelected} status chosen`,
+        () => {
+          updateJobPage.setJobProgression('interested');
+          updateJobPage.setJobProgression(s.statusSelected);
+
+          expect(updateJobPage.isStatusDateSectionHidden('interested'))
+            .to.equal(s.interestedHidden, 'interested is hidden?');
+          expect(updateJobPage.isStatusDateSectionHidden('applied'))
+            .to.equal(s.appliedHidden, 'applied is hidden?');
+          expect(updateJobPage.isStatusDateSectionHidden('interview'))
+            .to.equal(s.interviewHidden, 'interview is hidden?');
+        });
+    });
   });
 
   describe('job details', () => {
@@ -46,7 +84,7 @@ describe('Update a job', () => {
     );
 
     it('should not display job source when user didn\'t specify source url', () => {
-      const jobWithoutUrl = { id: 911, accountId };
+      const jobWithoutUrl = { id: 911, accountId, status: 'interested' };
       return helper.cleanDb()
         .then(() => helper.createJobsInDb([jobWithoutUrl]))
         .then(() => updateJobPage.visit(accountId, jobWithoutUrl))
@@ -60,6 +98,11 @@ describe('Update a job', () => {
     it('should display job rating', () =>
       expect(updateJobPage.getJobRating()).to.equal(job.rating)
     );
+
+    it('should display job status date', () => {
+      expect(updateJobPage.getStatusDate(progression.getDateField(job.status)))
+        .to.equal(moment(job.applicationDate).format('DD/MM/YYYY'));
+    });
   });
 
   describe('update job details', () => {
@@ -78,6 +121,23 @@ describe('Update a job', () => {
           .then(() => updateJobPage.clickSave())
           .then(() => expect(helper.dashboardPage.getInterestLevel(job)).to.equal(s))
       );
+    });
+
+    [
+      { status: 'interested', statusDateField: 'deadlineDate' },
+      { status: 'applied', statusDateField: 'applicationDate' },
+      { status: 'interview', statusDateField: 'interviewDate' },
+    ].forEach(s => {
+      it(`should update ${s.status} status date field ${s.statusDateField}`, (done) => {
+        updateJobPage.setJobProgression('applied')
+          .then(() => updateJobPage.setStatusDateValue('applicationDate', '01/01/2018'))
+          .then(() => updateJobPage.clickSave())
+          .then(() => helper.dashboardPage.clickUpdateJobButton(job))
+          .then(() => {
+            expect(updateJobPage.getStatusDate('applicationDate')).to.equal('01/01/2018');
+            done();
+          });
+      });
     });
   });
 
@@ -124,6 +184,36 @@ describe('Update a job', () => {
           jobId: job.id,
           body: { status: progression.getAllIds()[2], rating: '4', incorrect: 'attribute' },
           statusCode: 400,
+        },
+        {
+          jobId: job.id,
+          body: { status: progression.getAllIds()[0], deadlineDate: '12345' },
+          statusCode: 400,
+        },
+        {
+          jobId: job.id,
+          body: { status: progression.getAllIds()[1], appliedDate: '12345' },
+          statusCode: 400,
+        },
+        {
+          jobId: job.id,
+          body: { status: progression.getAllIds()[2], interviewDate: '12345' },
+          statusCode: 400,
+        },
+        {
+          jobId: job.id,
+          body: { status: progression.getAllIds()[0], deadlineDate: '25/12/2017' },
+          statusCode: 302,
+        },
+        {
+          jobId: job.id,
+          body: { status: progression.getAllIds()[1], applicationDate: '25/12/2017' },
+          statusCode: 302,
+        },
+        {
+          jobId: job.id,
+          body: { status: progression.getAllIds()[2], interviewDate: '25/12/2017' },
+          statusCode: 302,
         },
 
       ].forEach(s => {

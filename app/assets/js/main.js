@@ -8,6 +8,11 @@ const $blockLabels = $(".block-label input[type='radio'], .block-label input[typ
 // eslint-disable-next-line no-new
 new GOVUK.SelectionButtons($blockLabels);
 
+const hideAllStatusGroups = function () {
+  $('#job-statusDateGroup-interested').addClass('js-hidden');
+  $('#job-statusDateGroup-applied').addClass('js-hidden');
+  $('#job-statusDateGroup-interview').addClass('js-hidden');
+};
 
 // add-a-job page
 $('label[for="job-sourceType-inPerson"]')
@@ -16,19 +21,24 @@ $('label[for="job-sourceType-online"]')
   .click(() => $('#job-sourceUrl-group').removeClass('js-hidden'));
 $('label[for="job-statusType-interested"]')
   .click(() => {
+    hideAllStatusGroups();
     $('#job-statusDateGroup-interested').removeClass('js-hidden');
-    $('#job-statusDateGroup-applied').addClass('js-hidden');
-    $('#job-statusDateGroup-interview').addClass('js-hidden');
   });
 $('label[for="job-statusType-applied"]')
   .click(() => {
-    $('#job-statusDateGroup-interested').addClass('js-hidden');
+    hideAllStatusGroups();
     $('#job-statusDateGroup-applied').removeClass('js-hidden');
-    $('#job-statusDateGroup-interview').addClass('js-hidden');
   });
 $('label[for="job-statusType-interview"]')
   .click(() => {
-    $('#job-statusDateGroup-interested').addClass('js-hidden');
-    $('#job-statusDateGroup-applied').addClass('js-hidden');
+    hideAllStatusGroups();
     $('#job-statusDateGroup-interview').removeClass('js-hidden');
+  });
+$('label[for="job-statusType-failure"]')
+  .click(() => {
+    hideAllStatusGroups();
+  });
+$('label[for="job-statusType-success"]')
+  .click(() => {
+    hideAllStatusGroups();
   });
