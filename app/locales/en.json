@@ -43,7 +43,9 @@
       "label": {
         "interested": "When is the deadline for applying?",
         "applied": "When did you apply?",
-        "interview": "When is your interview?"
+        "interview": "When is your interview?",
+        "failure": "progression.date.label.failure",
+        "success": "progression.date.label.success"
       }
     }
   },

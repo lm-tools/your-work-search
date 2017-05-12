@@ -1,4 +1,7 @@
-const Joi = require('joi');
+const BaseJoi = require('joi');
+const Extension = require('joi-date-extensions');
+const Joi = BaseJoi.extend(Extension);
+
 const ratings = require('../models/ratings');
 const progression = require('../models/progression');
 
@@ -12,4 +15,7 @@ module.exports = {
   employer: Joi.string(),
   sourceUrl: Joi.string(),
   sourceType: Joi.any().valid(['inPerson', 'online']),
+  deadlineDate: Joi.date().format('DD/MM/YYYY'),
+  applicationDate: Joi.date().format('DD/MM/YYYY'),
+  interviewDate: Joi.date().format('DD/MM/YYYY'),
 };

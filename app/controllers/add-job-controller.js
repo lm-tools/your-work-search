@@ -20,6 +20,9 @@ const validator = {
       sourceType: validatorSchema.sourceType,
       rating: validatorSchema.rating,
       status: validatorSchema.initialStatus,
+      deadlineDate: validatorSchema.deadlineDate.allow(''),
+      applicationDate: validatorSchema.applicationDate.allow(''),
+      interviewDate: validatorSchema.interviewDate.allow(''),
     },
   }),
   get: celebrate({
@@ -48,6 +51,10 @@ router.post('/', validator.post, (req, res, next) => {
   const jobData = Object.assign({}, req.body, {
     accountId,
     status_sort_index: progression.getById(req.body.status).order,
+  });
+
+  progression.getAllDateFields().forEach(jobField => {
+    if (jobData[jobField] === '') { delete jobData[jobField]; }
   });
 
   return new Jobs(jobData).save()
