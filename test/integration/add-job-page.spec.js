@@ -267,7 +267,7 @@ describe('Add a job page', () => {
         const dateField = progression.getDateField(s);
 
         const formData = { title: 'some', status: s };
-        formData[dateField] = '2017-05-12';
+        formData[dateField] = '2017_05_12';
 
         it(`should disallow incorrect ${dateField} date format`, (done) => {
           addJobPage
