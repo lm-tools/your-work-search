@@ -23,7 +23,8 @@ class AddJobViewModel {
 
     this.errors = validationErrors;
     this.isSourceUrlHidden = body.sourceType !== 'online';
-    this.progression = progressionDecorator.decorate(progression.getInitialSubset(), this.status);
+    this.progression = progressionDecorator.decorate(
+      progression.getInitialSubset(), this.status, body);
   }
 
   addCheckedFlag(options, checkedValue) {

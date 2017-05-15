@@ -168,7 +168,8 @@ describe('Add a job page', () => {
   describe('validation error', () => {
     const form = {
       title: '', employer: 'Dwp', sourceType: 'online', sourceUrl: 'http://indeed.com',
-      rating: '2', status: 'applied',
+      rating: '2', status: 'applied', deadlineDate: '', applicationDate: '25/05/2017',
+      interviewDate: '',
     };
     before(() => addJobPage.visit(accountId));
 
