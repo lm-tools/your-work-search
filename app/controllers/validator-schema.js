@@ -15,7 +15,7 @@ module.exports = {
   employer: Joi.string(),
   sourceUrl: Joi.string(),
   sourceType: Joi.any().valid(['inPerson', 'online']),
-  deadlineDate: Joi.date().format(['DD/MM/YYYY', 'YYYY-MM-DD']),
-  applicationDate: Joi.date().format(['DD/MM/YYYY', 'YYYY-MM-DD']),
-  interviewDate: Joi.date().format(['DD/MM/YYYY', 'YYYY-MM-DD']),
+  deadlineDate: Joi.date().format('DD/MM/YYYY'),
+  applicationDate: Joi.date().format('DD/MM/YYYY'),
+  interviewDate: Joi.date().format('DD/MM/YYYY'),
 };

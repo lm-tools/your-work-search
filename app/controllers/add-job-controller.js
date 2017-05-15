@@ -54,18 +54,11 @@ router.post('/', validator.post, (req, res, next) => {
     status_sort_index: progression.getById(req.body.status).order,
   });
 
-  progression.getInitialSubset().forEach(status => {
-    if (progression.hasDateField(status)) {
-      const dateField = progression.getDateField(status);
-      if (jobData.status === status) {
-        if (jobData[dateField] !== '') {
-          jobData[dateField] = moment(jobData[dateField]).format();
-        } else {
-          delete jobData[dateField];
-        }
-      } else {
-        delete jobData[dateField];
-      }
+  progression.getAllDateFields().forEach(jobField => {
+    if (jobData[jobField] === '') {
+      delete jobData[jobField];
+    } else {
+      jobData[jobField] = moment(jobData[jobField]).format();
     }
   });
 
