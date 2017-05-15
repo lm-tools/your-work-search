@@ -48,6 +48,10 @@ const DashboardPage = function DashboardPage(browser, app) {
   this.jobList = () => browser.text('ul [data-test="title"]');
   this.jobCount = () => browser.queryAll('[data-test|=job-container]').length;
   this.getJobProgressionStatus = (job) => browser.text(jobElementSelector(job, 'status'));
+  this.getJobProgressionStatusDate = (job) => browser.text(jobElementSelector(job, 'statusDate'));
+  this.getJobProgressionStatusPriority = (job) =>
+    browser.query(jobElementSelector(job, 'statusDate'))
+      .className.split(/\s+/).find(it => it.startsWith('status-')).split('-')[1];
   this.getTitle = (job) => browser.text(jobElementSelector(job, 'title'));
   this.getEmployer = (job) => browser.text(jobElementSelector(job, 'employer'));
   this.getUpdated = (job) => browser.text(jobElementSelector(job, 'updated'));

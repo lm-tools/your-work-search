@@ -1,4 +1,12 @@
 const db = require('../db');
+const progression = require('./progression');
+
+class JobModel {
+  constructor(dbJob) {
+    Object.assign(this, dbJob);
+    this.statusDate = dbJob[progression.getById(this.status).dateField];
+  }
+}
 
 const sortRef = {
   created: { field: 'created_at', direction: 'DESC' },
@@ -22,7 +30,7 @@ module.exports = db.Model.extend(
       }
 
       return query.fetchAll().then((queryResult) => {
-        const jobs = queryResult.serialize();
+        const jobs = queryResult.serialize().map(it => new JobModel(it));
         const totalSavedJobs = jobs.length;
         return ({ totalSavedJobs, jobs });
       });

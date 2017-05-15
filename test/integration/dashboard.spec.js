@@ -17,7 +17,8 @@ describe('Dashboard', () => {
     sourceUrl: 'http://example.org',
     rating: 4,
     deadline: new Date('2050-10-10'),
-    status: 'applied',
+    status: 'interested',
+    deadlineDate: new Date(),
     accountId,
   };
   const createJob = (attributes) =>
@@ -48,7 +49,13 @@ describe('Dashboard', () => {
         expect(dashboardPage.getEmployer(savedJob)).to.equal(jobData.employer));
 
       it('should display current status', () =>
-        expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal('Applied'));
+        expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal('Interested'));
+
+      it('should display current status date', () =>
+        expect(dashboardPage.getJobProgressionStatusDate(savedJob)).to.equal('Expiring soon'));
+
+      it('should display current status priority', () =>
+        expect(dashboardPage.getJobProgressionStatusPriority(savedJob)).to.equal('high'));
 
       it('should display updated', () =>
         expect(dashboardPage.getUpdated(savedJob))

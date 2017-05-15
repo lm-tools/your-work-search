@@ -1,6 +1,7 @@
 const moment = require('moment');
 const i18n = require('i18n');
 const progression = require('../models/progression');
+const singleStatusRules = require('../rules/single-status-rules');
 
 module.exports = class DashboardViewModel {
 
@@ -23,6 +24,8 @@ module.exports = class DashboardViewModel {
           interestLevel: [5, 4, 3, 2, 1].map(v => ({ value: v, isChecked: v === job.rating })),
           source: this.formatSource(job),
           hasFocus: job.id === parseInt(jobIdInFocus, 10),
+          statusDateString: singleStatusRules.dateText(job.status, job.statusDate),
+          statusPriority: singleStatusRules.priority(job.status, job.statusDate),
         },
         job));
   }
