@@ -4,7 +4,6 @@ const Jobs = require('../models/jobs-model');
 const AddJobViewModel = require('./add-job-view-model');
 const progression = require('../models/progression');
 const i18n = require('i18n');
-const moment = require('moment');
 const celebrate = require('celebrate');
 const validatorSchema = require('./validator-schema');
 /* eslint-disable no-underscore-dangle */
@@ -21,9 +20,6 @@ const validator = {
       sourceType: validatorSchema.sourceType,
       rating: validatorSchema.rating,
       status: validatorSchema.initialStatus,
-      deadlineDate: validatorSchema.deadlineDate.allow(''),
-      applicationDate: validatorSchema.applicationDate.allow(''),
-      interviewDate: validatorSchema.interviewDate.allow(''),
     },
   }),
   get: celebrate({
@@ -52,14 +48,6 @@ router.post('/', validator.post, (req, res, next) => {
   const jobData = Object.assign({}, req.body, {
     accountId,
     status_sort_index: progression.getById(req.body.status).order,
-  });
-
-  progression.getAllDateFields().forEach(jobField => {
-    if (jobData[jobField] === '') {
-      delete jobData[jobField];
-    } else {
-      jobData[jobField] = moment(jobData[jobField]).format();
-    }
   });
 
   return new Jobs(jobData).save()

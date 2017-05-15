@@ -1,29 +1,11 @@
 const request = require('supertest');
-const moment = require('moment');
-
 const AddJobPage = function AddJobPage(browser, app) {
   this.browser = browser;
   this.app = app;
 
-  this.parseDateForFillingForm = (inputDate) =>
-    (inputDate.includes('-') ? moment(inputDate).format('DD/MM/YYYY') : inputDate);
-
-  this.setStatusDateValues = (data) => {
-    if (data.deadlineDate) {
-      browser.fill('[name="deadlineDate"]', this.parseDateForFillingForm(data.deadlineDate));
-    }
-    if (data.applicationDate) {
-      browser.fill('[name="applicationDate"]', this.parseDateForFillingForm(data.applicationDate));
-    }
-    if (data.interviewDate) {
-      browser.fill('[name="interviewDate"]', this.parseDateForFillingForm(data.interviewDate));
-    }
-  };
-
   this.fillJobApplication = (data) => {
     this.fillTitle(data.title);
     this.setJobProgression(data.status);
-    this.setStatusDateValues(data);
     return browser
       .fill('[name="employer"]', data.employer)
       .choose(`#job-sourceType-${data.sourceType}`)
@@ -39,11 +21,8 @@ const AddJobPage = function AddJobPage(browser, app) {
 
   this.employerFieldValue = () => browser.field('[name="employer"]').value;
   this.chooseSourceType = (sourceType) => browser.choose(`#job-sourceType-${sourceType}`);
-  this.chooseStatusType = (statusType) => browser.choose(`#job-statusType-${statusType}`);
   this.isSourceUrlHidden = () =>
     browser.query('#job-sourceUrl-group').className.split(/\s+/).includes('js-hidden');
-  this.isStatusDateSectionHidden = (status) =>
-    browser.query(`#job-statusDateGroup-${status}`).className.split(/\s+/).includes('js-hidden');
   this.formValues = () =>
     ({
       title: browser.field('[name="title"]').value,
@@ -57,7 +36,7 @@ const AddJobPage = function AddJobPage(browser, app) {
   this.setJobProgression = (status) => browser
     .click(`[data-test="progression"] input[value="${status}"]`);
   this.getJobProgressionOptions = () =>
-    browser.queryAll('[data-test="progression"] input[name=status]')
+    browser.queryAll('[data-test="progression"] input')
       .map(i => i.value);
   this.getRatings = () =>
     browser.queryAll('input[name="rating"]')
