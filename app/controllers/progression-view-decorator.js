@@ -6,6 +6,9 @@ class ProgressionViewDecorator {
       isChecked: (selectedStatus === status),
       // eslint-disable-next-line no-underscore-dangle
       label: i18n.__(`progression.long.${status}`),
+      displayDeadlineDate: status === 'interested',
+      displayApplicationDate: status === 'applied',
+      displayInterviewDate: status === 'interview',
     }));
   }
 }

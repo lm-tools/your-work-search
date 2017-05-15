@@ -9,7 +9,6 @@ const sampleJob = {
   updated_at: moment(),
   sourceType: 'online',
   sourceUrl: 'http://www.stuff.com',
-  deadline: '2016-07-14',
   rating: '1',
   status: 'applied',
   status_sort_index: 1,
@@ -24,6 +23,9 @@ module.exports = {
   },
   sampleJob(job) {
     return Object.assign({}, sampleJob, job);
+  },
+  findJobInDb(accountId) {
+    return knex('jobs').first().where('accountId', accountId);
   },
 
   runDbMigration(fileName) {

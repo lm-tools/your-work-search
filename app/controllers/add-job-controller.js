@@ -20,6 +20,9 @@ const validator = {
       sourceType: validatorSchema.sourceType,
       rating: validatorSchema.rating,
       status: validatorSchema.initialStatus,
+      deadlineDate: validatorSchema.deadlineDate.allow(''),
+      applicationDate: validatorSchema.applicationDate.allow(''),
+      interviewDate: validatorSchema.interviewDate.allow(''),
     },
   }),
   get: celebrate({
@@ -49,6 +52,33 @@ router.post('/', validator.post, (req, res, next) => {
     accountId,
     status_sort_index: progression.getById(req.body.status).order,
   });
+
+  if (jobData.status === 'interested') {
+    delete jobData.applicationDate;
+    delete jobData.interviewDate;
+
+    if (jobData.deadlineDate === '') {
+      delete jobData.deadlineDate;
+    }
+  }
+
+  if (jobData.status === 'applied') {
+    delete jobData.deadlineDate;
+    delete jobData.interviewDate;
+
+    if (jobData.applicationDate === '') {
+      delete jobData.applicationDate;
+    }
+  }
+
+  if (jobData.status === 'interview') {
+    delete jobData.applicationDate;
+    delete jobData.deadlineDate;
+
+    if (jobData.interviewDate === '') {
+      delete jobData.interviewDate;
+    }
+  }
 
   return new Jobs(jobData).save()
     .then((job) => res.redirect(`${basePath}/${accountId}?focus=${job.id}`))

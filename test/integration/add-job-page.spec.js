@@ -3,6 +3,7 @@ const addJobPage = helper.addJobPage;
 const dashboardPage = helper.dashboardPage;
 const googleTagManagerHelper = helper.googleTagManagerHelper;
 const expect = require('chai').expect;
+const moment = require('moment');
 const sampleJob = helper.sampleJob();
 const progression = require('../../app/models/progression');
 const ratings = require('../../app/models/ratings');
@@ -31,6 +32,33 @@ describe('Add a job page', () => {
       });
     });
 
+    [
+      {
+        statusSelected: 'interested',
+        interestedHidden: false, appliedHidden: true, interviewHidden: true,
+      },
+      {
+        statusSelected: 'applied',
+        interestedHidden: true, appliedHidden: false, interviewHidden: true,
+      },
+      {
+        statusSelected: 'interview',
+        interestedHidden: true, appliedHidden: true, interviewHidden: false,
+      },
+    ].forEach(s => {
+      it(`should show associated status date section when ${s.statusSelected} status chosen`,
+        () => {
+          addJobPage.setJobProgression(s.statusSelected);
+
+          expect(addJobPage.isDateSectionHidden('deadlineDate'))
+            .to.equal(s.interestedHidden, 'interested is hidden?');
+          expect(addJobPage.isDateSectionHidden('applicationDate'))
+            .to.equal(s.appliedHidden, 'applied is hidden?');
+          expect(addJobPage.isDateSectionHidden('interviewDate'))
+            .to.equal(s.interviewHidden, 'interview is hidden?');
+        });
+    });
+
     it('should have correct title', () =>
       expect(addJobPage.browser.text('title')).to.equal('Add a job - Your work search')
     );
@@ -47,6 +75,50 @@ describe('Add a job page', () => {
     it('should render rating in correct order', () =>
       expect(addJobPage.getRatings()).to.eql(['5', '4', '3', '2', '1'])
     );
+  });
+
+  describe('successful selective status date persistence', () => {
+    const formInputDate = '2017-12-26';
+
+    [
+      {
+        status: 'interested',
+        dateField: 'deadlineDate',
+        emptyFields: ['applicationDate', 'interviewDate'],
+      },
+      {
+        status: 'applied',
+        dateField: 'applicationDate',
+        emptyFields: ['deadlineDate', 'interviewDate'],
+      },
+      {
+        status: 'interview',
+        dateField: 'interviewDate',
+        emptyFields: ['applicationDate', 'deadlineDate'],
+      },
+    ]
+      .forEach(j => {
+        it(`should only save ${j.dateField} associated with status ${j.status}`, (done) => {
+          const jobData = Object.assign({}, sampleJob,
+            { status: j.status },
+            { deadlineDate: formInputDate },
+            { applicationDate: formInputDate },
+            { interviewDate: formInputDate }
+          );
+
+          helper.cleanDb()
+            .then(() => addJobPage.visit(accountId))
+            .then(() => addJobPage.fillJobApplication(jobData))
+            .then(() => helper.findJobInDb(accountId))
+            .then((job) => {
+              expect(moment(job[`${j.dateField}`]).format('YYYY-MM-DD')).to.equal(formInputDate);
+
+              j.emptyFields.forEach(f => expect(job[f]).not.exist);
+
+              done();
+            });
+        });
+      });
   });
 
   describe('successful job creation', () => {
@@ -88,7 +160,8 @@ describe('Add a job page', () => {
   describe('validation error', () => {
     const form = {
       title: '', employer: 'Dwp', sourceType: 'online', sourceUrl: 'http://indeed.com',
-      rating: '2', status: 'applied',
+      rating: '2', status: 'applied', deadlineDate: '', applicationDate: '2017-12-26',
+      interviewDate: '',
     };
     before(() => addJobPage.visit(accountId));
 
