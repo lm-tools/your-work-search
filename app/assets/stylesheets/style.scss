@@ -206,5 +206,8 @@ button.link-button {
   }
 }
 .job-item-first-row {
-  min-height: 4.4em;
+  min-height: 4.7em;
+  @include media(mobile) {
+    min-height: 3.4em;
+  }
 }
