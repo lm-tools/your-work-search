@@ -47,7 +47,10 @@
       "sourceType": "Where did you find out about this job?",
       "sourceUrl": "Website",
       "rating": "How interested are you in this role?",
-      "submit": "Save and continue"
+      "submit": "Save and continue",
+      "deadlineDate": "When is the deadline for applying?",
+      "applicationDate": "When did you apply?",
+      "interviewDate": "When is your interview?"
     },
     "header": "Add a job",
     "linkBack": "Cancel",

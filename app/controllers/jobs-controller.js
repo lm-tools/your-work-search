@@ -6,9 +6,12 @@ const UpdateJobViewModel = require('./update-job-view-model');
 const progression = require('../models/progression');
 const i18n = require('i18n');
 const validatorSchema = require('./validator-schema');
+const moment = require('moment');
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
 /* eslint-disable no-underscore-dangle */
+
+const DATE_FORMAT = 'YYYY-MM-DD';
 
 const validator = {
   get: celebrate({
@@ -25,6 +28,9 @@ const validator = {
     body: {
       status: validatorSchema.status,
       rating: validatorSchema.rating,
+      deadlineDate: validatorSchema.deadlineDate.allow(''),
+      applicationDate: validatorSchema.applicationDate.allow(''),
+      interviewDate: validatorSchema.interviewDate.allow(''),
       _csrf: validatorSchema.csrfToken,
     },
   }),
@@ -54,6 +60,17 @@ router.get('/:jobId', validator.get, csrfProtection, (req, res, next) => {
     .then(model => {
       if (model) {
         const job = model.serialize();
+
+        if (job.deadlineDate) {
+          job.deadlineDate = moment(job.deadlineDate).format(DATE_FORMAT);
+        }
+        if (job.applicationDate) {
+          job.applicationDate = moment(job.applicationDate).format(DATE_FORMAT);
+        }
+        if (job.interviewDate) {
+          job.interviewDate = moment(job.interviewDate).format(DATE_FORMAT);
+        }
+
         res.render('update-job', new UpdateJobViewModel(accountId, job, basePath, req.csrfToken()));
       } else {
         res.status(404).render('error', { message: 'Not Found' });
@@ -71,6 +88,18 @@ router.patch('/:jobId', validator.patch, csrfProtection, (req, res, next) => {
 
   if (updateData.status) {
     updateData.status_sort_index = progression.getById(updateData.status).order;
+  }
+
+  if (updateData.deadlineDate === '') {
+    delete updateData.deadlineDate;
+  }
+
+  if (updateData.applicationDate === '') {
+    delete updateData.applicationDate;
+  }
+
+  if (updateData.interviewDate === '') {
+    delete updateData.interviewDate;
   }
 
   return new Jobs({ id: jobId })

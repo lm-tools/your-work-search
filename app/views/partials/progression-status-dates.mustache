@@ -1,0 +1,23 @@
+{{#displayDeadlineDate}}
+  <div id="job-statusDateGroup-deadlineDate" class="form-group panel panel-border-narrow {{^isChecked}}js-hidden{{/isChecked}}">
+    <label class="block" for="job-deadlineDate">{{#__}}addJob.form.deadlineDate{{/__}}</label>
+    <input class="form-control datepicker" data-test="deadlineDate" id="job-deadlineDate"
+           value="{{deadlineDate}}" type="date" name="deadlineDate"  placeholder="dd/mm/yyyy">
+  </div>
+{{/displayDeadlineDate}}
+
+{{#displayApplicationDate}}
+  <div id="job-statusDateGroup-applicationDate" class="form-group panel panel-border-narrow {{^isChecked}}js-hidden{{/isChecked}}">
+    <label class="block" for="job-applicationDate">{{#__}}addJob.form.applicationDate{{/__}}</label>
+    <input class="form-control datepicker" data-test="applicationDate" id="job-applicationDate"
+           value="{{applicationDate}}" type="date" name="applicationDate"  placeholder="dd/mm/yyyy">
+  </div>
+{{/displayApplicationDate}}
+
+{{#displayInterviewDate}}
+  <div id="job-statusDateGroup-interviewDate" class="form-group panel panel-border-narrow {{^isChecked}}js-hidden{{/isChecked}}">
+    <label class="block" for="job-interviewDate">{{#__}}addJob.form.interviewDate{{/__}}</label>
+    <input class="form-control datepicker" data-test="interviewDate" id="job-interviewDate"
+           value="{{interviewDate}}" type="date" name="interviewDate"  placeholder="dd/mm/yyyy">
+  </div>
+{{/displayInterviewDate}}

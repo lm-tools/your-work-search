@@ -25,11 +25,13 @@
         {{#progression}}
           <div class="form-group">
 
-            <label class="block-label selection-button-radio">{{label}}
-            <input type="radio" value="{{name}}" name="status"
+            <label class="block-label selection-button-radio" for="job-statusType-{{name}}">{{label}}
+            <input id="job-statusType-{{name}}" type="radio" value="{{name}}" name="status"
                    {{#isChecked}}checked{{/isChecked}}>
             </label>
           </div>
+
+          {{>progressionStatusDates}}
         {{/progression}}
       </fieldset>
 
