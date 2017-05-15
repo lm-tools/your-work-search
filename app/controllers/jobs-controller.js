@@ -6,6 +6,7 @@ const UpdateJobViewModel = require('./update-job-view-model');
 const progression = require('../models/progression');
 const i18n = require('i18n');
 const validatorSchema = require('./validator-schema');
+const moment = require('moment');
 /* eslint-disable no-underscore-dangle */
 
 const validator = {
@@ -23,6 +24,9 @@ const validator = {
     body: {
       status: validatorSchema.status,
       rating: validatorSchema.rating,
+      deadlineDate: validatorSchema.deadlineDate.allow(''),
+      applicationDate: validatorSchema.applicationDate.allow(''),
+      interviewDate: validatorSchema.interviewDate.allow(''),
     },
   }),
   delete: celebrate({
@@ -68,6 +72,14 @@ router.patch('/:jobId', validator.patch, (req, res, next) => {
   if (updateData.status) {
     updateData.status_sort_index = progression.getById(updateData.status).order;
   }
+
+  progression.getAllDateFields().forEach(dateField => {
+    if (updateData[dateField] === '') {
+      delete updateData[dateField];
+    } else {
+      updateData[dateField] = moment(updateData[dateField]).format();
+    }
+  });
 
   return new Jobs({ id: jobId })
     .save(updateData, { method: 'update', patch: true })
