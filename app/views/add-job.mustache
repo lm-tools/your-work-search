@@ -35,9 +35,10 @@
           </div>
 
           {{#hasDateField}}
-            <div id="job-statusDateGroup-{{name}}" class="form-group panel panel-border-narrow js-hidden">
+            <div id="job-statusDateGroup-{{name}}" class="form-group panel panel-border-narrow {{^isChecked}}js-hidden{{/isChecked}}">
               <label class="block" for="job-{{dateField}}">{{dateLabel}}</label>
-              <input class="form-control datepicker" id="job-{{dateField}}" type="text" name="{{dateField}}"  placeholder="dd/mm/yyyy">
+              <input class="form-control datepicker" data-test="{{dateField}}" id="job-{{dateField}}"
+                     value="{{statusDate}}" type="text" name="{{dateField}}"  placeholder="dd/mm/yyyy">
             </div>
           {{/hasDateField}}
 

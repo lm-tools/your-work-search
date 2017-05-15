@@ -77,49 +77,41 @@ describe('Add a job page', () => {
     );
   });
 
-  describe('successful progression associated date creation', () => {
+  describe('successful selective status date persistence', () => {
     const formInputDate = '2017-12-26';
 
     [
       {
-        field: 'deadlineDate',
-        jobData: Object.assign({}, sampleJob,
-          {
-            deadlineDate: formInputDate,
-            applicationDate: '',
-            interviewDate: '',
-          }),
+        status: 'interested',
+        dateField: 'deadlineDate',
         emptyFields: ['applicationDate', 'interviewDate'],
       },
       {
-        field: 'applicationDate',
-        jobData: Object.assign({}, sampleJob,
-          {
-            deadlineDate: '',
-            applicationDate: formInputDate,
-            interviewDate: '',
-          }),
+        status: 'applied',
+        dateField: 'applicationDate',
         emptyFields: ['deadlineDate', 'interviewDate'],
       },
       {
-        field: 'interviewDate',
-        jobData: Object.assign({}, sampleJob,
-          {
-            deadlineDate: '',
-            applicationDate: '',
-            interviewDate: formInputDate,
-          }),
+        status: 'interview',
+        dateField: 'interviewDate',
         emptyFields: ['applicationDate', 'deadlineDate'],
       },
     ]
       .forEach(j => {
-        it(`should save ${j.field} entered and ${j.emptyFields} should be empty`, (done) => {
+        it(`should only save ${j.dateField} associated with status ${j.status}`, (done) => {
+          const jobData = Object.assign({}, sampleJob,
+            { status: j.status },
+            { deadlineDate: formInputDate },
+            { applicationDate: formInputDate },
+            { interviewDate: formInputDate }
+          );
+
           helper.cleanDb()
             .then(() => addJobPage.visit(accountId))
-            .then(() => addJobPage.fillJobApplication(j.jobData))
+            .then(() => addJobPage.fillJobApplication(jobData))
             .then(() => helper.findJobInDb(accountId))
             .then((job) => {
-              expect(moment(job[`${j.field}`]).format('YYYY-MM-DD')).to.equal(formInputDate);
+              expect(moment(job[`${j.dateField}`]).format('YYYY-MM-DD')).to.equal(formInputDate);
 
               j.emptyFields.forEach(f => expect(job[f]).not.exist);
 
@@ -168,7 +160,8 @@ describe('Add a job page', () => {
   describe('validation error', () => {
     const form = {
       title: '', employer: 'Dwp', sourceType: 'online', sourceUrl: 'http://indeed.com',
-      rating: '2', status: 'applied',
+      rating: '2', status: 'applied', deadlineDate: '', applicationDate: '25/05/2017',
+      interviewDate: '',
     };
     before(() => addJobPage.visit(accountId));
 
@@ -274,7 +267,7 @@ describe('Add a job page', () => {
         const dateField = progression.getDateField(s);
 
         const formData = { title: 'some', status: s };
-        formData[dateField] = '2017-05-12';
+        formData[dateField] = '2017_05_12';
 
         it(`should disallow incorrect ${dateField} date format`, (done) => {
           addJobPage

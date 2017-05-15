@@ -52,6 +52,9 @@ const AddJobPage = function AddJobPage(browser, app) {
       sourceUrl: browser.field('[name="sourceUrl"]').value,
       rating: browser.field('[name="rating"][checked]').value,
       status: browser.field('[data-test="progression"] input[checked]').value,
+      deadlineDate: browser.field('[data-test="deadlineDate"]').value,
+      applicationDate: browser.field('[data-test="applicationDate"]').value,
+      interviewDate: browser.field('[data-test="interviewDate"]').value,
     });
   this.fillTitle = title => browser.fill('[name="title"]', title);
   this.setJobProgression = (status) => browser
