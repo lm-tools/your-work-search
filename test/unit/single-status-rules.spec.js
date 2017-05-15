@@ -134,6 +134,76 @@ describe('Single status rules', function () {
         date: { name: 'in the past', value: moment().subtract(1, 'day').toDate() },
         expected: 'A day ago',
       },
+      {
+        status: 'applied',
+        date: { name: 'empty', value: null },
+        expected: '',
+      },
+      {
+        status: 'applied',
+        date: { name: '8 days from now', value: moment().add(8, 'days').toDate() },
+        expected: 'In 8 days',
+      },
+      {
+        status: 'applied',
+        date: { name: 'today', value: new Date() },
+        expected: 'Today',
+      },
+      {
+        status: 'applied',
+        date: { name: 'in the past', value: moment().subtract(1, 'day').toDate() },
+        expected: 'A day ago',
+      },
+      {
+        status: 'interview',
+        date: { name: 'empty', value: null },
+        expected: '',
+      },
+      {
+        status: 'interview',
+        date: { name: '3 days from now', value: moment().add(3, 'days').toDate() },
+        expected: 'In 3 days',
+      },
+      {
+        status: 'interview',
+        date: { name: 'today', value: new Date() },
+        expected: 'Today',
+      },
+      {
+        status: 'interview',
+        date: { name: 'in the past', value: moment().subtract(1, 'day').toDate() },
+        expected: 'A day ago',
+      },
+      {
+        status: 'failure',
+        date: { name: 'empty', value: null },
+        expected: '',
+      },
+      {
+        status: 'failure',
+        date: { name: '8 days ago', value: moment().subtract(8, 'days').toDate() },
+        expected: '8 days ago',
+      },
+      {
+        status: 'failure',
+        date: { name: 'today', value: new Date() },
+        expected: 'Today',
+      },
+      {
+        status: 'success',
+        date: { name: 'empty', value: null },
+        expected: '',
+      },
+      {
+        status: 'success',
+        date: { name: '8 days ago', value: moment().subtract(8, 'days').toDate() },
+        expected: '8 days ago',
+      },
+      {
+        status: 'success',
+        date: { name: 'today', value: new Date() },
+        expected: 'Today',
+      },
     ].forEach(s => {
       it(`for status: '${s.status}' and date: '${s.date.name}' returns '${s.expected}' `, () =>
         expect(rules.dateText(s.status, s.date.value)).to.equal(s.expected)

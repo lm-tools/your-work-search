@@ -1,4 +1,5 @@
 const moment = require('moment');
+const labels = require('../locales/en.json');
 const PRIORITY = {
   DEFAULT: 'default',
   HIGH: 'high',
@@ -21,6 +22,14 @@ function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+function formatDate(date) {
+  const mDate = moment(date);
+  if (mDate.isSame(moment(), 'day')) {
+    return labels.date.today;
+  }
+  return capitalize(mDate.fromNow());
+}
+
 function priority(status, date) {
   switch (status) {
     case 'interested':
@@ -40,7 +49,20 @@ function priority(status, date) {
 
 function dateText(status, date) {
   if (!date) return '';
-  return isBetweenNowAnd8Days(date) ? 'Expiring soon' : capitalize(moment(date).fromNow());
+  switch (status) {
+    case 'interested':
+      return isBetweenNowAnd8Days(date) ? labels.date.expiringSoon : formatDate(date);
+    case 'applied':
+      return formatDate(date);
+    case 'interview':
+      return formatDate(date);
+    case 'failure':
+      return formatDate(date);
+    case 'success':
+      return formatDate(date);
+    default:
+      return formatDate(date);
+  }
 }
 
 module.exports = {
