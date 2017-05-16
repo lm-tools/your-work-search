@@ -5,17 +5,14 @@ const PRIORITY = {
   HIGH: 'high',
 };
 
-function isBefore8DaysFromNow(date) {
-  return moment(date).isBefore(moment().add(8, 'days'), 'day');
-}
 function isBefore20DaysAgo(date) {
   return moment(date).isBefore(moment().subtract(20, 'days'), 'day');
 }
 function isBefore21DaysAgo(date) {
   return moment(date).isBefore(moment().subtract(21, 'days'), 'day');
 }
-function isBetweenNowAnd8Days(date) {
-  return moment(date).isBetween(moment(), moment().add(8, 'days'), 'day', '[)');
+function isBetweenTodayAnd7Days(date) {
+  return moment(date).isBetween(moment(), moment().add(7, 'days'), 'day', '[]');
 }
 
 function capitalize(string) {
@@ -23,17 +20,17 @@ function capitalize(string) {
 }
 
 function formatDate(date) {
-  const mDate = moment(date);
-  if (mDate.isSame(moment(), 'day')) {
+  if (moment(date).isSame(moment(), 'day')) {
     return labels.date.today;
   }
-  return capitalize(mDate.fromNow());
+  const endOfDayDate = moment(date).endOf('day');
+  return endOfDayDate.from(moment().endOf('day'));
 }
 
 function priority(status, date) {
   switch (status) {
     case 'interested':
-      return isBefore8DaysFromNow(date) ? PRIORITY.HIGH : PRIORITY.DEFAULT;
+      return (date && isBetweenTodayAnd7Days(date)) ? PRIORITY.HIGH : PRIORITY.DEFAULT;
     case 'applied':
       return PRIORITY.DEFAULT;
     case 'interview':
@@ -51,17 +48,18 @@ function dateText(status, date) {
   if (!date) return '';
   switch (status) {
     case 'interested':
-      return isBetweenNowAnd8Days(date) ? labels.date.expiringSoon : formatDate(date);
+      return isBetweenTodayAnd7Days(date) ?
+        `${labels.date.expiringSoon} ${formatDate(date)}` : capitalize(formatDate(date));
     case 'applied':
-      return formatDate(date);
+      return capitalize(formatDate(date));
     case 'interview':
-      return formatDate(date);
+      return capitalize(formatDate(date));
     case 'failure':
-      return formatDate(date);
+      return capitalize(formatDate(date));
     case 'success':
-      return formatDate(date);
+      return capitalize(formatDate(date));
     default:
-      return formatDate(date);
+      return capitalize(formatDate(date));
   }
 }
 

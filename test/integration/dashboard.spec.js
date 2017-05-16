@@ -52,7 +52,7 @@ describe('Dashboard', () => {
         expect(dashboardPage.getJobProgressionStatus(savedJob)).to.equal('Interested'));
 
       it('should display current status date', () =>
-        expect(dashboardPage.getJobProgressionStatusDate(savedJob)).to.equal('Expiring soon'));
+        expect(dashboardPage.getJobProgressionStatusDate(savedJob)).to.equal('Expiring today'));
 
       it('should display current status priority', () =>
         expect(dashboardPage.getJobProgressionStatusPriority(savedJob)).to.equal('high'));

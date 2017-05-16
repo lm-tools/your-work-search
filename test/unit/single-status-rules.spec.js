@@ -22,6 +22,16 @@ describe('Single status rules', function () {
       },
       {
         status: 'interested',
+        date: { name: 'in the past', value: moment().subtract(1, 'days').toDate() },
+        expected: 'default',
+      },
+      {
+        status: 'interested',
+        date: { name: 'today', value: moment().startOf('day').toDate() },
+        expected: 'high',
+      },
+      {
+        status: 'interested',
         date: { name: '6 days from now', value: moment().add(6, 'days').toDate() },
         expected: 'high',
       },
@@ -127,7 +137,7 @@ describe('Single status rules', function () {
       {
         status: 'interested',
         date: { name: '7 days from now', value: moment().add(7, 'days').toDate() },
-        expected: 'Expiring soon',
+        expected: 'Expiring in 7 days',
       },
       {
         status: 'interested',

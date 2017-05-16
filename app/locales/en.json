@@ -91,7 +91,7 @@
     "500": "We're experiencing technical problems."
   },
   "date": {
-    "today": "Today",
-    "expiringSoon": "Expiring soon"
+    "today": "today",
+    "expiringSoon": "Expiring"
   }
 }
