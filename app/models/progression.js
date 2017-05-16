@@ -1,9 +1,9 @@
 class Progression {
   constructor() {
     this.model = [
-      { id: 'interested', order: 0, dateField: 'deadlineDate' },
-      { id: 'applied', order: 1, dateField: 'applicationDate' },
-      { id: 'interview', order: 2, dateField: 'interviewDate' },
+      { id: 'interested', order: 0 },
+      { id: 'applied', order: 1 },
+      { id: 'interview', order: 2 },
       { id: 'failure', order: 3 },
       { id: 'success', order: 4 },
     ];
@@ -19,18 +19,6 @@ class Progression {
 
   getInitialSubset() {
     return this.model.slice(0, 3).map(item => item.id);
-  }
-
-  getAllDateFields() {
-    return this.model.map(item => item.dateField).filter(Boolean);
-  }
-
-  hasDateField(id) {
-    return this.model.find(item => item.id === id).dateField !== undefined;
-  }
-
-  getDateField(id) {
-    return this.model.find(item => item.id === id).dateField;
   }
 }
 

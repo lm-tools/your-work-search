@@ -38,16 +38,7 @@
       "success": "Offered the job"
     },
     "failure": "Unsuccessful",
-    "success": "Successful",
-    "date": {
-      "label": {
-        "interested": "When is the deadline for applying?",
-        "applied": "When did you apply?",
-        "interview": "When is your interview?",
-        "failure": "progression.date.label.failure",
-        "success": "progression.date.label.success"
-      }
-    }
+    "success": "Successful"
   },
   "addJob": {
     "form": {

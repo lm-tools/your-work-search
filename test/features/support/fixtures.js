@@ -5,7 +5,6 @@ module.exports = {
     sourceType: 'online',
     sourceUrl: 'http://example.com',
     rating: '4',
-    status: 'applied',
-    applicationDate: '2016-10-15',
+    deadline: '20/10/2016',
   },
 };
