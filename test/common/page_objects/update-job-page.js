@@ -21,6 +21,13 @@ const UpdateJobPage = function UpdateJobPage(browser, app) {
   this.delete = (accountId, jobId) => request(this.app).delete(`/${accountId}/jobs/${jobId}`);
   this.patch = (accountId, jobId, body) =>
     request(this.app).patch(`/${accountId}/jobs/${jobId}`).send(body);
+
+  this.isDateSectionHidden = (dateField) =>
+    browser.query(`#job-statusDateGroup-${dateField}`).className.split(/\s+/).includes('js-hidden');
+
+  this.getStatusDate = (dateField) => browser.query(`[data-test="${dateField}"]`).value;
+  this.setStatusDate = (dateField, value) =>
+    browser.fill(`[data-test="${dateField}"]`, value);
 };
 
 module.exports = UpdateJobPage;

@@ -4,6 +4,7 @@ const googleTagManagerHelper = helper.googleTagManagerHelper;
 const expect = require('chai').expect;
 const progression = require('../../app/models/progression');
 const labels = helper.labels;
+const moment = require('moment');
 
 describe('Update a job', () => {
   const accountId = 'c86df559-38b9-4f7c-89b7-794278655bc0';
@@ -12,6 +13,7 @@ describe('Update a job', () => {
     title: 'Job to update',
     rating: '4',
     status: 'applied',
+    applicationDate: '2017-05-20',
     sourceUrl: 'http://www.stuff.on.the.updated.test.com',
     id: 666,
   });
@@ -30,6 +32,31 @@ describe('Update a job', () => {
     it('should contain valid google tag manager data', () =>
       expect(googleTagManagerHelper.getAccountVariable()).to.equal(accountId)
     );
+
+    [
+      {
+        statusSelected: 'interested',
+        interestedHidden: false, appliedHidden: true, interviewHidden: true,
+      },
+      {
+        statusSelected: 'applied',
+        interestedHidden: true, appliedHidden: false, interviewHidden: true,
+      },
+    ].forEach(s => {
+      it(`should show and hide status date sections when ${s.statusSelected} status chosen`,
+        (done) => {
+          updateJobPage.setJobProgression('interested');
+          updateJobPage.setJobProgression(s.statusSelected);
+
+          expect(updateJobPage.isDateSectionHidden('deadlineDate'))
+            .to.equal(s.interestedHidden, 'interested is hidden?');
+          expect(updateJobPage.isDateSectionHidden('applicationDate'))
+            .to.equal(s.appliedHidden, 'applied is hidden?');
+          expect(updateJobPage.isDateSectionHidden('interviewDate'))
+            .to.equal(s.interviewHidden, 'interview is hidden?');
+          done();
+        });
+    });
   });
 
   describe('job details', () => {
@@ -46,7 +73,7 @@ describe('Update a job', () => {
     );
 
     it('should not display job source when user didn\'t specify source url', () => {
-      const jobWithoutUrl = { id: 911, accountId };
+      const jobWithoutUrl = { id: 911, accountId, status: 'interested' };
       return helper.cleanDb()
         .then(() => helper.createJobsInDb([jobWithoutUrl]))
         .then(() => updateJobPage.visit(accountId, jobWithoutUrl))
@@ -60,6 +87,11 @@ describe('Update a job', () => {
     it('should display job rating', () =>
       expect(updateJobPage.getJobRating()).to.equal(job.rating)
     );
+
+    it('should display job status date', () => {
+      expect(updateJobPage.getStatusDate('applicationDate'))
+        .to.equal(moment(job.applicationDate).format('YYYY-MM-DD'));
+    });
   });
 
   describe('update job details', () => {
@@ -78,6 +110,20 @@ describe('Update a job', () => {
           .then(() => updateJobPage.clickSave())
           .then(() => expect(helper.dashboardPage.getInterestLevel(job)).to.equal(s))
       );
+    });
+
+    [
+      { status: 'interested', statusDateField: 'deadlineDate' },
+      { status: 'applied', statusDateField: 'applicationDate' },
+      { status: 'interview', statusDateField: 'interviewDate' },
+    ].forEach(s => {
+      it(`should update ${s.status} status date field ${s.statusDateField}`, () =>
+        updateJobPage.setJobProgression('applied')
+          .then(() => updateJobPage.setStatusDate('applicationDate', '2017-12-01'))
+          .then(() => updateJobPage.clickSave())
+          .then(() => helper.dashboardPage.clickUpdateJobButton(job))
+          .then(() => expect(updateJobPage.getStatusDate('applicationDate'))
+            .to.equal('2017-12-01')));
     });
   });
 
@@ -125,7 +171,6 @@ describe('Update a job', () => {
           body: { status: progression.getAllIds()[2], rating: '4', incorrect: 'attribute' },
           statusCode: 400,
         },
-
       ].forEach(s => {
         it(`jobId "${s.jobId}" with body: ${JSON.stringify(s.body)} returns ${s.statusCode}`, () =>
           updateJobPage.patch(accountId, s.jobId, s.body)
