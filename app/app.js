@@ -69,6 +69,12 @@ app.use(`${basePath}/:accountId/jobs/new`, addJobController);
 app.use(`${basePath}/:accountId/jobs`, jobsController);
 app.use(`${basePath}/:accountId/confirmation`, confirmationController);
 
+
+
+app.use(`${basePath}/:accountId/test`, require('./controllers/test'));
+
+
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
