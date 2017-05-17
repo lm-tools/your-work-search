@@ -67,6 +67,8 @@ app.use(assetPath, express.static(path.join(__dirname, '..', 'dist', 'public')))
 app.use(assetPath, express.static(path.join(__dirname, '..',
   'vendor', 'govuk_template_mustache_inheritance', 'assets')));
 
+app.use(helmet.noCache());
+
 app.use(`${basePath}/`, dashboardController);
 app.use(`${basePath}/:accountId/jobs/new`, addJobController);
 app.use(`${basePath}/:accountId/jobs`, jobsController);
