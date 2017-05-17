@@ -1,4 +1,5 @@
 const request = require('supertest');
+const extractCsrfToken = require('../csrf-token-helper').extractCsrfToken;
 
 const UpdateJobPage = function UpdateJobPage(browser, app) {
   this.browser = browser;
@@ -18,9 +19,29 @@ const UpdateJobPage = function UpdateJobPage(browser, app) {
   this.deleteJob = () => browser.click('[data-test="delete-button"]');
 
   this.get = (accountId, jobId) => request(this.app).get(`/${accountId}/jobs/${jobId}`);
+
   this.delete = (accountId, jobId) => request(this.app).delete(`/${accountId}/jobs/${jobId}`);
+
+  this.deleteWithCsrfToken = (accountId, jobId) =>
+    this.get(accountId, jobId).then(res => {
+      const csrfToken = extractCsrfToken(res);
+      return request(this.app)
+        .delete(`/${accountId}/jobs/${jobId}`)
+        .set({ cookie: res.headers['set-cookie'] })
+        .send({ _csrf: csrfToken });
+    });
+
   this.patch = (accountId, jobId, body) =>
     request(this.app).patch(`/${accountId}/jobs/${jobId}`).send(body);
+
+  this.patchWithCsrfToken = (accountId, jobId, body) =>
+    this.get(accountId, jobId).then(res => {
+      const csrfToken = extractCsrfToken(res);
+      return request(this.app)
+        .patch(`/${accountId}/jobs/${jobId}`)
+        .set({ cookie: res.headers['set-cookie'] })
+        .send(Object.assign({}, body, { _csrf: csrfToken }));
+    });
 };
 
 module.exports = UpdateJobPage;

@@ -6,6 +6,8 @@ const UpdateJobViewModel = require('./update-job-view-model');
 const progression = require('../models/progression');
 const i18n = require('i18n');
 const validatorSchema = require('./validator-schema');
+const csrf = require('csurf');
+const csrfProtection = csrf({ cookie: true });
 /* eslint-disable no-underscore-dangle */
 
 const validator = {
@@ -23,6 +25,7 @@ const validator = {
     body: {
       status: validatorSchema.status,
       rating: validatorSchema.rating,
+      _csrf: validatorSchema.csrfToken,
     },
   }),
   delete: celebrate({
@@ -41,7 +44,7 @@ function buildQueryParams(job) {
     .join('&');
 }
 
-router.get('/:jobId', validator.get, (req, res, next) => {
+router.get('/:jobId', validator.get, csrfProtection, (req, res, next) => {
   const accountId = req.params.accountId;
   const jobId = req.params.jobId;
   const basePath = req.app.locals.basePath;
@@ -51,7 +54,7 @@ router.get('/:jobId', validator.get, (req, res, next) => {
     .then(model => {
       if (model) {
         const job = model.serialize();
-        res.render('update-job', new UpdateJobViewModel(accountId, job, basePath));
+        res.render('update-job', new UpdateJobViewModel(accountId, job, basePath, req.csrfToken()));
       } else {
         res.status(404).render('error', { message: 'Not Found' });
       }
@@ -59,11 +62,12 @@ router.get('/:jobId', validator.get, (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.patch('/:jobId', validator.patch, (req, res, next) => {
+router.patch('/:jobId', validator.patch, csrfProtection, (req, res, next) => {
   const basePath = req.app.locals.basePath;
   const accountId = req.params.accountId;
   const jobId = req.params.jobId;
   const updateData = req.body;
+  delete updateData._csrf;
 
   if (updateData.status) {
     updateData.status_sort_index = progression.getById(updateData.status).order;
@@ -78,7 +82,7 @@ router.patch('/:jobId', validator.patch, (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.delete('/:jobId', validator.delete, (req, res, next) => {
+router.delete('/:jobId', validator.delete, csrfProtection, (req, res, next) => {
   const basePath = req.app.locals.basePath;
   const accountId = req.params.accountId;
   const jobId = req.params.jobId;

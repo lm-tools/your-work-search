@@ -108,9 +108,6 @@ describe('Update a job', () => {
     describe('validate PATCH /:accountId/jobs/:jobId', () => {
       [
         { jobId: job.id, body: {}, statusCode: 302 },
-        { jobId: 'abd', body: {}, statusCode: 400 },
-        { jobId: '0', body: {}, statusCode: 400 },
-        { jobId: '-1', body: {}, statusCode: 400 },
         { jobId: job.id, body: { status: progression.getAllIds()[2] }, statusCode: 302 },
         { jobId: job.id, body: { status: 'incorrect' }, statusCode: 400 },
         { jobId: job.id, body: { rating: '2' }, statusCode: 302 },
@@ -128,12 +125,31 @@ describe('Update a job', () => {
 
       ].forEach(s => {
         it(`jobId "${s.jobId}" with body: ${JSON.stringify(s.body)} returns ${s.statusCode}`, () =>
+          updateJobPage.patchWithCsrfToken(accountId, s.jobId, s.body)
+            .then(response => {
+              expect(response.status).to.equal(s.statusCode);
+            })
+        );
+      });
+
+      [
+        { jobId: 'abd', body: {}, statusCode: 400 },
+        { jobId: '0', body: {}, statusCode: 400 },
+        { jobId: '-1', body: {}, statusCode: 400 },
+      ].forEach(s => {
+        it(`jobId "${s.jobId}" with body: ${JSON.stringify(s.body)} returns ${s.statusCode}`, () =>
           updateJobPage.patch(accountId, s.jobId, s.body)
             .then(response => {
               expect(response.status).to.equal(s.statusCode);
             })
         );
       });
+
+      it('should validate missing csrf token', () =>
+        updateJobPage.patch(job.accountId, job.id, {}).then(response =>
+          expect(response.status).to.equal(403)
+        )
+      );
     });
   });
 });

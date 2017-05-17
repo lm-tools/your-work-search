@@ -115,7 +115,7 @@ describe('Add a job page', () => {
     describe('post', () => {
       it('should disallow incorrect progression', () =>
         addJobPage
-          .post(accountId, { title: 'some', status: 'incorrect' })
+          .postWithCsrfToken(accountId, { title: 'some', status: 'incorrect' })
           .then(response => {
             expect(response.status).to.equal(400);
             expect(response.text).to.include('We&#39;re experiencing technical problems.');
@@ -125,7 +125,7 @@ describe('Add a job page', () => {
       progression.getInitialSubset().forEach(s => {
         it(`should allow '${s}' progression`, () =>
           addJobPage
-            .post(accountId, { title: 'some', status: s })
+            .postWithCsrfToken(accountId, { title: 'some', status: s })
             .then(response => {
               expect(response.status).to.equal(302);
             })
@@ -135,7 +135,7 @@ describe('Add a job page', () => {
       ['inPerson', 'online'].forEach(s => {
         it(`should allow '${s}' source type`, () =>
           addJobPage
-            .post(accountId,
+            .postWithCsrfToken(accountId,
             {
               title: 'some',
               status: progression.getInitialSubset()[0],
@@ -149,7 +149,7 @@ describe('Add a job page', () => {
 
       it('should disallow incorrect source type', () =>
         addJobPage
-          .post(accountId,
+          .postWithCsrfToken(accountId,
           {
             title: 'some',
             status: progression.getInitialSubset()[0],
@@ -164,7 +164,7 @@ describe('Add a job page', () => {
       ratings.forEach(s => {
         it(`should allow rating of '${s}'`, () =>
           addJobPage
-            .post(accountId,
+            .postWithCsrfToken(accountId,
             {
               title: 'some',
               status: progression.getInitialSubset()[0],
@@ -178,7 +178,7 @@ describe('Add a job page', () => {
 
       it('should disallow rating of \'6\'', () =>
         addJobPage
-          .post(accountId,
+          .postWithCsrfToken(accountId,
           {
             title: 'some',
             status: progression.getInitialSubset()[0],
@@ -187,6 +187,18 @@ describe('Add a job page', () => {
           .then(response => {
             expect(response.status).to.equal(400);
             expect(response.text).to.include('We&#39;re experiencing technical problems.');
+          })
+      );
+
+      it('should validate missing csrf token', () =>
+        addJobPage
+          .post(accountId,
+          {
+            title: 'some',
+            status: progression.getInitialSubset()[0],
+          })
+          .then(response => {
+            expect(response.status).to.equal(403);
           })
       );
     });
