@@ -5,8 +5,9 @@ const progressionDecorator = require('./progression-view-decorator');
 /* eslint-disable no-underscore-dangle */
 
 class AddJobViewModel {
-  constructor(accountId, body, validationErrors) {
+  constructor(accountId, body, csrfToken, validationErrors) {
     Object.assign(this, body);
+    this.csrfToken = csrfToken;
     this.accountId = accountId;
     this.ratingOptions = this.addCheckedFlag(
       ratings.reverse().map(value => ({ value })),

@@ -28,7 +28,6 @@ describe('Delete job', () => {
 
   describe('validate DELETE /:accountId/jobs/:jobId', () => {
     [
-      { jobId: job.id, statusCode: 302 },
       { jobId: 'abd', statusCode: 400 },
       { jobId: '0', statusCode: 400 },
       { jobId: '-1', statusCode: 400 },
@@ -40,6 +39,18 @@ describe('Delete job', () => {
           })
       );
     });
+
+    it('should validate missing csrf token', () =>
+      h.updateJobPage.delete(job.accountId, job.id).then(response =>
+        expect(response.status).to.equal(403)
+      )
+    );
+
+    it('should delete job with correct csrf token', () =>
+      h.updateJobPage.deleteWithCsrfToken(job.accountId, job.id).then(response =>
+        expect(response.status).to.equal(302)
+      )
+    );
   });
 });
 

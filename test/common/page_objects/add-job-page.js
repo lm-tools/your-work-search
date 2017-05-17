@@ -1,4 +1,5 @@
 const request = require('supertest');
+const extractCsrfToken = require('../csrf-token-helper').extractCsrfToken;
 const AddJobPage = function AddJobPage(browser, app) {
   this.browser = browser;
   this.app = app;
@@ -44,6 +45,16 @@ const AddJobPage = function AddJobPage(browser, app) {
   this.submit = () => browser.pressButton('input[type=submit]');
 
   this.post = (accountId, form) => request(this.app).post(`/${accountId}/jobs/new`).send(form);
+  this.postWithCsrfToken = (accountId, form) =>
+    request(this.app)
+      .get(`/${accountId}/jobs/new`)
+      .then(res => {
+        const csrfToken = extractCsrfToken(res);
+        return request(this.app)
+          .post(`/${accountId}/jobs/new`)
+          .set({ cookie: res.headers['set-cookie'] })
+          .send(Object.assign({}, form, { _csrf: csrfToken }));
+      });
 };
 
 module.exports = AddJobPage;

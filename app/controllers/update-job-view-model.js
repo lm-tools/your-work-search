@@ -2,8 +2,9 @@ const progression = require('../models/progression');
 const progressionDecorator = require('./progression-view-decorator');
 
 class UpdateJobViewModel {
-  constructor(accountId, job, basePath) {
+  constructor(accountId, job, basePath, csrfToken) {
     Object.assign(this, job);
+    this.csrfToken = csrfToken;
     this.accountId = accountId;
     this.basePath = basePath;
 

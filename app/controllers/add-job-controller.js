@@ -6,6 +6,9 @@ const progression = require('../models/progression');
 const i18n = require('i18n');
 const celebrate = require('celebrate');
 const validatorSchema = require('./validator-schema');
+const csrf = require('csurf');
+const csrfProtection = csrf({ cookie: true });
+
 /* eslint-disable no-underscore-dangle */
 
 const validator = {
@@ -20,6 +23,7 @@ const validator = {
       sourceType: validatorSchema.sourceType,
       rating: validatorSchema.rating,
       status: validatorSchema.initialStatus,
+      _csrf: validatorSchema.csrfToken,
     },
   }),
   get: celebrate({
@@ -29,12 +33,12 @@ const validator = {
   }),
 };
 
-router.get('/', validator.get, (req, res) => {
-  res.render('add-job', new AddJobViewModel(req.params.accountId, req.body));
+router.get('/', validator.get, csrfProtection, (req, res) => {
+  res.render('add-job', new AddJobViewModel(req.params.accountId, req.body, req.csrfToken(), null));
 });
 
 
-router.post('/', validator.post, (req, res, next) => {
+router.post('/', validator.post, csrfProtection, (req, res, next) => {
   const basePath = req.app.locals.basePath;
   const accountId = req.params.accountId;
   req.checkBody('title', i18n.__('validation.job-title-empty')).notEmpty();
@@ -42,13 +46,15 @@ router.post('/', validator.post, (req, res, next) => {
 
   if (req.validationErrors()) {
     return res.render('add-job',
-      new AddJobViewModel(accountId, req.body, req.validationErrors()));
+      new AddJobViewModel(accountId, req.body, req.csrfToken(), req.validationErrors()));
   }
 
   const jobData = Object.assign({}, req.body, {
     accountId,
     status_sort_index: progression.getById(req.body.status).order,
   });
+
+  delete jobData._csrf;
 
   return new Jobs(jobData).save()
     .then((job) => res.redirect(`${basePath}/${accountId}?focus=${job.id}`))

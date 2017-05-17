@@ -12,4 +12,5 @@ module.exports = {
   employer: Joi.string(),
   sourceUrl: Joi.string(),
   sourceType: Joi.any().valid(['inPerson', 'online']),
+  csrfToken: Joi.any(),
 };
