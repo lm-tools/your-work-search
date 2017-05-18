@@ -2704,18 +2704,6 @@
         }
       }
     },
-    "joi-date-extensions": {
-      "version": "1.0.2",
-      "from": "joi-date-extensions@>=1.0.2 <2.0.0",
-      "resolved": "https://registry.npmjs.org/joi-date-extensions/-/joi-date-extensions-1.0.2.tgz",
-      "dependencies": {
-        "hoek": {
-          "version": "4.1.1",
-          "from": "hoek@>=4.0.0 <5.0.0",
-          "resolved": "https://registry.npmjs.org/hoek/-/hoek-4.1.1.tgz"
-        }
-      }
-    },
     "jquery": {
       "version": "3.2.1",
       "from": "jquery@>=3.0.0 <4.0.0",
@@ -4321,7 +4309,7 @@
     },
     "sha.js": {
       "version": "2.4.8",
-      "from": "sha.js@>=2.4.0 <3.0.0",
+      "from": "sha.js@>=2.3.6 <3.0.0",
       "resolved": "https://registry.npmjs.org/sha.js/-/sha.js-2.4.8.tgz"
     },
     "shasum": {

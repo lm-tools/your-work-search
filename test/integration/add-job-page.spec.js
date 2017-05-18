@@ -274,6 +274,21 @@ describe('Add a job page', () => {
             expect(response.status).to.equal(403);
           })
       );
+
+      ['deadlineDate', 'applicationDate', 'interviewDate'].forEach(d => {
+        const formData = { title: 'title' };
+        formData[d] = '2017_05_12';
+
+        it(`should disallow incorrect ${d} format`, (done) => {
+          addJobPage
+            .postWithCsrfToken(accountId, formData)
+            .then(response => {
+              expect(response.status).to.equal(400);
+              expect(response.text).to.include('We&#39;re experiencing technical problems.');
+              done();
+            });
+        });
+      });
     });
   });
 });
