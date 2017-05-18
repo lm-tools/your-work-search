@@ -89,7 +89,7 @@ describe('Update a job', () => {
     );
 
     it('should display job status date', () => {
-      expect(updateJobPage.getStatusDate('applicationDate'))
+      expect(updateJobPage.getFormField('applicationDate'))
         .to.equal(moment(job.applicationDate).format('YYYY-MM-DD'));
     });
   });
@@ -119,10 +119,10 @@ describe('Update a job', () => {
     ].forEach(s => {
       it(`should update ${s.status} status date field ${s.statusDateField}`, () =>
         updateJobPage.setJobProgression('applied')
-          .then(() => updateJobPage.setStatusDate('applicationDate', '2017-12-01'))
+          .then(() => updateJobPage.setFormField('applicationDate', '2017-12-01'))
           .then(() => updateJobPage.clickSave())
           .then(() => helper.dashboardPage.clickUpdateJobButton(job))
-          .then(() => expect(updateJobPage.getStatusDate('applicationDate'))
+          .then(() => expect(updateJobPage.getFormField('applicationDate'))
             .to.equal('2017-12-01')));
     });
   });

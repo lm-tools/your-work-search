@@ -6,15 +6,9 @@ const AddJobPage = function AddJobPage(browser, app) {
   this.app = app;
 
   this.setStatusDateValues = (data) => {
-    if (data.deadlineDate) {
-      browser.fill('[name="deadlineDate"]', moment(data.deadlineDate).format('YYYY-MM-DD'));
-    }
-    if (data.applicationDate) {
-      browser.fill('[name="applicationDate"]', moment(data.applicationDate).format('YYYY-MM-DD'));
-    }
-    if (data.interviewDate) {
-      browser.fill('[name="interviewDate"]', moment(data.interviewDate).format('YYYY-MM-DD'));
-    }
+    if (data.deadlineDate) { this.setStatusDate('deadlineDate', data.deadlineDate); }
+    if (data.applicationDate) { this.setStatusDate('applicationDate', data.applicationDate); }
+    if (data.interviewDate) { this.setStatusDate('interviewDate', data.interviewDate); }
   };
 
   this.fillJobApplication = (data) => {
@@ -28,6 +22,12 @@ const AddJobPage = function AddJobPage(browser, app) {
       .choose(`#job-rating-${data.rating}`)
       .pressButton('input[type=submit]');
   };
+
+  this.setStatusDate = (dateField, value) =>
+    browser.fill(`[data-test="${dateField}"]`, moment(value).format('YYYY-MM-DD'));
+
+  this.isFormFieldHidden = (dateField) => browser.query(`[data-test="${dateField}"]`)
+    .className.split(/\s+/).includes('hidden');
 
   this.getValidationError = () => browser.text('#validation-errors');
 

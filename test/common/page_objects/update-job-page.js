@@ -46,9 +46,11 @@ const UpdateJobPage = function UpdateJobPage(browser, app) {
   this.isDateSectionHidden = (dateField) =>
     browser.query(`#job-statusDateGroup-${dateField}`).className.split(/\s+/).includes('js-hidden');
 
-  this.getStatusDate = (dateField) => browser.query(`[data-test="${dateField}"]`).value;
-  this.setStatusDate = (dateField, value) =>
+  this.getFormField = (dateField) => browser.query(`[data-test="${dateField}"]`).value;
+  this.setFormField = (dateField, value) =>
     browser.fill(`[data-test="${dateField}"]`, value);
+  this.isFormFieldHidden = (dateField) => browser.query(`[data-test="${dateField}"]`)
+    .className.split(/\s+/).includes('hidden');
 };
 
 module.exports = UpdateJobPage;
