@@ -6,6 +6,6 @@ module.exports = {
     sourceUrl: 'http://example.com',
     rating: '4',
     status: 'interested',
-    deadline: '2016-10-20',
+    deadlineDate: '2016-10-20',
   },
 };
