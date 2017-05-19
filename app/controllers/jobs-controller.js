@@ -61,15 +61,9 @@ router.get('/:jobId', validator.get, csrfProtection, (req, res, next) => {
       if (model) {
         const job = model.serialize();
 
-        if (job.deadlineDate) {
-          job.deadlineDate = moment(job.deadlineDate).format(DATE_FORMAT);
-        }
-        if (job.applicationDate) {
-          job.applicationDate = moment(job.applicationDate).format(DATE_FORMAT);
-        }
-        if (job.interviewDate) {
-          job.interviewDate = moment(job.interviewDate).format(DATE_FORMAT);
-        }
+        progression.getAllDateFields().forEach(df => {
+          if (job[df]) { job[df] = moment(job[df]).format(DATE_FORMAT); }
+        });
 
         res.render('update-job', new UpdateJobViewModel(accountId, job, basePath, req.csrfToken()));
       } else {

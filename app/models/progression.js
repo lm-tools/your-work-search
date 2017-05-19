@@ -20,6 +20,10 @@ class Progression {
   getInitialSubset() {
     return this.model.slice(0, 3).map(item => item.id);
   }
+
+  getAllDateFields() {
+    return this.model.map(item => item.dateField);
+  }
 }
 
 module.exports = new Progression();
