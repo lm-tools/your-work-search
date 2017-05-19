@@ -11,6 +11,7 @@ const sampleJob = {
   sourceUrl: 'http://www.stuff.com',
   rating: '1',
   status: 'applied',
+  applicationDate: '2017-01-30',
   status_sort_index: 1,
 };
 

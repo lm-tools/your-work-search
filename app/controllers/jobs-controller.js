@@ -90,17 +90,8 @@ router.patch('/:jobId', validator.patch, csrfProtection, (req, res, next) => {
     updateData.status_sort_index = progression.getById(updateData.status).order;
   }
 
-  if (updateData.deadlineDate === '') {
-    delete updateData.deadlineDate;
-  }
-
-  if (updateData.applicationDate === '') {
-    delete updateData.applicationDate;
-  }
-
-  if (updateData.interviewDate === '') {
-    delete updateData.interviewDate;
-  }
+  ['deadlineDate', 'applicationDate', 'interviewDate']
+    .forEach(df => { if (updateData[df] === '') { delete updateData[df]; } });
 
   return new Jobs({ id: jobId })
     .save(updateData, { method: 'update', patch: true })

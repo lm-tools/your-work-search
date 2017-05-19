@@ -59,32 +59,17 @@ router.post('/', validator.post, csrfProtection, (req, res, next) => {
 
   delete jobData._csrf;
 
-  if (jobData.status === 'interested') {
-    delete jobData.applicationDate;
-    delete jobData.interviewDate;
+  const fieldsToDeleteByStatus = {
+    interested: ['applicationDate', 'interviewDate'],
+    applied: ['deadlineDate', 'interviewDate'],
+    interview: ['deadlineDate', 'applicationDate'],
+  };
 
-    if (jobData.deadlineDate === '') {
-      delete jobData.deadlineDate;
-    }
-  }
+  fieldsToDeleteByStatus[jobData.status]
+    .forEach((dateField) => { delete jobData[dateField]; });
 
-  if (jobData.status === 'applied') {
-    delete jobData.deadlineDate;
-    delete jobData.interviewDate;
-
-    if (jobData.applicationDate === '') {
-      delete jobData.applicationDate;
-    }
-  }
-
-  if (jobData.status === 'interview') {
-    delete jobData.applicationDate;
-    delete jobData.deadlineDate;
-
-    if (jobData.interviewDate === '') {
-      delete jobData.interviewDate;
-    }
-  }
+  ['deadlineDate', 'applicationDate', 'interviewDate']
+    .forEach(df => { if (jobData[df] === '') { delete jobData[df]; } });
 
   return new Jobs(jobData).save()
     .then((job) => res.redirect(`${basePath}/${accountId}?focus=${job.id}`))
