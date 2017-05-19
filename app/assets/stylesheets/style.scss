@@ -185,10 +185,29 @@ button.link-button {
   .star-rating {
     padding-left: $gutter-half;
   }
+  .status-high {
+    color: red;
+  }
+  .status-default {
+    color: $secondary-text-colour;
+  }
+  .progression-status {
+    font-weight: bold;
+    font-size: large;
+    @include media(mobile) {
+      font-size: small;
+    }
+  }
 }
 
 .job-list-with-filters {
   @include media(tablet) {
     width: 85%;
+  }
+}
+.job-item-first-row {
+  min-height: 4.7em;
+  @include media(mobile) {
+    min-height: 3.4em;
   }
 }

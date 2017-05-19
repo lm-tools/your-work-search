@@ -89,5 +89,9 @@
     "403": "We're experiencing technical problems.",
     "404": "Page not found",
     "500": "We're experiencing technical problems."
+  },
+  "date": {
+    "today": "today",
+    "expiringSoon": "Expiring"
   }
 }
