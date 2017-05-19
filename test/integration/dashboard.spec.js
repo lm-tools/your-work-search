@@ -16,7 +16,6 @@ describe('Dashboard', () => {
     sourceType: 'online',
     sourceUrl: 'http://example.org',
     rating: 4,
-    deadline: new Date('2050-10-10'),
     status: 'interested',
     deadlineDate: new Date(),
     accountId,
