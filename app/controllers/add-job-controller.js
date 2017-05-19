@@ -23,6 +23,9 @@ const validator = {
       sourceType: validatorSchema.sourceType,
       rating: validatorSchema.rating,
       status: validatorSchema.initialStatus,
+      deadlineDate: validatorSchema.deadlineDate.allow(''),
+      applicationDate: validatorSchema.applicationDate.allow(''),
+      interviewDate: validatorSchema.interviewDate.allow(''),
       _csrf: validatorSchema.csrfToken,
     },
   }),
@@ -55,6 +58,18 @@ router.post('/', validator.post, csrfProtection, (req, res, next) => {
   });
 
   delete jobData._csrf;
+
+  const fieldsToDeleteByStatus = {
+    interested: ['applicationDate', 'interviewDate'],
+    applied: ['deadlineDate', 'interviewDate'],
+    interview: ['deadlineDate', 'applicationDate'],
+  };
+
+  fieldsToDeleteByStatus[jobData.status]
+    .forEach((dateField) => { delete jobData[dateField]; });
+
+  ['deadlineDate', 'applicationDate', 'interviewDate']
+    .forEach(df => { if (jobData[df] === '') { delete jobData[df]; } });
 
   return new Jobs(jobData).save()
     .then((job) => res.redirect(`${basePath}/${accountId}?focus=${job.id}`))

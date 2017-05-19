@@ -42,6 +42,15 @@ const UpdateJobPage = function UpdateJobPage(browser, app) {
         .set({ cookie: res.headers['set-cookie'] })
         .send(Object.assign({}, body, { _csrf: csrfToken }));
     });
+
+  this.isDateSectionHidden = (dateField) =>
+    browser.query(`#job-statusDateGroup-${dateField}`).className.split(/\s+/).includes('js-hidden');
+
+  this.getFormField = (dateField) => browser.query(`[data-test="${dateField}"]`).value;
+  this.setFormField = (dateField, value) =>
+    browser.fill(`[data-test="${dateField}"]`, value);
+  this.isFormFieldHidden = (dateField) => browser.query(`[data-test="${dateField}"]`)
+    .className.split(/\s+/).includes('hidden');
 };
 
 module.exports = UpdateJobPage;

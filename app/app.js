@@ -45,6 +45,7 @@ app.use((req, res, next) => {
       govukTemplate:
         '../../vendor/govuk_template_mustache_inheritance/views/layouts/govuk_template',
       googleTagManager: 'partials/google-tag-manager',
+      progressionStatusDates: 'partials/progression-status-dates',
     },
   });
   next();

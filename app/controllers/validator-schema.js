@@ -1,4 +1,5 @@
 const Joi = require('joi');
+
 const ratings = require('../models/ratings');
 const progression = require('../models/progression');
 
@@ -12,5 +13,8 @@ module.exports = {
   employer: Joi.string(),
   sourceUrl: Joi.string(),
   sourceType: Joi.any().valid(['inPerson', 'online']),
+  deadlineDate: Joi.date(),
+  applicationDate: Joi.date(),
+  interviewDate: Joi.date(),
   csrfToken: Joi.any(),
 };

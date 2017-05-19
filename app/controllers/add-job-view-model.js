@@ -1,4 +1,5 @@
 const i18n = require('i18n');
+const moment = require('moment');
 const progression = require('../models/progression');
 const ratings = require('../models/ratings');
 const progressionDecorator = require('./progression-view-decorator');
@@ -21,6 +22,12 @@ class AddJobViewModel {
       ],
       body.sourceType
     );
+
+    ['deadlineDate', 'applicationDate', 'interviewDate'].forEach(dateField => {
+      if (this[dateField]) {
+        this[dateField] = moment(this[dateField]).format('YYYY-MM-DD');
+      }
+    });
 
     this.errors = validationErrors;
     this.isSourceUrlHidden = body.sourceType !== 'online';

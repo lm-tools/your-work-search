@@ -14,8 +14,7 @@
     "fetch-metrics": "./scripts/fetch-metrics",
     "features": "NODE_ENV=test cucumber.js && NODE_ENV=test EXPRESS_BASE_PATH=/example-base-path cucumber.js",
     "heroku-postbuild": "npm run compile",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "snyk-protect": "snyk protect"
   },
   "// NOTE": [
     "^Pinned dependencies are actually devDependencies, which are only",
@@ -84,6 +83,5 @@
   },
   "engines": {
     "node": "6.1.0"
-  },
-  "snyk": true
+  }
 }

@@ -5,10 +5,23 @@ require('jquery-ui/datepicker');
 const md = new MobileDetect(window.navigator.userAgent);
 const enableNativeDatepicker = md.mobile() || md.tablet();
 
-if (enableNativeDatepicker) {
+if (!enableNativeDatepicker) {
+  $('.date-real').addClass('hidden');
+  $('.datepicker').removeClass('hidden');
+
   $('.datepicker').each(function () {
-    this.type = 'date';
+    const target = $(this).data('altField');
+    const isoDate = $(target).val();
+
+    if (isoDate) {
+      const localDate = new Date(isoDate).toLocaleDateString('en-GB');
+      $(this).val(localDate);
+    }
+
+    $(this).datepicker({
+      dateFormat: 'dd/mm/yy',
+      altField: target,
+      altFormat: 'yy-mm-dd',
+    });
   });
-} else {
-  $('.datepicker').datepicker({ dateFormat: 'dd/mm/yy' });
 }
