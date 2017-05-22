@@ -10,6 +10,9 @@ const ratings = require('../../app/models/ratings');
 
 describe('Add a job page', () => {
   const accountId = 'someAccount';
+  const aDayAgo = moment().subtract(1, 'day').toDate();
+  const today = moment();
+  const inADay = moment().add(1, 'day').toDate();
 
   function newlyCreatedJob() {
     return { id: dashboardPage.getJobIdFromQueryParams() };
@@ -78,7 +81,7 @@ describe('Add a job page', () => {
   });
 
   describe('successful selective status date persistence', () => {
-    const formInputDate = '2017-12-26';
+    const formInputDate = '2017-04-26';
 
     [
       {
@@ -163,7 +166,7 @@ describe('Add a job page', () => {
       rating: '2', status: 'applied', deadlineDate: '', applicationDate: '2017-12-26',
       interviewDate: '',
     };
-    before(() => addJobPage.visit(accountId));
+    beforeEach(() => addJobPage.visit(accountId));
 
     it('should prepopulate filled form fields after error', () =>
       addJobPage.fillJobApplication(form)
@@ -171,7 +174,7 @@ describe('Add a job page', () => {
     );
 
     describe('for empty form', () => {
-      before(() =>
+      beforeEach(() =>
         addJobPage.visit(accountId)
           .then(() => addJobPage.submit())
       );
@@ -279,14 +282,47 @@ describe('Add a job page', () => {
         const formData = { title: 'title' };
         formData[d] = '2017_05_12';
 
-        it(`should disallow incorrect ${d} format`, (done) => {
+        it(`should disallow incorrect ${d} format`, () =>
           addJobPage
             .postWithCsrfToken(accountId, formData)
             .then(response => {
               expect(response.status).to.equal(400);
               expect(response.text).to.include('We&#39;re experiencing technical problems.');
-              done();
-            });
+            })
+        );
+      });
+
+      [
+        { field: 'deadlineDate', label: 'in the past', date: aDayAgo, valid: true },
+        { field: 'deadlineDate', label: 'today', date: today, valid: true },
+        { field: 'deadlineDate', label: 'in the future', date: inADay, valid: true },
+        { field: 'applicationDate', label: 'in the past', date: aDayAgo, valid: true },
+        { field: 'applicationDate', label: 'today', date: today, valid: true },
+        {
+          field: 'applicationDate', label: 'in the future', date: inADay, valid: false,
+          error: 'When did you apply cannot be in the future',
+        },
+        { field: 'interviewDate', label: 'in the past', date: aDayAgo, valid: true },
+        { field: 'interviewDate', label: 'today', date: today, valid: true },
+        { field: 'interviewDate', label: 'in the future', date: inADay, valid: true },
+      ].forEach(s => {
+        const statusMap = {
+          deadlineDate: 'interested',
+          applicationDate: 'applied',
+          interviewDate: 'interview',
+        };
+
+        it(`${s.field} ${s.label} should ${s.valid ? '' : 'not '}be valid`, () => {
+          addJobPage.fillTitle('title');
+          addJobPage.setJobProgression(statusMap[s.field]);
+          addJobPage.setStatusDate(s.field, s.date);
+          return addJobPage.submit().then(() => {
+            if (s.valid) {
+              expect(dashboardPage.browserPath()).to.match(new RegExp(`^/${accountId}`));
+            } else {
+              expect(addJobPage.getValidationError()).to.contain(s.error);
+            }
+          });
         });
       });
     });
