@@ -180,11 +180,11 @@ describe('Add a job page', () => {
       );
 
       it('should show title is required error', () =>
-        expect(addJobPage.getValidationError()).to.contain('Job title is required')
+        expect(addJobPage.getValidationError()).to.contain('\'Job title\' is required')
       );
       it('should show jog progression is required error', () =>
         expect(addJobPage.getValidationError())
-          .to.contain('Where are you in the process is required')
+          .to.contain('\'Where are you in the process?\' is required')
       );
     });
 
@@ -300,7 +300,7 @@ describe('Add a job page', () => {
         { field: 'applicationDate', label: 'today', date: today, valid: true },
         {
           field: 'applicationDate', label: 'in the future', date: inADay, valid: false,
-          error: 'When did you apply cannot be in the future',
+          error: '\'When did you apply?\' cannot be in the future',
         },
         { field: 'interviewDate', label: 'in the past', date: aDayAgo, valid: true },
         { field: 'interviewDate', label: 'today', date: today, valid: true },

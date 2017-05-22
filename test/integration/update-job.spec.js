@@ -150,7 +150,7 @@ describe('Update a job', () => {
         { field: 'applicationDate', label: 'today', date: today, valid: true },
         {
           field: 'applicationDate', label: 'in the future', date: inADay, valid: false,
-          error: 'When did you apply cannot be in the future',
+          error: '\'When did you apply?\' cannot be in the future',
         },
         { field: 'interviewDate', label: 'in the past', date: aDayAgo, valid: true },
         { field: 'interviewDate', label: 'today', date: today, valid: true },
