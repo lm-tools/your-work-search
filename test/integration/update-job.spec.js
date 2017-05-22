@@ -1,5 +1,6 @@
 const helper = require('./support/integration-spec-helper');
 const updateJobPage = helper.updateJobPage;
+const dashboardPage = helper.dashboardPage;
 const googleTagManagerHelper = helper.googleTagManagerHelper;
 const expect = require('chai').expect;
 const progression = require('../../app/models/progression');
@@ -119,11 +120,11 @@ describe('Update a job', () => {
     ].forEach(s => {
       it(`should update ${s.status} status date field ${s.statusDateField}`, () =>
         updateJobPage.setJobProgression('applied')
-          .then(() => updateJobPage.setFormField('applicationDate', '2017-12-01'))
+          .then(() => updateJobPage.setFormField('applicationDate', '2017-04-01'))
           .then(() => updateJobPage.clickSave())
           .then(() => helper.dashboardPage.clickUpdateJobButton(job))
           .then(() => expect(updateJobPage.getFormField('applicationDate'))
-            .to.equal('2017-12-01')));
+            .to.equal('2017-04-01')));
     });
   });
 
@@ -135,6 +136,58 @@ describe('Update a job', () => {
   });
 
   describe('validate inputs', () => {
+    const aDayAgo = moment().subtract(1, 'day').toDate();
+    const today = moment();
+    const inADay = moment().add(1, 'day').toDate();
+    const inADayString = moment().add(1, 'day').format('YYYY-MM-DD');
+
+    describe('update', () => {
+      [
+        { field: 'deadlineDate', label: 'in the past', date: aDayAgo, valid: true },
+        { field: 'deadlineDate', label: 'today', date: today, valid: true },
+        { field: 'deadlineDate', label: 'in the future', date: inADay, valid: true },
+        { field: 'applicationDate', label: 'in the past', date: aDayAgo, valid: true },
+        { field: 'applicationDate', label: 'today', date: today, valid: true },
+        {
+          field: 'applicationDate', label: 'in the future', date: inADay, valid: false,
+          error: 'When did you apply cannot be in the future',
+        },
+        { field: 'interviewDate', label: 'in the past', date: aDayAgo, valid: true },
+        { field: 'interviewDate', label: 'today', date: today, valid: true },
+        { field: 'interviewDate', label: 'in the future', date: inADay, valid: true },
+      ].forEach(s => {
+        const statusMap = {
+          deadlineDate: 'interested',
+          applicationDate: 'applied',
+          interviewDate: 'interview',
+        };
+
+        it(`${s.field} ${s.label} should ${s.valid ? '' : 'not '}be valid`, () => {
+          updateJobPage.setJobProgression(statusMap[s.field]);
+          updateJobPage.setStatusDate(s.field, s.date);
+          return updateJobPage.clickSave().then(() => {
+            if (s.valid) {
+              expect(dashboardPage.browserPath()).to.match(new RegExp(`^/${accountId}`));
+            } else {
+              expect(updateJobPage.getValidationError()).to.contain(s.error);
+            }
+          });
+        });
+      });
+
+      it('should prepopulate filled form fields after error', () => {
+        updateJobPage.setJobProgression('applied');
+        updateJobPage.setStatusDate('applicationDate', inADay);
+        updateJobPage.setJobRating(3);
+        return updateJobPage.clickSave().then(() => {
+          expect(updateJobPage.getJobProgress()).to.equal('applied');
+          expect(updateJobPage.getJobStatusDate('applicationDate')).to.equal(inADayString);
+          expect(updateJobPage.getJobRating()).to.equal('3');
+        });
+      }
+      );
+    });
+
     describe('validate GET /:accountId/jobs/:jobId', () => {
       [
         { jobId: job.id, statusCode: 200 },

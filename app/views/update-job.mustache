@@ -12,6 +12,12 @@
       <hr/>
     </div>
 
+    <ul id="validation-errors">
+      {{#errors}}
+        <li>{{msg}}</li>
+      {{/errors }}
+    </ul>
+
     <section>
       <h2 class="heading-large" data-test="title">{{title}}</h2>
       <p data-test="employer">{{employer}}</p>

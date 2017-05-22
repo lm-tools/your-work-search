@@ -1,5 +1,6 @@
 const request = require('supertest');
 const extractCsrfToken = require('../csrf-token-helper').extractCsrfToken;
+const moment = require('moment');
 
 const UpdateJobPage = function UpdateJobPage(browser, app) {
   this.browser = browser;
@@ -14,6 +15,11 @@ const UpdateJobPage = function UpdateJobPage(browser, app) {
   this.getJobRating = () => browser.query('[data-test="rating"] input[checked]').value;
   this.setJobProgression = (status) => browser
     .click(`[data-test="progression"] input[value="${status}"]`);
+  this.getJobStatusDate = (dateField) =>
+    browser.query(`[data-test="${dateField}"]`).value;
+  this.setStatusDate = (dateField, value) =>
+    browser.fill(`[data-test="${dateField}"]`, moment(value).format('YYYY-MM-DD'));
+  this.getValidationError = () => browser.text('#validation-errors');
   this.setJobRating = (rating) => browser
     .click(`[data-test="rating"] input[value="${rating}"]`);
   this.deleteJob = () => browser.click('[data-test="delete-button"]');

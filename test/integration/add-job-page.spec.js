@@ -237,7 +237,7 @@ describe('Add a job page', () => {
           })
       );
 
-      ratings.forEach(s => {
+      ratings().forEach(s => {
         it(`should allow rating of '${s}'`, () =>
           addJobPage
             .postWithCsrfToken(accountId,
