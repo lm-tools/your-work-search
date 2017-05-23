@@ -81,8 +81,9 @@
     "deleteButton": "Delete job"
   },
   "validation": {
-    "job-title-empty": "Job title is required",
-    "status-empty": "Where are you in the process is required"
+    "job-title-empty": "'Job title' is required",
+    "status-empty": "'Where are you in the process?' is required",
+    "applicationDateInTheFuture": "'When did you apply?' cannot be in the future"
   },
   "error": {
     "400": "We're experiencing technical problems.",

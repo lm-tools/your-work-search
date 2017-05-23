@@ -46,6 +46,10 @@ router.post('/', validator.post, csrfProtection, (req, res, next) => {
   const accountId = req.params.accountId;
   req.checkBody('title', i18n.__('validation.job-title-empty')).notEmpty();
   req.checkBody('status', i18n.__('validation.status-empty')).notEmpty();
+  if (req.body.status === 'applied' && req.body.applicationDate) {
+    req.checkBody('applicationDate', i18n.__('validation.applicationDateInTheFuture'))
+      .isNotInTheFuture();
+  }
 
   if (req.validationErrors()) {
     return res.render('add-job',

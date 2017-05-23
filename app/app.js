@@ -14,6 +14,7 @@ const confirmationController = require('./controllers/confirmation-controller');
 const errorHandler = require('./middleware/error-handler');
 const healthCheckController = require('./controllers/health-check-controller');
 const helmet = require('helmet');
+const moment = require('moment');
 
 const app = express();
 i18n(app);
@@ -69,6 +70,13 @@ app.use(assetPath, express.static(path.join(__dirname, '..',
   'vendor', 'govuk_template_mustache_inheritance', 'assets')));
 
 app.use(helmet.noCache());
+app.use(validator({
+  customValidators: {
+    isNotInTheFuture(value) {
+      return moment(value).isBefore(moment().endOf('day'));
+    },
+  },
+}));
 
 app.use(`${basePath}/`, dashboardController);
 app.use(`${basePath}/:accountId/jobs/new`, addJobController);

@@ -6,12 +6,9 @@ const UpdateJobViewModel = require('./update-job-view-model');
 const progression = require('../models/progression');
 const i18n = require('i18n');
 const validatorSchema = require('./validator-schema');
-const moment = require('moment');
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
 /* eslint-disable no-underscore-dangle */
-
-const DATE_FORMAT = 'YYYY-MM-DD';
 
 const validator = {
   get: celebrate({
@@ -61,10 +58,6 @@ router.get('/:jobId', validator.get, csrfProtection, (req, res, next) => {
       if (model) {
         const job = model.serialize();
 
-        progression.getAllDateFields().forEach(df => {
-          if (job[df]) { job[df] = moment(job[df]).format(DATE_FORMAT); }
-        });
-
         res.render('update-job', new UpdateJobViewModel(accountId, job, basePath, req.csrfToken()));
       } else {
         res.status(404).render('error', { message: 'Not Found' });
@@ -79,6 +72,17 @@ router.patch('/:jobId', validator.patch, csrfProtection, (req, res, next) => {
   const jobId = req.params.jobId;
   const updateData = req.body;
   delete updateData._csrf;
+
+  if (req.body.status === 'applied' && req.body.applicationDate) {
+    req.checkBody('applicationDate', i18n.__('validation.applicationDateInTheFuture'))
+      .isNotInTheFuture();
+  }
+  if (req.validationErrors()) {
+    return res.render('update-job',
+      new UpdateJobViewModel(accountId, Object.assign({ id: jobId }, req.body),
+        basePath, req.csrfToken(), req.validationErrors())
+    );
+  }
 
   if (updateData.status) {
     updateData.status_sort_index = progression.getById(updateData.status).order;

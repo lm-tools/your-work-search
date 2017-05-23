@@ -11,7 +11,7 @@ class AddJobViewModel {
     this.csrfToken = csrfToken;
     this.accountId = accountId;
     this.ratingOptions = this.addCheckedFlag(
-      ratings.reverse().map(value => ({ value })),
+      ratings().reverse().map(value => ({ value })),
       body.rating
     );
 
@@ -35,7 +35,7 @@ class AddJobViewModel {
   }
 
   addCheckedFlag(options, checkedValue) {
-    return options.map((opt) => Object.assign(opt, { isChecked: opt.value === checkedValue }));
+    return options.map(opt => Object.assign({}, opt, { isChecked: opt.value === checkedValue }));
   }
 
 }
