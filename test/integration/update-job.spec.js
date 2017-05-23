@@ -2,7 +2,9 @@ const helper = require('./support/integration-spec-helper');
 const updateJobPage = helper.updateJobPage;
 const dashboardPage = helper.dashboardPage;
 const googleTagManagerHelper = helper.googleTagManagerHelper;
-const expect = require('chai').expect;
+const chai = require('chai');
+chai.use(require('chai-moment'));
+const expect = chai.expect;
 const progression = require('../../app/models/progression');
 const labels = helper.labels;
 const moment = require('moment');
@@ -125,6 +127,20 @@ describe('Update a job', () => {
           .then(() => helper.dashboardPage.clickUpdateJobButton(job))
           .then(() => expect(updateJobPage.getFormField('applicationDate'))
             .to.equal('2017-04-01')));
+    });
+
+    [
+      { status: 'success', dateField: 'successDate' },
+      { status: 'failure', dateField: 'failureDate' },
+    ].forEach(s => {
+      it(`should save ${s.dateField}  when status changed to ${s.status}`, () => {
+        updateJobPage.setJobProgression(s.status);
+        return updateJobPage.clickSave()
+          .then(() => helper.findJobInDbById(job.id))
+          .then(result => {
+            expect(result[s.dateField]).to.be.sameMoment(new Date(), 'day');
+          });
+      });
     });
   });
 

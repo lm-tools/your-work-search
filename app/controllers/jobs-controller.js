@@ -91,6 +91,14 @@ router.patch('/:jobId', validator.patch, csrfProtection, (req, res, next) => {
   ['deadlineDate', 'applicationDate', 'interviewDate']
     .forEach(df => { if (updateData[df] === '') { delete updateData[df]; } });
 
+  if (updateData.status === 'success') {
+    updateData.successDate = new Date();
+  }
+
+  if (updateData.status === 'failure') {
+    updateData.failureDate = new Date();
+  }
+
   return new Jobs({ id: jobId })
     .save(updateData, { method: 'update', patch: true })
     .then((job) => {
