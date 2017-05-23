@@ -95,6 +95,10 @@ router.patch('/:jobId', validator.patch, csrfProtection, (req, res, next) => {
     updateData.successDate = new Date();
   }
 
+  if (updateData.status === 'failure') {
+    updateData.failureDate = new Date();
+  }
+
   return new Jobs({ id: jobId })
     .save(updateData, { method: 'update', patch: true })
     .then((job) => {

@@ -138,7 +138,7 @@ describe('Update a job', () => {
         return updateJobPage.clickSave()
           .then(() => helper.findJobInDbById(job.id))
           .then(result => {
-            expect(result[s.successDate]).to.be.sameMoment(new Date(), 'day');
+            expect(result[s.dateField]).to.be.sameMoment(new Date(), 'day');
           });
       });
     });
