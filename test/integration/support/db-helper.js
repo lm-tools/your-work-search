@@ -29,6 +29,10 @@ module.exports = {
     return knex('jobs').first().where('accountId', accountId);
   },
 
+  findJobInDbById(jobId) {
+    return knex('jobs').first().where('id', jobId);
+  },
+
   runDbMigration(fileName) {
     // eslint-disable-next-line global-require
     return require(`../../../db/migrations/${fileName}`).up(knex);
