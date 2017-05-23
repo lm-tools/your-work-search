@@ -3,11 +3,11 @@ const router = new express.Router({ mergeParams: true });
 const celebrate = require('celebrate');
 const Jobs = require('../models/jobs-model');
 const UpdateJobViewModel = require('./update-job-view-model');
-const progression = require('../models/progression');
 const i18n = require('i18n');
 const validatorSchema = require('./validator-schema');
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
+const viewMapper = require('./jobs-mapper');
 /* eslint-disable no-underscore-dangle */
 
 const validator = {
@@ -70,8 +70,6 @@ router.patch('/:jobId', validator.patch, csrfProtection, (req, res, next) => {
   const basePath = req.app.locals.basePath;
   const accountId = req.params.accountId;
   const jobId = req.params.jobId;
-  const updateData = req.body;
-  delete updateData._csrf;
 
   if (req.body.status === 'applied' && req.body.applicationDate) {
     req.checkBody('applicationDate', i18n.__('validation.applicationDateInTheFuture'))
@@ -84,20 +82,7 @@ router.patch('/:jobId', validator.patch, csrfProtection, (req, res, next) => {
     );
   }
 
-  if (updateData.status) {
-    updateData.status_sort_index = progression.getById(updateData.status).order;
-  }
-
-  ['deadlineDate', 'applicationDate', 'interviewDate']
-    .forEach(df => { if (updateData[df] === '') { delete updateData[df]; } });
-
-  if (updateData.status === 'success') {
-    updateData.successDate = new Date();
-  }
-
-  if (updateData.status === 'failure') {
-    updateData.failureDate = new Date();
-  }
+  const updateData = viewMapper.mapToUpdateModel(req.body);
 
   return new Jobs({ id: jobId })
     .save(updateData, { method: 'update', patch: true })
