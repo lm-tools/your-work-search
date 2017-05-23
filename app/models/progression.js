@@ -24,6 +24,9 @@ class Progression {
   getAllDateFields() {
     return this.model.map(item => item.dateField);
   }
+  getAll() {
+    return [... this.model];
+  }
 }
 
 module.exports = new Progression();
