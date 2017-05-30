@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
 const moment = require('moment');
-const rules = require('../../app/rules/timeline-rules');
+const rules = require('../../app/rules/timeline-rules-priority');
 const Job = require('../../app/models/job-model');
 const progression = require('../../app/models/progression');
 
