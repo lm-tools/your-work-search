@@ -40,8 +40,17 @@ function rulesForSuccess(jobs) {
 }
 
 function overrideWhenNecessary(rules) {
-  // todo
-  return Object.assign({}, rules);
+  const overrides = Object.assign({}, rules);
+  if (overrides.success === 'high') {
+    overrides.interview = 'high';
+  }
+  if (overrides.interview === 'high') {
+    overrides.applied = 'high';
+  }
+  if (overrides.applied === 'high') {
+    overrides.interested = 'high';
+  }
+  return overrides;
 }
 
 function priority(jobList) {

@@ -102,5 +102,84 @@ describe('Timeline rules', function () {
         });
       });
     });
+
+    describe('status dependencies', () => {
+      [
+        {
+          name: 'empty job list',
+          jobs: [],
+          result: {
+            interested: 'default',
+            applied: 'default',
+            interview: 'default',
+            success: 'default',
+          },
+        },
+        {
+          name: 'job with status applied and high priority',
+          jobs: [aJob({ status: 'applied' })],
+          result: {
+            interested: 'high',
+            applied: 'high',
+            interview: 'default',
+            success: 'default',
+          },
+        },
+        {
+          name: 'job with status interview and high priority',
+          jobs: [aJob({ status: 'interview', interviewDate: time20daysAgo })],
+          result: {
+            interested: 'high',
+            applied: 'high',
+            interview: 'high',
+            success: 'default',
+          },
+        },
+        {
+          name: 'job with status interview and default priority',
+          jobs: [
+            aJob({ status: 'interview', interviewDate: time21daysAgo }),
+            aJob({ status: 'applied' }),
+          ],
+          result: {
+            interested: 'high',
+            applied: 'high',
+            interview: 'default',
+            success: 'default',
+          },
+        },
+        {
+          name: 'job with status success and default priority',
+          jobs: [
+            aJob({ status: 'success', successDate: time21daysAgo }),
+            aJob({ status: 'interview', interviewDate: time20daysAgo }),
+            aJob({ status: 'applied' }),
+          ],
+          result: {
+            interested: 'high',
+            applied: 'high',
+            interview: 'high',
+            success: 'default',
+          },
+        },
+        {
+          name: 'job with status success and high priority',
+          jobs: [
+            aJob({ status: 'success', successDate: time20daysAgo }),
+            aJob({ status: 'interview', interviewDate: time20daysAgo }),
+          ],
+          result: {
+            interested: 'high',
+            applied: 'high',
+            interview: 'high',
+            success: 'high',
+          },
+        },
+      ].forEach(s => {
+        it(s.name, () => {
+          expect(rules.priority(s.jobs)).to.eql(s.result);
+        });
+      });
+    });
   });
 });
