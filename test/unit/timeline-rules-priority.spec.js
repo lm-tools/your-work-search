@@ -166,7 +166,7 @@ describe('Timeline rules', function () {
           name: 'job with status success and high priority',
           jobs: [
             aJob({ status: 'success', successDate: time20daysAgo }),
-            aJob({ status: 'interview', interviewDate: time20daysAgo }),
+            aJob({ status: 'interview', interviewDate: time21daysAgo }),
           ],
           result: {
             interested: 'high',
