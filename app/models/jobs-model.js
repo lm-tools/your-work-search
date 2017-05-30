@@ -1,12 +1,5 @@
 const db = require('../db');
-const progression = require('./progression');
-
-class JobModel {
-  constructor(dbJob) {
-    Object.assign(this, dbJob);
-    this.statusDate = dbJob[progression.getById(this.status).dateField];
-  }
-}
+const JobModel = require('./job-model');
 
 const sortRef = {
   created: { field: 'created_at', direction: 'DESC' },
