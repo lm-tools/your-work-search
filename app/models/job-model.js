@@ -9,4 +9,3 @@ class JobModel {
 
 module.exports = JobModel;
 
-
