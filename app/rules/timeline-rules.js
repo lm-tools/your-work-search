@@ -1,60 +1,60 @@
 const moment = require('moment');
+const _ = require('lodash');
 
-function priorityResultWith(override) {
-  return Object.assign({
-    interested: 'default',
-    applied: 'default',
-    interview: 'default',
-    failure: 'default',
-    success: 'default',
-  }, override);
+function atLeastOneJob(jobs) {
+  return !!jobs && jobs.length > 0;
 }
 
-function findAllWithStatuses(jobList, status) {
-  return jobList.filter(it => it.status === status);
-};
+function allDatesOlderThen21days(jobList) {
+  if (atLeastOneJob(jobList)) {
+    const time21DaysAgo = moment().subtract(21, 'days');
 
-function containsStatus(jobList, ...params) {
-  return findAllWithStatuses(jobList, params).length > 0;
-}
-
-function allDatesOlderThen21days(jobList = []) {
-  if (jobList.length === 0) {
-    return false;
+    const jobYoungerThen21days = jobList
+      .find(it => moment(it.statusDate).isAfter(time21DaysAgo, 'day'));
+    return !jobYoungerThen21days;
   }
-  const _21DaysAgo = moment().subtract(21, 'days');
-
-  const jobYoungerThen21days = jobList
-    .find(it => moment(it.statusDate).isAfter(_21DaysAgo, 'day'));
-  return !jobYoungerThen21days;
+  return true;
 }
 
-function priorityForInterviewStatus(jobList) {
-  var interviewJobs = findAllWithStatuses(jobList, 'interview');
-  return interviewJobs.length > 0 && allDatesOlderThen21days(interviewJobs) ? 'high' : 'default';
+function groupByStatus(jobList) {
+  return _.groupBy(jobList, 'status');
 }
 
+function rulesForInterested(jobs) {
+  const rule = atLeastOneJob(jobs) ? 'high' : 'default';
+  return { interested: rule };
+}
+function rulesForApplied(jobs) {
+  const rule = atLeastOneJob(jobs) ? 'high' : 'default';
+  return { applied: rule };
+}
+
+function rulesForInterview(jobs) {
+  const rule = allDatesOlderThen21days(jobs) ? 'default' : 'high';
+  return { interview: rule };
+}
+
+function rulesForSuccess(jobs) {
+  const rule = allDatesOlderThen21days(jobs) ? 'default' : 'high';
+  return { success: rule };
+}
+
+function overrideWhenNecessary(rules) {
+  // todo
+  return Object.assign({}, rules);
+}
 
 function priority(jobList) {
-  const sorted = jobList.sort((a, b) => a.status_sort_index > b.status_sort_index);
-  const highestOrder = sorted[0];
-  if (!highestOrder) return priorityResultWith({});
-  switch (highestOrder.status) {
-    case 'interested':
-      return priorityResultWith({ interested: 'high' });
-    case 'applied':
-      return priorityResultWith({ interested: 'high', applied: 'high' });
-    case 'interview':
-      const interviewJobs = findAllWithStatuses(jobList, 'interview');
-      const priority = allDatesOlderThen21days(interviewJobs) ? 'default' : 'high';
-      return priorityResultWith({ interested: priority, applied: priority, interview: priority });
-    case 'success':
+  const jobsByStatus = groupByStatus(jobList);
 
-    default:
-      return priorityResultWith({});
-  }
+  const rulesPerStatus = Object.assign({},
+    rulesForInterested(jobsByStatus.interested),
+    rulesForApplied(jobsByStatus.applied),
+    rulesForInterview(jobsByStatus.interview),
+    rulesForSuccess(jobsByStatus.success)
+  );
+
+  return overrideWhenNecessary(rulesPerStatus);
 }
 
-module.exports = {
-  priority,
-};
+module.exports = { priority };

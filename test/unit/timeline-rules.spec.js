@@ -5,18 +5,8 @@ const Job = require('../../app/models/job-model');
 const progression = require('../../app/models/progression');
 
 describe('Timeline rules', function () {
-  const _21daysAgo = moment().subtract(21, 'days').toDate();
-  const _20daysAgo = moment().subtract(20, 'days').toDate();
-
-  function priorityResultWith(override) {
-    return Object.assign({
-      interested: 'default',
-      applied: 'default',
-      interview: 'default',
-      failure: 'default',
-      success: 'default',
-    }, override);
-  }
+  const time21daysAgo = moment().subtract(21, 'days').toDate();
+  const time20daysAgo = moment().subtract(20, 'days').toDate();
 
   function aJob(opts) {
     return new Job(Object.assign(
@@ -26,47 +16,91 @@ describe('Timeline rules', function () {
   }
 
   describe('priority', function () {
-    [
-      {
-        name: 'empty job list should has default priority',
-        jobList: [],
-        result: priorityResultWith({}),
-      },
-      {
-        name: 'job list containing interested',
-        jobList: [aJob({ status: 'interested' })],
-        result: priorityResultWith({ interested: 'high' }),
-      },
-      {
-        name: 'job list containing applied that overrides',
-        jobList: [aJob({ status: 'applied' })],
-        result: priorityResultWith({ interested: 'high', applied: 'high' }),
-      },
-      {
-        name: 'job list containing interview without date that overrides statuses',
-        jobList: [aJob({ status: 'interview' })],
-        result: priorityResultWith({ interested: 'high', applied: 'high', interview: 'high' }),
-      },
-      {
-        name: 'job list containing interview with date 21 days ago',
-        jobList: [new Job({ status: 'interview', interviewDate: _21daysAgo })],
-        result: priorityResultWith({ interested: 'default', applied: 'default', interview: 'default' }),
-      },
-      {
-        name: 'job list containing interview with date 21 days ago and some that are earlier',
-        jobList: [
-          aJob({ status: 'interview', interviewDate: _21daysAgo }),
-          aJob({ status: 'interview', interviewDate: _20daysAgo }),
-        ],
-        result: priorityResultWith({ interested: 'high', applied: 'high', interview: 'high' }),
-      },
-    ].forEach(s => {
-      it(s.name, () => {
-        expect(rules.priority(s.jobList)).to.eql(s.result);
+    describe('interested', () => {
+      [
+        { name: 'default for empty list', jobs: [], result: 'default' },
+        {
+          name: 'high when there is a job',
+          jobs: [aJob({ status: 'interested' })],
+          result: 'high',
+        },
+      ].forEach(s => {
+        it(s.name, () => {
+          expect(rules.priority(s.jobs).interested).to.equal(s.result);
+        });
       });
     });
-  });
 
-  describe('date text', function () {
+    describe('applied', () => {
+      [
+        { name: 'default for empty list', jobs: [], result: 'default' },
+        { name: 'high when there is a job', jobs: [aJob({ status: 'applied' })], result: 'high' },
+      ].forEach(s => {
+        it(s.name, () => {
+          expect(rules.priority(s.jobs).applied).to.equal(s.result);
+        });
+      });
+    });
+
+    describe('interview', () => {
+      [
+        { name: 'default for empty list', jobs: [], result: 'default' },
+        {
+          name: 'high when there is a job younger then 21 days',
+          jobs: [aJob({ status: 'interview', interviewDate: time20daysAgo })],
+          result: 'high',
+        },
+        {
+          name: 'high when job list contains date 21 days ago and some that are earlier',
+          jobs: [
+            aJob({ status: 'interview', interviewDate: time21daysAgo }),
+            aJob({ status: 'interview', interviewDate: time20daysAgo }),
+          ],
+          result: 'high',
+        },
+        {
+          name: 'default when job list contains date 21 days ago',
+          jobs: [aJob({ status: 'interview', interviewDate: time21daysAgo })],
+          result: 'default',
+        },
+      ].forEach(s => {
+        it(s.name, () => {
+          expect(rules.priority(s.jobs).interview).to.equal(s.result);
+        });
+      });
+    });
+
+    describe('success', () => {
+      [
+        { name: 'default for empty list', jobs: [], result: 'default' },
+        {
+          name: 'high when there is a job without a date',
+          jobs: [aJob({ status: 'success' })],
+          result: 'high',
+        },
+        {
+          name: 'high when there is a job with date younger the 21 days',
+          jobs: [aJob({ status: 'success', successDate: time20daysAgo })],
+          result: 'high',
+        },
+        {
+          name: 'default when there is a job with date older the 21 days',
+          jobs: [aJob({ status: 'success', successDate: time21daysAgo })],
+          result: 'default',
+        },
+        {
+          name: 'default when there all jobs with date older the 21 days',
+          jobs: [
+            aJob({ status: 'success', successDate: time21daysAgo }),
+            aJob({ status: 'success', successDate: time21daysAgo }),
+          ],
+          result: 'default',
+        },
+      ].forEach(s => {
+        it(s.name, () => {
+          expect(rules.priority(s.jobs).success).to.equal(s.result);
+        });
+      });
+    });
   });
 });

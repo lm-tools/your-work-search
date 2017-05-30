@@ -1,5 +1,4 @@
 const db = require('../db');
-const progression = require('./progression');
 const JobModel = require('./job-model');
 
 const sortRef = {
