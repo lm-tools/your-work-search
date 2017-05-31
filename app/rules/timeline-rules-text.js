@@ -17,7 +17,6 @@ function atLeastOneJob(jobs) {
   return !!jobs && jobs.length > 0;
 }
 
-
 function mostRecentUpdatedDate(jobs) {
   const sorted = jobs.sort((a, b) => moment(a.updated_at).isBefore(moment(b.updated_at)));
   return sorted[0].updated_at;
@@ -41,6 +40,18 @@ function findJobsExpiringInLessThanAWeek(jobs) {
   return jobs.filter(
     it => moment(it.statusDate).isBetween(now(), weekFromNow(), 'day', '[]')
   );
+}
+
+function findJobsExpiringToday(jobs) {
+  return jobs.filter(it => it.statusDate && moment(it.statusDate).isSame(now(), 'day'));
+}
+
+function findJobsExpiringInTheFuture(jobs) {
+  return jobs.filter(it => moment(it.statusDate).isAfter(now(), 'day'));
+}
+
+function findJobsExpired(jobs, when = now()) {
+  return jobs.filter(it => moment(it.statusDate).isBefore(when, 'day'));
 }
 
 function getTextForInterested(jobs) {
@@ -80,18 +91,6 @@ function getTextForApplied(jobs) {
 function rulesForApplied(jobs) {
   const applied = getTextForApplied(jobs);
   return { applied };
-}
-
-function findJobsExpiringToday(jobs) {
-  return jobs.filter(it => it.statusDate && moment(it.statusDate).isSame(now(), 'day'));
-}
-
-function findJobsExpiringInTheFuture(jobs) {
-  return jobs.filter(it => moment(it.statusDate).isAfter(now(), 'day'));
-}
-
-function findJobsExpired(jobs, when = now()) {
-  return jobs.filter(it => moment(it.statusDate).isBefore(when, 'day'));
 }
 
 function getTextForInterview(jobs) {
