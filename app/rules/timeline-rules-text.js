@@ -3,6 +3,7 @@ const _ = require('lodash');
 
 const weekFromNow = () => moment().add(7, 'days');
 const now = () => moment();
+const time3weeksAgo = () => moment().subtract(3, 'weeks');
 
 function groupByStatus(jobList) {
   return _.groupBy(jobList, 'status');
@@ -89,8 +90,8 @@ function findJobsExpiringInTheFuture(jobs) {
   return jobs.filter(it => moment(it.statusDate).isAfter(now(), 'day'));
 }
 
-function findJobsExpired(jobs) {
-  return jobs.filter(it => moment(it.statusDate).isBefore(now(), 'day'));
+function findJobsExpired(jobs, when = now()) {
+  return jobs.filter(it => moment(it.statusDate).isBefore(when, 'day'));
 }
 
 function getTextForInterview(jobs) {
@@ -119,8 +120,21 @@ function rulesForInterview(jobs) {
   return { interview };
 }
 
+function getTextForSuccess(jobs) {
+  if (atLeastOneJob(jobs)) {
+    const jobsExpired = findJobsExpired(jobs, time3weeksAgo());
+    if (jobsExpired.length === jobs.length) {
+      const date = mostRecentStatusDate(jobsExpired);
+      return [`Last ${moment(date).fromNow()}`];
+    }
+    return ['Congratulations – make sure your work coach knows.'];
+  }
+  return [];
+}
+
 function rulesForSuccess(jobs) {
-  return jobs;
+  const success = getTextForSuccess(jobs);
+  return { success };
 }
 
 function text(jobList) {

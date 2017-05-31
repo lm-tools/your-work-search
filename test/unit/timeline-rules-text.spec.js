@@ -11,6 +11,9 @@ describe('Timeline rules', function () {
   const yesterday = moment().subtract(1, 'day').toDate();
   const time10daysAgo = moment().subtract(10, 'day').toDate();
   const time3daysAgo = moment().subtract(3, 'day').toDate();
+  const time3weeksAgo = moment().subtract(3, 'weeks').toDate();
+  const time3weeksAnd1DayAgo = moment().subtract(22, 'days').toDate();
+  const time3weeksAnd2DaysAgo = moment().subtract(23, 'days').toDate();
 
   function aJob(opts) {
     return new Job(Object.assign(
@@ -153,7 +156,30 @@ describe('Timeline rules', function () {
     });
 
     describe('success', () => {
-      [].forEach(s => {
+      [
+        { name: 'empty for empty list', jobs: [], result: [] },
+        {
+          name: 'Congratulations for job without date',
+          jobs: [aJob({ status: 'success' })],
+          result: ['Congratulations – make sure your work coach knows.'],
+        },
+        {
+          name: 'Congratulations for job expired in last 3 weeks',
+          jobs: [
+            aJob({ status: 'success', successDate: time3weeksAgo }),
+            aJob({ status: 'success', successDate: time3daysAgo }),
+          ],
+          result: ['Congratulations – make sure your work coach knows.'],
+        },
+        {
+          name: 'Last X days ago for job without date',
+          jobs: [
+            aJob({ status: 'success', successDate: time3weeksAnd1DayAgo }),
+            aJob({ status: 'success', successDate: time3weeksAnd2DaysAgo }),
+          ],
+          result: ['Last 22 days ago'],
+        },
+      ].forEach(s => {
         it(s.name, () => {
           expect(rules.text(s.jobs).success).to.eql(s.result);
         });
