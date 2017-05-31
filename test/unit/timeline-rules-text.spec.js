@@ -106,7 +106,46 @@ describe('Timeline rules', function () {
     });
 
     describe('interview', () => {
-      [].forEach(s => {
+      [
+        { name: 'empty for empty list', jobs: [], result: [] },
+        {
+          name: 'empty for jobs without date',
+          jobs: [aJob({ status: 'interview' })],
+          result: [],
+        },
+        {
+          name: 'Next in X days for all dates in future',
+          jobs: [
+            aJob({ status: 'interview', interviewDate: in7days }),
+            aJob({ status: 'interview', interviewDate: in8days }),
+          ],
+          result: ['Next in 7 days'],
+        },
+        {
+          name: 'Interviewing today when at least one today',
+          jobs: [
+            aJob({ status: 'interview', interviewDate: now }),
+            aJob({ status: 'interview', interviewDate: in8days }),
+          ],
+          result: ['Interviewing today'],
+        },
+        {
+          name: 'Last X days ago when all dates in the past',
+          jobs: [
+            aJob({ status: 'interview', interviewDate: time3daysAgo }),
+            aJob({ status: 'interview', interviewDate: time10daysAgo }),
+          ],
+          result: ['Last 3 days ago'],
+        },
+        {
+          name: 'Last X days ago, Next in X days when dates in the past and future',
+          jobs: [
+            aJob({ status: 'interview', interviewDate: in7days }),
+            aJob({ status: 'interview', interviewDate: time10daysAgo }),
+          ],
+          result: ['Next in 7 days', 'Last 10 days ago'],
+        },
+      ].forEach(s => {
         it(s.name, () => {
           expect(rules.text(s.jobs).interview).to.eql(s.result);
         });
