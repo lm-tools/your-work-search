@@ -9,6 +9,8 @@ describe('Timeline rules', function () {
   const in7days = moment().add(7, 'days').toDate();
   const now = new Date();
   const yesterday = moment().subtract(1, 'day').toDate();
+  const time10daysAgo = moment().subtract(10, 'day').toDate();
+  const time3daysAgo = moment().subtract(3, 'day').toDate();
 
   function aJob(opts) {
     return new Job(Object.assign(
@@ -74,6 +76,28 @@ describe('Timeline rules', function () {
 
     describe('applied', () => {
       [
+        { name: 'empty for empty list', jobs: [], result: [] },
+        {
+          name: 'empty for jobs in the future',
+          jobs: [aJob({ status: 'applied', applicationDate: in7days })],
+          result: [],
+        },
+        {
+          name: 'empty for some jobs in the future and some in the past',
+          jobs: [
+            aJob({ status: 'applied', applicationDate: in7days }),
+            aJob({ status: 'applied', applicationDate: yesterday }),
+          ],
+          result: [],
+        },
+        {
+          name: 'X days ago when all the jobs in the past',
+          jobs: [
+            aJob({ status: 'applied', applicationDate: time10daysAgo }),
+            aJob({ status: 'applied', applicationDate: time3daysAgo }),
+          ],
+          result: ['Last 3 days ago'],
+        },
       ].forEach(s => {
         it(s.name, () => {
           expect(rules.text(s.jobs).applied).to.eql(s.result);
@@ -82,8 +106,7 @@ describe('Timeline rules', function () {
     });
 
     describe('interview', () => {
-      [
-      ].forEach(s => {
+      [].forEach(s => {
         it(s.name, () => {
           expect(rules.text(s.jobs).interview).to.eql(s.result);
         });
@@ -91,8 +114,7 @@ describe('Timeline rules', function () {
     });
 
     describe('success', () => {
-      [
-      ].forEach(s => {
+      [].forEach(s => {
         it(s.name, () => {
           expect(rules.text(s.jobs).success).to.eql(s.result);
         });
