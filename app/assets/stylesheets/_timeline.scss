@@ -9,8 +9,8 @@
 
 .timeline {
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 20px 0px 30px 0px;
 }
 
 .timeline * {
@@ -64,9 +64,19 @@
   top: 20px;
 }
 
-.timeline__item--finish:after {
+.timeline__item--finish-no-message:after {
   top: auto;
   bottom: 28px;
+}
+
+.timeline__item--finish-single-message:after {
+  top: auto;
+  bottom: 40px;
+}
+
+.timeline__item--finish-double-message:after {
+  top: auto;
+  bottom: 60px;
 }
 
 .timeline__item--finish.timeline__item--complete:after {

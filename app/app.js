@@ -48,6 +48,7 @@ app.use((req, res, next) => {
       googleTagManager: 'partials/google-tag-manager',
       progressionStatusDates: 'partials/progression-status-dates',
       timeline: 'partials/timeline',
+      sort: 'partials/sort',
     },
   });
   next();

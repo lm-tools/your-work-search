@@ -3,31 +3,19 @@
   {{$applicationContent}}
     <h2 class="heading-xlarge">{{#__}}dashboard.header{{/__}}</h2>
 
-  {{>timeline}}
+    <div class="only-visible-on-desktop column-two-thirds">
+      {{>sort}}
+    </div>
 
-    <div class="job-list-with-filters">
-      <div class="grid-row">
-        <div class="column-one-half">
-          <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
-        </div>
+    <div class="only-visible-on-mobile column-two-thirds">
+      <div>
+        {{>timeline}}
+      </div>
+      <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
+      {{>sort}}
+    </div>
 
-        {{#hasJobs}}
-        <div class="column-one-half tablet-right mobile-space-top">
-          <form action="{{basePath}}/{{accountId}}" method="GET">
-            <label for="sort">{{#__}}dashboard.sort.label{{/__}}</label>
-            <select class="form-control form-control-auto" name="sort" id="sort"
-                    onchange="this.form.submit()">
-              {{#sortOptions}}
-                <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
-              {{/sortOptions}}
-            </select>
-            <input class="button js-hidden" type="submit" value="{{#__}}dashboard.sort.button{{/__}}">
-          </form>
-        </div>
-        {{/hasJobs}}
-
-        </div>
-
+    <div class="column-two-thirds">
       <section class="space-top-double">
         <ul>
           {{#jobs}}
@@ -64,8 +52,7 @@
                     <span data-test="updated">{{updatedFormatted}}</span>
                   </p>
                   <a class="button button-secondary button-same-on-mobile" data-test="update-button"
-                     href="{{basePath}}/{{accountId}}/jobs/{{id}}">
-                    {{#__}}dashboard.updateJobButton{{/__}}
+                     href="{{basePath}}/{{accountId}}/jobs/{{id}}">{{#__}}dashboard.updateJobButton{{/__}}
                   </a>
                 </div>
               </div>
@@ -85,7 +72,12 @@
         </p>
       {{/hasJobs}}
     </div>
-
+    <div class="only-visible-on-desktop column-one-third">
+      <div>
+        {{>timeline}}
+        <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
+      </div>
+    </div>
   {{/applicationContent}}
 
 {{/layout}}

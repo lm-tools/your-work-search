@@ -212,3 +212,17 @@ button.link-button {
     min-height: 3.4em;
   }
 }
+
+// media
+.only-visible-on-desktop {
+  @include media(mobile) {
+    display: none;
+  }
+}
+
+.only-visible-on-mobile {
+  display: none;
+  @include media(mobile) {
+    display: block;
+  }
+}
