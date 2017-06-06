@@ -41,9 +41,9 @@ const DashboardPage = function DashboardPage(browser, app) {
 
   this.firstUseHelpDisplayed = () => browser.assert.elements('#first-use-help', 1);
   this.hasJobHelpDisplayed = () => browser.assert.elements('#has-job-help', 1);
-  this.isSortVisible = () => browser.query('#sort') != null;
+  this.isSortVisible = () => browser.query('.desktop-only #sort') != null;
   this.isFilterVisible = () => browser.query('#filter') != null;
-  this.selectedSortType = () => browser.text('#sort option:selected');
+  this.selectedSortType = () => browser.text('.desktop-only #sort option:selected');
   this.clickAddJobButton = () => browser.click('a.button');
   this.jobList = () => browser.text('ul [data-test="title"]');
   this.jobCount = () => browser.queryAll('[data-test|=job-container]').length;

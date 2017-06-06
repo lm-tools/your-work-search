@@ -3,11 +3,11 @@
   {{$applicationContent}}
     <h2 class="heading-xlarge">{{#__}}dashboard.header{{/__}}</h2>
 
-    <div class="only-visible-on-desktop column-two-thirds">
+    <div class="desktop-only column-two-thirds">
       {{>sort}}
     </div>
 
-    <div class="only-visible-on-mobile column-two-thirds">
+    <div class="mobile-only column-two-thirds">
       <div>
         {{>timeline}}
       </div>
@@ -72,7 +72,7 @@
         </p>
       {{/hasJobs}}
     </div>
-    <div class="only-visible-on-desktop column-one-third">
+    <div class="desktop-only column-one-third">
       <div>
         {{>timeline}}
         <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>

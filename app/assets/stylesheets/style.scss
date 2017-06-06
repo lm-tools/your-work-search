@@ -214,13 +214,13 @@ button.link-button {
 }
 
 // media
-.only-visible-on-desktop {
+.desktop-only {
   @include media(mobile) {
     display: none;
   }
 }
 
-.only-visible-on-mobile {
+.mobile-only {
   display: none;
   @include media(mobile) {
     display: block;
