@@ -33,7 +33,7 @@
   height: 22px;
   background: white;
   border-radius: 13px;
-  border: 4px solid #6F777B;
+  border: 4px solid $timeline_default_color;
   z-index: 2;
 }
 
@@ -44,7 +44,7 @@
   left: 9px;
   height: 100%;
   width: 4px;
-  background: #6F777B;;
+  background: $timeline_default_color;;
 }
 
 .timeline__item--start {
@@ -64,35 +64,25 @@
   top: 20px;
 }
 
-.timeline__item--finish-no-message:after {
+.timeline__item--finish:after {
   top: auto;
-  bottom: 28px;
+  bottom: 36px;
 }
 
-.timeline__item--finish-single-message:after {
-  top: auto;
-  bottom: 40px;
+.timeline__item--finish.timeline-high:after {
+  bottom: 62px;
 }
 
-.timeline__item--finish-double-message:after {
-  top: auto;
-  bottom: 60px;
+.timeline-high:before {
+  border-color: $timeline_highlight_color;
 }
 
-.timeline__item--finish.timeline__item--complete:after {
-  bottom: 54px;
+.timeline-high:after {
+  background: $timeline_highlight_color;
 }
 
-.timeline__item--complete:before {
-  border-color: #005EA5;
-}
-
-.timeline__item--complete:after {
-  background: #005EA5;
-}
-
-.timeline__item--complete .timeline__heading {
-  color: #005EA5;
+.timeline-high .timeline__heading {
+  color: $timeline_highlight_color;
 }
 
 .timeline__item--current {
@@ -102,8 +92,7 @@
 .timeline__heading {
   margin: 0 0 0 35px;
   padding-top: 3px;
-  color: #6F777B;
-  font-size: 1.2em;
+  color: $timeline_default_color;
 }
 
 .timeline__item--start .timeline__heading {
@@ -112,6 +101,5 @@
 
 .timeline__message {
   margin: 4px 0 0 35px;
-  color: #6F777B;
-  font-size: 0.9em;
+  color: $timeline_default_color;
 }
