@@ -1,18 +1,8 @@
 <ul class="timeline">
-  <li class="timeline__item timeline__item--start">
-    <h3 class="timeline__heading">Interested</h3>
-    <p class="timeline__message">Updated a moment ago</p>
-  </li>
-  <li class="timeline__item">
-    <h3 class="timeline__heading">Applied</h3>
-    <p class="timeline__message">Updated a moment ago</p>
-  </li>
-  <li class="timeline__item">
-    <h3 class="timeline__heading">Interview</h3>
-    <p class="timeline__message">Updated a moment ago</p>
-  </li>
-  <li class="timeline__item timeline__item--finish-no-message">
-    <h3 class="timeline__heading">Offer</h3>
-  </li>
+  {{#timeline}}
+    <li data-test='interview-timeline' class="timeline__item {{#current}}timeline__item--current{{/current}} {{#first}}timeline__item--start{{/first}} {{#last}}timeline__item--finish{{/last}} {{priorityClass}}">
+      <h3 class="bold-small timeline__heading">{{heading}} <span class="visuallyhidden">Status: {{heading}}</span></h3>
+      <p class="timeline__message">{{message}}&nbsp;</p>
+    </li>
+  {{/timeline}}
 </ul>
-

@@ -54,7 +54,53 @@ describe('DashboardViewModel', function () {
         const model = new DashboardViewModel('', [s.job]);
         expect(model.jobs[0].source).to.equal(s.expectedSource);
       });
-    })
-    ;
+    });
+  });
+
+  describe('timeline', function () {
+    it('should have timeline details populated', () => {
+      const expectedTimeline = [
+        {
+          heading: 'Interested',
+          priorityClass: 'timeline-high',
+          message: ['Updated a few seconds ago'],
+          first: true,
+          last: false,
+          current: false,
+        },
+        {
+          heading: 'Applied',
+          priorityClass: 'timeline-high',
+          message: [],
+          first: false,
+          last: false,
+          current: true,
+        },
+        {
+          heading: 'Interview',
+          priorityClass: 'timeline-default',
+          message: [],
+          first: false,
+          last: false,
+          current: false,
+        },
+        {
+          heading: 'Offer',
+          priorityClass: 'timeline-default',
+          message: [],
+          first: false,
+          last: true,
+          current: false,
+        },
+      ];
+
+      const model = new DashboardViewModel('',
+        [
+          sampleJob({ status: 'interested' }),
+          sampleJob({ status: 'applied' }),
+        ]);
+
+      expect(model.timeline).to.eql(expectedTimeline);
+    });
   });
 });

@@ -94,5 +94,13 @@
   "date": {
     "today": "today",
     "expiringSoon": "Expiring"
+  },
+  "timeline": {
+    "status": {
+      "interested": "Interested",
+      "applied": "Applied",
+      "interview": "Interview",
+      "success": "Offer"
+    }
   }
 }
