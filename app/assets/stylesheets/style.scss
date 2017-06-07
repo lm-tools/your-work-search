@@ -26,6 +26,10 @@ $space_size: 10px;
   margin: 40px 0px 30px 0px;
 }
 
+.padded-column {
+  padding-left: 30px;
+}
+
 .column-three-quarter {
   @include grid-column(3 / 4);
 }
