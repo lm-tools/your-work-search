@@ -21,7 +21,10 @@
     "pageTitle": "Your work search",
     "has-job-help": "You can close this window or come back at any time and edit this information - everything is saved.",
     "first-use-help": "Add jobs that you're interested in or have applied for.",
-    "updateJobButton": "Update"
+    "updateJobButton": "Update",
+    "first-use-introduction-1": "Build a list of jobs you’re interested in.",
+    "first-use-introduction-2": "Update each job when you apply, interview or get a result.",
+    "first-use-introduction-3": "Go through the list of jobs with your work coach to get support and advice."
   },
   "layout": {
     "header": "Your work search"

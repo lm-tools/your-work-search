@@ -62,7 +62,12 @@
 
       {{^hasJobs}}
         <p id="first-use-help">
-          {{#__}}dashboard.first-use-help{{/__}}
+        <ol class="list list-number">
+          <li>{{#__}}dashboard.first-use-introduction-1{{/__}}</li>
+          <li>{{#__}}dashboard.first-use-introduction-2{{/__}}</li>
+          <li>{{#__}}dashboard.first-use-introduction-3{{/__}}</li>
+        </ol>
+        {{#__}}dashboard.first-use-help{{/__}}
         </p>
       {{/hasJobs}}
       {{#hasJobs}}
