@@ -1,8 +1,14 @@
 <ul class="timeline">
   {{#timeline}}
-    <li data-test='interview-timeline' class="timeline__item {{#current}}timeline__item--current{{/current}} {{#first}}timeline__item--start{{/first}} {{#last}}timeline__item--finish{{/last}} {{priorityClass}}">
+    <li data-test='interview-timeline' class="timeline__item
+
+  {{#current}}timeline__item--current{{/current}}
+      {{#first}}timeline__item--start{{/first}}
+      {{#last}}timeline__item--finish{{/last}}
+      {{priorityClass}}">
+
       <h3 class="bold-small timeline__heading">{{heading}} <span class="visuallyhidden">Status: {{heading}}</span></h3>
-      <p class="timeline__message">{{message}}&nbsp;</p>
+      <p class="font-xsmall timeline__message">{{message}}&nbsp;</p>
     </li>
   {{/timeline}}
 </ul>

@@ -73,9 +73,9 @@
 }
 
 .timeline__item--finish.timeline-high:after {
-  bottom: 85px;
+  bottom: 55px;
   @include media(mobile) {
-    bottom: 60px;
+    bottom: 40px;
   }
 }
 
