@@ -18,7 +18,7 @@ $space_size: 10px;
 
 .mobile-space-top {
   @include media(mobile) {
-    margin-top: $space_size;
+    margin-top: $space_size * 2;
   }
 }
 
@@ -27,7 +27,10 @@ $space_size: 10px;
 }
 
 .padded-column {
-  padding-left: 30px;
+  padding-left: 13px;
+  @include media(mobile) {
+    padding-bottom: 10px;
+  }
 }
 
 .column-three-quarter {
@@ -39,11 +42,13 @@ $space_size: 10px;
   text-align: center;
 }
 
-.tablet-right {
-  @include media(tablet) {
-    text-align: right;
+.desktop-right {
+  text-align: right;
+  @include media(mobile) {
+    text-align: left;
   }
 }
+
 .right {
   text-align: right;
 }
@@ -143,10 +148,9 @@ button.link-button {
   }
 }
 
-.form-group {
-  .heading-medium {
-    margin-top: auto;
-  }
+.heading-medium {
+  margin-top: auto;
+  padding-top: 20px;
 }
 
 .block {
@@ -159,11 +163,6 @@ button.link-button {
 
 .heading-rating {
   margin-bottom: auto;
-}
-
-.panel-indent {
-    border-left: 4px solid #bfc1c3;
-    padding: 10px 0 10px 15px;
 }
 
 .header-with-action {

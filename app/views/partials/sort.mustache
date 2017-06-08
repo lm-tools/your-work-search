@@ -1,7 +1,7 @@
 {{#hasJobs}}
-  <div class="mobile-space-top">
+  <div class="mobile-space-top desktop-right">
     <form action="{{basePath}}/{{accountId}}" method="GET">
-      <label for="sort">{{#__}}dashboard.sort.label{{/__}}</label><br>
+      <label for="sort">{{#__}}dashboard.sort.label{{/__}}</label>
       <select class="form-control form-control-auto" name="sort" id="sort"
               onchange="this.form.submit()">
         {{#sortOptions}}
