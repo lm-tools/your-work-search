@@ -62,35 +62,23 @@ describe('DashboardViewModel', function () {
       const expectedTimeline = [
         {
           heading: 'Interested',
-          priorityClass: 'timeline-high',
+          class: 'timeline__item--highlight timeline__item--start',
           message: ['Updated a few seconds ago'],
-          first: true,
-          last: false,
-          current: false,
         },
         {
           heading: 'Applied',
-          priorityClass: 'timeline-high',
+          class: 'timeline__item--highlight timeline__item--current',
           message: [],
-          first: false,
-          last: false,
-          current: true,
         },
         {
           heading: 'Interview',
-          priorityClass: 'timeline-default',
+          class: 'timeline__item--default',
           message: [],
-          first: false,
-          last: false,
-          current: false,
         },
         {
           heading: 'Offer',
-          priorityClass: 'timeline-default',
+          class: 'timeline__item--default timeline__item--finish',
           message: [],
-          first: false,
-          last: true,
-          current: false,
         },
       ];
 

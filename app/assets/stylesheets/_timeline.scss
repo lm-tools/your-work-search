@@ -72,22 +72,22 @@
   bottom: 36px;
 }
 
-.timeline__item--finish.timeline-high:after {
+.timeline__item--finish.timeline__item--highlight:after {
   bottom: 55px;
   @include media(mobile) {
     bottom: 40px;
   }
 }
 
-.timeline-high:before {
+.timeline__item--highlight:before {
   border-color: $timeline_highlight_color;
 }
 
-.timeline-high:after {
+.timeline__item--highlight:after {
   background: $timeline_highlight_color;
 }
 
-.timeline-high .timeline__heading {
+.timeline__item--highlight .timeline__heading {
   color: $timeline_highlight_color;
 }
 

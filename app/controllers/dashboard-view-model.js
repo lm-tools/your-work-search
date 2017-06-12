@@ -80,13 +80,32 @@ module.exports = class DashboardViewModel {
       {
         // eslint-disable-next-line no-underscore-dangle
         heading: i18n.__(`timeline.status.${status}`),
-        priorityClass: `timeline-${priority[status]}`,
+        class: this.buildStatusClass(index, status, currentStatus, statusList, priority),
         message: text[status],
-        first: index === 0,
-        last: index === statusList.length - 1,
-        current: status === currentStatus,
       }
     ));
+  }
+
+  buildStatusClass(index, status, currentStatus, statusList, priority) {
+    const classArray = [];
+
+    if (priority[status] === singleStatusRules.PRIORITY.HIGH) {
+      classArray.push('timeline__item--highlight');
+    } else {
+      classArray.push('timeline__item--default');
+    }
+
+    if (index === 0) {
+      classArray.push('timeline__item--start');
+    } else if (index === statusList.length - 1) {
+      classArray.push('timeline__item--finish');
+    }
+
+    if (status === currentStatus) {
+      classArray.push('timeline__item--current');
+    }
+
+    return classArray.toString().replace(',', ' ');
   }
 
   formatDate(inputDate) {
