@@ -46,6 +46,11 @@ describe('Timeline rules', function () {
       [
         { name: 'default for empty list', jobs: [], result: 'default' },
         {
+          name: 'high when there is a job without an interview date',
+          jobs: [aJob({ status: 'interview', interviewDate: null })],
+          result: 'high',
+        },
+        {
           name: 'high when there is a job younger then 21 days',
           jobs: [aJob({ status: 'interview', interviewDate: time20daysAgo })],
           result: 'high',

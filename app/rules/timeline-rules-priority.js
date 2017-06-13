@@ -16,6 +16,13 @@ function allDatesOlderThen21days(jobList) {
   return true;
 }
 
+function noJobsWithoutDates(jobList) {
+  if (atLeastOneJob(jobList)) {
+    return jobList.filter(job => job.statusDate === null).length === 0;
+  }
+  return true;
+}
+
 function groupByStatus(jobList) {
   return _.groupBy(jobList, 'status');
 }
@@ -24,13 +31,14 @@ function rulesForInterested(jobs) {
   const rule = atLeastOneJob(jobs) ? 'high' : 'default';
   return { interested: rule };
 }
+
 function rulesForApplied(jobs) {
   const rule = atLeastOneJob(jobs) ? 'high' : 'default';
   return { applied: rule };
 }
 
 function rulesForInterview(jobs) {
-  const rule = allDatesOlderThen21days(jobs) ? 'default' : 'high';
+  const rule = allDatesOlderThen21days(jobs) && noJobsWithoutDates(jobs) ? 'default' : 'high';
   return { interview: rule };
 }
 
