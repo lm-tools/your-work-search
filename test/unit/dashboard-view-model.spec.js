@@ -90,5 +90,37 @@ describe('DashboardViewModel', function () {
 
       expect(model.timeline).to.eql(expectedTimeline);
     });
+
+    it('should accommodate multiple classes', () => {
+      const expectedTimeline = [
+        {
+          heading: 'Interested',
+          class: 'timeline__item--highlight timeline__item--start timeline__item--current',
+          message: ['Updated a few seconds ago'],
+        },
+        {
+          heading: 'Applied',
+          class: 'timeline__item--default',
+          message: [],
+        },
+        {
+          heading: 'Interview',
+          class: 'timeline__item--default',
+          message: [],
+        },
+        {
+          heading: 'Offer',
+          class: 'timeline__item--default timeline__item--finish',
+          message: [],
+        },
+      ];
+
+      const model = new DashboardViewModel('',
+        [
+          sampleJob({ status: 'interested' }),
+        ]);
+
+      expect(model.timeline).to.eql(expectedTimeline);
+    });
   });
 });

@@ -105,7 +105,7 @@ module.exports = class DashboardViewModel {
       classArray.push('timeline__item--current');
     }
 
-    return classArray.toString().replace(',', ' ');
+    return classArray.toString().replace(/,/g, ' ');
   }
 
   formatDate(inputDate) {
