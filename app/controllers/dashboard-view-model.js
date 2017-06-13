@@ -97,7 +97,9 @@ module.exports = class DashboardViewModel {
 
     if (index === 0) {
       classArray.push('timeline__item--start');
-    } else if (index === statusList.length - 1) {
+    }
+
+    if (index === statusList.length - 1) {
       classArray.push('timeline__item--finish');
     }
 
