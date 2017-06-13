@@ -61,21 +61,25 @@ describe('DashboardViewModel', function () {
     it('should have timeline details populated', () => {
       const expectedTimeline = [
         {
+          status: 'interested',
           heading: 'Interested',
           class: 'timeline__item--highlight timeline__item--start',
           message: ['Updated a few seconds ago'],
         },
         {
+          status: 'applied',
           heading: 'Applied',
           class: 'timeline__item--highlight timeline__item--current',
           message: [],
         },
         {
+          status: 'interview',
           heading: 'Interview',
           class: 'timeline__item--default',
           message: [],
         },
         {
+          status: 'success',
           heading: 'Offer',
           class: 'timeline__item--default timeline__item--finish',
           message: [],
@@ -94,21 +98,25 @@ describe('DashboardViewModel', function () {
     it('should accommodate multiple classes', () => {
       const expectedTimeline = [
         {
+          status: 'interested',
           heading: 'Interested',
           class: 'timeline__item--highlight timeline__item--start timeline__item--current',
           message: ['Updated a few seconds ago'],
         },
         {
+          status: 'applied',
           heading: 'Applied',
           class: 'timeline__item--default',
           message: [],
         },
         {
+          status: 'interview',
           heading: 'Interview',
           class: 'timeline__item--default',
           message: [],
         },
         {
+          status: 'success',
           heading: 'Offer',
           class: 'timeline__item--default timeline__item--finish',
           message: [],

@@ -78,6 +78,7 @@ module.exports = class DashboardViewModel {
 
     return statusList.map((status, index) => (
       {
+        status: `${status}`,
         // eslint-disable-next-line no-underscore-dangle
         heading: i18n.__(`timeline.status.${status}`),
         class: this.buildStatusClass(index, status, currentStatus, statusList, priority),

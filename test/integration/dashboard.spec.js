@@ -274,5 +274,23 @@ describe('Dashboard', () => {
       });
     });
   });
+
+  describe('timeline', () => {
+    const SEED_ACCOUNT_ID = 'TIMELINE';
+
+    before(function () {
+      return knex.seed.run({ directory: './db/seeds/timeline' });
+    });
+
+    it('should display the timeline', () =>
+      dashboardPage.visit(SEED_ACCOUNT_ID)
+        .then(() => {
+          expect(dashboardPage.isTimelineHighlighted('interested')).to.equal(true);
+          expect(dashboardPage.isTimelineHighlighted('applied')).to.equal(true);
+          expect(dashboardPage.isTimelineHighlighted('interview')).to.equal(true);
+          expect(dashboardPage.isTimelineHighlighted('success')).to.equal(true);
+        })
+    );
+  });
 });
 
