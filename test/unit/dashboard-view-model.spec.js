@@ -3,6 +3,9 @@ const sampleJob = helper.sampleJob;
 const DashboardViewModel = require('../../app/controllers/dashboard-view-model');
 const expect = require('chai').expect;
 const sinon = require('sinon');
+const moment = require('moment');
+
+const oneDay = moment.duration(1, 'd');
 
 describe('DashboardViewModel', function () {
   const now = new Date('2016-04-21');
@@ -101,7 +104,7 @@ describe('DashboardViewModel', function () {
           status: 'interested',
           heading: 'Interested',
           class: 'timeline__item--highlight timeline__item--start timeline__item--current',
-          message: ['Updated a few seconds ago'],
+          message: ['Updated a day ago'],
         },
         {
           status: 'applied',
@@ -125,7 +128,7 @@ describe('DashboardViewModel', function () {
 
       const model = new DashboardViewModel('',
         [
-          sampleJob({ status: 'interested' }),
+          sampleJob({ status: 'interested', updated_at: moment().subtract(oneDay) }),
         ]);
 
       expect(model.timeline).to.eql(expectedTimeline);
