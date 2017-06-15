@@ -8,6 +8,7 @@ describe('Timeline rules', function () {
   const in8days = moment().add(8, 'days').toDate();
   const in7days = moment().add(7, 'days').toDate();
   const now = new Date();
+  const anHourAgo = moment().subtract(1, 'hour');
   const yesterday = moment().subtract(1, 'day').toDate();
   const time10daysAgo = moment().subtract(10, 'day').toDate();
   const time3daysAgo = moment().subtract(3, 'day').toDate();
@@ -30,17 +31,17 @@ describe('Timeline rules', function () {
           name: 'updated date when there is a job without date',
           jobs: [
             aJob({ status: 'interested', updated_at: yesterday }),
-            aJob({ status: 'interested', updated_at: now }),
+            aJob({ status: 'interested', updated_at: anHourAgo }),
           ],
-          result: ['Updated a few seconds ago'],
+          result: ['Updated an hour ago'],
         },
         {
           name: 'updated date when every input date is more then 7 days in the future',
           jobs: [
-            aJob({ status: 'interested', deadlineDate: in8days, updated_at: now }),
+            aJob({ status: 'interested', deadlineDate: in8days, updated_at: anHourAgo }),
             aJob({ status: 'interested', deadlineDate: in8days, updated_at: yesterday }),
           ],
-          result: ['Updated a few seconds ago'],
+          result: ['Updated an hour ago'],
         },
         {
           name: 'updated date when one date is 7 days in the future and rest are after',
