@@ -24,6 +24,11 @@ describe('Timeline rules', function () {
           jobs: [aJob({ status: 'interested' })],
           result: 'high',
         },
+        {
+          name: 'default when job list contains date 21 days ago',
+          jobs: [aJob({ status: 'interested', deadlineDate: time21daysAgo })],
+          result: 'default',
+        },
       ].forEach(s => {
         it(s.name, () => {
           expect(rules.priority(s.jobs).interested).to.equal(s.result);
