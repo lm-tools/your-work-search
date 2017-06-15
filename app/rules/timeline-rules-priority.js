@@ -38,7 +38,7 @@ function rulesForInterested(jobs) {
 }
 
 function rulesForApplied(jobs) {
-  const rule = atLeastOneJob(jobs) ? 'high' : 'default';
+  const rule = atLeastOneJob(jobs) && anyJobYoungerThan21days(jobs) ? 'high' : 'default';
   return { applied: rule };
 }
 

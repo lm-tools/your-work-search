@@ -40,6 +40,11 @@ describe('Timeline rules', function () {
       [
         { name: 'default for empty list', jobs: [], result: 'default' },
         { name: 'high when there is a job', jobs: [aJob({ status: 'applied' })], result: 'high' },
+        {
+          name: 'default when job list contains date 21 days ago',
+          jobs: [aJob({ status: 'applied', applicationDate: time21daysAgo })],
+          result: 'default',
+        },
       ].forEach(s => {
         it(s.name, () => {
           expect(rules.priority(s.jobs).applied).to.equal(s.result);
