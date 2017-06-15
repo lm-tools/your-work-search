@@ -60,7 +60,12 @@ function getTextForInterested(jobs) {
     return [`Updated ${moment(date).fromNow()}`];
   }
 
-  const jobsExpiringSoonCount = findJobsExpiringInLessThanAWeek(jobs).length;
+  const jobsExpiringInLessThanAWeek = findJobsExpiringInLessThanAWeek(jobs);
+  const jobsExpiringInLessThanAWeekWithDeadlineDate =
+    jobsExpiringInLessThanAWeek.filter(j => !!j.deadlineDate);
+
+  const jobsExpiringSoonCount = jobsExpiringInLessThanAWeekWithDeadlineDate.length;
+
   if (jobsExpiringSoonCount === 1) {
     return ['One job expiring soon'];
   }
