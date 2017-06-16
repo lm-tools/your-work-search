@@ -36,6 +36,10 @@ function allJobsMoreThenAWeekInTheFuture(jobs) {
   return !jobs.find(it => moment(it.statusDate).isSameOrBefore(weekFromNow(), 'day'));
 }
 
+function allJobsInThePast(jobs) {
+  return !jobs.find(j => moment(j.statusDate).isSameOrAfter(now()));
+}
+
 function findJobsExpiringInLessThanAWeek(jobs) {
   return jobs.filter(
     it => moment(it.statusDate).isBetween(now(), weekFromNow(), 'day', '[]')
@@ -55,12 +59,19 @@ function findJobsExpired(jobs, when = now()) {
 }
 
 function getTextForInterested(jobs) {
-  if (noJobWithStatusDateSet(jobs) || allJobsMoreThenAWeekInTheFuture(jobs)) {
+  if (noJobWithStatusDateSet(jobs) ||
+      allJobsMoreThenAWeekInTheFuture(jobs) ||
+      allJobsInThePast(jobs)) {
     const date = mostRecentUpdatedDate(jobs);
     return [`Updated ${moment(date).fromNow()}`];
   }
 
-  const jobsExpiringSoonCount = findJobsExpiringInLessThanAWeek(jobs).length;
+  const jobsExpiringInLessThanAWeek = findJobsExpiringInLessThanAWeek(jobs);
+  const jobsExpiringInLessThanAWeekWithDeadlineDate =
+    jobsExpiringInLessThanAWeek.filter(j => !!j.deadlineDate);
+
+  const jobsExpiringSoonCount = jobsExpiringInLessThanAWeekWithDeadlineDate.length;
+
   if (jobsExpiringSoonCount === 1) {
     return ['One job expiring soon'];
   }

@@ -5,15 +5,20 @@ function atLeastOneJob(jobs) {
   return !!jobs && jobs.length > 0;
 }
 
-function allDatesOlderThen21days(jobList) {
-  if (atLeastOneJob(jobList)) {
-    const time21DaysAgo = moment().subtract(21, 'days');
+function anyJobYoungerThan21days(jobList) {
+  const time21DaysAgo = moment().subtract(21, 'days');
 
-    const jobYoungerThen21days = jobList
+  if (atLeastOneJob(jobList)) {
+    const jobYoungerThan21days = jobList
       .find(it => moment(it.statusDate).isAfter(time21DaysAgo, 'day'));
-    return !jobYoungerThen21days;
+
+    return jobYoungerThan21days;
   }
-  return true;
+  return false;
+}
+
+function allDatesOlderThen21days(jobList) {
+  return !anyJobYoungerThan21days(jobList);
 }
 
 function noJobsWithoutDates(jobList) {
@@ -28,12 +33,12 @@ function groupByStatus(jobList) {
 }
 
 function rulesForInterested(jobs) {
-  const rule = atLeastOneJob(jobs) ? 'high' : 'default';
+  const rule = atLeastOneJob(jobs) && anyJobYoungerThan21days(jobs) ? 'high' : 'default';
   return { interested: rule };
 }
 
 function rulesForApplied(jobs) {
-  const rule = atLeastOneJob(jobs) ? 'high' : 'default';
+  const rule = atLeastOneJob(jobs) && anyJobYoungerThan21days(jobs) ? 'high' : 'default';
   return { applied: rule };
 }
 
