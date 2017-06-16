@@ -25,6 +25,11 @@ describe('Timeline rules', function () {
           result: 'high',
         },
         {
+          name: 'high when there is a job without a deadline date',
+          jobs: [aJob({ status: 'interested', deadlineDate: null })],
+          result: 'high',
+        },
+        {
           name: 'default when job list contains date 21 days ago',
           jobs: [aJob({ status: 'interested', deadlineDate: time21daysAgo })],
           result: 'default',
@@ -39,7 +44,16 @@ describe('Timeline rules', function () {
     describe('applied', () => {
       [
         { name: 'default for empty list', jobs: [], result: 'default' },
-        { name: 'high when there is a job', jobs: [aJob({ status: 'applied' })], result: 'high' },
+        {
+          name: 'high when there is a job',
+          jobs: [aJob({ status: 'applied' })],
+          result: 'high',
+        },
+        {
+          name: 'high when there is a job without a date',
+          jobs: [aJob({ status: 'applied', applicationDate: null })],
+          result: 'high',
+        },
         {
           name: 'default when job list contains date 21 days ago',
           jobs: [aJob({ status: 'applied', applicationDate: time21daysAgo })],
@@ -88,11 +102,6 @@ describe('Timeline rules', function () {
     describe('success', () => {
       [
         { name: 'default for empty list', jobs: [], result: 'default' },
-        {
-          name: 'high when there is a job without a date',
-          jobs: [aJob({ status: 'success' })],
-          result: 'high',
-        },
         {
           name: 'high when there is a job with date younger the 21 days',
           jobs: [aJob({ status: 'success', successDate: time20daysAgo })],
