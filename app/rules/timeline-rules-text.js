@@ -36,6 +36,11 @@ function allJobsMoreThenAWeekInTheFuture(jobs) {
   return !jobs.find(it => moment(it.statusDate).isSameOrBefore(weekFromNow(), 'day'));
 }
 
+function allJobsMoreThan21DaysAgo(jobs) {
+  const time21DaysAgo = moment().subtract(21, 'days');
+  return !jobs.find(j => moment(j.statusDate).isAfter(time21DaysAgo, 'day'));
+}
+
 function findJobsExpiringInLessThanAWeek(jobs) {
   return jobs.filter(
     it => moment(it.statusDate).isBetween(now(), weekFromNow(), 'day', '[]')
@@ -55,7 +60,9 @@ function findJobsExpired(jobs, when = now()) {
 }
 
 function getTextForInterested(jobs) {
-  if (noJobWithStatusDateSet(jobs) || allJobsMoreThenAWeekInTheFuture(jobs)) {
+  if (noJobWithStatusDateSet(jobs) ||
+      allJobsMoreThenAWeekInTheFuture(jobs) ||
+      allJobsMoreThan21DaysAgo(jobs)) {
     const date = mostRecentUpdatedDate(jobs);
     return [`Updated ${moment(date).fromNow()}`];
   }

@@ -15,6 +15,7 @@ describe('Timeline rules', function () {
   const time3weeksAgo = moment().subtract(3, 'weeks').toDate();
   const time3weeksAnd1DayAgo = moment().subtract(22, 'days').toDate();
   const time3weeksAnd2DaysAgo = moment().subtract(23, 'days').toDate();
+  const time21daysAgo = moment().subtract(21, 'days').toDate();
 
   function aJob(opts) {
     return new Job(Object.assign(
@@ -71,6 +72,16 @@ describe('Timeline rules', function () {
           result: ['2 jobs expiring soon'],
         },
         {
+          name: 'updated date when all dates expired more than 21 days ago',
+          jobs: [
+            aJob({ status: 'interested', deadlineDate: time21daysAgo, updated_at: anHourAgo }),
+            aJob({ status: 'interested', deadlineDate: time21daysAgo, updated_at: anHourAgo }),
+            aJob({ status: 'interested', deadlineDate: time21daysAgo, updated_at: anHourAgo }),
+          ],
+          result: ['Updated an hour ago'],
+        },
+
+        {
           name: 'jobs without a deadline date should not be included',
           jobs: [
             aJob({ status: 'interested', deadlineDate: in7days, updated_at: now }),
@@ -111,6 +122,12 @@ describe('Timeline rules', function () {
           ],
           result: ['Last 3 days ago'],
         },
+        {
+          name: 'default when job list contains date 21 days ago',
+          jobs: [aJob({ status: 'applied', applicationDate: time21daysAgo })],
+          result: ['Last 21 days ago'],
+        },
+
       ].forEach(s => {
         it(s.name, () => {
           expect(rules.text(s.jobs).applied).to.eql(s.result);
