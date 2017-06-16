@@ -80,7 +80,6 @@ describe('Timeline rules', function () {
           ],
           result: ['Updated an hour ago'],
         },
-
         {
           name: 'jobs without a deadline date should not be included',
           jobs: [
@@ -89,7 +88,13 @@ describe('Timeline rules', function () {
           ],
           result: ['One job expiring soon'],
         },
-
+        {
+          name: 'updated date when deadline date in the past',
+          jobs: [
+            aJob({ status: 'interested', deadlineDate: time3daysAgo, updated_at: anHourAgo }),
+          ],
+          result: ['Updated an hour ago'],
+        },
 
       ].forEach(s => {
         it(s.name, () => {
