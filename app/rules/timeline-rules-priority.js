@@ -8,17 +8,17 @@ function atLeastOneJob(jobs) {
 function anyJobYoungerThan21days(jobList) {
   const time21DaysAgo = moment().subtract(21, 'days');
 
-  const jobYoungerThan21days = jobList
-    .find(it => moment(it.statusDate).isAfter(time21DaysAgo, 'day'));
+  if (atLeastOneJob(jobList)) {
+    const jobYoungerThan21days = jobList
+      .find(it => moment(it.statusDate).isAfter(time21DaysAgo, 'day'));
 
-  return jobYoungerThan21days;
+    return jobYoungerThan21days;
+  }
+  return false;
 }
 
 function allDatesOlderThen21days(jobList) {
-  if (atLeastOneJob(jobList)) {
-    return !anyJobYoungerThan21days(jobList);
-  }
-  return true;
+  return !anyJobYoungerThan21days(jobList);
 }
 
 function noJobsWithoutDates(jobList) {
