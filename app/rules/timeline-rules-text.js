@@ -92,6 +92,9 @@ function rulesForInterested(jobs) {
 function getTextForApplied(jobs) {
   if (atLeastOneJob(jobs)) {
     const mostRecentDate = mostRecentStatusDate(jobs);
+    if (!!mostRecentDate && moment(mostRecentDate).isSame(now(), 'day')) {
+      return ['Last today'];
+    }
     if (!!mostRecentDate && moment(mostRecentDate).isBefore(now(), 'day')) {
       return [`Last ${moment(mostRecentDate).fromNow()}`];
     }
