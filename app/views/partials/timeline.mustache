@@ -1,12 +1,9 @@
 <ul class="timeline">
   {{#timeline}}
     <li data-test="{{status}}-timeline" class="timeline__item {{class}}">
-      <h3 class="bold-small timeline__heading">{{heading}} <span class="visuallyhidden">Status: {{heading}}</span></h3>
-      {{#message}}
-        <p class="font-xsmall timeline__message">
-          {{ . }}&nbsp;
-        </p>
-      {{/message}}
+      <h3 class="bold-small timeline__heading">{{heading}}<span class="visuallyhidden">Status: {{heading}}</span></h3>
+      {{^message}}<p class="font-xsmall timeline__message">&nbsp;</p>{{/message}}
+      {{#message}}<p class="font-xsmall timeline__message">{{.}}</p>{{/message}}
     </li>
   {{/timeline}}
 </ul>

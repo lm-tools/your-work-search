@@ -69,11 +69,11 @@
 
 .timeline__item--finish:after {
   top: auto;
-  bottom: 36px;
+  bottom: 50px;
 }
 
 .timeline__item--finish.timeline__item--highlight:after {
-  bottom: 55px;
+  bottom: 70px;
   @include media(mobile) {
     bottom: 40px;
   }
