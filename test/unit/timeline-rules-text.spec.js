@@ -120,6 +120,13 @@ describe('Timeline rules', function () {
           result: [],
         },
         {
+          name: 'Today when applied today',
+          jobs: [
+            aJob({ status: 'applied', applicationDate: moment() }),
+          ],
+          result: ['Last today'],
+        },
+        {
           name: 'X days ago when all the jobs in the past',
           jobs: [
             aJob({ status: 'applied', applicationDate: time10daysAgo }),
