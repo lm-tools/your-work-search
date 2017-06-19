@@ -2,6 +2,8 @@ const moment = require('moment');
 const i18n = require('i18n');
 const progression = require('../models/progression');
 const singleStatusRules = require('../rules/single-status-rules');
+const timelinePriorityRules = require('../rules/timeline-rules-priority');
+const timelineTextRules = require('../../app/rules/timeline-rules-text');
 
 module.exports = class DashboardViewModel {
 
@@ -11,6 +13,7 @@ module.exports = class DashboardViewModel {
     this.hasJobs = totalSavedJobs > 0;
     this.sortType = sort;
     this.sortOptions = this.dashboardSortOptions(sort);
+    this.timeline = this.dashboardTimeline(jobs);
   }
 
   dashboardJobs(jobs, jobIdInFocus) {
@@ -57,6 +60,55 @@ module.exports = class DashboardViewModel {
        // eslint-disable-next-line no-underscore-dangle
         label: i18n.__('dashboard.sort.employer'), selected: sort === 'employer' },
     ];
+  }
+
+  dashboardTimeline(jobs) {
+    let currentStatus = 'unknown';
+
+    const priority = timelinePriorityRules.priority(jobs);
+    const text = timelineTextRules.text(jobs);
+
+    const statusList = Object.keys(priority);
+    const indexOfFirstDefaultPriority = statusList.map(
+      status => priority[status]).findIndex(p => p === 'default');
+
+    if (indexOfFirstDefaultPriority > 0) {
+      currentStatus = statusList[indexOfFirstDefaultPriority - 1];
+    }
+
+    return statusList.map((status, index) => (
+      {
+        status: `${status}`,
+        // eslint-disable-next-line no-underscore-dangle
+        heading: i18n.__(`timeline.status.${status}`),
+        class: this.buildStatusClass(index, status, currentStatus, statusList, priority),
+        message: text[status],
+      }
+    ));
+  }
+
+  buildStatusClass(index, status, currentStatus, statusList, priority) {
+    const classArray = [];
+
+    if (priority[status] === singleStatusRules.PRIORITY.HIGH) {
+      classArray.push('timeline__item--highlight');
+    } else {
+      classArray.push('timeline__item--default');
+    }
+
+    if (index === 0) {
+      classArray.push('timeline__item--start');
+    }
+
+    if (index === statusList.length - 1) {
+      classArray.push('timeline__item--finish');
+    }
+
+    if (status === currentStatus) {
+      classArray.push('timeline__item--current');
+    }
+
+    return classArray.toString().replace(/,/g, ' ');
   }
 
   formatDate(inputDate) {

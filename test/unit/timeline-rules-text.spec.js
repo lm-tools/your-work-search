@@ -72,6 +72,15 @@ describe('Timeline rules', function () {
           result: ['2 jobs expiring soon'],
         },
         {
+          name: 'no deadline date should not considered for comment',
+          jobs: [
+            aJob({ status: 'interested', deadlineDate: in7days, updated_at: now }),
+            aJob({ status: 'interested', updated_at: now }),
+          ],
+          result: ['One job expiring soon'],
+        },
+
+        {
           name: 'updated date when all dates expired more than 21 days ago',
           jobs: [
             aJob({ status: 'interested', deadlineDate: time21daysAgo, updated_at: anHourAgo }),

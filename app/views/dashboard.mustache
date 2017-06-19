@@ -3,29 +3,18 @@
   {{$applicationContent}}
     <h2 class="heading-xlarge">{{#__}}dashboard.header{{/__}}</h2>
 
-    <div class="job-list-with-filters">
-      <div class="grid-row">
-        <div class="column-one-half">
-          <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
-        </div>
+    <div class="column-one-third no-padding">
+      <div class="padded-column">
+        {{>timeline}}
+      </div>
+      <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
+    </div>
 
-        {{#hasJobs}}
-        <div class="column-one-half tablet-right mobile-space-top">
-          <form action="{{basePath}}/{{accountId}}" method="GET">
-            <label for="sort">{{#__}}dashboard.sort.label{{/__}}</label>
-            <select class="form-control form-control-auto" name="sort" id="sort"
-                    onchange="this.form.submit()">
-              {{#sortOptions}}
-                <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
-              {{/sortOptions}}
-            </select>
-            <input class="button js-hidden" type="submit" value="{{#__}}dashboard.sort.button{{/__}}">
-          </form>
-        </div>
-        {{/hasJobs}}
+    <div class="column-two-thirds no-padding">
+      {{>sort}}
+    </div>
 
-        </div>
-
+    <div class="column-two-thirds no-padding">
       <section class="space-top-double">
         <ul>
           {{#jobs}}
@@ -62,8 +51,7 @@
                     <span data-test="updated">{{updatedFormatted}}</span>
                   </p>
                   <a class="button button-secondary button-same-on-mobile" data-test="update-button"
-                     href="{{basePath}}/{{accountId}}/jobs/{{id}}">
-                    {{#__}}dashboard.updateJobButton{{/__}}
+                     href="{{basePath}}/{{accountId}}/jobs/{{id}}">{{#__}}dashboard.updateJobButton{{/__}}
                   </a>
                 </div>
               </div>
@@ -74,7 +62,12 @@
 
       {{^hasJobs}}
         <p id="first-use-help">
-          {{#__}}dashboard.first-use-help{{/__}}
+        <ol class="list list-number">
+          <li>{{#__}}dashboard.first-use-introduction-1{{/__}}</li>
+          <li>{{#__}}dashboard.first-use-introduction-2{{/__}}</li>
+          <li>{{#__}}dashboard.first-use-introduction-3{{/__}}</li>
+        </ol>
+        {{#__}}dashboard.first-use-help{{/__}}
         </p>
       {{/hasJobs}}
       {{#hasJobs}}
@@ -83,7 +76,6 @@
         </p>
       {{/hasJobs}}
     </div>
-
   {{/applicationContent}}
 
 {{/layout}}

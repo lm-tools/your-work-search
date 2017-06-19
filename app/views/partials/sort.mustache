@@ -1,0 +1,14 @@
+{{#hasJobs}}
+  <div class="mobile-space-top desktop-right">
+    <form action="{{basePath}}/{{accountId}}" method="GET">
+      <label for="sort">{{#__}}dashboard.sort.label{{/__}}</label>
+      <select class="form-control form-control-auto" name="sort" id="sort"
+              onchange="this.form.submit()">
+        {{#sortOptions}}
+          <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
+        {{/sortOptions}}
+      </select>
+      <input class="button js-hidden" type="submit" value="{{#__}}dashboard.sort.button{{/__}}">
+    </form>
+  </div>
+{{/hasJobs}}
