@@ -6,6 +6,7 @@ const sinon = require('sinon');
 const moment = require('moment');
 
 const oneDay = moment.duration(1, 'd');
+const tenDays = moment.duration(10, 'd');
 
 describe('DashboardViewModel', function () {
   const now = new Date('2016-04-21');
@@ -129,6 +130,50 @@ describe('DashboardViewModel', function () {
       const model = new DashboardViewModel('',
         [
           sampleJob({ status: 'interested', updated_at: moment().subtract(oneDay) }),
+        ]);
+
+      expect(model.timeline).to.eql(expectedTimeline);
+    });
+
+    it('should accommodate multiple messages', () => {
+      const expectedTimeline = [
+        {
+          status: 'interested',
+          heading: 'Interested',
+          class: 'timeline__item--highlight timeline__item--start',
+          message: [],
+        },
+        {
+          status: 'applied',
+          heading: 'Applied',
+          class: 'timeline__item--highlight',
+          message: [],
+        },
+        {
+          status: 'interview',
+          heading: 'Interview',
+          class: 'timeline__item--highlight timeline__item--current',
+          message: ['Next in a day', 'Last 10 days ago'],
+        },
+        {
+          status: 'success',
+          heading: 'Offer',
+          class: 'timeline__item--default timeline__item--finish',
+          message: [],
+        },
+      ];
+
+      const model = new DashboardViewModel('',
+        [
+          sampleJob(
+            {
+              status: 'interview',
+              statusDate: moment().add(oneDay),
+            }),
+          sampleJob(
+            { status: 'interview',
+              statusDate: moment().subtract(tenDays),
+            }),
         ]);
 
       expect(model.timeline).to.eql(expectedTimeline);
