@@ -18,18 +18,6 @@ const validator = {
 
 router.get('/:accountId/cookie', validator.getAccount, (req, res) => {
   const accountId = req.params.accountId;
-
-  // TEMP FIX FOR FAILED EXAMPLE URL - TO BE REMOVED
-  const hasIdQueryParams = req.query.id;
-
-  if (accountId === 'EXAMPLE' && hasIdQueryParams) {
-    const basePath = req.app.locals.basePath;
-    const realAccountId = req.query.id;
-
-    res.redirect(`${basePath}/cookie/?id=${realAccountId}`);
-  }
-  // END OF FIX
-
   res.render('cookie', { accountId });
 });
 
