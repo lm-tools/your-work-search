@@ -11,6 +11,7 @@ const dashboardController = require('./controllers/dashboard-controller.js');
 const jobsController = require('./controllers/jobs-controller.js');
 const addJobController = require('./controllers/add-job-controller.js');
 const confirmationController = require('./controllers/confirmation-controller');
+const cookieController = require('./controllers/cookie-controller');
 const errorHandler = require('./middleware/error-handler');
 const healthCheckController = require('./controllers/health-check-controller');
 const helmet = require('helmet');
@@ -80,6 +81,7 @@ app.use(validator({
   },
 }));
 
+app.use(`${basePath}/`, cookieController);
 app.use(`${basePath}/`, dashboardController);
 app.use(`${basePath}/:accountId/jobs/new`, addJobController);
 app.use(`${basePath}/:accountId/jobs`, jobsController);
