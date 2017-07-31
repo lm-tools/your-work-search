@@ -16,6 +16,13 @@ Clone the repository:
 $ git clone https://github.com/lm-tools/your-work-search.git
 ```
 
+Use node 6.11.1 and npm >5. Setup with [nvm](https://github.com/creationix/nvm):
+
+```sh
+$ nvm install 6.11.1
+$ npm install -g npm@5.3
+``` 
+
 Make sure that [PostgreSQL] is running, and that your current user (`$ whoami`)
 has full access. Alternatively, custom database details can be provided by setting
 a `DATABASE_URL` environment variable to a valid [PostgreSQL connection string]
