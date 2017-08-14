@@ -1,11 +1,11 @@
 const i18n = require('i18n');
 const winston = require('winston');
-var logger = new winston.Logger({
+const logger = new winston.Logger({
   transports: [
     new winston.transports.Console({
       json: true,
       stringify: JSON.stringify,
-    })
+    }),
   ],
 });
 
