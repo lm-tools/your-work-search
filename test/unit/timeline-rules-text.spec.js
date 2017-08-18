@@ -7,6 +7,7 @@ const progression = require('../../app/models/progression');
 describe('Timeline rules', function () {
   const in8days = moment().add(8, 'days').toDate();
   const in7days = moment().add(7, 'days').toDate();
+  const in10days = moment().add(10, 'days').toDate();
   const now = new Date();
   const anHourAgo = moment().subtract(1, 'hour');
   const yesterday = moment().subtract(1, 'day').toDate();
@@ -16,6 +17,11 @@ describe('Timeline rules', function () {
   const time3weeksAnd1DayAgo = moment().subtract(22, 'days').toDate();
   const time3weeksAnd2DaysAgo = moment().subtract(23, 'days').toDate();
   const time21daysAgo = moment().subtract(21, 'days').toDate();
+
+  // An array of 11 dates is the magic number for testing sort functions
+  function testDates(...dates) {
+    return new Array(11).fill(0).map((v, i) => dates[i % dates.length]);
+  }
 
   function aJob(opts) {
     return new Job(Object.assign(
@@ -30,10 +36,8 @@ describe('Timeline rules', function () {
         { name: 'empty for empty list', jobs: [], result: [] },
         {
           name: 'updated date when there is a job without date',
-          jobs: [
-            aJob({ status: 'interested', updated_at: yesterday }),
-            aJob({ status: 'interested', updated_at: anHourAgo }),
-          ],
+          jobs: testDates(yesterday, anHourAgo, time3daysAgo)
+            .map(d => aJob({ status: 'interested', updated_at: d })),
           result: ['Updated an hour ago'],
         },
         {
@@ -148,6 +152,12 @@ describe('Timeline rules', function () {
           jobs: [aJob({ status: 'applied', applicationDate: time21daysAgo })],
           result: ['Last 21 days ago'],
         },
+        {
+          name: 'Most recent applied for job',
+          jobs: testDates(time21daysAgo, time3daysAgo, time10daysAgo)
+            .map(d => aJob({ status: 'applied', applicationDate: d })),
+          result: ['Last 3 days ago'],
+        },
 
       ].forEach(s => {
         it(s.name, () => {
@@ -166,10 +176,8 @@ describe('Timeline rules', function () {
         },
         {
           name: 'Next in X days for all dates in future',
-          jobs: [
-            aJob({ status: 'interview', interviewDate: in7days }),
-            aJob({ status: 'interview', interviewDate: in8days }),
-          ],
+          jobs: testDates(in10days, in7days, in8days)
+            .map(d => aJob({ status: 'interview', interviewDate: d })),
           result: ['Next in 7 days'],
         },
         {
@@ -195,6 +203,12 @@ describe('Timeline rules', function () {
             aJob({ status: 'interview', interviewDate: time10daysAgo }),
           ],
           result: ['Next in 7 days', 'Last 10 days ago'],
+        },
+        {
+          name: 'Most recent interview for job',
+          jobs: testDates(time21daysAgo, time3daysAgo, time10daysAgo)
+            .map(d => aJob({ status: 'interview', interviewDate: d })),
+          result: ['Last 3 days ago'],
         },
       ].forEach(s => {
         it(s.name, () => {
