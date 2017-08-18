@@ -18,7 +18,7 @@ describe('Timeline rules', function () {
   const time3weeksAnd2DaysAgo = moment().subtract(23, 'days').toDate();
   const time21daysAgo = moment().subtract(21, 'days').toDate();
 
-  // An array of 12 dates is the magic number for testing sort functions
+  // An array of 11 dates is the magic number for testing sort functions
   function testDates(...dates) {
     return new Array(11).fill(0).map((v, i) => dates[i % dates.length]);
   }
