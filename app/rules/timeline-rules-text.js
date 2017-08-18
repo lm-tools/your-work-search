@@ -17,18 +17,22 @@ function atLeastOneJob(jobs) {
   return !!jobs && jobs.length > 0;
 }
 
+function sortify(bool) {
+  return bool ? 1 : -1;
+}
+
 function mostRecentUpdatedDate(jobs) {
-  const sorted = jobs.sort((a, b) => moment(a.updated_at).isBefore(moment(b.updated_at)));
+  const sorted = jobs.sort((a, b) => sortify(moment(a.updated_at).isBefore(moment(b.updated_at))));
   return sorted[0].updated_at;
 }
 
 function mostRecentStatusDate(jobs) {
-  const sorted = jobs.sort((a, b) => moment(a.statusDate).isBefore(moment(b.statusDate)));
+  const sorted = jobs.sort((a, b) => sortify(moment(a.statusDate).isBefore(moment(b.statusDate))));
   return sorted[0] ? sorted[0].statusDate : null;
 }
 
 function soonestStatusDate(jobs) {
-  const sorted = jobs.sort((a, b) => moment(a.statusDate).isAfter(moment(b.statusDate)));
+  const sorted = jobs.sort((a, b) => sortify(moment(a.statusDate).isAfter(moment(b.statusDate))));
   return sorted[0] ? sorted[0].statusDate : null;
 }
 
