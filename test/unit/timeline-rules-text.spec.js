@@ -158,6 +158,23 @@ describe('Timeline rules', function () {
             .map(d => aJob({ status: 'applied', applicationDate: d })),
           result: ['Last 3 days ago'],
         },
+        {
+          name: 'Empty if no dates',
+          jobs: [
+            aJob({ status: 'applied' }),
+            aJob({ status: 'applied' }),
+          ],
+          result: [],
+        },
+        {
+          name: 'Last X days if any job has a date',
+          jobs: [
+            aJob({ status: 'applied' }),
+            aJob({ status: 'applied', applicationDate: time3daysAgo }),
+            aJob({ status: 'applied' }),
+          ],
+          result: ['Last 3 days ago'],
+        },
 
       ].forEach(s => {
         it(s.name, () => {
