@@ -88,6 +88,11 @@ dt {
   }
 }
 
+// iOS date field fix
+.date-real {
+  min-height: 34px;
+}
+
 // boxes
 $box-border-color: $panel-colour;
 .box {
