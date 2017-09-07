@@ -27,7 +27,8 @@ function mostRecentUpdatedDate(jobs) {
 }
 
 function mostRecentStatusDate(jobs) {
-  const sorted = jobs.sort((a, b) => sortify(moment(a.statusDate).isBefore(moment(b.statusDate))));
+  const sorted = jobs.sort((a, b) => sortify(moment(a.statusDate).isBefore(moment(b.statusDate))))
+    .filter(j => !!j.statusDate);
   return sorted[0] ? sorted[0].statusDate : null;
 }
 
