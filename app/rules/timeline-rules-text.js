@@ -112,6 +112,11 @@ function rulesForApplied(jobs) {
   return { applied };
 }
 
+function formatFutureDate(date) {
+  const endOfDayDate = moment(date).endOf('day');
+  return endOfDayDate.from(moment().endOf('day'));
+}
+
 function getTextForInterview(jobs) {
   if (atLeastOneJob(jobs)) {
     if (findJobsExpiringToday(jobs).length > 0) {
@@ -121,7 +126,7 @@ function getTextForInterview(jobs) {
     const expiringInTheFuture = findJobsExpiringInTheFuture(jobs);
     if (expiringInTheFuture.length > 0) {
       const date = soonestStatusDate(expiringInTheFuture);
-      result.push(`Next ${moment(date).fromNow()}`);
+      result.push(`Next ${formatFutureDate(date)}`);
     }
     const expiredJobs = findJobsExpired(jobs);
     if (expiredJobs.length > 0) {

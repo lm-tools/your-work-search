@@ -8,6 +8,8 @@ describe('Timeline rules', function () {
   const in8days = moment().add(8, 'days').toDate();
   const in7days = moment().add(7, 'days').toDate();
   const in10days = moment().add(10, 'days').toDate();
+  const in1Day = moment().add(1, 'day').startOf('day')
+    .toDate();
   const now = new Date();
   const anHourAgo = moment().subtract(1, 'hour');
   const yesterday = moment().subtract(1, 'day').toDate();
@@ -226,6 +228,13 @@ describe('Timeline rules', function () {
           jobs: testDates(time21daysAgo, time3daysAgo, time10daysAgo)
             .map(d => aJob({ status: 'interview', interviewDate: d })),
           result: ['Last 3 days ago'],
+        },
+        {
+          name: 'in a day when today',
+          jobs: [
+            aJob({ status: 'interview', interviewDate: in1Day }),
+          ],
+          result: ['Next in a day'],
         },
       ].forEach(s => {
         it(s.name, () => {
