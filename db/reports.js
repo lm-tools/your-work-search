@@ -13,7 +13,12 @@ module.exports = {
         knex.raw('sum(case when status = \'success\' then 1 else 0 end) as total_success'),
         knex.raw('sum(CASE WHEN status = \'interested\' AND ' +
                   'deadline IS NOT NULL THEN 1 ELSE 0 END) ' +
-                  'as total_interested_with_deadline')
+                  'as total_interested_with_deadline'),
+        knex.raw('sum(case when rating = 1 then 1 else 0 end) as total_1_star'),
+        knex.raw('sum(case when rating = 2 then 1 else 0 end) as total_2_star'),
+        knex.raw('sum(case when rating = 3 then 1 else 0 end) as total_3_star'),
+        knex.raw('sum(case when rating = 4 then 1 else 0 end) as total_4_star'),
+        knex.raw('sum(case when rating = 5 then 1 else 0 end) as total_5_star')
       )
       .count('accountId as totalSaved')
       .groupBy('accountId')
