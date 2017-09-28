@@ -49,6 +49,7 @@
     "joi": "^10.4.1",
     "jquery": "^3.0.0",
     "jquery-ui": "1.10.5",
+    "json2csv": "^3.11.2",
     "knex": "^0.11.5",
     "lodash": "^4.17.4",
     "method-override": "~2.3",
