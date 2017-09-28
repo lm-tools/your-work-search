@@ -21,6 +21,7 @@ exports.seed = function (knex) {
           title: 'B-',
           employer: 'Z-',
           status: 'interested',
+          deadline: moment().add(day),
           updated_at: moment().subtract(fortnight).add(day),
         },
         {
