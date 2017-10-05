@@ -11,13 +11,13 @@ fi
 
 set -u
 
-CWD=$(cd $(dirname $0) && pwd)
-ROOT_DIR=$(cd "$CWD/.." && pwd)
-
 (
-  cd $ROOT_DIR
+  if [[ ! -d .git ]]; then
+    echo "Working directory must be a git repository. No git repository found in: $(pwd)"
+    exit 1
+  fi
 
-  if [[ ! "$(git status 2> /dev/null)" =~ "working directory clean" ]]; then
+  if [[ -z $(git status 2> /dev/null | egrep 'working (directory|tree) clean') ]]; then
     echo "Cannot build: you have unstashed changes."
     echo "Please stash or commit them, then try again."
     exit 1
