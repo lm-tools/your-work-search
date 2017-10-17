@@ -23,6 +23,7 @@ const validator = {
       sourceType: validatorSchema.sourceType,
       rating: validatorSchema.rating,
       status: validatorSchema.initialStatus,
+      details: validatorSchema.details.allow(''),
       deadlineDate: validatorSchema.deadlineDate.allow(''),
       applicationDate: validatorSchema.applicationDate.allow(''),
       interviewDate: validatorSchema.interviewDate.allow(''),

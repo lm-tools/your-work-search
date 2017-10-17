@@ -10,6 +10,7 @@ module.exports = {
   initialStatus: Joi.any().valid(progression.getInitialSubset()),
   status: Joi.any().valid(progression.getAllIds()),
   title: Joi.string(),
+  details: Joi.string(),
   employer: Joi.string(),
   sourceUrl: Joi.string(),
   sourceType: Joi.any().valid(['inPerson', 'online']),

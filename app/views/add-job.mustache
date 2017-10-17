@@ -68,6 +68,11 @@
       </fieldset>
 
       <div class="form-group">
+        <label class="form-label" for="job-details">More details?(Optional)</label>
+        <textarea class="form-control" id="job-details" name="details">{{details}}</textarea>
+      </div>
+
+      <div class="form-group">
         <input type="submit" data-test="add-job-button" class="button" value="{{#__}}addJob.form.submit{{/__}}">
       </div>
     </form>
