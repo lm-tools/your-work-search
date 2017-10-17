@@ -25,6 +25,7 @@ const validator = {
     body: {
       status: validatorSchema.status,
       rating: validatorSchema.rating,
+      details: validatorSchema.details.allow(''),
       deadlineDate: validatorSchema.deadlineDate.allow(''),
       applicationDate: validatorSchema.applicationDate.allow(''),
       interviewDate: validatorSchema.interviewDate.allow(''),
