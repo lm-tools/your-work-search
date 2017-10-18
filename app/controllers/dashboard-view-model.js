@@ -48,6 +48,7 @@ module.exports = class DashboardViewModel {
       updated_at: n.updated_at,
       details: n.details,
       isNote: true,
+      updatedFormatted: this.formatDate(n.updated_at),
     }))
   }
 

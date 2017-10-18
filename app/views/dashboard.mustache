@@ -51,7 +51,23 @@
             </li>
             {{/isJob}}
             {{#isNote}}
-
+            <li data-test="job-container-{{id}}" id="job-container-{{id}}" class="job-item">
+              <div class="box">
+                <div>
+                  <span class="lmt-label lmt-label-default"
+                        data-test="status">Work search note</span>
+                  <span class="progression-status status-{{statusPriority}}"
+                        data-test="statusDate">{{statusDateString}}</span>
+                </div>
+                <div class="text space-top-double">
+                  <pre class="break-links">{{{details}}}</pre>
+                </div>
+              </div>
+              <p class="text-secondary font-xsmall">
+                {{#__}}dashboard.postedOnDate{{/__}}
+                <span data-test="updated">{{updatedFormatted}}</span>
+              </p>
+            </li>
             {{/isNote}}
           {{/jobsAndNotes}}
         </ul>
