@@ -87,6 +87,7 @@
   },
   "validation": {
     "job-title-empty": "'Job title' is required",
+    "note-empty": "Work search note required",
     "status-empty": "'Where are you in the process?' is required",
     "applicationDateInTheFuture": "'When did you apply?' cannot be in the future"
   },
@@ -113,7 +114,7 @@
       "success": "Offer"
     }
   },
-  "addWorkSearchNote": {
+  "addNote": {
     "pageTitle": "Work search note",
     "header": "Work search note",
     "help": "Please describe the activities you did",
@@ -121,5 +122,8 @@
       "submit": "Save work search note"
     },
     "cancel": "Cancel"
+  },
+  "addWorkSearchNote": {
+    "pageTitle": "addWorkSearchNote.pageTitle"
   }
 }
