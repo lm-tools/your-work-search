@@ -4,6 +4,7 @@ const progression = require('../models/progression');
 const singleStatusRules = require('../rules/single-status-rules');
 const timelinePriorityRules = require('../rules/timeline-rules-priority');
 const timelineTextRules = require('../../app/rules/timeline-rules-text');
+const linkify = require('./linkify');
 
 module.exports = class DashboardViewModel {
 
@@ -29,6 +30,7 @@ module.exports = class DashboardViewModel {
           hasFocus: job.id === parseInt(jobIdInFocus, 10),
           statusDateString: singleStatusRules.dateText(job.status, job.statusDate),
           statusPriority: singleStatusRules.priority(job.status, job.statusDate),
+          detailsHTML: linkify(job.details)
         },
         job));
   }
