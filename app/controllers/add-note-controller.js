@@ -21,7 +21,7 @@ const validator = {
       accountId: validatorSchema.accountId.required(),
     },
     body: {
-      details: validatorSchema.details,
+      details: validatorSchema.details.allow(''),
       _csrf: validatorSchema.csrfToken,
     },
   }),

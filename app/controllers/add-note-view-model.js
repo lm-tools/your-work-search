@@ -7,7 +7,7 @@ class AddWorkSearchNoteViewModel {
     this.csrfToken = csrfToken;
     this.accountId = accountId;
     this.isSourceUrlHidden = body.sourceType !== 'online';
-    this.validationErrors = validationErrors;
+    this.errors = validationErrors;
   }
 }
 

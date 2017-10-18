@@ -8,6 +8,12 @@
       {{#__}}addNote.help{{/__}}
     </p>
 
+      <ul id="validation-errors">
+      {{#errors}}
+        <li>{{msg}}</li>
+      {{/errors }}
+    </ul>
+
     <form method="POST" class="work-search-note-form">
       <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
