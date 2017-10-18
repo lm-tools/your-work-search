@@ -239,3 +239,19 @@ button.link-button {
     display: block;
   }
 }
+
+.add-work-search-note {
+  .heading-large {
+    padding-bottom: 10px;
+  }
+  textarea {
+    resize: none;
+    @include media(mobile) {
+      height: 400px;
+    }
+  }
+  .form-group {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+  }
+}

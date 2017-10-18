@@ -112,5 +112,14 @@
       "interview": "Interview",
       "success": "Offer"
     }
+  },
+  "addWorkSearchNote": {
+    "pageTitle": "Work search note",
+    "header": "Work search note",
+    "help": "Please describe the activities you did",
+    "form": {
+      "submit": "Save work search note"
+    },
+    "cancel": "Cancel"
   }
 }

@@ -1,0 +1,27 @@
+{{<layout}}
+  {{$pageTitle}}{{#__}}addWorkSearchNote.pageTitle{{/__}}{{/pageTitle}}
+  {{$applicationContent}}
+  <div class="add-work-search-note">
+    <h2 class="heading-large">{{#__}}addWorkSearchNote.header{{/__}}</h2>
+
+    <p class="text">
+      {{#__}}addWorkSearchNote.help{{/__}}
+    </p>
+
+    <form method="POST" class="work-search-note-form">
+      <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+      <div class="form-group">
+        <textarea class="form-control" id="work-seach-note" name="work-seach-note"></textarea>
+      </div>
+      <div class="form-group">
+        <input type="submit" class="button" value="{{#__}}addWorkSearchNote.form.submit{{/__}}">
+      </div>
+    </form>
+
+    <p><a href="{{basePath}}/{{accountId}}">{{#__}}addWorkSearchNote.cancel{{/__}}</a></p>
+  </div>
+
+  {{/applicationContent}}
+
+{{/layout}}
