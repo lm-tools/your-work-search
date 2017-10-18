@@ -21,7 +21,8 @@
     <div class="column-two-thirds no-padding">
       <section class="space-top-double">
         <ul>
-          {{#jobs}}
+          {{#jobsAndNotes}}
+            {{#isJob}}
             <li data-test="job-container-{{id}}" id="job-container-{{id}}" class="job-item">
               <div class="box box-full">
                 <div>
@@ -48,7 +49,11 @@
                 <span data-test="updated">{{updatedFormatted}}</span>
               </p>
             </li>
-          {{/jobs}}
+            {{/isJob}}
+            {{#isNote}}
+
+            {{/isNote}}
+          {{/jobsAndNotes}}
         </ul>
       </section>
 

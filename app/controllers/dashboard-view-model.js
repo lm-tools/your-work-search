@@ -6,11 +6,17 @@ const timelinePriorityRules = require('../rules/timeline-rules-priority');
 const timelineTextRules = require('../../app/rules/timeline-rules-text');
 const linkify = require('./linkify');
 
+function sortify(bool) {
+  return bool ? 1 : -1;
+}
+
 module.exports = class DashboardViewModel {
 
-  constructor(accountId, jobs, totalSavedJobs, sort, focus) {
+  constructor(accountId, jobs, totalSavedJobs, notes, sort, focus) {
     this.accountId = accountId;
     this.jobs = this.dashboardJobs(jobs, focus);
+    this.notes = this.dashboardNotes(notes, focus);
+    this.jobsAndNotes = this.dashboardJobsAndNotes();
     this.hasJobs = totalSavedJobs > 0;
     this.sortType = sort;
     this.sortOptions = this.dashboardSortOptions(sort);
@@ -25,14 +31,29 @@ module.exports = class DashboardViewModel {
           // eslint-disable-next-line no-underscore-dangle
           statusString: i18n.__(`progression.${job.status}`),
           updatedFormatted: this.formatDate(job.updated_at),
+          updated_at: job.updated_at,
           interestLevel: [5, 4, 3, 2, 1].map(v => ({ value: v, isChecked: v === job.rating })),
           source: this.formatSource(job),
           hasFocus: job.id === parseInt(jobIdInFocus, 10),
           statusDateString: singleStatusRules.dateText(job.status, job.statusDate),
           statusPriority: singleStatusRules.priority(job.status, job.statusDate),
-          detailsHTML: linkify(job.details)
+          detailsHTML: linkify(job.details),
+          isJob: true,
         },
         job));
+  }
+
+  dashboardNotes(notes) {
+    return notes.map(n => ({
+      updated_at: n.updated_at,
+      details: n.details,
+      isNote: true,
+    }))
+  }
+
+  dashboardJobsAndNotes() {
+    return this.jobs.concat(this.notes)
+      .sort((a, b) => sortify(moment(a.updated_at).isBefore(moment(b.updated_at))));
   }
 
   dashboardJobProgression(job) {

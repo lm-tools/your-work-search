@@ -2,10 +2,12 @@ const express = require('express');
 const validate = require('uuid-validate');
 const router = new express.Router();
 const Jobs = require('../models/jobs-model');
+const Notes = require('../models/notes-model');
 const DashboardViewModel = require('./dashboard-view-model');
 const Joi = require('joi');
 const celebrate = require('celebrate');
 const validatorSchema = require('./validator-schema');
+const moment = require('moment');
 
 const validator = {
   getAccount: celebrate({
@@ -26,10 +28,10 @@ router.get('/', (req, res) => {
   const accountId = req.query.id;
 
   if (accountId && validate(accountId)) {
-    Jobs
-      .findAllByAccountId(accountId)
-      .then((findJobsResult) => {
-        if (findJobsResult.totalSavedJobs > 0) {
+
+    Promise.all([Jobs.findAllByAccountId(accountId), Notes.findAllByAccountId(accountId)])
+      .then(([findJobsResult, findNotesResult]) => {
+        if (findJobsResult.totalSavedJobs > 0 || findNotesResult.totalNotes > 0) {
           res.redirect(`${basePath}/${accountId}`);
         } else {
           res.redirect(`${basePath}/${accountId}/jobs/new`);
@@ -45,12 +47,12 @@ router.get('/:accountId', validator.getAccount, (req, res, next) => {
   const focus = req.query.focus;
   const sort = req.query.sort || 'created';
 
-  Jobs
-    .findAllByAccountId(accountId, { sort })
-    .then((findJobsResult) => res.render('dashboard',
-      new DashboardViewModel(
-        accountId, findJobsResult.jobs, findJobsResult.totalSavedJobs, sort, focus)
-    ))
+  Promise.all([Jobs.findAllByAccountId(accountId), Notes.findAllByAccountId(accountId)])
+    .then(([findJobsResult, findNotesResult]) =>
+      res.render('dashboard',
+        new DashboardViewModel(
+          accountId, findJobsResult.jobs, findJobsResult.totalSavedJobs, findNotesResult.notes, sort, focus)
+      ))
     .catch((err) => next(err));
 });
 
