@@ -41,17 +41,6 @@
         {{/progression}}
       </fieldset>
 
-      <fieldset class="star-rating form-group" data-test="rating">
-        <legend class="heading-medium heading-rating">{{#__}}updateJob.form.rating{{/__}}</legend>
-        <div class="rating-options-group rating-options-group-enabled">
-          {{#ratingOptions}}
-            <input type="radio" id="job-rating-{{value}}" name="rating" value="{{value}}"
-                   {{#isChecked}}checked{{/isChecked}} >
-            <label class="full stars-large" for="job-rating-{{value}}"></label>
-          {{/ratingOptions}}
-        </div>
-      </fieldset>
-
       <div class="form-group">
         <label class="heading-medium heading-rating" for="job-details">More details? (Optional)</label>
         <p class="text">
