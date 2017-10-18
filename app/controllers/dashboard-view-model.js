@@ -14,9 +14,16 @@ module.exports = class DashboardViewModel {
 
   constructor(accountId, jobs, totalSavedJobs, notes, sort, focus) {
     this.accountId = accountId;
+    this.lastReviewed = moment().subtract(3,'weeks');
+    this.lastReviewedFormatted = this.formatDate(this.lastReviewed);
     this.jobs = this.dashboardJobs(jobs, focus);
     this.notes = this.dashboardNotes(notes, focus);
     this.jobsAndNotes = this.dashboardJobsAndNotes();
+    this.recentJobsAndNotes = this.jobsAndNotes.filter(j => moment(j.updated_at).isAfter(this.lastReviewed));
+    this.oldJobsAndNotes = this.jobsAndNotes.filter(j => moment(j.updated_at).isBefore(this.lastReviewed));
+    if (this.recentJobsAndNotes.length > 0) this.hasRecentJobsOrNotes = true;
+    if (this.oldJobsAndNotes.length > 0) this.hasOldJobsOrNotes = true;
+
     this.hasJobs = totalSavedJobs > 0;
     this.sortType = sort;
     this.sortOptions = this.dashboardSortOptions(sort);

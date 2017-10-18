@@ -21,8 +21,12 @@
     <div class="column-two-thirds no-padding">
       <section class="space-top-double">
         <ul>
-          {{#jobsAndNotes}}
-            {{#isJob}}
+          {{#hasRecentJobsOrNotes}}
+            <h2 class="heading-large">{{#__}}dashboard.recent-work-search-heading{{/__}}</h2>
+            <p class="text text-secondary">{{#__}}dashboard.recent-work-search-description{{/__}}<span> {{lastReviewedFormatted}}</span></p>
+          {{/hasRecentJobsOrNotes}}
+          {{#recentJobsAndNotes}}
+          {{#isJob}}
             <li data-test="job-container-{{id}}" id="job-container-{{id}}" class="job-item">
               <div class="box box-full">
                 <div>
@@ -49,8 +53,8 @@
                 <span data-test="updated">{{updatedFormatted}}</span>
               </p>
             </li>
-            {{/isJob}}
-            {{#isNote}}
+          {{/isJob}}
+          {{#isNote}}
             <li data-test="job-container-{{id}}" id="job-container-{{id}}" class="job-item">
               <div class="box">
                 <div>
@@ -68,8 +72,61 @@
                 <span data-test="updated">{{updatedFormatted}}</span>
               </p>
             </li>
-            {{/isNote}}
-          {{/jobsAndNotes}}
+          {{/isNote}}
+          {{/recentJobsAndNotes}}
+          {{#hasOldJobsOrNotes}}
+            <h2 class="heading-large">{{#__}}dashboard.past-work-search-heading{{/__}}</h2>
+            <p class="text text-secondary">{{#__}}dashboard.past-work-search-description{{/__}}<span> {{lastReviewedFormatted}}</span></p>
+          {{/hasOldJobsOrNotes}}
+          {{#oldJobsAndNotes}}
+          {{#isJob}}
+              <li data-test="job-container-{{id}}" id="job-container-{{id}}" class="job-item">
+                  <div class="box box-full">
+                      <div>
+              <span class="lmt-label lmt-label-{{statusPriority}}"
+                    data-test="status">{{statusString}}</span>
+                          <span class="progression-status status-{{statusPriority}}"
+                                data-test="statusDate">{{statusDateString}}</span>
+                          </dl>
+                      </div>
+                      <div class="job-item-first-row">
+                          <h4 class="bold-small" data-test="title">{{title}}, {{employer}}</h4>
+                      </div>
+                      <div>
+                          <a class="button button-same-on-mobile" data-test="update-button"
+                             href="{{basePath}}/{{accountId}}/jobs/{{id}}">{{#__}}dashboard.updateJobButton{{/__}}
+                          </a>
+                      </div>
+                      <div class="text space-top-double">
+                          <pre class="break-links">{{{detailsHTML}}}</pre>
+                      </div>
+                  </div>
+                  <p class="text-secondary font-xsmall">
+                      {{#__}}dashboard.updatedDate{{/__}}
+                      <span data-test="updated">{{updatedFormatted}}</span>
+                  </p>
+              </li>
+          {{/isJob}}
+          {{#isNote}}
+              <li data-test="job-container-{{id}}" id="job-container-{{id}}" class="job-item">
+                  <div class="box">
+                      <div>
+              <span class="lmt-label lmt-label-default"
+                    data-test="status">Work search note</span>
+                          <span class="progression-status status-{{statusPriority}}"
+                                data-test="statusDate">{{statusDateString}}</span>
+                      </div>
+                      <div class="text space-top-double">
+                          <pre class="break-links">{{{details}}}</pre>
+                      </div>
+                  </div>
+                  <p class="text-secondary font-xsmall">
+                      {{#__}}dashboard.postedOnDate{{/__}}
+                      <span data-test="updated">{{updatedFormatted}}</span>
+                  </p>
+              </li>
+          {{/isNote}}
+          {{/oldJobsAndNotes}}
         </ul>
       </section>
 

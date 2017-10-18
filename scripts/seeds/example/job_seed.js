@@ -20,6 +20,7 @@ exports.seed = function (knex) {
         rating: '3',
         status: 'interview',
         status_sort_index: 2,
+        details: 'Some details about the job https://hello.com',
       });
     })
     .then(function () {
@@ -36,6 +37,7 @@ exports.seed = function (knex) {
         rating: '3',
         status: 'interview',
         status_sort_index: 2,
+        details: 'Some details about the job https://hello.com',
       });
     })
     .then(function () {
@@ -52,6 +54,7 @@ exports.seed = function (knex) {
         rating: '3',
         status: 'applied',
         status_sort_index: 1,
+        details: '',
       });
     })
     .then(function () {
@@ -68,6 +71,7 @@ exports.seed = function (knex) {
         rating: '3',
         status: 'applied',
         status_sort_index: 1,
+        details: 'Some details about the job https://hello.com',
       });
     })
     .then(function () {
@@ -84,6 +88,7 @@ exports.seed = function (knex) {
         rating: '3',
         status: 'interested',
         status_sort_index: 0,
+        details: 'Some cool stuff',
       });
     })
     .then(function () {
@@ -100,6 +105,7 @@ exports.seed = function (knex) {
         rating: '3',
         status: 'applied',
         status_sort_index: 1,
+        details: 'Some cool stuff',
       });
     })
     .then(function () {
@@ -116,6 +122,7 @@ exports.seed = function (knex) {
         rating: '3',
         status: 'applied',
         status_sort_index: 1,
+        details: 'Some cool stuff',
       });
     })
     .then(function () {
@@ -132,6 +139,7 @@ exports.seed = function (knex) {
         rating: '3',
         status: 'interested',
         status_sort_index: 0,
+        details: '',
       });
     })
     .then(function () {
@@ -148,6 +156,7 @@ exports.seed = function (knex) {
         rating: '3',
         status: 'applied',
         status_sort_index: 1,
+        details: '',
       });
     })
     .then(function () {
@@ -164,6 +173,7 @@ exports.seed = function (knex) {
         rating: '3',
         status: 'interested',
         status_sort_index: 0,
+        details: '',
       });
     })
     .then(function () {
@@ -180,6 +190,7 @@ exports.seed = function (knex) {
         rating: '3',
         status: 'interested',
         status_sort_index: 0,
+        details: '',
       });
     });
 };

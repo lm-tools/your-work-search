@@ -1,6 +1,8 @@
 {
   "dashboard": {
     "header": "Your work search",
+    "recent-work-search-heading": "Recent work search",
+    "recent-work-search-description": "Since last review",
     "add-job-button": "Add a job",
     "add-work-search-note-button": "Add a work search note",
     "progression-legend-screen-reader": "Update progression status",
@@ -27,7 +29,9 @@
     "first-use-introduction-1": "Build a list of jobs you’re interested in.",
     "first-use-introduction-2": "Update each job when you apply, interview or get a result.",
     "first-use-introduction-3": "Go through the list of jobs with your work coach to get support and advice.",
-    "add-work-search-note-help-text": "Work search notes you add here will also appear in your journal"
+    "add-work-search-note-help-text": "Work search notes you add here will also appear in your journal",
+    "past-work-search-heading": "Previous work searches",
+    "past-work-search-description": "Before"
   },
   "layout": {
     "header": "Your work search"
