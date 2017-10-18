@@ -72,6 +72,15 @@ router.patch('/:jobId', validator.patch, csrfProtection, (req, res, next) => {
   const accountId = req.params.accountId;
   const jobId = req.params.jobId;
 
+  if (req.body.status === 'applied' ) {
+    req.checkBody('applicationDate', i18n.__('validation.applicationDate-empty')).notEmpty();
+  }
+
+  if (req.body.status === 'interview' ) {
+    req.checkBody('interviewDate', i18n.__('validation.interviewDate-empty')).notEmpty();
+  }
+
+
   if (req.body.status === 'applied' && req.body.applicationDate) {
     req.checkBody('applicationDate', i18n.__('validation.applicationDateInTheFuture'))
       .isNotInTheFuture();

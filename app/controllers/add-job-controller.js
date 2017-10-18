@@ -46,7 +46,17 @@ router.post('/', validator.post, csrfProtection, (req, res, next) => {
   const basePath = req.app.locals.basePath;
   const accountId = req.params.accountId;
   req.checkBody('title', i18n.__('validation.job-title-empty')).notEmpty();
+  req.checkBody('employer', i18n.__('validation.job-employer-empty')).notEmpty();
   req.checkBody('status', i18n.__('validation.status-empty')).notEmpty();
+
+  if (req.body.status === 'applied' ) {
+    req.checkBody('applicationDate', i18n.__('validation.applicationDate-empty')).notEmpty();
+  }
+
+  if (req.body.status === 'interview' ) {
+    req.checkBody('interviewDate', i18n.__('validation.interviewDate-empty')).notEmpty();
+  }
+
   if (req.body.status === 'applied' && req.body.applicationDate) {
     req.checkBody('applicationDate', i18n.__('validation.applicationDateInTheFuture'))
       .isNotInTheFuture();

@@ -94,7 +94,10 @@
     "job-title-empty": "'Job title' is required",
     "note-empty": "Work search note required",
     "status-empty": "'Where are you in the process?' is required",
-    "applicationDateInTheFuture": "'When did you apply?' cannot be in the future"
+    "applicationDateInTheFuture": "'When did you apply?' cannot be in the future",
+    "job-employer-empty": "'Employer' is required",
+    "applicationDate-empty": "'When did you apply?' is required",
+    "interviewDate-empty": "'When is your interview?' is required"
   },
   "cookie": {
     "pretext": "GOV.UK uses cookies to make the site simpler",
