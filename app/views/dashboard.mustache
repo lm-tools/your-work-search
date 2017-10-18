@@ -23,38 +23,19 @@
         <ul>
           {{#jobs}}
             <li data-test="job-container-{{id}}" id="job-container-{{id}}" class="job-item">
-              <div class="box">
+              <div class="box box-full">
+                <div>
+                  <span class="lmt-label lmt-label-{{statusPriority}}"
+                      data-test="status">{{statusString}}</span>
+                  <span class="progression-status status-{{statusPriority}}"
+                      data-test="statusDate">{{statusDateString}}</span>
+                  </dl>
+                </div>
                 <div class="job-item-first-row">
-                  <div class="pull-right right">
-                    <dl>
-                      <dd class="star-rating">
-                        <div class="rating-options-group rating-options-group-disabled">
-                          {{#interestLevel}}
-                            <input type="radio" data-test="rating"
-                                   value="{{value}}" disabled
-                                   {{#isChecked}}checked{{/isChecked}} >
-                            <label class="full mobile-stars-small"
-                                   for="job-rating-{{value}}"></label>
-                          {{/interestLevel}}
-                        </div>
-                      </dd>
-                      <dd class="progression-status status-{{statusPriority}}"
-                          data-test="status">{{statusString}}</dd>
-                      <dd class="progression-status status-{{statusPriority}}"
-                          data-test="statusDate">{{statusDateString}}</dd>
-                    </dl>
-                  </div>
-                  <h4 class="bold-small" data-test="title">{{title}}</h4>
-                  <p class="color-text" data-test="employer">{{employer}}</p>
-
-                  <p data-test="source" class="text-secondary font-xsmall">{{source}}</p>
+                  <h4 class="bold-small" data-test="title">{{title}}, {{employer}}</h4>
                 </div>
                 <div>
-                  <p class="text-secondary font-xsmall pull-right last-updated">
-                    {{#__}}dashboard.updatedDate{{/__}}
-                    <span data-test="updated">{{updatedFormatted}}</span>
-                  </p>
-                  <a class="button button-secondary button-same-on-mobile" data-test="update-button"
+                  <a class="button button-same-on-mobile" data-test="update-button"
                      href="{{basePath}}/{{accountId}}/jobs/{{id}}">{{#__}}dashboard.updateJobButton{{/__}}
                   </a>
                 </div>
@@ -62,6 +43,10 @@
                   <pre class="break-links">{{{detailsHTML}}}</pre>
                 </div>
               </div>
+              <p class="text-secondary font-xsmall">
+                {{#__}}dashboard.updatedDate{{/__}}
+                <span data-test="updated">{{updatedFormatted}}</span>
+              </p>
             </li>
           {{/jobs}}
         </ul>
