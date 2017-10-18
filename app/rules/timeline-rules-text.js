@@ -63,35 +63,17 @@ function findJobsExpired(jobs, when = now()) {
   return jobs.filter(it => moment(it.statusDate).isBefore(when, 'day'));
 }
 
-function getTextForInterested(jobs) {
-  if (noJobWithStatusDateSet(jobs) ||
-      allJobsMoreThenAWeekInTheFuture(jobs) ||
-      allJobsInThePast(jobs)) {
-    const date = mostRecentUpdatedDate(jobs);
-    return [`Updated ${moment(date).fromNow()}`];
-  }
+function getTextForSearch(notes) {
 
-  const jobsExpiringInLessThanAWeek = findJobsExpiringInLessThanAWeek(jobs);
-  const jobsExpiringInLessThanAWeekWithDeadlineDate =
-    jobsExpiringInLessThanAWeek.filter(j => !!j.deadlineDate);
-
-  const jobsExpiringSoonCount = jobsExpiringInLessThanAWeekWithDeadlineDate.length;
-
-  if (jobsExpiringSoonCount === 1) {
-    return ['One job expiring soon'];
-  }
-  if (jobsExpiringSoonCount > 1) {
-    return [`${jobsExpiringSoonCount} jobs expiring soon`];
-  }
-  return [];
+  return [`Updated ${moment(notes[0].updated_at).fromNow()}`];
 }
 
-function rulesForInterested(jobs) {
-  if (atLeastOneJob(jobs)) {
-    const interestedText = getTextForInterested(jobs);
-    return { interested: interestedText };
+function rulesForSearch(notes) {
+  if (notes && notes.length > 0) {
+    const interestedText = getTextForSearch(notes);
+    return { search: interestedText };
   }
-  return { interested: [] };
+  return { search: [] };
 }
 
 function getTextForApplied(jobs) {
@@ -160,11 +142,11 @@ function rulesForSuccess(jobs) {
   return { success };
 }
 
-function text(jobList) {
+function text(jobList, notes) {
   const jobsByStatus = groupByStatus(jobList);
 
   const rulesPerStatus = Object.assign({},
-    rulesForInterested(jobsByStatus.interested),
+    rulesForSearch(notes),
     rulesForApplied(jobsByStatus.applied),
     rulesForInterview(jobsByStatus.interview),
     rulesForSuccess(jobsByStatus.success)

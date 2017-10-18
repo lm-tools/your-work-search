@@ -112,7 +112,8 @@
       "interested": "Interested",
       "applied": "Applied",
       "interview": "Interview",
-      "success": "Offer"
+      "success": "Offer",
+      "search": "Search"
     }
   },
   "addNote": {

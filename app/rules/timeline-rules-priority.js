@@ -38,9 +38,9 @@ function groupByStatus(jobList) {
   return _.groupBy(jobList, 'status');
 }
 
-function rulesForInterested(jobs) {
-  const rule = anyJobWithoutDate(jobs) || anyJobYoungerThan21days(jobs) ? 'high' : 'default';
-  return { interested: rule };
+function rulesForSearch(notes) {
+  const rule = notes && notes.length > 0 ? 'high' : 'default';
+  return { search: rule };
 }
 
 function rulesForApplied(jobs) {
@@ -67,16 +67,15 @@ function overrideWhenNecessary(rules) {
     overrides.applied = 'high';
   }
   if (overrides.applied === 'high') {
-    overrides.interested = 'high';
+    overrides.search = 'high';
   }
   return overrides;
 }
 
-function priority(jobList) {
+function priority(jobList, notes) {
   const jobsByStatus = groupByStatus(jobList);
-
   const rulesPerStatus = Object.assign({},
-    rulesForInterested(jobsByStatus.interested),
+    rulesForSearch(notes),
     rulesForApplied(jobsByStatus.applied),
     rulesForInterview(jobsByStatus.interview),
     rulesForSuccess(jobsByStatus.success)

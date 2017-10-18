@@ -20,7 +20,7 @@ module.exports = class DashboardViewModel {
     this.hasJobs = totalSavedJobs > 0;
     this.sortType = sort;
     this.sortOptions = this.dashboardSortOptions(sort);
-    this.timeline = this.dashboardTimeline(jobs);
+    this.timeline = this.dashboardTimeline(jobs, notes);
   }
 
   dashboardJobs(jobs, jobIdInFocus) {
@@ -86,11 +86,11 @@ module.exports = class DashboardViewModel {
     ];
   }
 
-  dashboardTimeline(jobs) {
+  dashboardTimeline(jobs, notes) {
     let currentStatus = 'unknown';
 
-    const priority = timelinePriorityRules.priority(jobs);
-    const text = timelineTextRules.text(jobs);
+    const priority = timelinePriorityRules.priority(jobs, notes);
+    const text = timelineTextRules.text(jobs, notes);
 
     const statusList = Object.keys(priority);
     const indexOfFirstDefaultPriority = statusList.map(
