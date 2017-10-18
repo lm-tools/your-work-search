@@ -1,17 +1,21 @@
 {{<layout}}
   {{$pageTitle}}{{#__}}dashboard.pageTitle{{/__}}{{/pageTitle}}
   {{$applicationContent}}
-    <h2 class="heading-xlarge">{{#__}}dashboard.header{{/__}}</h2>
+  <h2 class="heading-large">{{#__}}dashboard.header{{/__}}</h2>
 
     <div class="column-one-third no-padding">
       <div class="padded-column">
         {{>timeline}}
       </div>
-      <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
-    </div>
-
-    <div class="column-two-thirds no-padding">
-      {{>sort}}
+      <div class="form-group">
+        <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
+      </div>
+      <div class="form-group">
+        <a href="{{basePath}}/{{accountId}}/work-search-note/new" class="button button-secondary">{{#__}}dashboard.add-work-search-note-button{{/__}}</a>
+      </div>
+      <p class="text-secondary">
+        {{#__}}dashboard.add-work-search-note-help-text{{/__}}
+      </p>
     </div>
 
     <div class="column-two-thirds no-padding">
