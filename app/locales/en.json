@@ -84,7 +84,7 @@
     "pageTitle": "Update job - Your work search",
     "header": "Update job",
     "form": {
-      "progress": "Where are you in the process?",
+      "progress": "Where are you with this job?",
       "rating": "How interested are you in this role?",
       "submit": "Save changes"
     },
@@ -94,7 +94,7 @@
   "validation": {
     "job-title-empty": "'Job title' is required",
     "note-empty": "Work search note required",
-    "status-empty": "'Where are you in the process?' is required",
+    "status-empty": "'Where are you with this job?' is required",
     "applicationDateInTheFuture": "'When did you apply?' cannot be in the future",
     "job-employer-empty": "'Employer' is required",
     "applicationDate-empty": "'When did you apply?' is required",
