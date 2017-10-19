@@ -256,12 +256,7 @@ button.link-button {
   .heading-large {
     padding-bottom: 10px;
   }
-  textarea {
-    resize: none;
-    @include media(mobile) {
-      height: 270px;
-    }
-  }
+
   .form-group {
     margin-bottom: 15px;
     padding-bottom: 15px;

@@ -125,15 +125,15 @@
     }
   },
   "addNote": {
-    "pageTitle": "Work search note",
-    "header": "Work search note",
-    "help": "Please describe the activities you did",
+    "pageTitle": "Add a work search note",
+    "header": "Add a work search note",
+    "help": "Describe what you’ve been doing to find work or ask us for some help.",
     "form": {
       "submit": "Save work search note"
     },
     "cancel": "Cancel"
   },
   "addWorkSearchNote": {
-    "pageTitle": "addWorkSearchNote.pageTitle"
+    "pageTitle": "Add a work search note"
   }
 }
