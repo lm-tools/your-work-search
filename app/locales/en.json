@@ -73,7 +73,8 @@
   },
   "confirmation": {
     "jobRemoved": "{{jobTitle}} removed",
-    "linkBack": "Back"
+    "linkBack": "Back",
+    "allDataRemoved": "Jobs and notes removed for this account"
   },
   "missing-account-id": {
     "heading": "Sign in to your account",

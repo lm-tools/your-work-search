@@ -8,6 +8,7 @@ const validatorSchema = require('./validator-schema');
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
 const viewMapper = require('./jobs-mapper');
+const Notes = require('../models/notes-model');
 /* eslint-disable no-underscore-dangle */
 
 const validator = {
@@ -35,6 +36,11 @@ const validator = {
   delete: celebrate({
     params: {
       jobId: validatorSchema.jobId.required(),
+      accountId: validatorSchema.accountId.required(),
+    },
+  }),
+  deleteAll: celebrate({
+    params: {
       accountId: validatorSchema.accountId.required(),
     },
   }),
@@ -72,11 +78,11 @@ router.patch('/:jobId', validator.patch, csrfProtection, (req, res, next) => {
   const accountId = req.params.accountId;
   const jobId = req.params.jobId;
 
-  if (req.body.status === 'applied' ) {
+  if (req.body.status === 'applied') {
     req.checkBody('applicationDate', i18n.__('validation.applicationDate-empty')).notEmpty();
   }
 
-  if (req.body.status === 'interview' ) {
+  if (req.body.status === 'interview') {
     req.checkBody('interviewDate', i18n.__('validation.interviewDate-empty')).notEmpty();
   }
 
@@ -115,6 +121,25 @@ router.delete('/:jobId', validator.delete, csrfProtection, (req, res, next) => {
         .then(() => res.redirect(
           `${basePath}/${accountId}/confirmation?description=${description}`
         ));
+    })
+    .catch((err) => next(err));
+});
+
+router.delete('/', validator.deleteAll, (req, res, next) => {
+  const basePath = req.app.locals.basePath;
+  const accountId = req.params.accountId;
+  const removeJobs = new Jobs()
+    .where('accountId', accountId)
+    .destroy();
+  const removeNotes = new Notes()
+    .where('accountId', accountId)
+    .destroy();
+  return Promise.all([removeJobs, removeNotes])
+    .then(result => {
+      const description = i18n.__('confirmation.allDataRemoved');
+      return res.redirect(
+        `${basePath}/${accountId}/confirmation?description=${description}`
+      )
     })
     .catch((err) => next(err));
 });

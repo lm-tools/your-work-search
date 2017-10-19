@@ -37,4 +37,13 @@
     <script type="text/javascript" src="{{{ assetPath }}}js/main.js"></script>
   {{/bodyEnd}}
 
+  {{$footerTop}}
+    <div>
+      <form action="{{basePath}}/{{accountId}}/jobs?_method=DELETE" method="POST">
+        <input type="submit" class="button-secondary text-secondary pull-right"
+               value="delete all data" style="color: gray"/>
+      </form>
+    </div>
+  {{/footerTop}}
+
 {{/govukTemplate}}
