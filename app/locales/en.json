@@ -1,7 +1,7 @@
 {
   "dashboard": {
     "header": "Your work search",
-    "recent-work-search-heading": "Recent work search",
+    "recent-work-search-heading": "Your recent activity",
     "recent-work-search-description": "Since last review",
     "add-job-button": "Add a job",
     "add-work-search-note-button": "Add a work search note",
