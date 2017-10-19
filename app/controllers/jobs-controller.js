@@ -26,6 +26,8 @@ const validator = {
     body: {
       status: validatorSchema.status,
       rating: validatorSchema.rating,
+      title: validatorSchema.title.allow(''),
+      employer: validatorSchema.employer.allow(''),
       details: validatorSchema.details.allow(''),
       deadlineDate: validatorSchema.deadlineDate.allow(''),
       applicationDate: validatorSchema.applicationDate.allow(''),

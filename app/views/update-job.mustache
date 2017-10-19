@@ -26,6 +26,8 @@
 
     <form action="{{basePath}}/{{accountId}}/jobs/{{id}}?_method=PATCH" method="POST">
       <input type="hidden" name="_csrf" value="{{csrfToken}}">
+      <input type="hidden" name="title" value="{{title}}">
+      <input type="hidden" name="employer" value="{{employer}}">
       <fieldset data-test="progression">
         <legend class="heading-medium">{{#__}}updateJob.form.progress{{/__}}</legend>
         {{#progression}}
