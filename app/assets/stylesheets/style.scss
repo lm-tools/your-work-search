@@ -292,6 +292,8 @@ button.link-button {
   background-color: black;
 }
 
-#proposition-name a:visited {
-  color: white;
+#proposition-name {
+  a, a:visited {
+    color: white;
+  }
 }
