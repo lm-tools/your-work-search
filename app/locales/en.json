@@ -1,9 +1,9 @@
 {
   "dashboard": {
-    "header": "Your work search",
+    "header": "Your job applications",
     "recent-work-search-heading": "Your recent activity",
-    "recent-work-search-description": "Since last review",
-    "add-job-button": "Add a job",
+    "recent-work-search-description": "Since last work search review on",
+    "add-job-button": "Add another job",
     "add-work-search-note-button": "Add a work search note",
     "progression-legend-screen-reader": "Update progression status",
     "sort": {
@@ -25,7 +25,7 @@
     "pageTitle": "Your work search",
     "has-job-help": "You can close this window or come back at any time and edit this information - everything is saved.",
     "first-use-help": "Add jobs that you're interested in or have applied for.",
-    "updateJobButton": "Update",
+    "updateJobButton": "Update job",
     "first-use-introduction-1": "Build a list of jobs you’re interested in.",
     "first-use-introduction-2": "Update each job when you apply, interview or get a result.",
     "first-use-introduction-3": "Go through the list of jobs with your work coach to get support and advice.",

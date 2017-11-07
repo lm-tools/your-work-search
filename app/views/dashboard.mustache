@@ -17,19 +17,14 @@
     <p class="text">Your work coach will take a look at your list and notes so that they can offer you support and advice.</p>
   {{/hasRecentJobsOrNotes}}
 
-    <div class="column-one-third no-padding">
-      <div class="padded-column">
-        
-      </div>
-      <div class="form-group">
+    <div class="column-one-third no-padding ">
+
+      <p class="text-secondary">
+        {{#__}}dashboard.first-use-help{{/__}}
+      </p>
+      <div class="form-group space-after-add-a-job-button" >
         <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
       </div>
-      <div class="form-group">
-        <a href="{{basePath}}/{{accountId}}/work-search-note/new" class="button button-secondary">{{#__}}dashboard.add-work-search-note-button{{/__}}</a>
-      </div>
-      <p class="text-secondary">
-        {{#__}}dashboard.add-work-search-note-help-text{{/__}}
-      </p>
     </div>
 
     <div class="column-two-thirds no-padding">
@@ -42,7 +37,7 @@
           {{#recentJobsAndNotes}}
           {{#isJob}}
             <li data-test="job-container-{{id}}" id="job-container-{{id}}" class="job-item">
-              <div class="box box-full">
+              <div class="box">
                 <div>
                   <span class="lmt-label lmt-label-{{statusPriority}}"
                       data-test="status">{{statusString}}</span>
@@ -54,7 +49,7 @@
                   <h4 class="bold-small" data-test="title">{{title}}, {{employer}}</h4>
                 </div>
                 <div>
-                  <a class="button button-same-on-mobile" data-test="update-button"
+                  <a class="" data-test="update-button"
                      href="{{basePath}}/{{accountId}}/jobs/{{id}}">{{#__}}dashboard.updateJobButton{{/__}}
                   </a>
                 </div>
@@ -88,59 +83,7 @@
             </li>
           {{/isNote}}
           {{/recentJobsAndNotes}}
-          {{#hasOldJobsOrNotes}}
-            <h2 class="heading-large">{{#__}}dashboard.past-work-search-heading{{/__}}</h2>
-            <p class="text text-secondary">{{#__}}dashboard.past-work-search-description{{/__}}<span> {{lastReviewedFormatted}}</span></p>
-          {{/hasOldJobsOrNotes}}
-          {{#oldJobsAndNotes}}
-          {{#isJob}}
-              <li data-test="job-container-{{id}}" id="job-container-{{id}}" class="job-item">
-                  <div class="box box-full">
-                      <div>
-              <span class="lmt-label lmt-label-{{statusPriority}}"
-                    data-test="status">{{statusString}}</span>
-                          <span class="progression-status status-{{statusPriority}}"
-                                data-test="statusDate">{{statusDateString}}</span>
-                          </dl>
-                      </div>
-                      <div class="job-item-first-row">
-                          <h4 class="bold-small" data-test="title">{{title}}, {{employer}}</h4>
-                      </div>
-                      <div>
-                          <a class="button button-same-on-mobile" data-test="update-button"
-                             href="{{basePath}}/{{accountId}}/jobs/{{id}}">{{#__}}dashboard.updateJobButton{{/__}}
-                          </a>
-                      </div>
-                      <div class="text space-top-double">
-                          <pre class="break-links">{{{detailsHTML}}}</pre>
-                      </div>
-                  </div>
-                  <p class="text-secondary font-xsmall">
-                      {{#__}}dashboard.updatedDate{{/__}}
-                      <span data-test="updated">{{updatedFormatted}}</span>
-                  </p>
-              </li>
-          {{/isJob}}
-          {{#isNote}}
-              <li data-test="job-container-{{id}}" id="job-container-{{id}}" class="job-item">
-                  <div class="box">
-                      <div>
-              <span class="lmt-label lmt-label-default"
-                    data-test="status">Work search note</span>
-                          <span class="progression-status status-{{statusPriority}}"
-                                data-test="statusDate">{{statusDateString}}</span>
-                      </div>
-                      <div class="text space-top-double">
-                          <pre class="break-links">{{{details}}}</pre>
-                      </div>
-                  </div>
-                  <p class="text-secondary font-xsmall">
-                      {{#__}}dashboard.postedOnDate{{/__}}
-                      <span data-test="updated">{{updatedFormatted}}</span>
-                  </p>
-              </li>
-          {{/isNote}}
-          {{/oldJobsAndNotes}}
+
         </ul>
       </section>
 

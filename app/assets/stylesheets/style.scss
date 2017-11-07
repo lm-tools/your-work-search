@@ -15,6 +15,9 @@ $space_size: 10px;
 .space-top {
   margin-top: $space_size;
 }
+.space-after-add-a-job-button {
+  margin-bottom: $space_size * 4;
+}
 
 .mobile-space-top {
   @include media(mobile) {
@@ -98,7 +101,7 @@ $box-border-color: $panel-colour;
 .box {
   display: block;
   border-top: 1px solid $box-border-color;
-  padding: $gutter-half 0 $gutter;
+  padding: $gutter-half 0 5px;
 
   .details-button {
     margin-top: 1em;
