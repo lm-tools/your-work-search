@@ -12,6 +12,8 @@ const hideAllStatusGroups = function () {
   $('#job-statusDateGroup-deadlineDate').addClass('js-hidden');
   $('#job-statusDateGroup-applicationDate').addClass('js-hidden');
   $('#job-statusDateGroup-interviewDate').addClass('js-hidden');
+  $('#job-statusDateGroup-successSection').addClass('js-hidden');
+  $('#job-statusDateGroup-failureSection').addClass('js-hidden');
 };
 
 // add-a-job page
@@ -37,8 +39,10 @@ $('label[for="job-statusType-interview"]')
 $('label[for="job-statusType-success"]')
   .click(() => {
     hideAllStatusGroups();
+    $('#job-statusDateGroup-successSection').removeClass('js-hidden');
   });
 $('label[for="job-statusType-failure"]')
   .click(() => {
     hideAllStatusGroups();
+    $('#job-statusDateGroup-failureSection').removeClass('js-hidden');
   });

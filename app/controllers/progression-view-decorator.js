@@ -9,6 +9,8 @@ class ProgressionViewDecorator {
       displayDeadlineDate: status === 'interested',
       displayApplicationDate: status === 'applied',
       displayInterviewDate: status === 'interview',
+      displayFailureDetails: status === 'failure',
+      displaySuccessDetails: status === 'success',
     }));
   }
 }

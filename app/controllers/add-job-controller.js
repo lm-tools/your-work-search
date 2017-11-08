@@ -32,7 +32,7 @@ const validator = {
       interviewDetails: validatorSchema.interviewDetails.allow(''),
       failureDetails: validatorSchema.failureDetails.allow(''),
       successDetails: validatorSchema.successDetails.allow(''),
-      startDate: validatorSchema.startDate,
+      startDate: validatorSchema.startDate.allow(''),
       _csrf: validatorSchema.csrfToken,
     },
   }),

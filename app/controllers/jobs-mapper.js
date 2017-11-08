@@ -19,7 +19,7 @@ function mapToUpdateModel(body) {
       updateData[dateField] = null;
     }
 
-    if (['failure', 'success'].includes(updateData.status)) {
+    if (['failure'].includes(updateData.status)) {
       updateData[dateField] = new Date();
     }
   }

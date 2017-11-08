@@ -63,7 +63,9 @@
       "interviewDate": "When is your interview?",
       "interestedDetails": "Do you need more training or qualifications for this job? (optional)",
       "appliedDetails": "Reference number or link to job description (optional)",
-      "interviewDetails": "How are you planning to prepare? (optional)"
+      "interviewDetails": "How are you planning to prepare? (optional)",
+      "failureDetails": "Did they give you any feedback? (optional)",
+      "startDate": "When is the start date?"
     },
     "header": "Add a job",
     "linkBack": "Cancel",

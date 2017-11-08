@@ -27,3 +27,18 @@
     <textarea class="form-control job-details" rows="6" id="job-details" name="interviewDetails">{{interviewDetails}}</textarea>
   </div>
 {{/displayInterviewDate}}
+
+{{#displayFailureDetails}}
+  <div id="job-statusDateGroup-failureSection" class="form-group panel panel-border-narrow {{^isChecked}}js-hidden{{/isChecked}}">
+    <label class="block status-details text" for="job-details">{{#__}}addJob.form.failureDetails{{/__}}</label>
+    <textarea class="form-control job-details" rows="6" id="job-details" name="failureDetails">{{failureDetails}}</textarea>
+  </div>
+{{/displayFailureDetails}}
+
+{{#displaySuccessDetails}}
+  <div id="job-statusDateGroup-successSection" class="form-group panel panel-border-narrow {{^isChecked}}js-hidden{{/isChecked}}">
+    <label class="block" for="job-startDate">{{#__}}addJob.form.startDate{{/__}}</label>
+    <input class="form-control date-real" id="job-startDate" value="{{startDate}}" data-test="startDate" type="date" name="startDate" placeholder="dd/mm/yyyy">
+    <input class="form-control datepicker hidden" data-alt-field="#job-startDate" data-test="datepicker-startDate" type="text" placeholder="dd/mm/yyyy">
+  </div>
+{{/displaySuccessDetails}}
