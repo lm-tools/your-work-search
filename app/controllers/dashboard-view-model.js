@@ -44,7 +44,7 @@ module.exports = class DashboardViewModel {
           hasFocus: job.id === parseInt(jobIdInFocus, 10),
           statusDateString: singleStatusRules.dateText(job.status, job.statusDate),
           statusPriority: singleStatusRules.priority(job.status, job.statusDate),
-          detailsHTML: linkify(job.details),
+          // detailsHTML: linkify(job.details),
           isJob: true,
         },
         job));

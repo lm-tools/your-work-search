@@ -17,5 +17,11 @@ module.exports = {
   deadlineDate: Joi.date(),
   applicationDate: Joi.date(),
   interviewDate: Joi.date(),
+  interestedDetails: Joi.string(),
+  appliedDetails: Joi.string(),
+  interviewDetails: Joi.string(),
+  failureDetails: Joi.string(),
+  successDetails: Joi.string(),
+  startDate: Joi.date(),
   csrfToken: Joi.any(),
 };

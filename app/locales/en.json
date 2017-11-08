@@ -60,7 +60,10 @@
       "submit": "Save and continue",
       "deadlineDate": "When is the deadline for applying?",
       "applicationDate": "When did you apply?",
-      "interviewDate": "When is your interview?"
+      "interviewDate": "When is your interview?",
+      "interestedDetails": "Do you need more training or qualifications for this job? (optional)",
+      "appliedDetails": "Reference number or link to job description (optional)",
+      "interviewDetails": "How are you planning to prepare? (optional)"
     },
     "header": "Add a job",
     "linkBack": "Cancel",

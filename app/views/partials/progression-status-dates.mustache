@@ -3,6 +3,8 @@
     <label class="block" for="job-deadlineDate">{{#__}}addJob.form.deadlineDate{{/__}}</label>
     <input class="form-control date-real" id="job-deadlineDate" value="{{deadlineDate}}" data-test="deadlineDate" type="date" name="deadlineDate" placeholder="dd/mm/yyyy">
     <input class="form-control datepicker hidden" data-alt-field="#job-deadlineDate" data-test="datepicker-deadlineDate" type="text" placeholder="dd/mm/yyyy">
+    <label class="block status-details text" for="job-details">{{#__}}addJob.form.interestedDetails{{/__}}</label>
+    <textarea class="form-control job-details" rows="6" id="job-details" name="interestedDetails">{{interestedDetails}}</textarea>
   </div>
 {{/displayDeadlineDate}}
 
@@ -11,6 +13,8 @@
     <label class="block" for="job-applicationDate">{{#__}}addJob.form.applicationDate{{/__}}</label>
     <input class="form-control date-real" id="job-applicationDate" value="{{applicationDate}}" data-test="applicationDate" type="date" name="applicationDate" placeholder="dd/mm/yyyy">
     <input class="form-control datepicker hidden" data-alt-field="#job-applicationDate" data-test="datepicker-applicationDate" type="text" placeholder="dd/mm/yyyy">
+    <label class="block status-details text" for="job-details">{{#__}}addJob.form.appliedDetails{{/__}}</label>
+    <textarea class="form-control job-details" rows="6" id="job-details" name="appliedDetails">{{appliedDetails}}</textarea>
   </div>
 {{/displayApplicationDate}}
 
@@ -19,5 +23,7 @@
     <label class="block" for="job-interviewDate">{{#__}}addJob.form.interviewDate{{/__}}</label>
     <input class="form-control date-real" id="job-interviewDate" value="{{interviewDate}}" data-test="interviewDate" type="date" name="interviewDate" placeholder="dd/mm/yyyy">
     <input class="form-control datepicker hidden" data-alt-field="#job-interviewDate" data-test="datepicker-interviewDate" type="text" placeholder="dd/mm/yyyy">
+    <label class="block status-details text" for="job-details">{{#__}}addJob.form.interviewDetails{{/__}}</label>
+    <textarea class="form-control job-details" rows="6" id="job-details" name="interviewDetails">{{interviewDetails}}</textarea>
   </div>
 {{/displayInterviewDate}}
