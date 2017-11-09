@@ -44,7 +44,7 @@ module.exports = class DashboardViewModel {
           hasFocus: job.id === parseInt(jobIdInFocus, 10),
           statusDateString: singleStatusRules.dateText(job.status, job.statusDate),
           statusPriority: singleStatusRules.priority(job.status, job.statusDate),
-          // detailsHTML: linkify(job.details),
+          detailsList: this.buildDetails(job),
           isJob: true,
         },
         job));
@@ -116,6 +116,15 @@ module.exports = class DashboardViewModel {
         message: text[status],
       }
     ));
+  }
+
+  buildDetails(job) {
+    const detailsMap = [];
+    if(job.failureDetails) detailsMap.push({title: i18n.__('dashboard.job.details.failureDetails'), details: job.failureDetails});
+    if(job.interviewDetails) detailsMap.push({title: i18n.__('dashboard.job.details.interviewDetails'), details: job.interviewDetails});
+    if(job.appliedDetails) detailsMap.push({title: i18n.__('dashboard.job.details.appliedDetails'), details: job.appliedDetails});
+    if(job.interestedDetails) detailsMap.push({title: i18n.__('dashboard.job.details.interestedDetails'), details: job.interestedDetails});
+    return detailsMap;
   }
 
   buildStatusClass(index, status, currentStatus, statusList, priority) {

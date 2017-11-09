@@ -30,6 +30,7 @@ gulp.task('js-vendor', () => {
   gulp.src([
     'node_modules/govuk_frontend_toolkit/javascripts/govuk/selection-buttons.js',
     'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/readmore-js/readmore.min.js',
   ]).pipe(gulp.dest('dist/public/js'));
 });
 

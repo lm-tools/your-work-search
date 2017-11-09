@@ -59,6 +59,7 @@
     "node-uuid": "~1.4",
     "path-exists": "^3.0.0",
     "pg": "^4.5.5",
+    "readmore-js": "^2.1.0",
     "serve-favicon": "~2.3",
     "snyk": "^1.23.2",
     "strip-bom": "^3.0.0",

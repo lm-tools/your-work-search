@@ -31,7 +31,15 @@
     "first-use-introduction-3": "Go through the list of jobs with your work coach to get support and advice.",
     "add-work-search-note-help-text": "Work search notes you add here will also appear in your journal",
     "past-work-search-heading": "Previous work searches",
-    "past-work-search-description": "Before"
+    "past-work-search-description": "Before",
+    "job": {
+      "details": {
+        "failureDetails": "Feedback",
+        "interestedDetails": "Training",
+        "appliedDetails": "Ref number or link to job description",
+        "interviewDetails": "Preparation"
+      }
+    }
   },
   "layout": {
     "header": "Universal Credit"

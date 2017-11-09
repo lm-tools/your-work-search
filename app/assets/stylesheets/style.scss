@@ -15,6 +15,7 @@ $space_size: 10px;
 .space-top {
   margin-top: $space_size;
 }
+
 .space-after-add-a-job-button {
   margin-bottom: $space_size * 4;
 }
@@ -275,7 +276,7 @@ button.link-button {
 
 .lmt-label {
   display: inline;
-  padding: .2em .6em 0.1em ;
+  padding: .2em .6em 0.1em;
   font-size: 75%;
   font-weight: 700;
   line-height: 1;
@@ -303,4 +304,17 @@ button.link-button {
 
 .status-details {
   margin-top: $gutter;
+}
+
+.job-details-heading {
+  font-size: medium;
+  font-weight: bold;
+}
+
+.readmore {
+  overflow: hidden
+}
+
+.padding-bottom {
+  padding-bottom: $gutter-half;
 }
