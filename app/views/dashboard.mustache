@@ -1,11 +1,23 @@
 {{<layout}}
   {{$pageTitle}}{{#__}}dashboard.pageTitle{{/__}}{{/pageTitle}}
   {{$applicationContent}}
-  <h2 class="heading-xlarge">{{#__}}dashboard.header{{/__}}</h2>
-  
+
+    {{^hasRecentJobsOrNotes}}
+      <h2 class="heading-large">Jobs you want</h2>
+      <p class="text">
+        {{#__}}dashboard.first-use-help{{/__}}
+      </p>
+      <div class="form-group space-after-add-a-job-button" >
+        <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">Start</a>
+      </div>
+
+    {{/hasRecentJobsOrNotes}}
+
+  {{#hasRecentJobsOrNotes}}
+    <h2 class="heading-xlarge">{{#__}}dashboard.header{{/__}}</h2>
     <div class="column-one-third no-padding ">
 
-      <p class="text-secondary">
+      <p class="text">
         {{#__}}dashboard.first-use-help{{/__}}
       </p>
       <div class="form-group space-after-add-a-job-button" >
@@ -16,10 +28,10 @@
     <div class="column-two-thirds no-padding">
       <section class="space-top-double work-search-history">
         <ul>
-          {{#hasRecentJobsOrNotes}}
+
             <h2 class="heading-large">{{#__}}dashboard.recent-work-search-heading{{/__}}</h2>
-            <p class="text text-secondary">{{#__}}dashboard.recent-work-search-description{{/__}}<span> {{lastReviewedFormatted}}</span></p>
-          {{/hasRecentJobsOrNotes}}
+            <p class="text text-secondary">Jobs added and updated since your last work search review ({{lastReviewedFormatted}})</p>
+
           {{#recentJobsAndNotes}}
             <li data-test="job-container-{{id}}" id="job-container-{{id}}" class="job-item">
               <div class="box">
@@ -58,6 +70,7 @@
       </section>
 
     </div>
+  {{/hasRecentJobsOrNotes}}
   {{/applicationContent}}
 
 {{/layout}}

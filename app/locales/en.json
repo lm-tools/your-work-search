@@ -2,7 +2,7 @@
   "dashboard": {
     "header": "Your job applications",
     "recent-work-search-heading": "Your recent activity",
-    "recent-work-search-description": "Since last work search review on",
+    "recent-work-search-description": "Jobs added and updated since your last work search review ({{reviewDate}})",
     "add-job-button": "Add another job",
     "add-work-search-note-button": "Add a work search note",
     "progression-legend-screen-reader": "Update progression status",
@@ -72,7 +72,7 @@
       "interestedDetails": "Do you need more training or qualifications for this job? (optional)",
       "appliedDetails": "Reference number or link to job description (optional)",
       "interviewDetails": "How are you planning to prepare? (optional)",
-      "failureDetails": "Did they give you any feedback? (optional)",
+      "failureDetails": "Did you ask for feedback? What did they tell you? (optional)",
       "startDate": "When is the start date?"
     },
     "header": "Add a job",
