@@ -312,7 +312,10 @@ button.link-button {
 }
 
 .readmore {
-  overflow: hidden
+  overflow: hidden;
+  //overflow-y: hidden;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .padding-bottom {

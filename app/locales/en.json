@@ -73,7 +73,7 @@
       "appliedDetails": "Reference number or link to job description (optional)",
       "interviewDetails": "How are you planning to prepare? (optional)",
       "failureDetails": "Did you ask for feedback? What did they tell you? (optional)",
-      "startDate": "When is the start date?"
+      "successMessage": "Congratulations. When the job is starting, use the ‘Report a change’ page of your account to tell us the details."
     },
     "header": "Add a job",
     "linkBack": "Cancel",
