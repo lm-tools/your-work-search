@@ -103,6 +103,11 @@ $box-border-color: $panel-colour;
   display: block;
   border-top: 1px solid $box-border-color;
   padding: $gutter-half 0 5px;
+  @include media(desktop) {
+    border: 2px solid $box-border-color;
+    margin-bottom: $gutter-one-quarter;
+    padding: $gutter-half $gutter-half;
+  }
 
   .details-button {
     margin-top: 1em;
