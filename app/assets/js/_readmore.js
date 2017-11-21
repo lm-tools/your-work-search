@@ -1,1 +1,3 @@
-$('.readmore').readmore();
+$('.readmore').readmore(
+  { lessLink: ' ' }
+);
