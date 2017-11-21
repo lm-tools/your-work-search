@@ -14,7 +14,7 @@
     <input class="form-control date-real" id="job-applicationDate" value="{{applicationDate}}" data-test="applicationDate" type="date" name="applicationDate" placeholder="dd/mm/yyyy">
     <input class="form-control datepicker hidden" data-alt-field="#job-applicationDate" data-test="datepicker-applicationDate" type="text" placeholder="dd/mm/yyyy">
     <label class="block status-details text" for="job-details">{{#__}}addJob.form.appliedDetails{{/__}}</label>
-    <textarea class="form-control job-details" rows="6" id="job-details" name="appliedDetails">{{appliedDetails}}</textarea>
+    <input class="form-control job-details" type="text" id="job-details" name="appliedDetails" value="{{appliedDetails}}">
   </div>
 {{/displayApplicationDate}}
 
