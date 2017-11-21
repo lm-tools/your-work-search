@@ -36,7 +36,7 @@ module.exports = class DashboardViewModel {
         {
           progression: this.dashboardJobProgression(job),
           // eslint-disable-next-line no-underscore-dangle
-          statusString: i18n.__(`progression.${job.status}`),
+          statusString: i18n.__(`progression.${job.status}`).toUpperCase(),
           updatedFormatted: this.formatDate(job.updated_at),
           updated_at: job.updated_at,
           interestLevel: [5, 4, 3, 2, 1].map(v => ({ value: v, isChecked: v === job.rating })),

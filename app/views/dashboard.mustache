@@ -15,7 +15,6 @@
 
   {{#hasRecentJobsOrNotes}}
     <h2 class="heading-xlarge">{{#__}}dashboard.header{{/__}}</h2>
-    <div class="column-one-third no-padding ">
 
       <p class="text">
         {{#__}}dashboard.first-use-help{{/__}}
@@ -23,14 +22,12 @@
       <div class="form-group space-after-add-a-job-button" >
         <a href="{{basePath}}/{{accountId}}/jobs/new" class="button">{{#__}}dashboard.add-job-button{{/__}}</a>
       </div>
-    </div>
 
-    <div class="column-two-thirds no-padding">
       <section class="space-top-double work-search-history">
         <ul>
 
             <h2 class="heading-large">{{#__}}dashboard.recent-work-search-heading{{/__}}</h2>
-            <p class="text text-secondary">Jobs added and updated since your last work search review ({{lastReviewedFormatted}})</p>
+            <p class="text-secondary">Jobs added and updated since your last work search review ({{lastReviewedFormatted}})</p>
 
           {{#recentJobsAndNotes}}
             <li data-test="job-container-{{id}}" id="job-container-{{id}}" class="job-item">
@@ -40,17 +37,16 @@
                       data-test="status">{{statusString}}</span>
                   <span class="progression-status status-{{statusPriority}}"
                       data-test="statusDate">{{statusDateString}}</span>
-                  </dl>
                 </div>
                 <div class="job-item-first-row">
-                  <h4 class="bold-small" data-test="title">{{title}}, {{employer}}</h4>
+                  <h3 class="no-padding heading-medium" data-test="title">{{title}}, {{employer}}</h3>
                 </div>
                 <div>
-                  <a class="" data-test="update-button"
+                  <a class="button" data-test="update-button"
                      href="{{basePath}}/{{accountId}}/jobs/{{id}}">{{#__}}dashboard.updateJobButton{{/__}}
                   </a>
                 </div>
-                <div class="text space-top-double readmore">
+                <div class="text job-item-details readmore">
                   {{#detailsList}}
                     <div class="heading job-details-heading">{{title}}</div>
 
@@ -69,7 +65,6 @@
         </ul>
       </section>
 
-    </div>
   {{/hasRecentJobsOrNotes}}
   {{/applicationContent}}
 

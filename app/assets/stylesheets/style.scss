@@ -38,7 +38,7 @@ $space_size: 10px;
   }
 }
 
-.no-padding {
+.no-padding, .no-padding.heading-medium {
   padding: 0;
 }
 
@@ -216,7 +216,6 @@ button.link-button {
     color: $secondary-text-colour;
   }
   .progression-status {
-    font-weight: bold;
     font-size: large;
     @include media(mobile) {
       font-size: small;
@@ -232,7 +231,11 @@ button.link-button {
 }
 
 .job-item-first-row {
-  padding: $gutter-half 0;
+  padding: $gutter-half 0 0 0;
+}
+
+.job-item-details {
+  margin-top: 40px;
 }
 
 // media
