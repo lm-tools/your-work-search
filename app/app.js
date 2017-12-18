@@ -17,6 +17,7 @@ const healthCheckController = require('./controllers/health-check-controller');
 const helmet = require('helmet');
 const moment = require('moment');
 const layoutAssets = require('./models/assets');
+const cacheHeaders = require('./middleware/cacheHeaders');
 
 const app = express();
 i18n(app);
@@ -70,9 +71,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());
 app.use(cookieParser());
-app.use(assetPath, express.static(path.join(__dirname, '..', 'dist', 'public')));
-app.use(assetPath, express.static(path.join(__dirname, '..',
+app.use(assetPath, cacheHeaders);
+
+app.use(`${assetPath}vendor/v1`, express.static(path.join(__dirname, '..',
   'vendor', 'govuk_template_mustache_inheritance', 'assets')));
+
+app.use(assetPath, express.static(path.join(__dirname, '..', 'dist', 'public')));
 
 app.use(helmet.noCache());
 app.use(validator({
