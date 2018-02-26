@@ -56,7 +56,7 @@
     "jquery": "^3.0.0",
     "jquery-ui": "1.10.5",
     "json2csv": "^3.11.2",
-    "knex": "^0.11.5",
+    "knex": "^0.14.3",
     "lmt-utils": "~0.1.4",
     "lodash": "^4.17.4",
     "method-override": "~2.3",
