@@ -3,25 +3,6 @@
   {{$applicationContent}}
     <h2 class="heading-xlarge">{{#__}}dashboard.header{{/__}}</h2>
 
-    <div class="notice" data-test="shut-down-counter">
-      <i class="icon icon-important">
-        <span class="visually-hidden">Warning</span>
-      </i>
-      <strong class="bold-small">
-        {{#__}}dashboard.shut-down-counter{{/__}} {{countDown}}.
-      </strong>
-    </div>
-
-    <div class="panel panel-border-wide space-top-double" data-test="shut-down-info">
-      <p>
-        {{#__}}dashboard.shut-down-info-para1{{/__}}
-      </p>
-
-      <p>
-        {{#__}}dashboard.shut-down-info-para2{{/__}}
-      </p>
-    </div>
-
     <div class="column-one-third no-padding">
       <div class="padded-column">
         {{>timeline}}

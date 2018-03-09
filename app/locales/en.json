@@ -24,10 +24,7 @@
     "updateJobButton": "Update",
     "first-use-introduction-1": "Build a list of jobs you’re interested in.",
     "first-use-introduction-2": "Update each job when you apply, interview or get a result.",
-    "first-use-introduction-3": "Go through the list of jobs with your work coach to get support and advice.",
-    "shut-down-counter": "This version of 'Record your work search' is going to shut down",
-    "shut-down-info-para1": "You can now use your online account to record your work search in the same way. Choose 'Job applications' when you create a new journal message and you'll see the new service.",
-    "shut-down-info-para2": "If you want to keep jobs you've recorded here, you'll have to copy them across to the new version."
+    "first-use-introduction-3": "Go through the list of jobs with your work coach to get support and advice."
   },
   "layout": {
     "header": "Your work search"

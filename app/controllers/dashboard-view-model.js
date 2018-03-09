@@ -14,7 +14,6 @@ module.exports = class DashboardViewModel {
     this.sortType = sort;
     this.sortOptions = this.dashboardSortOptions(sort);
     this.timeline = this.dashboardTimeline(jobs);
-    this.countDown = this.dashboardShutDownCounter(moment('2018-03-31'));
   }
 
   dashboardJobs(jobs, jobIdInFocus) {
@@ -86,10 +85,6 @@ module.exports = class DashboardViewModel {
         message: text[status],
       }
     ));
-  }
-
-  dashboardShutDownCounter(shutDownDate) {
-    return singleStatusRules.formatDate(shutDownDate);
   }
 
   buildStatusClass(index, status, currentStatus, statusList, priority) {

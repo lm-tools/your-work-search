@@ -8,8 +8,8 @@ const moment = require('moment');
 const oneDay = moment.duration(1, 'd');
 const tenDays = moment.duration(10, 'd');
 
-describe('Dashboard ViewModel', function () {
-  const now = new Date('2018-03-09');
+describe('DashboardViewModel', function () {
+  const now = new Date('2016-04-21');
   before(function () {
     this.clock = sinon.useFakeTimers(now.getTime());
   });
@@ -177,31 +177,6 @@ describe('Dashboard ViewModel', function () {
         ]);
 
       expect(model.timeline).to.eql(expectedTimeline);
-    });
-  });
-
-  describe('shut down counter', function () {
-    [
-      {
-        name: 'should return the number of days remaining',
-        shutDownDate: moment(now).add(22, 'days'),
-        expectedDate: 'in 22 days',
-      },
-      {
-        name: 'should return today when shut down date is today',
-        shutDownDate: now,
-        expectedDate: 'today',
-      },
-      {
-        name: 'should return something when shut down date is in past',
-        shutDownDate: moment(now).subtract(4, 'days'),
-        expectedDate: '4 days ago',
-      },
-    ].forEach(s => {
-      it(s.name, function () {
-        const model = new DashboardViewModel('', []);
-        expect(model.dashboardShutDownCounter(s.shutDownDate)).to.equal(s.expectedDate);
-      });
     });
   });
 });

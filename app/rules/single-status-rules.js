@@ -66,6 +66,5 @@ function dateText(status, date) {
 module.exports = {
   priority,
   dateText,
-  formatDate,
   PRIORITY,
 };
