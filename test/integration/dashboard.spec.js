@@ -242,6 +242,14 @@ describe('Dashboard', () => {
     it('should have correct title', () =>
       expect(dashboardPage.browser.text('title')).to.equal('Your work search')
     );
+
+    it('should have shut down counter', () =>
+        expect(dashboardPage.shutDownCounterVisible()).to.equal(true)
+    );
+
+    it('should have shut down info', () =>
+        expect(dashboardPage.shutDownInfoVisible()).to.equal(true)
+    );
   });
 
   describe('validate inputs', () => {

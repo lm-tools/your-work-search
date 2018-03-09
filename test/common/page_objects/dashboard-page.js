@@ -70,6 +70,8 @@ const DashboardPage = function DashboardPage(browser, app) {
     url.parse(browser.request.url, { parseQueryString: true }).query.focus;
 
   this.getAccount = (accountId, query) => request(this.app).get(`/${accountId}`).query(query);
+  this.shutDownCounterVisible = () => browser.query('[data-test="shut-down-counter"]') != null;
+  this.shutDownInfoVisible = () => browser.query('[data-test="shut-down-info"]') != null;
   this.isTimelineHighlighted = (status) =>
     browser.query(`[data-test="${status}-timeline"]`).className.includes('highlight');
 };
