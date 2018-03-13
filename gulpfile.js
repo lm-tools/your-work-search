@@ -58,6 +58,10 @@ gulp.task('fonts', () => {
   gulp.src('node_modules/font-awesome/fonts/*').pipe(gulp.dest('dist/public/fonts'));
 });
 
+gulp.task('image-local', () => {
+  gulp.src('app/assets/images/**').pipe(gulp.dest('dist/public/images'));
+});
+
 gulp.task('sass', () =>
   gulp.src('app/assets/stylesheets/*.scss')
     .pipe(plumber())
@@ -73,12 +77,11 @@ gulp.task('sass', () =>
     .pipe(gulp.dest('dist/public/stylesheets/'))
 );
 
-gulp.task('revision:rename', ['js', 'css'], () =>
+gulp.task('revision:rename', ['js', 'css', 'image-local'], () =>
   gulp.src([
     'dist/public/**/*.html',
     'dist/public/**/*.css',
-    'dist/public/**/*.js',
-    'dist/public/**/*.{jpg,png,jpeg,gif,svg}'])
+    'dist/public/**/*.js'])
     .pipe(debug())
     .pipe(rev())
     .pipe(revDelOriginal())
@@ -108,6 +111,7 @@ gulp.task('watch', ['compile', 'server'], () => {
   gulp.watch(['app/**/*.js', 'bin/www'], ['server']);
   gulp.watch('app/assets/stylesheets/*.scss', ['sass']);
   gulp.watch('app/assets/js/**/*.js', ['browserify']);
+  gulp.watch('app/assets/images/**', ['image-local']);
 });
 
 
