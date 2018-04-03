@@ -116,20 +116,6 @@ describe('Update a job', () => {
     });
 
     [
-      { status: 'interested', statusDateField: 'deadlineDate' },
-      { status: 'applied', statusDateField: 'applicationDate' },
-      { status: 'interview', statusDateField: 'interviewDate' },
-    ].forEach(s => {
-      it(`should update ${s.status} status date field ${s.statusDateField}`, () =>
-        updateJobPage.setJobProgression('applied')
-          .then(() => updateJobPage.setFormField('applicationDate', '2017-04-01'))
-          .then(() => updateJobPage.clickSave())
-          .then(() => helper.dashboardPage.clickUpdateJobButton(job))
-          .then(() => expect(updateJobPage.getFormField('applicationDate'))
-            .to.equal('2017-04-01')));
-    });
-
-    [
       { status: 'success', dateField: 'successDate' },
       { status: 'failure', dateField: 'failureDate' },
     ].forEach(s => {
