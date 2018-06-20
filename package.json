@@ -16,7 +16,8 @@
     "fetch-metrics": "./scripts/fetch-metrics",
     "features": "NODE_ENV=test cucumber.js && NODE_ENV=test EXPRESS_BASE_PATH=/example-base-path cucumber.js",
     "heroku-postbuild": "npm run compile",
-    "snyk-protect": "snyk protect"
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "// NOTE": [
     "^Pinned dependencies are actually devDependencies, which are only",
@@ -67,7 +68,7 @@
     "path-exists": "^3.0.0",
     "pg": "^4.5.5",
     "serve-favicon": "~2.3",
-    "snyk": "^1.23.2",
+    "snyk": "^1.83.0",
     "strip-bom": "^3.0.0",
     "uuid": "^3.0.1",
     "uuid-validate": "0.0.2",
@@ -95,5 +96,6 @@
   "engines": {
     "node": "6.11.1",
     "npm": "5.2.0"
-  }
+  },
+  "snyk": true
 }
