@@ -16,6 +16,8 @@ Clone the repository:
 $ git clone https://github.com/lm-tools/your-work-search.git
 ```
 
+Ensure `node_modules/.bin` is on your path
+
 Use node 6.11.1 and npm >5. Setup with [nvm](https://github.com/creationix/nvm):
 
 ```sh
