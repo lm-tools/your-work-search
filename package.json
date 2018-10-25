@@ -67,7 +67,7 @@
     "npm-git-secrets": "^1.0.1",
     "path-exists": "^3.0.0",
     "pg": "^4.5.5",
-    "serve-favicon": "~2.3",
+    "serve-favicon": "~2.4.5",
     "snyk": "^1.23.2",
     "strip-bom": "^3.0.0",
     "uuid": "^3.0.1",
