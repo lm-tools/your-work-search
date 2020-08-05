@@ -1,4 +1,6 @@
-# Your work search
+# Your work search - Deprecated
+
+*This project is no longer maintained*
 
 [![Build status][build status image]][ci]
 
